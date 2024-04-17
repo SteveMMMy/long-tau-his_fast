@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.test.registers.mapper.HisRegistersMapper">
+    
+    <resultMap type="HisRegisters" id="HisRegistersResult">
+        <result property="regId"    column="reg_id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="regTime"    column="reg_time"    />
+        <result property="regPeriod"    column="reg_period"    />
+        <result property="regStatus"    column="reg_status"    />
+    </resultMap>
+
+    <sql id="selectHisRegistersVo">
+        select reg_id, patient_id, reg_time, reg_period, reg_status from his_registers
+    </sql>
+
+    <select id="selectHisRegistersList" parameterType="HisRegisters" resultMap="HisRegistersResult">
+        <include refid="selectHisRegistersVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="regTime != null "> and reg_time = #{regTime}</if>
+            <if test="regPeriod != null "> and reg_period = #{regPeriod}</if>
+            <if test="regStatus != null "> and reg_status = #{regStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectHisRegistersByRegId" parameterType="Long" resultMap="HisRegistersResult">
+        <include refid="selectHisRegistersVo"/>
+        where reg_id = #{regId}
+    </select>
+        
+    <insert id="insertHisRegisters" parameterType="HisRegisters" useGeneratedKeys="true" keyProperty="regId">
+        insert into his_registers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="regTime != null">reg_time,</if>
+            <if test="regPeriod != null">reg_period,</if>
+            <if test="regStatus != null">reg_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="regTime != null">#{regTime},</if>
+            <if test="regPeriod != null">#{regPeriod},</if>
+            <if test="regStatus != null">#{regStatus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHisRegisters" parameterType="HisRegisters">
+        update his_registers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="regTime != null">reg_time = #{regTime},</if>
+            <if test="regPeriod != null">reg_period = #{regPeriod},</if>
+            <if test="regStatus != null">reg_status = #{regStatus},</if>
+        </trim>
+        where reg_id = #{regId}
+    </update>
+
+    <delete id="deleteHisRegistersByRegId" parameterType="Long">
+        delete from his_registers where reg_id = #{regId}
+    </delete>
+
+    <delete id="deleteHisRegistersByRegIds" parameterType="String">
+        delete from his_registers where reg_id in 
+        <foreach item="regId" collection="array" open="(" separator="," close=")">
+            #{regId}
+        </foreach>
+    </delete>
+
+</mapper>
