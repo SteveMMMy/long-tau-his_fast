@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.test.producers.mapper.HisProducersMapper">
+    
+    <resultMap type="HisProducers" id="HisProducersResult">
+        <result property="pdcNumber"    column="pdc_number"    />
+        <result property="pdcName"    column="pdc_name"    />
+    </resultMap>
+
+    <sql id="selectHisProducersVo">
+        select pdc_number, pdc_name from his_producers
+    </sql>
+
+    <select id="selectHisProducersList" parameterType="HisProducers" resultMap="HisProducersResult">
+        <include refid="selectHisProducersVo"/>
+        <where>  
+            <if test="pdcNumber != null "> and pdc_number = #{pdcNumber}</if>
+            <if test="pdcName != null  and pdcName != ''"> and pdc_name like concat('%', #{pdcName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectHisProducersByPdcNumber" parameterType="Long" resultMap="HisProducersResult">
+        <include refid="selectHisProducersVo"/>
+        where pdc_number = #{pdcNumber}
+    </select>
+        
+    <insert id="insertHisProducers" parameterType="HisProducers" useGeneratedKeys="true" keyProperty="pdcNumber">
+        insert into his_producers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pdcName != null and pdcName != ''">pdc_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pdcName != null and pdcName != ''">#{pdcName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHisProducers" parameterType="HisProducers">
+        update his_producers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pdcName != null and pdcName != ''">pdc_name = #{pdcName},</if>
+        </trim>
+        where pdc_number = #{pdcNumber}
+    </update>
+
+    <delete id="deleteHisProducersByPdcNumber" parameterType="Long">
+        delete from his_producers where pdc_number = #{pdcNumber}
+    </delete>
+
+    <delete id="deleteHisProducersByPdcNumbers" parameterType="String">
+        delete from his_producers where pdc_number in 
+        <foreach item="pdcNumber" collection="array" open="(" separator="," close=")">
+            #{pdcNumber}
+        </foreach>
+    </delete>
+
+</mapper>
