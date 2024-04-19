@@ -12,6 +12,14 @@ import com.ruoyi.project.test.registers.domain.HisRegisters;
 public interface HisRegistersMapper 
 {
     /**
+     * 带患者信息的挂号记录查询
+     *
+     * @param hisRegisters 挂号记录主键
+     * @return 挂号记录（带有患者信息）
+     */
+    List<HisRegisters> selectPatientsRegisters(HisRegisters hisRegisters);
+
+    /**
      * 查询挂号记录
      * 
      * @param regId 挂号记录主键
