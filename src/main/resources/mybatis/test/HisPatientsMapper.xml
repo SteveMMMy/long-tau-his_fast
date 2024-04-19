@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.test.patients.mapper.HisPatientsMapper">
+    
+    <resultMap type="HisPatients" id="HisPatientsResult">
+        <result property="patientId"    column="patient_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="patientSex"    column="patient_sex"    />
+        <result property="patientBirthDate"    column="patient_birth_date"    />
+        <result property="patientAge"    column="patient_age"    />
+        <result property="patientIdCardNum"    column="patient_id_card_num"    />
+        <result property="patientMedCardNum"    column="patient_med_card_num"    />
+        <result property="patientPhoneNum"    column="patient_phone_num"    />
+    </resultMap>
+
+    <resultMap id="HisPatientsHisRegistersResult" type="HisPatients" extends="HisPatientsResult">
+        <collection property="hisRegistersList" notNullColumn="sub_reg_id" javaType="java.util.List" resultMap="HisRegistersResult" />
+    </resultMap>
+
+    <resultMap type="HisRegisters" id="HisRegistersResult">
+        <result property="regId"    column="sub_reg_id"    />
+        <result property="patientId"    column="sub_patient_id"    />
+        <result property="regTime"    column="sub_reg_time"    />
+        <result property="regPeriod"    column="sub_reg_period"    />
+        <result property="regStatus"    column="sub_reg_status"    />
+    </resultMap>
+
+    <sql id="selectHisPatientsVo">
+        select patient_id, patient_name, patient_sex, patient_birth_date, patient_age, patient_id_card_num, patient_med_card_num, patient_phone_num from his_patients
+    </sql>
+
+    <select id="selectHisPatientsList" parameterType="HisPatients" resultMap="HisPatientsResult">
+        <include refid="selectHisPatientsVo"/>
+        <where>  
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="patientSex != null "> and patient_sex = #{patientSex}</if>
+            <if test="patientBirthDate != null "> and patient_birth_date = #{patientBirthDate}</if>
+            <if test="patientAge != null "> and patient_age = #{patientAge}</if>
+            <if test="patientIdCardNum != null  and patientIdCardNum != ''"> and patient_id_card_num = #{patientIdCardNum}</if>
+            <if test="patientMedCardNum != null  and patientMedCardNum != ''"> and patient_med_card_num = #{patientMedCardNum}</if>
+            <if test="patientPhoneNum != null  and patientPhoneNum != ''"> and patient_phone_num = #{patientPhoneNum}</if>
+        </where>
+    </select>
+    
+    <select id="selectHisPatientsByPatientId" parameterType="Long" resultMap="HisPatientsHisRegistersResult">
+        select a.patient_id, a.patient_name, a.patient_sex, a.patient_birth_date, a.patient_age, a.patient_id_card_num, a.patient_med_card_num, a.patient_phone_num,
+ b.reg_id as sub_reg_id, b.patient_id as sub_patient_id, b.reg_time as sub_reg_time, b.reg_period as sub_reg_period, b.reg_status as sub_reg_status
+        from his_patients a
+        left join his_registers b on b.patient_id = a.patient_id
+        where a.patient_id = #{patientId}
+    </select>
+        
+    <insert id="insertHisPatients" parameterType="HisPatients" useGeneratedKeys="true" keyProperty="patientId">
+        insert into his_patients
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="patientSex != null">patient_sex,</if>
+            <if test="patientBirthDate != null">patient_birth_date,</if>
+            <if test="patientAge != null">patient_age,</if>
+            <if test="patientIdCardNum != null">patient_id_card_num,</if>
+            <if test="patientMedCardNum != null">patient_med_card_num,</if>
+            <if test="patientPhoneNum != null">patient_phone_num,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="patientSex != null">#{patientSex},</if>
+            <if test="patientBirthDate != null">#{patientBirthDate},</if>
+            <if test="patientAge != null">#{patientAge},</if>
+            <if test="patientIdCardNum != null">#{patientIdCardNum},</if>
+            <if test="patientMedCardNum != null">#{patientMedCardNum},</if>
+            <if test="patientPhoneNum != null">#{patientPhoneNum},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHisPatients" parameterType="HisPatients">
+        update his_patients
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">patient_name = #{patientName},</if>
+            <if test="patientSex != null">patient_sex = #{patientSex},</if>
+            <if test="patientBirthDate != null">patient_birth_date = #{patientBirthDate},</if>
+            <if test="patientAge != null">patient_age = #{patientAge},</if>
+            <if test="patientIdCardNum != null">patient_id_card_num = #{patientIdCardNum},</if>
+            <if test="patientMedCardNum != null">patient_med_card_num = #{patientMedCardNum},</if>
+            <if test="patientPhoneNum != null">patient_phone_num = #{patientPhoneNum},</if>
+        </trim>
+        where patient_id = #{patientId}
+    </update>
+
+    <delete id="deleteHisPatientsByPatientId" parameterType="Long">
+        delete from his_patients where patient_id = #{patientId}
+    </delete>
+
+    <delete id="deleteHisPatientsByPatientIds" parameterType="String">
+        delete from his_patients where patient_id in 
+        <foreach item="patientId" collection="array" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </delete>
+    
+    <delete id="deleteHisRegistersByPatientIds" parameterType="String">
+        delete from his_registers where patient_id in 
+        <foreach item="patientId" collection="array" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHisRegistersByPatientId" parameterType="Long">
+        delete from his_registers where patient_id = #{patientId}
+    </delete>
+
+    <insert id="batchHisRegisters">
+        insert into his_registers( reg_id, patient_id, reg_time, reg_period, reg_status) values
+		<foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.regId}, #{item.patientId}, #{item.regTime}, #{item.regPeriod}, #{item.regStatus})
+        </foreach>
+    </insert>
+
+</mapper>
