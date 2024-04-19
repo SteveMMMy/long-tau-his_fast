@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <th:block th:include="include :: header('表单向导')"/>
+  <th:block th:include="include :: jquery-smartwizard-css"/>
+  <th:block th:include="include :: datetimepicker-css"/>
+  <style type="text/css">
+      /* 如果要让工具栏固定在页面底部,使用下面的样式,不需要的可以注释 */
+      .sw > .toolbar-bottom {
+          z-index: 100;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          position: fixed;
+          text-align: center;
+          background: #fff;
+          box-shadow: 0 -2px 6px 1px hsla(223, 8%, 83%, .5);
+          border-top: 1px solid #e3e4e8;
+      }
+
+      /* 如果设置了是否自动调节高度为false,需要加滚动条 */
+      .sw > .tab-content {
+          overflow-x: hidden;
+          overflow-y: auto;
+      }
+
+      /* 解决工具栏无法固定底部的问题（如果页面没有animated类可以不写这部分代码） */
+      .animated {
+          animation-fill-mode: none;
+          -webkit-animation-fill-mode: none;
+          -moz-animation-fill-mode: none;
+          -o-animation-fill-mode: none;
+      }
+  </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="height: 100%;">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+
+          <div class="row select-list" style="padding-left: 15px; margin-bottom: 10px;">
+            <ul>
+              <!-- 快速操作栏按钮 -->
+              <li>
+                <div class="btn-group-sm" role="group">
+                  <a class="btn btn-info" id="prev-btn"> 上一步 </a>
+                  <a class="btn btn-success" id="next-btn"> 下一步 </a>
+                  <a class="btn btn-danger" id="reset-btn"> 重置 </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div id="smartwizard">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#step-1"> 第一步 </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#step-2"> 第二步 </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#step-3"> 第三步 </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#step-4"> 第四步 </a>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+                <div>
+                  <h2 class="text-center">填写个人信息</h2>
+                  <div class="row mb20">
+                    <div class="col-sm-12">
+                      <button class="btn btn-primary">选择已有信息</button>
+                    </div>
+                  </div>
+
+                  <form class="form g-3" id="patientInfoForm">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label class="form-label control-label is-required">姓名</label>
+                        <input type="text" class="form-control" id="name" required />
+                      </div>
+
+                      <div class="col-md-2">
+                        <label class="form-label">手机号</label>
+                        <input class="form-control" id="phone"/>
+                      </div>
+
+                      <div class="col-md-1">
+                        <label class="form-label">性别</label>
+                        <select name="sex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">
+                          <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                  th:value="${dict.dictValue}"></option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-3">
+                        <label class="form-label">身份证号</label>
+                        <input type="text" class="form-control" id="idCardNumber"/>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label class="form-label">出生日期</label>
+                        <div class="input-group date">
+                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                          <input type="text" class="form-control" id="birthdate" placeholder="yyyy-MM-dd">
+                        </div>
+                      </div>
+
+                      <div class="col-md-1">
+                        <label class="form-label">年龄</label>
+                        <input type="text" class="form-control" id="age"/>
+                      </div>
+
+                      <div class="col-md-3">
+                        <label class="form-label">医保卡号</label>
+                        <input type="text" class="form-control" id="medCardNumber"/>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                <div>
+                  <h2 class="text-center">选择挂号科室</h2>
+                  <form class="form g-3">
+                    <div class="col-md-3">
+                      <label class="form-label control-label is-required">科室</label>
+                      <select id="hospDepts" class="form-control m-b" required></select>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+                <div>
+                  <h2 class="text-center">选择医生</h2>
+                  <form class="form g-3">
+                    <div class="col-md-3">
+                      <label class="form-label">医生</label>
+                      <select name="sex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                th:value="${dict.dictValue}"></option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+                <div>
+                  <h2 class="text-center">缴费</h2>
+                  <form class="form g-3">
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="paidCheck">
+                        <label class="form-check-label" for="paidCheck">
+                          已缴费
+                        </label>
+                        <div id="paidCheckError" class="alert alert-danger" style="display: none;">
+                          请缴费后再提交
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: jquery-smartwizard-js"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // 工具栏按钮
+        var btnFinish = $('<a id="btn-finish"></a>').text('完成')
+            .addClass('btn btn-info')
+            .on('click', function () {
+                submit();
+            });
+        var btnCancel = $('<a id="btn-cancel"></a>').text('取消')
+            .addClass('btn btn-danger')
+            .on('click', function () {
+                $('#smartwizard').smartWizard("reset");
+            });
+        // 下面两个按钮是为了因为插件默认的是botton,这里换成<a>,也可以选择用样式替换,或者不替换
+        var btnNext = $('<a id="btn-next"></a>').text('下一步')
+            .addClass('btn btn-info')
+            .on('click', function () {
+                $('#smartwizard').smartWizard("next");
+            });
+        var btnPrev = $('<a id="btn-prev"></a>').text('上一步')
+            .addClass('btn btn-success disabled')
+            .on('click', function () {
+                $('#smartwizard').smartWizard("prev");
+            });
+        // 初始化表单向导组件
+        $('#smartwizard').smartWizard({
+            theme: 'arrows', // default, arrows, dots, progress
+            autoAdjustHeight: false, // 自动调整高度, 默认true
+            enableURLhash: false, //开启URL hash,开启后点击浏览器前进后退按钮会执行下一步和上一步操作
+            transition: {
+                animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+                speed: 200
+            },
+            toolbarSettings: {
+                showNextButton: false,// 因为上面自定义了下一步按钮, 所以隐藏掉插件自带的按钮, 如果不使用自定义按钮, 需要改为true或者去掉该属性
+                showPreviousButton: false,// 因为上面自定义了上一步按钮, 所以隐藏掉插件自带的按钮, 如果不使用自定义按钮, 需要改为true或者去掉该属性
+                toolbarExtraButtons: [btnCancel, btnPrev, btnNext, btnFinish]// 扩展的按钮集合
+            }
+        });
+
+        // 监听身份证号输入框的变化
+        $('#idCardNumber').on('input', function() {
+            var idCardNumber = $(this).val();
+            // 移除非数字和非X字符，并将x转为大写X
+            this.value = this.value.replace(/[^\dX]/gi, '').toUpperCase();
+
+            // 如果输入长度超过18位，则截断为18位
+            if (this.value.length > 18) {
+                this.value = this.value.substring(0, 18);
+            }
+
+            if (/^\d{17}(\d|X)$/.test(idCardNumber)) { // 检查格式是否正确
+                calculateBirthdateAndAge(idCardNumber);
+            } else {
+                $('#birthdate').val(''); // 清空出生日期
+                document.getElementById('age').value = ''; // 清空年龄
+            }
+        });
+
+        // laydate
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            laydate.render({
+                elem: '#birthdate',
+                type: 'date',
+                done: function(value, date, endDate){
+                    if (value) { // 如果选择了日期
+                        var age = calculateAge(value); // 调用计算年龄的函数
+                        if (age !== null) { // 如果年龄计算成功
+                            // 将计算出的年龄填充到年龄输入框中
+                            document.getElementById('age').value = age;
+                        } else {
+                            // 如果日期格式不正确，清空年龄输入框并给出提示
+                            document.getElementById('age').value = '';
+                            alert('请输入正确的出生日期格式（yyyy-MM-dd）');
+                        }
+                    } else {
+                        // 如果日期被清空，则清空年龄输入框
+                        document.getElementById('age').value = '';
+                    }
+                }
+            });
+        });
+
+        // 获取科室列表
+        $.ajax({
+            url: ctx + 'system/dept/list/201',
+            type: 'GET',
+            dataType: 'json',
+            success: function(departments) {
+                var $select = $('#hospDepts');
+                $select.empty(); // 清空之前的选项
+
+                // 添加默认选项
+                $select.append($('<option></option>').attr('value', '').text('请选择科室'));
+
+                // 将得到的数据添加为 select 元素的选项
+                $.each(departments, function(index, department) {
+                    $select.append($('<option></option>').attr('value', department.deptId).text(department.deptName));
+                });
+            },
+            error: function(error) {
+                console.error('获取科室信息失败：', error);
+            }
+        });
+    });
+
+    // 根据身份证号填充出生日期和年龄
+    function calculateBirthdateAndAge(idCardNumber) {
+        // 截取出生日期部分，并转换为日期对象
+        var birthdateStr = idCardNumber.substring(6, 14);
+        var year = parseInt(birthdateStr.substring(0, 4), 10);
+        var month = parseInt(birthdateStr.substring(4, 6), 10) - 1; // 月份需要减1
+        var day = parseInt(birthdateStr.substring(6, 8), 10);
+        var birthdate = new Date(year, month, day);
+
+        // 格式化出生日期为YYYY-MM-DD
+        var birthdateFormatted = birthdate.getFullYear() + '-' +
+            (birthdate.getMonth() + 1).toString().padStart(2, '0') + '-' +
+            birthdate.getDate().toString().padStart(2, '0');
+
+        // 计算年龄
+        var today = new Date();
+        var age = today.getFullYear() - birthdate.getFullYear();
+        var m = today.getMonth() - birthdate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+        }
+
+        // 填充出生日期和年龄输入框
+        document.getElementById('birthdate').value = birthdateFormatted;
+        document.getElementById('age').value = age;
+    }
+
+    // 根据日期计算年龄
+    function calculateAge(birthdateStr) {
+        var birthdate = new Date(birthdateStr);
+        if (isNaN(birthdate.getTime())) {
+            return null; // 如果日期格式不正确，返回null
+        }
+        var today = new Date();
+        var age = today.getFullYear() - birthdate.getFullYear();
+        var m = today.getMonth() - birthdate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    // 表单提交
+    function submit() {
+        var data = {};
+        $('.form').each(function (index, form) {
+            // 这里可以使用$.common.formToJSON(formId);  需要在form上加id
+            $.each($(form).serializeArray(), function (i, field) {
+                if (data[field.name]) {
+                    data[field.name] += ("," + field.value);
+                } else {
+                    data[field.name] = field.value;
+                }
+            });
+        });
+        alert(JSON.stringify(data))
+    }
+
+    // 绑定表单的 submit 事件
+    $('form').on('submit', function(e) {
+        // 检查勾选框是否被勾选
+        if (!$('#paidCheck').is(':checked')) {
+            // 如果没有勾选，阻止表单提交
+            e.preventDefault(); // 阻止表单提交
+            $('#paidCheckError').show(); // 显示错误消息
+        } else {
+            $('#paidCheckError').hide(); // 如果勾选了，隐藏错误消息
+        }
+    });
+
+    // 显示步骤时将触发事件
+    $("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+        // 下面按钮是快速操作栏的
+        $("#prev-btn").removeClass('disabled');
+        $("#next-btn").removeClass('disabled');
+        // 下面按钮是工具栏的
+        $("#btn-prev").removeClass('disabled');
+        $("#btn-next").removeClass('disabled');
+        $("#btn-finish").removeClass('disabled');
+        if (stepPosition === 'first') {
+            $("#prev-btn").addClass('disabled');// 快速操作栏（演示用）
+            $("#btn-prev").addClass('disabled');
+            $("#btn-finish").addClass('disabled');
+        } else if (stepPosition === 'last') {
+            $("#next-btn").addClass('disabled');// 快速操作栏（演示用）
+            $("#btn-next").addClass('disabled');
+        } else {
+            $("#prev-btn").removeClass('disabled');// 快速操作栏（演示用）
+            $("#next-btn").removeClass('disabled');// 快速操作栏（演示用）
+            $("#btn-prev").removeClass('disabled');
+            $("#btn-next").removeClass('disabled');
+            $("#btn-finish").addClass('disabled');
+        }
+    });
+
+    // 该事件在离开某个步骤之前触发
+    $("#smartwizard").on("leaveStep", function (e, anchorObject, currentStepNumber, nextStepNumber, stepDirection) {
+        if (stepDirection == 'forward') {
+            var form = $("#step-" + (currentStepNumber + 1)).find('.form');
+            if (form.length > 0) {
+                return form.validate().form();
+            }
+            return true;
+        }
+        return true;
+    });
+
+    $("#reset-btn").on("click", function () {
+        // Reset wizard
+        $('#smartwizard').smartWizard("reset");
+        return true;
+    });
+
+    $("#prev-btn").on("click", function () {
+        // Navigate previous
+        $('#smartwizard').smartWizard("prev");
+        return true;
+    });
+
+    $("#next-btn").on("click", function () {
+        // Navigate next
+        $('#smartwizard').smartWizard("next");
+        return true;
+    });
+</script>
+</body>
+</html>

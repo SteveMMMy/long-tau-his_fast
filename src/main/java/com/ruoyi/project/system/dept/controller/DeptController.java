@@ -182,4 +182,13 @@ public class DeptController extends BaseController
         List<Ztree> ztrees = deptService.selectDeptTreeExcludeChild(dept);
         return ztrees;
     }
+
+    /**
+     * 根据ID查询子部门（用于查询科室列表）
+     */
+    @GetMapping("/list/{deptId}")
+    @ResponseBody
+    public List<Dept> listChildrenDeptById(@PathVariable(value = "deptId") Long deptId) {
+        return deptService.selectChildrenDeptById(deptId);
+    }
 }

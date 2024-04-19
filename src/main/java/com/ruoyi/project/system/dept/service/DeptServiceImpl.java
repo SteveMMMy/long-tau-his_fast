@@ -61,7 +61,7 @@ public class DeptServiceImpl implements IDeptService
     /**
      * 查询部门管理树（排除下级）
      * 
-     * @param deptId 部门ID
+     * @param dept 部门ID
      * @return 所有部门信息
      */
     @Override
@@ -295,6 +295,17 @@ public class DeptServiceImpl implements IDeptService
     public Dept selectDeptById(Long deptId)
     {
         return deptMapper.selectDeptById(deptId);
+    }
+
+    /**
+     * 根据ID查询所有子部门
+     *
+     * @param deptId 部门ID
+     * @return 部门列表
+     */
+    @Override
+    public List<Dept> selectChildrenDeptById(Long deptId) {
+        return deptMapper.selectChildrenDeptById(deptId);
     }
 
     /**
