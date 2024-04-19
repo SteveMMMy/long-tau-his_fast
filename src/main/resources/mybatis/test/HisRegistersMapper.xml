@@ -4,6 +4,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.project.test.registers.mapper.HisRegistersMapper">
 
+    <resultMap type="HisPatients" id="HisPatientsResult">
+        <result property="patientId"    column="patient_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="patientSex"    column="patient_sex"    />
+        <result property="patientBirthDate"    column="patient_birth_date"    />
+        <result property="patientAge"    column="patient_age"    />
+        <result property="patientIdCardNum"    column="patient_id_card_num"    />
+        <result property="patientMedCardNum"    column="patient_med_card_num"    />
+        <result property="patientPhoneNum"    column="patient_phone_num"    />
+    </resultMap>
+
     <resultMap type="HisRegisters" id="HisRegistersResult">
         <result property="regId"    column="reg_id"    />
         <result property="patientId"    column="patient_id"    />
@@ -11,6 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="regPeriod"    column="reg_period"    />
         <result property="regStatus"    column="reg_status"    />
     </resultMap>
+
+
 
     <sql id="selectHisRegistersVo">
         select reg_id, patient_id, reg_time, reg_period, reg_status from his_registers
@@ -30,6 +43,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectHisRegistersVo"/>
         where reg_id = #{regId}
     </select>
+    <select id="selectPatientsRegisters" resultMap="HisRegistersResult">
+        SELECT p.patient_id,
+               p.patient_name,
+               p.patient_sex,
+               p.patient_birth_date,
+               p.patient_age,
+               p.patient_id_card_num,
+               p.patient_med_card_num,
+               p.patient_phone_num,
+               r.reg_id,
+               r.reg_time,
+               r.reg_period,
+               r.reg_status
+        FROM his_patients p
+                 JOIN
+             his_registers r
+             ON
+                 p.patient_id = r.patient_id
+    </select>
+
     <insert id="insertHisRegisters" parameterType="HisRegisters" useGeneratedKeys="true" keyProperty="regId">
         insert into his_registers
         <trim prefix="(" suffix=")" suffixOverrides=",">
