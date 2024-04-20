@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2024/4/19 22:25:09                           */
+/* Created on:     2024/4/19 22:41:29                           */
 /*==============================================================*/
 
 
@@ -103,7 +103,7 @@ alter table his_orders_schedules comment '采购订单明细表';
 create table his_patients
 (
    patient_id           bigint not null auto_increment comment '患者编号',
-   user_id              bigint not null comment '用户ID',
+   user_id              bigint comment '用户ID',
    patient_name         varchar(16) not null comment '姓名',
    patient_sex          smallint not null comment '性别',
    patient_birth_date   date not null comment '出生日期',
