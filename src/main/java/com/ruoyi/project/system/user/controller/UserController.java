@@ -73,6 +73,20 @@ public class UserController extends BaseController
         return getDataTable(list);
     }
 
+    /**
+     * 获取用户列表（用于查询医生列表）
+     *
+     * @author SteveMMMy
+     */
+    @GetMapping("/list/{deptId}")
+    @ResponseBody
+    public List<User> listUserByDept(@PathVariable(value = "deptId") Long deptId) {
+        User user = new User();
+        user.setDeptId(deptId);
+
+        return userService.selectUserList(user);
+    }
+
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:user:export")
     @PostMapping("/export")

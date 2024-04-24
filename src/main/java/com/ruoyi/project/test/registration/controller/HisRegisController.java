@@ -1,16 +1,17 @@
 package com.ruoyi.project.test.registration.controller;
 
 import com.ruoyi.framework.web.controller.BaseController;
+import com.ruoyi.framework.web.domain.AjaxResult;
+import com.ruoyi.project.test.registration.domain.HisAppointment;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 新增挂号Controller
  */
 @Controller
 @RequestMapping("/test/registration")
-public class HisAddRegisController extends BaseController {
+public class HisRegisController extends BaseController {
 
     private final String prefix = "test/registration";
 
@@ -23,5 +24,9 @@ public class HisAddRegisController extends BaseController {
         return prefix + "/add";
     }
 
+    @PostMapping("/add/appointment")
+    public AjaxResult addAppointment(@RequestBody HisAppointment hisAppointment) {
 
+        return toAjax(0);
+    }
 }

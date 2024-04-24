@@ -185,6 +185,8 @@ public class DeptController extends BaseController
 
     /**
      * 根据ID查询子部门（用于查询科室列表）
+     *
+     * @author SteveMMMy
      */
     @GetMapping("/list/{deptId}")
     @ResponseBody

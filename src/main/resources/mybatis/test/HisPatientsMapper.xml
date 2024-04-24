@@ -76,7 +76,7 @@
                a.patient_phone_num,
                b.reg_id as     sub_reg_id,
                b.patient_id as sub_patient_id,
-               b.worker_id as  sub_worker_id,
+               b.user_id as  sub_user_id,
                b.reg_time as   sub_reg_time,
                b.reg_period as sub_reg_period,
                b.reg_status as sub_reg_status
