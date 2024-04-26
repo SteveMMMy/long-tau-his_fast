@@ -314,7 +314,6 @@
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                // 假设返回的数据是一个医生对象数组
                 var select = $('#doctors'); // 获取医生选择框的jQuery对象
                 select.empty(); // 清空原有的医生选项
 
@@ -396,12 +395,10 @@
             });
         });
 
+        // 插入挂号时段
+        data.regPeriod = 0;
+
         // 提交
-        const currentDate = new Date();
-        const offsetMinutes = 8 * 60;
-        currentDate.setMinutes(currentDate.getMinutes() + offsetMinutes);
-        const formattedDate = currentDate.toISOString().slice(0, 23).replace('T', ' ');
-        data.regTime = formattedDate;
         data = JSON.stringify(data);
         $.ajax({
             url: ctx + 'test/registration/add/appointment', // 替换为你的后端API的URL
@@ -411,13 +408,14 @@
             dataType: 'json', // 预期后端返回的数据类型
             success: function(response) {
                 // 处理成功响应
-                console.log('提交成功:', response);
-                // 根据需要更新页面或重定向用户
+                $.modal.alertSuccess("挂号成功");
+                location.reload();
             },
             error: function(xhr, status, error) {
                 // 处理错误响应
                 console.error('提交失败:', error);
                 // 显示错误信息给用户
+                $.modal.alertError("系统错误");
             }
         });
     }

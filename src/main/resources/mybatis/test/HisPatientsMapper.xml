@@ -152,7 +152,7 @@
     </delete>
 
     <insert id="batchHisRegisters">
-        insert into his_registers( reg_id, patient_id, worker_id, reg_time, reg_period, reg_status) values
+        insert into his_registers( reg_id, patient_id, user_id, reg_time, reg_period, reg_status) values
         <foreach item="item" index="index" collection="list" separator=",">
             ( #{item.regId}, #{item.patientId}, #{item.workerId}, #{item.regTime}, #{item.regPeriod}, #{item.regStatus})
         </foreach>

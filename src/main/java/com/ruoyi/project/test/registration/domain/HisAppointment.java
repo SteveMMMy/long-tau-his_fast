@@ -49,9 +49,9 @@ public class HisAppointment extends BaseEntity {
     @Excel(name = "医生编号")
     private Long workerId;
 
-    /** 挂号日期 */
+    /** 挂号时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @Excel(name = "挂号日期", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "挂号时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss.SSS")
     private Date regTime;
 
     /** 挂号时段 */
