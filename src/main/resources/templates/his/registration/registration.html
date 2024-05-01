@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('挂号')"/>
+  <style>
+      .form-group {
+          margin-bottom: 5px;
+      }
+  </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>挂号</h5>
+        </div>
+        <div class="ibox-content">
+          <div class="row" style="padding-left: 15px; padding-right: 15px">
+            <form class="form" id="regisInfoForm">
+              <div class="row">
+                <div class="form-group col-sm-2">
+                  <label class="form-label control-label is-required" for="name">姓名</label>
+                  <input type="text" class="form-control" id="name" name="patientName" required/>
+                </div>
+
+                <div class="form-group col-sm-2">
+                  <label class="form-label" for="phone">手机号</label>
+                  <input class="form-control" id="phone" name="patientPhoneNum"/>
+                </div>
+
+                <div class="form-group col-sm-1">
+                  <label class="form-label" for="sex">性别</label>
+                  <select id="sex" name="patientSex" class="form-control m-b"
+                          th:with="type=${@dict.getType('sys_user_sex')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                            th:value="${dict.dictValue}"></option>
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-3">
+                  <label class="form-label" for="idCardNumber">身份证号</label>
+                  <input type="text" class="form-control" id="idCardNumber" name="patientIdCardNum"/>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <label class="form-label" for="birthdate">出生日期</label>
+                  <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input type="text" class="form-control" id="birthdate" name="patientBirthDate"
+                           placeholder="yyyy-MM-dd">
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-1">
+                  <label class="form-label" for="age">年龄</label>
+                  <input type="text" class="form-control" id="age" name="patientAge"/>
+                </div>
+
+                <div class="form-group col-sm-3">
+                  <label class="form-label" for="medCardNumber">医保卡号</label>
+                  <input type="text" class="form-control" id="medCardNumber" name="patientMedCardNum"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-sm-3">
+                  <label class="form-label control-label is-required" for="hospDepts">挂号科室</label>
+                  <select id="hospDepts" class="form-control m-b" required></select>
+                </div>
+
+                <div class="form-group col-sm-3">
+                  <label class="form-label control-label is-required" for="doctors">挂号医生</label>
+                  <select id="doctors" name="workerId" class="form-control m-b" required></select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="paidCheck">
+                    <label class="form-check-label" for="paidCheck">
+                      已缴费
+                    </label>
+                    <div id="paidCheckError" class="alert alert-danger" style="display: none;">
+                      请缴费后再提交
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <a id="btn-submit" class="btn btn-primary" onclick="submit()">完成</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // 监听身份证号输入框的变化
+        $('#idCardNumber').on('input', function() {
+            const idCardNumber = $(this).val();
+            // 移除非数字和非X字符，并将x转为大写X
+            this.value = this.value.replace(/[^\dX]/gi, '').toUpperCase();
+
+            // 如果输入长度超过18位，则截断为18位
+            if (this.value.length > 18) {
+                this.value = this.value.substring(0, 18);
+            }
+
+            if (/^\d{17}(\d|X)$/.test(idCardNumber)) { // 检查格式是否正确
+                calculateBirthdateAndAge(idCardNumber);
+            } else {
+                $('#birthdate').val(''); // 清空出生日期
+                document.getElementById('age').value = ''; // 清空年龄
+            }
+        });
+
+        // 监听科室选择框的变化
+        $('#hospDepts').on('change', function() {
+            var deptId = $(this).val(); // 获取选中的科室ID
+            if (deptId) {
+                // 调用函数获取对应科室的医生列表
+                getDoctorsByDeptId(deptId);
+            }
+        });
+
+        // laydate
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            laydate.render({
+                elem: '#birthdate',
+                type: 'date',
+                done: function(value, date, endDate){
+                    if (value) { // 如果选择了日期
+                        var age = calculateAge(value); // 调用计算年龄的函数
+                        if (age !== null) { // 如果年龄计算成功
+                            // 将计算出的年龄填充到年龄输入框中
+                            document.getElementById('age').value = age;
+                        } else {
+                            // 如果日期格式不正确，清空年龄输入框并给出提示
+                            document.getElementById('age').value = '';
+                            alert('请输入正确的出生日期格式（yyyy-MM-dd）');
+                        }
+                    } else {
+                        // 如果日期被清空，则清空年龄输入框
+                        document.getElementById('age').value = '';
+                    }
+                }
+            });
+        });
+
+        // 获取科室列表
+        getHospitalDeptsList(201);
+    });
+
+    // TODO 实现搜索悬浮窗
+    $('#name').on('input', function() {
+        const patientNamePartial = $(this).val();
+        if (patientNamePartial.length >= 1) {
+            $.ajax({
+                url: ctx + 'his/patients/search', // 后端搜索接口的URL
+                type: 'POST',
+                data: {
+                    patientName: patientNamePartial
+                },
+                success: function(response) {
+                    // 假设response是一个包含患者信息的数组
+                    let popupContent = '';
+                    $.each(response, function(index, patient) {
+                        popupContent += '<div class="patient-info" id="popup-container" data-id="' + patient.patientId + '">' +
+                            '<span>' + patient.patientName + '</span>' +
+                            '<span>' + patient.patientSex + '</span>' +
+                            '<span>' + patient.patientPhoneNum + '</span>' +
+                            '</div>';
+                    });
+                    // 显示悬浮窗并插入内容
+                    $('#popup-container').html(popupContent).show();
+
+                    // 为悬浮窗中的每一条信息添加点击事件
+                    $('.patient-info').off('click').on('click', function() {
+                        const patientId = $(this).data('id');
+                        // 这里可以发起另一个AJAX请求来获取完整的患者信息，并填充表单
+                        // 或者如果后端已经返回了完整信息，则直接填充
+                        $('#patientId').val(patientId); // 假设表单中有个隐藏字段存储患者ID
+                        $('#name').val(patient.name);
+                        // ... 填充其他字段 ...
+                        // 隐藏悬浮窗
+                        $('#popup-container').hide();
+                    });
+                },
+                error: function() {
+                    $.modal.alertError("发生错误");
+                }
+            });
+        }
+    });
+
+    // 根据身份证号填充出生日期和年龄
+    function calculateBirthdateAndAge(idCardNumber) {
+        // 截取出生日期部分，并转换为日期对象
+        var birthdateStr = idCardNumber.substring(6, 14);
+        var year = parseInt(birthdateStr.substring(0, 4), 10);
+        var month = parseInt(birthdateStr.substring(4, 6), 10) - 1; // 月份需要减1
+        var day = parseInt(birthdateStr.substring(6, 8), 10);
+        var birthdate = new Date(year, month, day);
+
+        // 格式化出生日期为YYYY-MM-DD
+        var birthdateFormatted = birthdate.getFullYear() + '-' +
+            (birthdate.getMonth() + 1).toString().padStart(2, '0') + '-' +
+            birthdate.getDate().toString().padStart(2, '0');
+
+        // 计算年龄
+        var today = new Date();
+        var age = today.getFullYear() - birthdate.getFullYear();
+        var m = today.getMonth() - birthdate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+        }
+
+        // 填充出生日期和年龄输入框
+        document.getElementById('birthdate').value = birthdateFormatted;
+        document.getElementById('age').value = age;
+    }
+
+    // 根据日期计算年龄
+    function calculateAge(birthdateStr) {
+        var birthdate = new Date(birthdateStr);
+        if (isNaN(birthdate.getTime())) {
+            return null; // 如果日期格式不正确，返回null
+        }
+        var today = new Date();
+        var age = today.getFullYear() - birthdate.getFullYear();
+        var m = today.getMonth() - birthdate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    // 获取科室列表
+    function getHospitalDeptsList(deptId) {
+        $.ajax({
+            url: ctx + 'system/dept/list/' + deptId,
+            type: 'GET',
+            dataType: 'json',
+            success: function(departments) {
+                var select = $('#hospDepts');
+                select.empty(); // 清空之前的选项
+
+                // 添加默认选项
+                select.append($('<option></option>').attr('value', '').text('请选择科室'));
+
+                // 将得到的数据添加为 select 元素的选项
+                $.each(departments, function(index, department) {
+                    select.append($('<option></option>').attr('value', department.deptId).text(department.deptName));
+                });
+            },
+            error: function(error) {
+                console.error('获取科室信息失败：', error);
+            }
+        });
+    }
+
+    // 根据部门ID获取医生列表
+    function getDoctorsByDeptId(deptId) {
+        $.ajax({
+            url: ctx + 'system/user/list/' + deptId, // 后端API的URL
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var select = $('#doctors'); // 获取医生选择框的jQuery对象
+                select.empty(); // 清空原有的医生选项
+
+                // 动态添加医生选项到选择框
+                $.each(data, function(index, doctor) {
+                    select.append($('<option></option>').val(doctor.userId).text(doctor.userName));
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching doctors:', textStatus, errorThrown);
+            }
+        });
+    }
+
+    // 表单提交
+    function submit() {
+        // 表单验证
+        if(!formValidate()) {
+            return false;
+        }
+
+        // 收集表单数据
+        let data = {};
+        $('.form').each(function (index, form) {
+            // 这里可以使用$.common.formToJSON(formId);  需要在form上加id
+            $.each($(form).serializeArray(), function (i, field) {
+                if (data[field.name]) {
+                    data[field.name] += ("," + field.value);
+                } else {
+                    data[field.name] = field.value;
+                }
+            });
+        });
+
+        // 插入挂号时段
+        data.regPeriod = 0;
+
+        // 提交
+        data = JSON.stringify(data);
+        $.ajax({
+            url: ctx + 'his/registration/add', // 替换为你的后端API的URL
+            type: 'POST', // 根据你的需求使用GET或POST
+            contentType: 'application/json',
+            data: data,
+            dataType: 'json', // 预期后端返回的数据类型
+            success: function(response) {
+                // 处理成功响应
+                $.modal.alertSuccess("挂号成功");
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                // 处理错误响应
+                console.error('提交失败:', error);
+                // 显示错误信息给用户
+                $.modal.alertError("系统错误");
+            }
+        });
+    }
+
+    function formValidate() {
+        // 必填字段验证
+        if (!$('#regisInfoForm').validate().form()) {
+            return false;
+        }
+
+        // 勾选缴费框
+        if (!document.getElementById('paidCheck').checked) {
+            document.getElementById('paidCheckError').style.display = 'block';
+            return false;
+        } else {
+            document.getElementById('paidCheckError').style.display = 'none';
+        }
+
+        return true;
+    }
+
+</script>
+</body>
+</html>

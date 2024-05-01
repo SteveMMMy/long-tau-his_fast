@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.his.suppliers.mapper.HisSuppliersMapper">
+    
+    <resultMap type="HisSuppliers" id="HisSuppliersResult">
+        <result property="splId"    column="spl_id"    />
+        <result property="splName"    column="spl_name"    />
+        <result property="splAddr"    column="spl_addr"    />
+        <result property="splContact"    column="spl_contact"    />
+        <result property="splLegalPerson"    column="spl_legal_person"    />
+        <result property="splPermitId"    column="spl_permit_id"    />
+        <result property="splCertification"    column="spl_certification"    />
+        <result property="splBusinessLicenseId"    column="spl_business_license_id"    />
+    </resultMap>
+
+    <sql id="selectHisSuppliersVo">
+        select spl_id, spl_name, spl_addr, spl_contact, spl_legal_person, spl_permit_id, spl_certification, spl_business_license_id from his_suppliers
+    </sql>
+
+    <select id="selectHisSuppliersList" parameterType="HisSuppliers" resultMap="HisSuppliersResult">
+        <include refid="selectHisSuppliersVo"/>
+        <where>  
+            <if test="splName != null  and splName != ''"> and spl_name like concat('%', #{splName}, '%')</if>
+            <if test="splAddr != null  and splAddr != ''"> and spl_addr = #{splAddr}</if>
+            <if test="splContact != null  and splContact != ''"> and spl_contact = #{splContact}</if>
+            <if test="splLegalPerson != null  and splLegalPerson != ''"> and spl_legal_person = #{splLegalPerson}</if>
+            <if test="splPermitId != null  and splPermitId != ''"> and spl_permit_id = #{splPermitId}</if>
+            <if test="splCertification != null  and splCertification != ''"> and spl_certification = #{splCertification}</if>
+            <if test="splBusinessLicenseId != null  and splBusinessLicenseId != ''"> and spl_business_license_id = #{splBusinessLicenseId}</if>
+        </where>
+    </select>
+    
+    <select id="selectHisSuppliersBySplId" parameterType="Long" resultMap="HisSuppliersResult">
+        <include refid="selectHisSuppliersVo"/>
+        where spl_id = #{splId}
+    </select>
+        
+    <insert id="insertHisSuppliers" parameterType="HisSuppliers" useGeneratedKeys="true" keyProperty="splId">
+        insert into his_suppliers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="splName != null and splName != ''">spl_name,</if>
+            <if test="splAddr != null">spl_addr,</if>
+            <if test="splContact != null">spl_contact,</if>
+            <if test="splLegalPerson != null">spl_legal_person,</if>
+            <if test="splPermitId != null">spl_permit_id,</if>
+            <if test="splCertification != null">spl_certification,</if>
+            <if test="splBusinessLicenseId != null">spl_business_license_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="splName != null and splName != ''">#{splName},</if>
+            <if test="splAddr != null">#{splAddr},</if>
+            <if test="splContact != null">#{splContact},</if>
+            <if test="splLegalPerson != null">#{splLegalPerson},</if>
+            <if test="splPermitId != null">#{splPermitId},</if>
+            <if test="splCertification != null">#{splCertification},</if>
+            <if test="splBusinessLicenseId != null">#{splBusinessLicenseId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHisSuppliers" parameterType="HisSuppliers">
+        update his_suppliers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="splName != null and splName != ''">spl_name = #{splName},</if>
+            <if test="splAddr != null">spl_addr = #{splAddr},</if>
+            <if test="splContact != null">spl_contact = #{splContact},</if>
+            <if test="splLegalPerson != null">spl_legal_person = #{splLegalPerson},</if>
+            <if test="splPermitId != null">spl_permit_id = #{splPermitId},</if>
+            <if test="splCertification != null">spl_certification = #{splCertification},</if>
+            <if test="splBusinessLicenseId != null">spl_business_license_id = #{splBusinessLicenseId},</if>
+        </trim>
+        where spl_id = #{splId}
+    </update>
+
+    <delete id="deleteHisSuppliersBySplId" parameterType="Long">
+        delete from his_suppliers where spl_id = #{splId}
+    </delete>
+
+    <delete id="deleteHisSuppliersBySplIds" parameterType="String">
+        delete from his_suppliers where spl_id in 
+        <foreach item="splId" collection="array" open="(" separator="," close=")">
+            #{splId}
+        </foreach>
+    </delete>
+
+</mapper>

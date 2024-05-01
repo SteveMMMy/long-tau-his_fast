@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2024/4/21 15:13:48                           */
+/* Created on:     2024/5/1 10:50:52                            */
 /*==============================================================*/
 
 
@@ -53,10 +53,14 @@ alter table his_doctor_regInfo comment '医生接诊记录表';
 create table his_drug_catalogue
 (
    cat_id               bigint not null auto_increment comment '药品ID',
-   cat_drug_num         char(14) not null comment '药品编号',
+   cat_approval_number  varchar(64) comment '批准文号',
+   cat_drug_num         char(14) comment '药品编号',
    cat_name             varchar(128) comment '通用名或商品名',
-   cat_specs            varchar(64) comment '规格',
+   cat_English_name     varchar(128) comment '英文名称',
+   cat_producer         varchar(128) comment '生产单位',
+   cat_specs            varchar(128) comment '规格',
    cat_dosage_form      smallint comment '剂型',
+   cat_package          varchar(256) comment '包装',
    cat_unit             smallint comment '单位',
    cat_unit_price       int comment '销售单价',
    primary key (cat_id)
@@ -71,12 +75,11 @@ create table his_inventory
 (
    inv_id               bigint not null auto_increment comment '库存编号',
    cat_id               bigint not null comment '药品ID',
-   inv_producer         varchar(64) not null comment '生产商',
    inv_batch_number     varchar(32) not null comment '生产批号',
-   inv_number           bigint not null comment '库存数量',
-   inv_unit_price       int not null comment '销售单价',
-   inv_prod_date        datetime not null comment '生产日期',
-   inv_valid_to         datetime not null comment '有效期至',
+   inv_number           bigint comment '库存数量',
+   inv_unit_price       int comment '销售单价',
+   inv_prod_date        datetime comment '生产日期',
+   inv_valid_to         datetime comment '有效期至',
    primary key (inv_id)
 );
 
@@ -102,14 +105,14 @@ alter table his_orders_schedules comment '采购订单明细表';
 create table his_patients
 (
    patient_id           bigint not null auto_increment comment '患者编号',
-   user_id              bigint not null comment '用户ID',
+   user_id              bigint comment '用户ID',
    patient_name         varchar(16) not null comment '姓名',
-   patient_sex          smallint not null comment '性别',
-   patient_birth_date   date not null comment '出生日期',
-   patient_age          smallint not null comment '年龄',
-   patient_id_card_num  varchar(20) not null comment '身份证号',
+   patient_sex          smallint comment '性别',
+   patient_birth_date   date comment '出生日期',
+   patient_age          smallint comment '年龄',
+   patient_id_card_num  varchar(20) comment '身份证号',
    patient_med_card_num varchar(20) comment '医保卡号',
-   patient_phone_num    varchar(16) not null comment '手机号',
+   patient_phone_num    varchar(16) comment '手机号',
    primary key (patient_id)
 );
 
@@ -222,7 +225,7 @@ create table his_suppliers
    spl_id               bigint not null auto_increment comment '供应商编号',
    spl_name             varchar(32) not null comment '供应商名称',
    spl_addr             varchar(512) comment '供应商地址',
-   spl_contact          varchar(16) not null comment '联系方式',
+   spl_contact          varchar(16) comment '联系方式',
    spl_legal_person     varchar(32) comment '法人代表',
    spl_permit_id        char(16) comment '许可证编号',
    spl_certification    char(16) comment '质量认证情况',

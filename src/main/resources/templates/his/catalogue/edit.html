@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改药品目录')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-catalogue-edit" th:object="${hisDrugCatalogue}">
+            <input name="catId" th:field="*{catId}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">批准文号：</label>
+                <div class="col-sm-8">
+                    <input name="catApprovalNumber" th:field="*{catApprovalNumber}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">药品编号：</label>
+                <div class="col-sm-8">
+                    <input name="catDrugNum" th:field="*{catDrugNum}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">通用名或商品名：</label>
+                <div class="col-sm-8">
+                    <input name="catName" th:field="*{catName}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">英文名称：</label>
+                <div class="col-sm-8">
+                    <input name="catEnglishName" th:field="*{catEnglishName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">生产单位：</label>
+                <div class="col-sm-8">
+                    <input name="catProducer" th:field="*{catProducer}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">规格：</label>
+                <div class="col-sm-8">
+                    <input name="catSpecs" th:field="*{catSpecs}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">剂型：</label>
+                <div class="col-sm-8">
+                    <select name="catDosageForm" class="form-control m-b" th:with="type=${@dict.getType('drug_dosage_form')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{catDosageForm}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">包装：</label>
+                <div class="col-sm-8">
+                    <input name="catPackage" th:field="*{catPackage}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">单位：</label>
+                <div class="col-sm-8">
+                    <select name="catUnit" class="form-control m-b" th:with="type=${@dict.getType('drug_unit')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{catUnit}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">销售单价：</label>
+                <div class="col-sm-8">
+                    <input name="catUnitPrice" th:field="*{catUnitPrice}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "his/catalogue";
+        $("#form-catalogue-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-catalogue-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

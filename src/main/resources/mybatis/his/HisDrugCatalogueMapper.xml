@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.his.catalogue.mapper.HisDrugCatalogueMapper">
+    
+    <resultMap type="HisDrugCatalogue" id="HisDrugCatalogueResult">
+        <result property="catId"    column="cat_id"    />
+        <result property="catApprovalNumber"    column="cat_approval_number"    />
+        <result property="catDrugNum"    column="cat_drug_num"    />
+        <result property="catName"    column="cat_name"    />
+        <result property="catEnglishName"    column="cat_English_name"    />
+        <result property="catProducer"    column="cat_producer"    />
+        <result property="catSpecs"    column="cat_specs"    />
+        <result property="catDosageForm"    column="cat_dosage_form"    />
+        <result property="catPackage"    column="cat_package"    />
+        <result property="catUnit"    column="cat_unit"    />
+        <result property="catUnitPrice"    column="cat_unit_price"    />
+    </resultMap>
+
+    <sql id="selectHisDrugCatalogueVo">
+        select cat_id, cat_approval_number, cat_drug_num, cat_name, cat_English_name, cat_producer, cat_specs, cat_dosage_form, cat_package, cat_unit, cat_unit_price from his_drug_catalogue
+    </sql>
+
+    <select id="selectHisDrugCatalogueList" parameterType="HisDrugCatalogue" resultMap="HisDrugCatalogueResult">
+        <include refid="selectHisDrugCatalogueVo"/>
+        <where>  
+            <if test="catApprovalNumber != null  and catApprovalNumber != ''"> and cat_approval_number = #{catApprovalNumber}</if>
+            <if test="catDrugNum != null  and catDrugNum != ''"> and cat_drug_num = #{catDrugNum}</if>
+            <if test="catName != null  and catName != ''"> and cat_name like concat('%', #{catName}, '%')</if>
+            <if test="catEnglishName != null  and catEnglishName != ''"> and cat_English_name like concat('%', #{catEnglishName}, '%')</if>
+            <if test="catProducer != null  and catProducer != ''"> and cat_producer = #{catProducer}</if>
+            <if test="catSpecs != null  and catSpecs != ''"> and cat_specs = #{catSpecs}</if>
+            <if test="catDosageForm != null "> and cat_dosage_form = #{catDosageForm}</if>
+            <if test="catPackage != null  and catPackage != ''"> and cat_package = #{catPackage}</if>
+            <if test="catUnit != null "> and cat_unit = #{catUnit}</if>
+            <if test="catUnitPrice != null "> and cat_unit_price = #{catUnitPrice}</if>
+        </where>
+    </select>
+    
+    <select id="selectHisDrugCatalogueByCatId" parameterType="Long" resultMap="HisDrugCatalogueResult">
+        <include refid="selectHisDrugCatalogueVo"/>
+        where cat_id = #{catId}
+    </select>
+        
+    <insert id="insertHisDrugCatalogue" parameterType="HisDrugCatalogue" useGeneratedKeys="true" keyProperty="catId">
+        insert into his_drug_catalogue
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="catApprovalNumber != null">cat_approval_number,</if>
+            <if test="catDrugNum != null">cat_drug_num,</if>
+            <if test="catName != null and catName != ''">cat_name,</if>
+            <if test="catEnglishName != null">cat_English_name,</if>
+            <if test="catProducer != null">cat_producer,</if>
+            <if test="catSpecs != null">cat_specs,</if>
+            <if test="catDosageForm != null">cat_dosage_form,</if>
+            <if test="catPackage != null">cat_package,</if>
+            <if test="catUnit != null">cat_unit,</if>
+            <if test="catUnitPrice != null">cat_unit_price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="catApprovalNumber != null">#{catApprovalNumber},</if>
+            <if test="catDrugNum != null">#{catDrugNum},</if>
+            <if test="catName != null and catName != ''">#{catName},</if>
+            <if test="catEnglishName != null">#{catEnglishName},</if>
+            <if test="catProducer != null">#{catProducer},</if>
+            <if test="catSpecs != null">#{catSpecs},</if>
+            <if test="catDosageForm != null">#{catDosageForm},</if>
+            <if test="catPackage != null">#{catPackage},</if>
+            <if test="catUnit != null">#{catUnit},</if>
+            <if test="catUnitPrice != null">#{catUnitPrice},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHisDrugCatalogue" parameterType="HisDrugCatalogue">
+        update his_drug_catalogue
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="catApprovalNumber != null">cat_approval_number = #{catApprovalNumber},</if>
+            <if test="catDrugNum != null">cat_drug_num = #{catDrugNum},</if>
+            <if test="catName != null and catName != ''">cat_name = #{catName},</if>
+            <if test="catEnglishName != null">cat_English_name = #{catEnglishName},</if>
+            <if test="catProducer != null">cat_producer = #{catProducer},</if>
+            <if test="catSpecs != null">cat_specs = #{catSpecs},</if>
+            <if test="catDosageForm != null">cat_dosage_form = #{catDosageForm},</if>
+            <if test="catPackage != null">cat_package = #{catPackage},</if>
+            <if test="catUnit != null">cat_unit = #{catUnit},</if>
+            <if test="catUnitPrice != null">cat_unit_price = #{catUnitPrice},</if>
+        </trim>
+        where cat_id = #{catId}
+    </update>
+
+    <delete id="deleteHisDrugCatalogueByCatId" parameterType="Long">
+        delete from his_drug_catalogue where cat_id = #{catId}
+    </delete>
+
+    <delete id="deleteHisDrugCatalogueByCatIds" parameterType="String">
+        delete from his_drug_catalogue where cat_id in 
+        <foreach item="catId" collection="array" open="(" separator="," close=")">
+            #{catId}
+        </foreach>
+    </delete>
+
+</mapper>

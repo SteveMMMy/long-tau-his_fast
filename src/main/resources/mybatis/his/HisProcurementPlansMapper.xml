@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.his.procurement_plans.mapper.HisProcurementPlansMapper">
+    
+    <resultMap type="HisProcurementPlans" id="HisProcurementPlansResult">
+        <result property="prcpId"    column="prcp_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="purId"    column="pur_id"    />
+        <result property="prcpDocNum"    column="prcp_doc_num"    />
+        <result property="prcpDate"    column="prcp_date"    />
+    </resultMap>
+
+    <resultMap id="HisProcurementPlansHisProcurementSchedulesResult" type="HisProcurementPlans" extends="HisProcurementPlansResult">
+        <collection property="hisProcurementSchedulesList" notNullColumn="sub_psch_id" javaType="java.util.List" resultMap="HisProcurementSchedulesResult" />
+    </resultMap>
+
+    <resultMap type="HisProcurementSchedules" id="HisProcurementSchedulesResult">
+        <result property="pschId"    column="sub_psch_id"    />
+        <result property="prcpId"    column="sub_prcp_id"    />
+        <result property="catId"    column="sub_cat_id"    />
+        <result property="pschPrice"    column="sub_psch_price"    />
+        <result property="pschNumber"    column="sub_psch_number"    />
+        <result property="pschPurDate"    column="sub_psch_pur_date"    />
+        <result property="pschArvDate"    column="sub_psch_arv_date"    />
+    </resultMap>
+
+    <sql id="selectHisProcurementPlansVo">
+        select prcp_id, user_id, pur_id, prcp_doc_num, prcp_date from his_procurement_plans
+    </sql>
+
+    <select id="selectHisProcurementPlansList" parameterType="HisProcurementPlans" resultMap="HisProcurementPlansResult">
+        <include refid="selectHisProcurementPlansVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="purId != null "> and pur_id = #{purId}</if>
+            <if test="prcpDocNum != null  and prcpDocNum != ''"> and prcp_doc_num = #{prcpDocNum}</if>
+            <if test="prcpDate != null "> and prcp_date = #{prcpDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectHisProcurementPlansByPrcpId" parameterType="Long" resultMap="HisProcurementPlansHisProcurementSchedulesResult">
+        select a.prcp_id, a.user_id, a.pur_id, a.prcp_doc_num, a.prcp_date,
+ b.psch_id as sub_psch_id, b.prcp_id as sub_prcp_id, b.cat_id as sub_cat_id, b.psch_price as sub_psch_price, b.psch_number as sub_psch_number, b.psch_pur_date as sub_psch_pur_date, b.psch_arv_date as sub_psch_arv_date
+        from his_procurement_plans a
+        left join his_procurement_schedules b on b.prcp_id = a.prcp_id
+        where a.prcp_id = #{prcpId}
+    </select>
+        
+    <insert id="insertHisProcurementPlans" parameterType="HisProcurementPlans" useGeneratedKeys="true" keyProperty="prcpId">
+        insert into his_procurement_plans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="purId != null">pur_id,</if>
+            <if test="prcpDocNum != null">prcp_doc_num,</if>
+            <if test="prcpDate != null">prcp_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="purId != null">#{purId},</if>
+            <if test="prcpDocNum != null">#{prcpDocNum},</if>
+            <if test="prcpDate != null">#{prcpDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHisProcurementPlans" parameterType="HisProcurementPlans">
+        update his_procurement_plans
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="purId != null">pur_id = #{purId},</if>
+            <if test="prcpDocNum != null">prcp_doc_num = #{prcpDocNum},</if>
+            <if test="prcpDate != null">prcp_date = #{prcpDate},</if>
+        </trim>
+        where prcp_id = #{prcpId}
+    </update>
+
+    <delete id="deleteHisProcurementPlansByPrcpId" parameterType="Long">
+        delete from his_procurement_plans where prcp_id = #{prcpId}
+    </delete>
+
+    <delete id="deleteHisProcurementPlansByPrcpIds" parameterType="String">
+        delete from his_procurement_plans where prcp_id in 
+        <foreach item="prcpId" collection="array" open="(" separator="," close=")">
+            #{prcpId}
+        </foreach>
+    </delete>
+    
+    <delete id="deleteHisProcurementSchedulesByPrcpIds" parameterType="String">
+        delete from his_procurement_schedules where prcp_id in 
+        <foreach item="prcpId" collection="array" open="(" separator="," close=")">
+            #{prcpId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHisProcurementSchedulesByPrcpId" parameterType="Long">
+        delete from his_procurement_schedules where prcp_id = #{prcpId}
+    </delete>
+
+    <insert id="batchHisProcurementSchedules">
+        insert into his_procurement_schedules( psch_id, prcp_id, cat_id, psch_price, psch_number, psch_pur_date, psch_arv_date) values
+		<foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.pschId}, #{item.prcpId}, #{item.catId}, #{item.pschPrice}, #{item.pschNumber}, #{item.pschPurDate}, #{item.pschArvDate})
+        </foreach>
+    </insert>
+
+</mapper>
