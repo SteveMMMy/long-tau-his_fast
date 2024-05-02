@@ -3,6 +3,10 @@ package com.ruoyi.project.his.catalogue.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import com.ruoyi.common.utils.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
+import com.ruoyi.project.his.catalogue.domain.HisInventory;
 import com.ruoyi.project.his.catalogue.mapper.HisDrugCatalogueMapper;
 import com.ruoyi.project.his.catalogue.domain.HisDrugCatalogue;
 import com.ruoyi.project.his.catalogue.service.IHisDrugCatalogueService;
@@ -50,10 +54,13 @@ public class HisDrugCatalogueServiceImpl implements IHisDrugCatalogueService
      * @param hisDrugCatalogue 药品目录
      * @return 结果
      */
+    @Transactional
     @Override
     public int insertHisDrugCatalogue(HisDrugCatalogue hisDrugCatalogue)
     {
-        return hisDrugCatalogueMapper.insertHisDrugCatalogue(hisDrugCatalogue);
+        int rows = hisDrugCatalogueMapper.insertHisDrugCatalogue(hisDrugCatalogue);
+        insertHisInventory(hisDrugCatalogue);
+        return rows;
     }
 
     /**
@@ -62,9 +69,12 @@ public class HisDrugCatalogueServiceImpl implements IHisDrugCatalogueService
      * @param hisDrugCatalogue 药品目录
      * @return 结果
      */
+    @Transactional
     @Override
     public int updateHisDrugCatalogue(HisDrugCatalogue hisDrugCatalogue)
     {
+        hisDrugCatalogueMapper.deleteHisInventoryByCatId(hisDrugCatalogue.getCatId());
+        insertHisInventory(hisDrugCatalogue);
         return hisDrugCatalogueMapper.updateHisDrugCatalogue(hisDrugCatalogue);
     }
 
@@ -74,9 +84,11 @@ public class HisDrugCatalogueServiceImpl implements IHisDrugCatalogueService
      * @param catIds 需要删除的药品目录主键
      * @return 结果
      */
+    @Transactional
     @Override
     public int deleteHisDrugCatalogueByCatIds(String catIds)
     {
+        hisDrugCatalogueMapper.deleteHisInventoryByCatIds(Convert.toStrArray(catIds));
         return hisDrugCatalogueMapper.deleteHisDrugCatalogueByCatIds(Convert.toStrArray(catIds));
     }
 
@@ -86,9 +98,35 @@ public class HisDrugCatalogueServiceImpl implements IHisDrugCatalogueService
      * @param catId 药品目录主键
      * @return 结果
      */
+    @Transactional
     @Override
     public int deleteHisDrugCatalogueByCatId(Long catId)
     {
+        hisDrugCatalogueMapper.deleteHisInventoryByCatId(catId);
         return hisDrugCatalogueMapper.deleteHisDrugCatalogueByCatId(catId);
+    }
+
+    /**
+     * 新增库存信息信息
+     * 
+     * @param hisDrugCatalogue 药品目录对象
+     */
+    public void insertHisInventory(HisDrugCatalogue hisDrugCatalogue)
+    {
+        List<HisInventory> hisInventoryList = hisDrugCatalogue.getHisInventoryList();
+        Long catId = hisDrugCatalogue.getCatId();
+        if (StringUtils.isNotNull(hisInventoryList))
+        {
+            List<HisInventory> list = new ArrayList<HisInventory>();
+            for (HisInventory hisInventory : hisInventoryList)
+            {
+                hisInventory.setCatId(catId);
+                list.add(hisInventory);
+            }
+            if (list.size() > 0)
+            {
+                hisDrugCatalogueMapper.batchHisInventory(list);
+            }
+        }
     }
 }

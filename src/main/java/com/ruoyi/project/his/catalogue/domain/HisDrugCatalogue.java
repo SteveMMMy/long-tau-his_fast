@@ -1,5 +1,6 @@
 package com.ruoyi.project.his.catalogue.domain;
 
+import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
@@ -57,6 +58,9 @@ public class HisDrugCatalogue extends BaseEntity
     /** 销售单价 */
     @Excel(name = "销售单价")
     private Long catUnitPrice;
+
+    /** 库存信息信息 */
+    private List<HisInventory> hisInventoryList;
 
     public void setCatId(Long catId)
     {
@@ -158,6 +162,16 @@ public class HisDrugCatalogue extends BaseEntity
         return catUnitPrice;
     }
 
+    public List<HisInventory> getHisInventoryList()
+    {
+        return hisInventoryList;
+    }
+
+    public void setHisInventoryList(List<HisInventory> hisInventoryList)
+    {
+        this.hisInventoryList = hisInventoryList;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -172,6 +186,7 @@ public class HisDrugCatalogue extends BaseEntity
             .append("catPackage", getCatPackage())
             .append("catUnit", getCatUnit())
             .append("catUnitPrice", getCatUnitPrice())
+            .append("hisInventoryList", getHisInventoryList())
             .toString();
     }
 }

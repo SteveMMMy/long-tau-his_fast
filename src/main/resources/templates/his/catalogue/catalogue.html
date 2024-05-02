@@ -1,108 +1,101 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('药品目录列表')" />
+  <th:block th:include="include :: header('药品目录列表')"/>
 </head>
 <body class="gray-bg">
-     <div class="container-div">
-        <div class="row">
-            <div class="col-sm-12 search-collapse">
-                <form id="formId">
-                    <div class="select-list">
-                        <ul>
-                            <li>
-                                <label>批准文号：</label>
-                                <input type="text" name="catApprovalNumber"/>
-                            </li>
-                            <li>
-                                <label>药品编号：</label>
-                                <input type="text" name="catDrugNum"/>
-                            </li>
-                            <li>
-                                <label>通用名或商品名：</label>
-                                <input type="text" name="catName"/>
-                            </li>
-                            <li>
-                                <label>英文名称：</label>
-                                <input type="text" name="catEnglishName"/>
-                            </li>
-                            <li>
-                                <label>生产单位：</label>
-                                <input type="text" name="catProducer"/>
-                            </li>
-                            <li>
-                                <label>规格：</label>
-                                <input type="text" name="catSpecs"/>
-                            </li>
-                            <li>
-                                <label>剂型：</label>
-                                <select name="catDosageForm" th:with="type=${@dict.getType('drug_dosage_form')}">
-                                    <option value="">所有</option>
-                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>包装：</label>
-                                <input type="text" name="catPackage"/>
-                            </li>
-                            <li>
-                                <label>单位：</label>
-                                <select name="catUnit" th:with="type=${@dict.getType('drug_unit')}">
-                                    <option value="">所有</option>
-                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>销售单价：</label>
-                                <input type="text" name="catUnitPrice"/>
-                            </li>
-                            <li>
-                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-
-            <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="his:catalogue:add">
-                    <i class="fa fa-plus"></i> 添加
-                </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="his:catalogue:edit">
-                    <i class="fa fa-edit"></i> 修改
-                </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="his:catalogue:remove">
-                    <i class="fa fa-remove"></i> 删除
-                </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="his:catalogue:export">
-                    <i class="fa fa-download"></i> 导出
-                </a>
-            </div>
-            <div class="col-sm-12 select-table table-striped">
-                <table id="bootstrap-table"></table>
-            </div>
+<div class="container-div">
+  <div class="row">
+    <div class="col-sm-12 search-collapse">
+      <form id="formId">
+        <div class="select-list">
+          <ul>
+            <li>
+              <label>药品名：</label>
+              <input type="text" name="catName"/>
+            </li>
+            <li>
+              <label>英文名：</label>
+              <input type="text" name="catEnglishName"/>
+            </li>
+            <li>
+              <label>生产商：</label>
+              <input type="text" name="catProducer"/>
+            </li>
+            <li>
+              <label>规格：</label>
+              <input type="text" name="catSpecs"/>
+            </li>
+            <li>
+              <label>剂型：</label>
+              <select name="catDosageForm" th:with="type=${@dict.getType('drug_dosage_form')}">
+                <option value="">所有</option>
+                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+              </select>
+            </li>
+            <li>
+              <label>包装：</label>
+              <input type="text" name="catPackage"/>
+            </li>
+            <li>
+              <label>单位：</label>
+              <select name="catUnit" th:with="type=${@dict.getType('drug_unit')}">
+                <option value="">所有</option>
+                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+              </select>
+            </li>
+            <li>
+              <label>售价：</label>
+              <input type="text" name="catUnitPrice"/>
+            </li>
+            <li>
+              <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+              <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+            </li>
+          </ul>
         </div>
+      </form>
     </div>
-    <th:block th:include="include :: footer" />
-    <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('his:catalogue:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('his:catalogue:remove')}]];
-        var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
-        var catUnitDatas = [[${@dict.getType('drug_unit')}]];
-        var prefix = ctx + "his/catalogue";
 
-        $(function() {
-            var options = {
-                url: prefix + "/list",
-                createUrl: prefix + "/add",
-                updateUrl: prefix + "/edit/{id}",
-                removeUrl: prefix + "/remove",
-                exportUrl: prefix + "/export",
-                modalName: "药品目录",
-                columns: [{
-                    checkbox: true
-                },
+    <div class="btn-group-sm" id="toolbar" role="group">
+      <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="his:catalogue:add">
+        <i class="fa fa-plus"></i> 添加
+      </a>
+      <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="his:catalogue:edit">
+        <i class="fa fa-edit"></i> 修改
+      </a>
+      <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+         shiro:hasPermission="his:catalogue:remove">
+        <i class="fa fa-remove"></i> 删除
+      </a>
+      <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="his:catalogue:export">
+        <i class="fa fa-download"></i> 导出
+      </a>
+    </div>
+    <div class="col-sm-12 select-table table-striped">
+      <table id="bootstrap-table"></table>
+    </div>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('his:catalogue:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('his:catalogue:remove')}]];
+    var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
+    var catUnitDatas = [[${@dict.getType('drug_unit')}]];
+    var prefix = ctx + "his/catalogue";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "药品目录",
+            columns: [{
+                checkbox: true
+            },
                 {
                     field: 'catId',
                     title: '药品ID',
@@ -110,23 +103,25 @@
                 },
                 {
                     field: 'catApprovalNumber',
-                    title: '批准文号'
+                    title: '批准文号',
+                    visible: false
                 },
                 {
                     field: 'catDrugNum',
-                    title: '药品编号'
+                    title: '药品编号',
+                    visible: false
                 },
                 {
                     field: 'catName',
-                    title: '通用名或商品名'
+                    title: '药品名'
                 },
                 {
                     field: 'catEnglishName',
-                    title: '英文名称'
+                    title: '英文名'
                 },
                 {
                     field: 'catProducer',
-                    title: '生产单位'
+                    title: '生产商'
                 },
                 {
                     field: 'catSpecs',
@@ -135,8 +130,8 @@
                 {
                     field: 'catDosageForm',
                     title: '剂型',
-                    formatter: function(value, row, index) {
-                       return $.table.selectDictLabel(catDosageFormDatas, value);
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(catDosageFormDatas, value);
                     }
                 },
                 {
@@ -146,27 +141,28 @@
                 {
                     field: 'catUnit',
                     title: '单位',
-                    formatter: function(value, row, index) {
-                       return $.table.selectDictLabel(catUnitDatas, value);
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(catUnitDatas, value);
                     }
                 },
                 {
                     field: 'catUnitPrice',
-                    title: '销售单价'
+                    title: '售价（元）'
                 },
                 {
                     title: '操作',
                     align: 'center',
-                    formatter: function(value, row, index) {
+                    visible: false,
+                    formatter: function (value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.catId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.catId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
                 }]
-            };
-            $.table.init(options);
-        });
-    </script>
+        };
+        $.table.init(options);
+    });
+</script>
 </body>
 </html>

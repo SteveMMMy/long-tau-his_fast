@@ -2,6 +2,7 @@ package com.ruoyi.project.his.catalogue.mapper;
 
 import java.util.List;
 import com.ruoyi.project.his.catalogue.domain.HisDrugCatalogue;
+import com.ruoyi.project.his.catalogue.domain.HisInventory;
 
 /**
  * 药品目录Mapper接口
@@ -58,4 +59,29 @@ public interface HisDrugCatalogueMapper
      * @return 结果
      */
     public int deleteHisDrugCatalogueByCatIds(String[] catIds);
+
+    /**
+     * 批量删除库存信息
+     * 
+     * @param catIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteHisInventoryByCatIds(String[] catIds);
+    
+    /**
+     * 批量新增库存信息
+     * 
+     * @param hisInventoryList 库存信息列表
+     * @return 结果
+     */
+    public int batchHisInventory(List<HisInventory> hisInventoryList);
+    
+
+    /**
+     * 通过药品目录主键删除库存信息信息
+     * 
+     * @param catId 药品目录ID
+     * @return 结果
+     */
+    public int deleteHisInventoryByCatId(Long catId);
 }

@@ -18,6 +18,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="catUnitPrice"    column="cat_unit_price"    />
     </resultMap>
 
+    <resultMap id="HisDrugCatalogueHisInventoryResult" type="HisDrugCatalogue" extends="HisDrugCatalogueResult">
+        <collection property="hisInventoryList" notNullColumn="sub_inv_id" javaType="java.util.List" resultMap="HisInventoryResult" />
+    </resultMap>
+
+    <resultMap type="HisInventory" id="HisInventoryResult">
+        <result property="invId"    column="sub_inv_id"    />
+        <result property="catId"    column="sub_cat_id"    />
+        <result property="invBatchNumber"    column="sub_inv_batch_number"    />
+        <result property="invNumber"    column="sub_inv_number"    />
+        <result property="invUnitPrice"    column="sub_inv_unit_price"    />
+        <result property="invProdDate"    column="sub_inv_prod_date"    />
+        <result property="invValidTo"    column="sub_inv_valid_to"    />
+    </resultMap>
+
     <sql id="selectHisDrugCatalogueVo">
         select cat_id, cat_approval_number, cat_drug_num, cat_name, cat_English_name, cat_producer, cat_specs, cat_dosage_form, cat_package, cat_unit, cat_unit_price from his_drug_catalogue
     </sql>
@@ -38,9 +52,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectHisDrugCatalogueByCatId" parameterType="Long" resultMap="HisDrugCatalogueResult">
-        <include refid="selectHisDrugCatalogueVo"/>
-        where cat_id = #{catId}
+    <select id="selectHisDrugCatalogueByCatId" parameterType="Long" resultMap="HisDrugCatalogueHisInventoryResult">
+        select a.cat_id, a.cat_approval_number, a.cat_drug_num, a.cat_name, a.cat_English_name, a.cat_producer, a.cat_specs, a.cat_dosage_form, a.cat_package, a.cat_unit, a.cat_unit_price,
+ b.inv_id as sub_inv_id, b.cat_id as sub_cat_id, b.inv_batch_number as sub_inv_batch_number, b.inv_number as sub_inv_number, b.inv_unit_price as sub_inv_unit_price, b.inv_prod_date as sub_inv_prod_date, b.inv_valid_to as sub_inv_valid_to
+        from his_drug_catalogue a
+        left join his_inventory b on b.cat_id = a.cat_id
+        where a.cat_id = #{catId}
     </select>
         
     <insert id="insertHisDrugCatalogue" parameterType="HisDrugCatalogue" useGeneratedKeys="true" keyProperty="catId">
@@ -98,5 +115,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{catId}
         </foreach>
     </delete>
+    
+    <delete id="deleteHisInventoryByCatIds" parameterType="String">
+        delete from his_inventory where cat_id in 
+        <foreach item="catId" collection="array" open="(" separator="," close=")">
+            #{catId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHisInventoryByCatId" parameterType="Long">
+        delete from his_inventory where cat_id = #{catId}
+    </delete>
+
+    <insert id="batchHisInventory">
+        insert into his_inventory( inv_id, cat_id, inv_batch_number, inv_number, inv_unit_price, inv_prod_date, inv_valid_to) values
+		<foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.invId}, #{item.catId}, #{item.invBatchNumber}, #{item.invNumber}, #{item.invUnitPrice}, #{item.invProdDate}, #{item.invValidTo})
+        </foreach>
+    </insert>
 
 </mapper>

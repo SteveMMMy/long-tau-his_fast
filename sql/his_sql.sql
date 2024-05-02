@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2024/5/1 10:50:52                            */
+/* Created on:     2024/5/1 22:16:20                            */
 /*==============================================================*/
 
 
@@ -22,7 +22,7 @@ drop table if exists his_procurement_plans;
 
 drop table if exists his_procurement_schedules;
 
-drop table if exists his_purchaseOrders;
+drop table if exists his_purchase_orders;
 
 drop table if exists his_registers;
 
@@ -62,7 +62,7 @@ create table his_drug_catalogue
    cat_dosage_form      smallint comment '剂型',
    cat_package          varchar(256) comment '包装',
    cat_unit             smallint comment '单位',
-   cat_unit_price       int comment '销售单价',
+   cat_unit_price       bigint comment '销售单价',
    primary key (cat_id)
 );
 
@@ -162,6 +162,9 @@ create table his_procurement_plans
    pur_id               bigint comment '采购单ID',
    prcp_doc_num         char(20) comment '采购计划单据号',
    prcp_date            date not null comment '制单日期',
+   prcp_pur_date        date comment '预计采购日期',
+   prcp_arv_date        date comment '最迟到货日期',
+   prcp_status          smallint not null comment '计划单状态',
    primary key (prcp_id)
 );
 
@@ -177,17 +180,15 @@ create table his_procurement_schedules
    cat_id               bigint not null comment '药品ID',
    psch_price           bigint not null comment '参考单价',
    psch_number          bigint not null comment '采购数量',
-   psch_pur_date        date comment '预计采购日期',
-   psch_arv_date        date comment '最迟到货日期',
    primary key (psch_id)
 );
 
 alter table his_procurement_schedules comment '采购计划明细表';
 
 /*==============================================================*/
-/* Table: his_purchaseOrders                                    */
+/* Table: his_purchase_orders                                   */
 /*==============================================================*/
-create table his_purchaseOrders
+create table his_purchase_orders
 (
    pur_id               bigint not null auto_increment comment '采购单ID',
    spl_id               bigint not null comment '供应商编号',
@@ -196,10 +197,11 @@ create table his_purchaseOrders
    pur_date             date not null comment '订单日期',
    pur_arr_date         date comment '计划到货日期',
    pur_pay_date         date comment '预计付款日期',
+   pur_status           smallint not null comment '采购单状态',
    primary key (pur_id)
 );
 
-alter table his_purchaseOrders comment '采购订单表';
+alter table his_purchase_orders comment '采购订单表';
 
 /*==============================================================*/
 /* Table: his_registers                                         */
@@ -239,7 +241,7 @@ alter table his_inventory add constraint FK_Relationship_26 foreign key (cat_id)
       references his_drug_catalogue (cat_id) on delete restrict on update restrict;
 
 alter table his_orders_schedules add constraint FK_Relationship_11 foreign key (pur_id)
-      references his_purchaseOrders (pur_id) on delete restrict on update restrict;
+      references his_purchase_orders (pur_id) on delete restrict on update restrict;
 
 alter table his_orders_schedules add constraint FK_Relationship_19 foreign key (cat_id)
       references his_drug_catalogue (cat_id) on delete restrict on update restrict;
@@ -254,7 +256,7 @@ alter table his_prescriptions_schedules add constraint FK_Relationship_3 foreign
       references his_prescriptions (prsc_id) on delete restrict on update restrict;
 
 alter table his_procurement_plans add constraint FK_Relationship_28 foreign key (pur_id)
-      references his_purchaseOrders (pur_id) on delete restrict on update restrict;
+      references his_purchase_orders (pur_id) on delete restrict on update restrict;
 
 alter table his_procurement_schedules add constraint FK_Relationship_24 foreign key (prcp_id)
       references his_procurement_plans (prcp_id) on delete restrict on update restrict;
@@ -262,7 +264,7 @@ alter table his_procurement_schedules add constraint FK_Relationship_24 foreign 
 alter table his_procurement_schedules add constraint FK_Relationship_25 foreign key (cat_id)
       references his_drug_catalogue (cat_id) on delete restrict on update restrict;
 
-alter table his_purchaseOrders add constraint FK_Relationship_13 foreign key (spl_id)
+alter table his_purchase_orders add constraint FK_Relationship_13 foreign key (spl_id)
       references his_suppliers (spl_id) on delete restrict on update restrict;
 
 alter table his_registers add constraint FK_Relationship_20 foreign key (patient_id)

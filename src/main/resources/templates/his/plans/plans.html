@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+  <th:block th:include="include :: header('采购计划单列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+  <div class="row">
+    <div class="col-sm-12 search-collapse">
+      <form id="formId">
+        <div class="select-list">
+          <ul>
+            <li>
+              <label>单据号：</label>
+              <input type="text" name="prcpDocNum"/>
+            </li>
+            <li>
+              <label>制单日期：</label>
+              <input type="text" class="time-input" placeholder="请选择制单日期" name="prcpDate"/>
+            </li>
+            <li>
+              <label>预计采购日期：</label>
+              <input type="text" class="time-input" placeholder="请选择预计采购日期" name="prcpPurDate"/>
+            </li>
+            <li>
+              <label>最迟到货日期：</label>
+              <input type="text" class="time-input" placeholder="请选择最迟到货日期" name="prcpArvDate"/>
+            </li>
+            <li>
+              <label>制单人ID：</label>
+              <input type="text" name="userId"/>
+            </li>
+            <li>
+              <label>状态：</label>
+              <select name="prcpStatus" th:with="type=${@dict.getType('doc_plans_status')}">
+                <option value="">所有</option>
+                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+              </select>
+            </li>
+            <li>
+              <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+              <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+
+    <div class="btn-group-sm" id="toolbar" role="group">
+      <a class="btn btn-success" onclick="$.operate.addTab()" shiro:hasPermission="his:plans:add">
+        <i class="fa fa-plus"></i> 制定采购计划单
+      </a>
+      <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="his:plans:edit">
+        <i class="fa fa-edit"></i> 修改
+      </a>
+      <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+         shiro:hasPermission="his:plans:remove">
+        <i class="fa fa-remove"></i> 删除
+      </a>
+      <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="his:plans:export">
+        <i class="fa fa-download"></i> 导出
+      </a>
+    </div>
+    <div class="col-sm-12 select-table table-striped">
+      <table id="bootstrap-table"></table>
+    </div>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('his:plans:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('his:plans:remove')}]];
+    var prcpStatusDatas = [[${@dict.getType('doc_plans_status')}]];
+    var prefix = ctx + "his/plans";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "采购计划单",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'prcpId',
+                    title: '采购计划表ID',
+                    visible: false
+                },
+                {
+                    field: 'purId',
+                    title: '采购单ID',
+                    visible: false
+                },
+                {
+                    field: 'prcpDocNum',
+                    title: '采购计划单据号'
+                },
+                {
+                    field: 'prcpDate',
+                    title: '制单日期'
+                },
+                {
+                    field: 'prcpPurDate',
+                    title: '预计采购日期'
+                },
+                {
+                    field: 'prcpArvDate',
+                    title: '最迟到货日期'
+                },
+                {
+                    field: 'userId',
+                    title: '制单人ID'
+                },
+                {
+                    field: 'prcpStatus',
+                    title: '计划单状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prcpStatusDatas, value);
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.prcpId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.prcpId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>
