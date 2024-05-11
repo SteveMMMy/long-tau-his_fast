@@ -3,7 +3,12 @@
 <head>
   <th:block th:include="include :: header('制定采购计划单')"/>
   <th:block th:include="include :: datetimepicker-css"/>
-<!--  <th:block th:include="include :: bootstrap-editable-css"/>-->
+  <style>
+      .bootstrap-table .fixed-table-container .fixed-table-body {
+          overflow: inherit !important;
+          height: auto !important;
+      }
+  </style>
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content ibox-content">
@@ -12,6 +17,12 @@
       <label class="col-sm-4 control-label">单据号：</label>
       <div class="col-sm-8">
         <input name="prcpDocNum" class="form-control" type="text">
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label">制单人：</label>
+      <div class="col-sm-8">
+        <input th:value="${@permission.getPrincipalProperty('userName')}" class="form-control" readonly>
       </div>
     </div>
     <div class="form-group col-sm-6">
@@ -41,8 +52,8 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label is-required">计划单状态：</label>
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label is-required">计划单状态：</label>
       <div class="col-sm-8">
         <div class="radio-box" th:each="dict : ${@dict.getType('doc_plans_status')}">
           <input type="radio" th:id="${'prcpStatus_' + dict.dictCode}" name="prcpStatus" th:value="${dict.dictValue}"
@@ -52,14 +63,19 @@
       </div>
     </div>
 
-    <h4 class="form-header h4">采购计划明细</h4>
+    <!--<h4 class="form-header h4">采购计划明细</h4>-->
     <div class="row">
       <div class="col-sm-12">
-        <button type="button" class="btn btn-success btn-sm" onclick="addRow()"><i class="fa fa-plus"> 增加</i></button>
-        <button type="button" class="btn btn-danger btn-sm" onclick="sub.delRow()"><i class="fa fa-minus"> 删除</i>
-        </button>
-        <div class="col-sm-12 select-table table-striped">
-          <table id="bootstrap-table"></table>
+        <div id="toolbar">
+          <button type="button" class="btn btn-success btn-sm" onclick="addRow()">
+            <i class="fa fa-plus"> 增加</i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" onclick="sub.delRow()">
+            <i class="fa fa-minus"> 删除</i>
+          </button>
+        </div>
+        <div class="col-sm-12">
+          <table id="bootstrap-table" data-resizable="true"></table>
         </div>
       </div>
     </div>
@@ -76,141 +92,11 @@
 </div>
 <th:block th:include="include :: footer"/>
 <th:block th:include="include :: datetimepicker-js"/>
-<!--<th:block th:include="include :: bootstrap-table-editable-js"/>-->
-<!--<th:block th:include="include :: bootstrap-typeahead-js"/>-->
 <th:block th:include="include :: bootstrap-suggest-js"/>
+<th:block th:include="include :: bootstrap-table-resizable-js"/>
 <script th:inline="javascript">
 
-    let testdata = {
-        value: [
-            {
-                "catName": "淳芸",
-                "catEnglishName": "chunyun",
-                "catId": 20001
-            }, {
-                "catName": "orion-01",
-                "catEnglishName": "orion-01",
-                "catId": 20000
-            }, {
-                "catName": "唐宏禹14",
-                "catEnglishName": "TANGHONGYU",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹13",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "穆晓晨",
-                "catEnglishName": "mUXIAOCHEN",
-                "catId": 20002
-            }, {
-                "catName": "张欢引",
-                "catEnglishName": "zhanghuanyin",
-                "catId": 20003
-            }, {
-                "catName": "吴琼",
-                "catEnglishName": "wuqiong",
-                "catId": 20004
-            }, {
-                "catName": "吴东鹏",
-                "catEnglishName": "wudongpeng",
-                "catId": 20005
-            }, {
-                "catName": "黄少铅",
-                "catEnglishName": "huangshaoqian",
-                "catId": 20006
-            }, {
-                "catName": "胡运燕",
-                "catEnglishName": "yunyan",
-                "catId": 20007
-            }, {
-                "catName": "刘幸",
-                "catEnglishName": "liuxing",
-                "catId": 20008
-            }, {
-                "catName": "陈媛媛",
-                "catEnglishName": "CHENYUANYUAN",
-                "catId": 20009
-            }, {
-                "catName": "李大鹏",
-                "catEnglishName": "dapeng",
-                "catId": 20010
-            }, {
-                "catName": "唐宏禹",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "旷东林",
-                "catEnglishName": "kuangdonglin",
-                "catId": 20010
-            }, {
-                "catName": "唐宏禹15",
-                "catEnglishName": "TANGhongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹12",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹11",
-                "catEnglishName": "TangHongYu",
-                "catId": 20011
-            }, {
-                "catName": "旷东林",
-                "catEnglishName": "kuangdonglin",
-                "catId": 20010
-            }, {
-                "catName": "唐宏禹10",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹9",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹8",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹7",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "旷东林",
-                "catEnglishName": "kuangdonglin",
-                "catId": 20010
-            }, {
-                "catName": "唐宏禹6",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹5",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹4",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹3",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹2",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }, {
-                "catName": "唐宏禹1",
-                "catEnglishName": "tanghongyu",
-                "catId": 20011
-            }
-        ]
-    }
-
+    let catData = {}; // 药品信息
     const docPrefix = "CGJH-";  // 单据号前缀
     var prefix = ctx + "his/plans"
     var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
@@ -222,26 +108,34 @@
 
     function submitHandler() {
         if ($.validate.form()) {
-            $.operate.save(prefix + "/add", $('#form-plans-add').serialize());
+            $.operate.save(prefix + "/add", $('#form-plans-add').serialize(), function(result) {
+                location.reload();
+            });
         }
     }
 
     $("input[name='prcpDate']").datetimepicker({
         format: "yyyy-mm-dd",
         minView: "month",
-        autoclose: true
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
     });
 
     $("input[name='prcpPurDate']").datetimepicker({
         format: "yyyy-mm-dd",
         minView: "month",
-        autoclose: true
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
     });
 
     $("input[name='prcpArvDate']").datetimepicker({
         format: "yyyy-mm-dd",
         minView: "month",
-        autoclose: true
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
     });
 
     $(function () {
@@ -257,22 +151,11 @@
             },
                 {
                     field: 'index',
-                    align: 'left',
-                    title: "序号",
+                    align: 'center',
+                    // title: "序号",
                     formatter: function (value, row, index) {
                         var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
                         return columnIndex + $.table.serialNumber(index);
-                    }
-                },
-                {
-                    field: 'catId',
-                    align: 'left',
-                    title: '药品ID',
-                    visible: false,
-                    formatter: function (value, row, index) {
-                        return $.common.sprintf(
-                            "<input class='form-control' type='text' name='hisProcurementSchedulesList[%s].catId' value='%s'>",
-                            index, value);
                     }
                 },
                 {
@@ -289,51 +172,100 @@
                     field: 'catName',
                     align: 'left',
                     title: '药品名',
+                    width: '180%',
                     formatter: function (value, row, index) {
-                        return $.common.sprintf('<input type="text" class="form-control medicine-suggest" ' +
-                            'name="hisProcurementSchedulesList[%s].catName" value="%s">' +
-                            '<div class="input-group-btn">' +
-                            '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
-                            '<span class="caret"></span>' +
-                            '</button>' +
-                            '<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-                            '</ul></div>', index, value);
+                        return $.common.sprintf(
+                            '<div class="row">' +
+                            '  <div class="col-sm-12">' +
+                            '    <div class="input-group">' +
+                            '      <input type="text" class="form-control medicine-suggest" placeholder="选择药品" ' +
+                            '             name="hisProcurementSchedulesList[%s].catName" value="%s">' +
+                            // '      <div class="input-group-btn">' +
+                            // '        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
+                            // '          <span class="caret"></span>' +
+                            // '        </button>' +
+                            '        <ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                            '        </ul>' +
+                            // '      </div>' +
+                            '    </div>' +
+                            '  </div>' +
+                            '</div>', index, value);
+                    }
+                },
+                {
+                    field: 'catId',
+                    align: 'left',
+                    title: 'ID',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catId' value='%s'>",
+                            index, value);
                     }
                 },
                 {
                     field: 'catEnglishName',
-                    title: '英文名'
+                    title: '英文名',
+                    width: '180%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catEnglishName' value='%s'>",
+                            index, value);
+                    }
                 },
                 {
                     field: 'catProducer',
-                    title: '生产商'
+                    title: '生产商',
+                    visible: false
                 },
                 {
                     field: 'catSpecs',
-                    title: '规格'
+                    title: '规格',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catSpecs' value='%s'>",
+                            index, value);
+                    }
                 },
                 {
-                    field: 'catDosageForm',
+                    field: 'catDosageFormLabel',
                     title: '剂型',
                     formatter: function (value, row, index) {
-                        return $.table.selectDictLabel(catDosageFormDatas, value);
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catDosageFormLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catDosageFormDatas, value)));
                     }
                 },
                 {
                     field: 'catPackage',
-                    title: '包装'
+                    title: '包装',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catPackage' value='%s'>",
+                            index, value);
+                    }
                 },
                 {
-                    field: 'catUnit',
+                    field: 'catUnitLabel',
                     title: '单位',
+                    width: '50%',
                     formatter: function (value, row, index) {
-                        return $.table.selectDictLabel(catUnitDatas, value);
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catUnitLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catUnitDatas, value)));
                     }
                 },
                 {
                     field: 'pschPrice',
                     align: 'left',
                     title: '参考单价',
+                    width: '50%',
                     formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisProcurementSchedulesList[%s].pschPrice' value='%s'>", index, value);
                         return html;
@@ -343,6 +275,7 @@
                     field: 'pschNumber',
                     align: 'left',
                     title: '采购数量',
+                    width: '50%',
                     formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisProcurementSchedulesList[%s].pschNumber' value='%s'>", index, value);
                         return html;
@@ -358,6 +291,24 @@
                 }]
         };
         $.table.init(options);
+
+        // 获取药品数据
+        $.ajax({
+            url: ctx + 'his/catalogue/search_list',
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                catData = {"value": response};
+                catData.value.forEach(function (drug) {
+                    // 给数据增加字典标签字段
+                    drug.catDosageFormLabel = $.table.selectDictLabel(catDosageFormDatas, drug.catDosageForm);
+                    drug.catUnitLabel = $.table.selectDictLabel(catUnitDatas, drug.catUnit)
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
 
         // 设置制单日期为当前日期
         const today = new Date().toISOString().slice(0, 10); // 获取当前日期，格式为"YYYY-MM-DD"
@@ -376,8 +327,6 @@
                 $(this).val(inputVal.slice(0, 14)); // 截取前14个字符
             }
         });
-
-        $.fn.editable.defaults.mode = 'popup';
     });
 
     function addRow() {
@@ -391,40 +340,90 @@
             catEnglishName: "",
             catProducer: "",
             catSpecs: "",
-            catDosageForm: "",
+            catDosageFormLabel: "",
             catPackage: "",
-            catUnit: "",
+            catUnitLabel: "",
             pschPrice: "",
             pschNumber: "",
         }
         sub.addRow(row);
 
-        // 假设你的bootstrap-table已经初始化完成
         // 初始化bootstrap-suggest
-        $('.medicine-suggest').each(function() {
-            var $input = $(this);
-            var rowIndex = $input.attr('name').match(/hisProcurementSchedulesList\[(\d+)\]\.catName/)[1]; // 提取行索引
+        $('.medicine-suggest').each(function () {
+            let $input = $(this);
+            let rowIndex = $input.attr('name').match(/hisProcurementSchedulesList\[(\d+)\]\.catName/)[1]; // 提取行索引
 
-            // 初始化bootstrap-suggest，假设你有一个后端API /api/medicine/suggest 来提供搜索建议
             $input.bsSuggest({
-                data: testdata,
+                // url: '/his/catalogue/get_list',
+                data: catData,
                 dataType: 'json', // 根据你的API返回的数据类型来设置
-                effect: 'slide', // 动画效果，可选
                 showHeader: true, // 是否显示头部
-                searchFields: ['medicineName'], // 后端返回的数据中用于搜索的字段名
-                valueField: 'id', // 选中后返回给输入框的值字段名
-                textField: 'medicineName', // 下拉列表中显示的字段名
-                // 其他配置项...
+                effectiveFields: [
+                    "catName",
+                    "catEnglishName",
+                    "catSpecs",
+                    "catDosageFormLabel",
+                    "catPackage",
+                    "catUnitLabel"
+                ],
+                idField: 'catId',
+                keyField: 'catName',
+                effectiveFieldsAlias: {
+                    catName: "药品名",
+                    catEnglishName: "英文名",
+                    catSpecs: "规格",
+                    catDosageFormLabel: "剂型",
+                    catPackage: "包装",
+                    catUnitLabel: "单位"
+                },
+                ignorecase: true,
+                autoDropup: true,
+                getDataMethod: 'data',
+                hideOnSelect: true,
+                showBtn: false,
+                clearable: true
+            }).on('onSetSelectValue', function (e, selectedData, selectedRawData) {
+                // 选择一条数据时自动填写其他字段
+                const $tr = $input.closest('tr'); // 找到当前行
 
-                // 选中后的回调函数，可以根据需要修改行中的其他字段，如药品ID
-                onSetSelectValue: function (suggest, data) {
-                    // 假设药品ID是data.id，你可以根据这个ID来更新行中的其他字段
-                    var $tr = $input.closest('tr'); // 找到当前行
-                    var catIdInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catId"]'); // 找到药品ID输入框
-                    catIdInput.val(data.id); // 设置药品ID
-                }
+                // 填充药品ID
+                const $catIdInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catId"]'); // 找到药品ID输入框
+                $catIdInput.val(selectedData.id); // 设置药品ID
+
+                // 填充英文名
+                const $catEnglishNameInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catEnglishName"]');
+                $catEnglishNameInput.val(selectedRawData.catEnglishName);
+
+                // 填充规格
+                const $catSpecsInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catSpecs"]');
+                $catSpecsInput.val(selectedRawData.catSpecs);
+
+                // 填充剂型
+                const $catDosageFormInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catDosageFormLabel"]');
+                $catDosageFormInput.val(stripHtmlTagsDOMParser(
+                    $.table.selectDictLabel(catDosageFormDatas, selectedRawData.catDosageForm)
+                ));
+
+                // 填充包装
+                const $catPackageInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catPackage"]');
+                $catPackageInput.val(selectedRawData.catPackage);
+
+                // 填充单位
+                const $catUnitInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catUnitLabel"]');
+                $catUnitInput.val(stripHtmlTagsDOMParser(
+                    $.table.selectDictLabel(catUnitDatas, selectedRawData.catUnit)
+                ));
+            }).on('onHideDropdown', function (e, data) {
+                console.log('onHideDropdown', e.target.value, data);
             });
         });
+    }
+
+    // 去除 $.table.selectDictLabel 函数返回值两边的 html 标签
+    function stripHtmlTagsDOMParser(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        return doc.body.textContent || doc.body.innerText || "";
     }
 </script>
 </body>

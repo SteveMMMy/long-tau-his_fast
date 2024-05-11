@@ -10,7 +10,7 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 采购计划单对象 his_procurement_plans
- * 
+ *
  * @author SteveMMMy
  * @date 2024-05-01
  */
@@ -24,6 +24,10 @@ public class HisProcurementPlans extends BaseEntity
     /** 用户ID */
     @Excel(name = "用户ID")
     private Long userId;
+
+    /** 用户名 */
+    @Excel(name = "用户名")
+    private String userName;
 
     /** 采购单ID */
     @Excel(name = "采购单ID")
@@ -73,6 +77,15 @@ public class HisProcurementPlans extends BaseEntity
     {
         return userId;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public void setPurId(Long purId)
     {
         this.purId = purId;
@@ -140,16 +153,17 @@ public class HisProcurementPlans extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("prcpId", getPrcpId())
-            .append("userId", getUserId())
-            .append("purId", getPurId())
-            .append("prcpDocNum", getPrcpDocNum())
-            .append("prcpDate", getPrcpDate())
-            .append("prcpPurDate", getPrcpPurDate())
-            .append("prcpArvDate", getPrcpArvDate())
-            .append("prcpStatus", getPrcpStatus())
-            .append("hisProcurementSchedulesList", getHisProcurementSchedulesList())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("prcpId", getPrcpId())
+                .append("userId", getUserId())
+                .append("userName", getUserName())
+                .append("purId", getPurId())
+                .append("prcpDocNum", getPrcpDocNum())
+                .append("prcpDate", getPrcpDate())
+                .append("prcpPurDate", getPrcpPurDate())
+                .append("prcpArvDate", getPrcpArvDate())
+                .append("prcpStatus", getPrcpStatus())
+                .append("hisProcurementSchedulesList", getHisProcurementSchedulesList())
+                .toString();
     }
 }

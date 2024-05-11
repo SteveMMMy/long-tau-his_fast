@@ -1,6 +1,9 @@
 package com.ruoyi.project.his.plans.controller;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.security.ShiroUtils;
+import com.ruoyi.project.system.user.domain.User;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,6 +89,9 @@ public class HisProcurementPlansController extends BaseController
     @ResponseBody
     public AjaxResult addSave(HisProcurementPlans hisProcurementPlans)
     {
+        // 获取当前用户ID
+        hisProcurementPlans.setUserId(ShiroUtils.getSysUser().getUserId());
+
         return toAjax(hisProcurementPlansService.insertHisProcurementPlans(hisProcurementPlans));
     }
 
@@ -97,6 +103,7 @@ public class HisProcurementPlansController extends BaseController
     public String edit(@PathVariable("prcpId") Long prcpId, ModelMap mmap)
     {
         HisProcurementPlans hisProcurementPlans = hisProcurementPlansService.selectHisProcurementPlansByPrcpId(prcpId);
+        hisProcurementPlans.setPrcpId(prcpId);
         mmap.put("hisProcurementPlans", hisProcurementPlans);
         return prefix + "/edit";
     }

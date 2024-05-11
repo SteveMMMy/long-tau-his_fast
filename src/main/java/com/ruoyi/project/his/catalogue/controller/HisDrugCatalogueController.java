@@ -3,6 +3,7 @@ package com.ruoyi.project.his.catalogue.controller;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,17 @@ public class HisDrugCatalogueController extends BaseController
         startPage();
         List<HisDrugCatalogue> list = hisDrugCatalogueService.selectHisDrugCatalogueList(hisDrugCatalogue);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询药品目录列表（返回数据）
+     */
+    @PostMapping("/search_list")
+    public ResponseEntity<List<HisDrugCatalogue>> searchList() {
+        HisDrugCatalogue hisDrugCatalogue = new HisDrugCatalogue();
+        List<HisDrugCatalogue> list = hisDrugCatalogueService.selectHisDrugCatalogueList(hisDrugCatalogue);
+
+        return ResponseEntity.ok(list);
     }
 
     /**
