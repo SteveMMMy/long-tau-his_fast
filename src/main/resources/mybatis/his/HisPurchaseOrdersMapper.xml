@@ -1,56 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.project.his.purchase.mapper.HisPurchaseOrdersMapper">
-    
+
     <resultMap type="HisPurchaseOrders" id="HisPurchaseOrdersResult">
-        <result property="purId"    column="pur_id"    />
-        <result property="splId"    column="spl_id"    />
-        <result property="userId"    column="user_id"    />
-        <result property="purDocNum"    column="pur_doc_num"    />
-        <result property="purDate"    column="pur_date"    />
-        <result property="purArrDate"    column="pur_arr_date"    />
-        <result property="purPayDate"    column="pur_pay_date"    />
-        <result property="purStatus"    column="pur_status"    />
+        <result property="purId" column="pur_id"/>
+        <result property="splId" column="spl_id"/>
+        <result property="splName" column="spl_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="purDocNum" column="pur_doc_num"/>
+        <result property="purDate" column="pur_date"/>
+        <result property="purArrDate" column="pur_arr_date"/>
+        <result property="purPayDate" column="pur_pay_date"/>
+        <result property="purStatus" column="pur_status"/>
     </resultMap>
 
-    <resultMap id="HisPurchaseOrdersHisOrdersSchedulesResult" type="HisPurchaseOrders" extends="HisPurchaseOrdersResult">
-        <collection property="hisOrdersSchedulesList" notNullColumn="sub_order_sch_id" javaType="java.util.List" resultMap="HisOrdersSchedulesResult" />
+    <resultMap id="HisPurchaseOrdersHisOrdersSchedulesResult" type="HisPurchaseOrders"
+               extends="HisPurchaseOrdersResult">
+        <collection property="hisOrdersSchedulesList" notNullColumn="sub_order_sch_id" javaType="java.util.List"
+                    resultMap="HisOrdersSchedulesResult"/>
     </resultMap>
 
     <resultMap type="HisOrdersSchedules" id="HisOrdersSchedulesResult">
-        <result property="orderSchId"    column="sub_order_sch_id"    />
-        <result property="purId"    column="sub_pur_id"    />
-        <result property="catId"    column="sub_cat_id"    />
-        <result property="orderSchNumber"    column="sub_order_sch_number"    />
+        <result property="orderSchId" column="sub_order_sch_id"/>
+        <result property="purId" column="sub_pur_id"/>
+        <result property="catId" column="sub_cat_id"/>
+        <result property="orderSchNumber" column="sub_order_sch_number"/>
+        <result property="orderSchPrice" column="sub_order_sch_price"/>
     </resultMap>
 
     <sql id="selectHisPurchaseOrdersVo">
-        select pur_id, spl_id, user_id, pur_doc_num, pur_date, pur_arr_date, pur_pay_date, pur_status from his_purchase_orders
+        select pur_id,
+               spl_id,
+               user_id,
+               pur_doc_num,
+               pur_date,
+               pur_arr_date,
+               pur_pay_date,
+               pur_status
+        from his_purchase_orders
     </sql>
 
     <select id="selectHisPurchaseOrdersList" parameterType="HisPurchaseOrders" resultMap="HisPurchaseOrdersResult">
-        <include refid="selectHisPurchaseOrdersVo"/>
-        <where>  
-            <if test="splId != null "> and spl_id = #{splId}</if>
-            <if test="userId != null "> and user_id = #{userId}</if>
-            <if test="purDocNum != null  and purDocNum != ''"> and pur_doc_num = #{purDocNum}</if>
-            <if test="purDate != null "> and pur_date = #{purDate}</if>
-            <if test="purArrDate != null "> and pur_arr_date = #{purArrDate}</if>
-            <if test="purPayDate != null "> and pur_pay_date = #{purPayDate}</if>
-            <if test="purStatus != null "> and pur_status = #{purStatus}</if>
+        select
+        po.pur_id,
+        po.spl_id,
+        po.user_id,
+        po.pur_doc_num,
+        po.pur_date,
+        po.pur_arr_date,
+        po.pur_pay_date,
+        po.pur_status,
+        su.user_name,
+        s.spl_name
+        from his_purchase_orders po
+        left join sys_user su on po.user_id = su.user_id
+        left join his_suppliers s on po.spl_id = s.spl_id
+        <where>
+            <if test="splId != null ">and po.spl_id = #{splId}</if>
+            <if test="userId != null ">and po.user_id = #{userId}</if>
+            <if test="purDocNum != null  and purDocNum != ''">and pur_doc_num = #{purDocNum}</if>
+            <if test="purDate != null ">and pur_date = #{purDate}</if>
+            <if test="purArrDate != null ">and pur_arr_date = #{purArrDate}</if>
+            <if test="purPayDate != null ">and pur_pay_date = #{purPayDate}</if>
+            <if test="purStatus != null ">and pur_status = #{purStatus}</if>
         </where>
     </select>
-    
-    <select id="selectHisPurchaseOrdersByPurId" parameterType="Long" resultMap="HisPurchaseOrdersHisOrdersSchedulesResult">
-        select a.pur_id, a.spl_id, a.user_id, a.pur_doc_num, a.pur_date, a.pur_arr_date, a.pur_pay_date, a.pur_status,
- b.order_sch_id as sub_order_sch_id, b.pur_id as sub_pur_id, b.cat_id as sub_cat_id, b.order_sch_number as sub_order_sch_number
+
+    <select id="selectHisPurchaseOrdersByPurId" parameterType="Long"
+            resultMap="HisPurchaseOrdersHisOrdersSchedulesResult">
+        select a.pur_id,
+               a.spl_id,
+               a.user_id,
+               a.pur_doc_num,
+               a.pur_date,
+               a.pur_arr_date,
+               a.pur_pay_date,
+               a.pur_status,
+               b.order_sch_id     as sub_order_sch_id,
+               b.pur_id           as sub_pur_id,
+               b.cat_id           as sub_cat_id,
+               b.order_sch_number as sub_order_sch_number
         from his_purchase_orders a
-        left join his_orders_schedules b on b.pur_id = a.pur_id
+                 left join his_orders_schedules b on b.pur_id = a.pur_id
         where a.pur_id = #{purId}
     </select>
-        
+
     <insert id="insertHisPurchaseOrders" parameterType="HisPurchaseOrders" useGeneratedKeys="true" keyProperty="purId">
         insert into his_purchase_orders
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -61,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="purArrDate != null">pur_arr_date,</if>
             <if test="purPayDate != null">pur_pay_date,</if>
             <if test="purStatus != null">pur_status,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="splId != null">#{splId},</if>
             <if test="userId != null">#{userId},</if>
@@ -70,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="purArrDate != null">#{purArrDate},</if>
             <if test="purPayDate != null">#{purPayDate},</if>
             <if test="purStatus != null">#{purStatus},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateHisPurchaseOrders" parameterType="HisPurchaseOrders">
@@ -88,31 +125,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteHisPurchaseOrdersByPurId" parameterType="Long">
-        delete from his_purchase_orders where pur_id = #{purId}
+        delete
+        from his_purchase_orders
+        where pur_id = #{purId}
     </delete>
 
     <delete id="deleteHisPurchaseOrdersByPurIds" parameterType="String">
-        delete from his_purchase_orders where pur_id in 
+        delete from his_purchase_orders where pur_id in
         <foreach item="purId" collection="array" open="(" separator="," close=")">
             #{purId}
         </foreach>
     </delete>
-    
+
     <delete id="deleteHisOrdersSchedulesByPurIds" parameterType="String">
-        delete from his_orders_schedules where pur_id in 
+        delete from his_orders_schedules where pur_id in
         <foreach item="purId" collection="array" open="(" separator="," close=")">
             #{purId}
         </foreach>
     </delete>
 
     <delete id="deleteHisOrdersSchedulesByPurId" parameterType="Long">
-        delete from his_orders_schedules where pur_id = #{purId}
+        delete
+        from his_orders_schedules
+        where pur_id = #{purId}
     </delete>
 
     <insert id="batchHisOrdersSchedules">
-        insert into his_orders_schedules( order_sch_id, pur_id, cat_id, order_sch_number) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.orderSchId}, #{item.purId}, #{item.catId}, #{item.orderSchNumber})
+        insert into his_orders_schedules( order_sch_id, pur_id, cat_id, order_sch_number, order_sch_price) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.orderSchId}, #{item.purId}, #{item.catId}, #{item.orderSchNumber}, #{item.orderSchPrice})
         </foreach>
     </insert>
 

@@ -1,6 +1,8 @@
 package com.ruoyi.project.his.purchase.controller;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.security.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,11 @@ public class HisPurchaseOrdersController extends BaseController
     public String purchase()
     {
         return prefix + "/purchase";
+    }
+
+    @GetMapping("/select")
+    public String selectProcPlans() {
+        return prefix + "/select";
     }
 
     /**
@@ -86,6 +93,9 @@ public class HisPurchaseOrdersController extends BaseController
     @ResponseBody
     public AjaxResult addSave(HisPurchaseOrders hisPurchaseOrders)
     {
+        // 获取当前用户ID
+        hisPurchaseOrders.setUserId(ShiroUtils.getSysUser().getUserId());
+
         return toAjax(hisPurchaseOrdersService.insertHisPurchaseOrders(hisPurchaseOrders));
     }
 

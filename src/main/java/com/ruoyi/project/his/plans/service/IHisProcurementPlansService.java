@@ -44,6 +44,15 @@ public interface IHisProcurementPlansService
     public int updateHisProcurementPlans(HisProcurementPlans hisProcurementPlans);
 
     /**
+     * 修改采购计划单状态
+     *
+     * @param prcpId 采购计划单ID
+     * @param prcpStatus 采购计划单状态
+     * @return 结果
+     */
+    public int updateHisProcurementPlansStatus(Long prcpId, Long prcpStatus);
+
+    /**
      * 批量删除采购计划单
      * 
      * @param prcpIds 需要删除的采购计划单主键集合

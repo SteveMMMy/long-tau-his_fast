@@ -1,170 +1,538 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('新增采购订单')" />
-    <th:block th:include="include :: datetimepicker-css" />
+  <th:block th:include="include :: header('新增采购订单')"/>
+  <th:block th:include="include :: datetimepicker-css"/>
+  <style>
+      .suggest-group {
+          width: 66.66666666% !important;
+      }
+
+      .detail-icon {
+          visibility: hidden;
+      }
+  </style>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-purchase-add">
-            <h4 class="form-header h4">采购订单信息</h4>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">供应商编号：</label>
-                <div class="col-sm-8">
-                    <input name="splId" class="form-control" type="text" required>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">用户ID：</label>
-                <div class="col-sm-8">
-                    <input name="userId" class="form-control" type="text" required>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">采购单据号：</label>
-                <div class="col-sm-8">
-                    <input name="purDocNum" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">订单日期：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="purDate" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">计划到货日期：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="purArrDate" class="form-control" placeholder="yyyy-MM-dd" type="text">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">预计付款日期：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="purPayDate" class="form-control" placeholder="yyyy-MM-dd" type="text">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">采购单状态：</label>
-                <div class="col-sm-8">
-                    <div class="radio-box" th:each="dict : ${@dict.getType('doc_purchase_status')}">
-                        <input type="radio" th:id="${'purStatus_' + dict.dictCode}" name="purStatus" th:value="${dict.dictValue}" th:checked="${dict.default}" required>
-                        <label th:for="${'purStatus_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                    </div>
-                </div>
-            </div>
-            <h4 class="form-header h4">采购订单明细信息</h4>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-white btn-sm" onclick="addRow()"><i class="fa fa-plus"> 增加</i></button>
-                    <button type="button" class="btn btn-white btn-sm" onclick="sub.delRow()"><i class="fa fa-minus"> 删除</i></button>
-                    <div class="col-sm-12 select-table table-striped">
-                        <table id="bootstrap-table"></table>
-                    </div>
-                </div>
-            </div>
-        </form>
+<div class="wrapper wrapper-content ibox-content">
+  <form class="form-horizontal m" id="form-purchase-add">
+    <h4 class="form-header h4">新增采购订单</h4>
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label">采购单据号：</label>
+      <div class="col-sm-8">
+        <input class="form-control" name="purDocNum" type="text">
+      </div>
     </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: datetimepicker-js" />
-    <script th:inline="javascript">
-        var prefix = ctx + "his/purchase"
-        $("#form-purchase-add").validate({
-            focusCleanup: true
-        });
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label">制单人：</label>
+      <div class="col-sm-8">
+        <input class="form-control" readonly th:value="${@permission.getPrincipalProperty('userName')}">
+      </div>
+    </div>
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/add", $('#form-purchase-add').serialize());
+    <input class="form-control" name="splId" required type="hidden">
+
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label is-required">供应商：</label>
+      <div class="col-sm-8 input-group-sm suggest-group">
+        <input class="form-control suppliers-suggest" name="splName" placeholder="选择供应商" required type="text">
+        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label is-required">制单日期：</label>
+      <div class="col-sm-8">
+        <div class="input-group date">
+          <input class="form-control" name="purDate" placeholder="yyyy-MM-dd" required type="text">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label">计划到货日期：</label>
+      <div class="col-sm-8">
+        <div class="input-group date">
+          <input class="form-control" name="purArrDate" placeholder="yyyy-MM-dd" type="text">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label">预计付款日期：</label>
+      <div class="col-sm-8">
+        <div class="input-group date">
+          <input class="form-control" name="purPayDate" placeholder="yyyy-MM-dd" type="text">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <label class="col-sm-4 control-label is-required">采购单状态：</label>
+      <div class="col-sm-8">
+        <div class="radio-box" th:each="dict : ${@dict.getType('doc_purchase_status')}">
+          <input name="purStatus" required th:checked="${dict.default}" th:id="${'purStatus_' + dict.dictCode}"
+                 th:value="${dict.dictValue}" type="radio">
+          <label th:for="${'purStatus_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-success btn-sm" onclick="selectProcPlan()" type="button"><i class="fa fa-plus">
+          选择计划单</i></button>
+        <button class="btn btn-danger btn-sm" onclick="sub.delRow()" type="button"><i class="fa fa-minus"> 删除</i>
+        </button>
+        <div class="col-sm-12">
+          <table data-resizable="true" id="bootstrap-table"></table>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <div class="col-sm-offset-5 col-sm-10">
+    <button class="btn btn-sm btn-primary" onclick="submitHandler()" type="button"><i class="fa fa-check"></i>保 存
+    </button>&nbsp;
+    <button class="btn btn-sm btn-danger" onclick="closeItem()" type="button"><i class="fa fa-reply-all"></i>关 闭
+    </button>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: bootstrap-suggest-js"/>
+<script th:inline="javascript">
+
+    const docPrefix = "CGDD-";  // 单据号前缀
+    var prefix = ctx + "his/purchase";
+    let options = {};  // bootstrap table 初始化设置
+    let prcpIdList = [];  // 采购计划单ID列表
+
+    var editFlag = [[${@permission.hasPermi('his:plans:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('his:plans:remove')}]];
+    var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
+    var catUnitDatas = [[${@dict.getType('drug_unit')}]];
+    var prcpStatusDatas = [[${@dict.getType('doc_plans_status')}]];
+
+    // 打开选择采购计划单页面
+    function selectProcPlan() {
+        var options = {
+            title: '选择采购计划单',
+            url: prefix + "/select",
+            callBack: submitProcPlan
+        };
+        $.modal.openOptions(options);
+    }
+
+    // 得到选择的采购计划单
+    function submitProcPlan(index, layero) {
+        var rows = layero.find("iframe")[0].contentWindow.getSelections();
+        let queryStr = "";
+        $.each(rows, function (index, id) {
+            if (queryStr !== '' && !queryStr.endsWith(',')) {
+                queryStr += ',';
             }
+            queryStr += '' + id;
+        });
+
+        if (queryStr !== '') {
+            options.queryParams = {prcpIdsStr: queryStr};
         }
+        $.table.destroy();
+        $.table.init(options);
 
-        $("input[name='purDate']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
+        $.modal.close(index);
+    }
 
-        $("input[name='purArrDate']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
+    $("#form-purchase-add").validate({
+        focusCleanup: true
+    });
 
-        $("input[name='purPayDate']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
+    function submitHandler() {
+        if ($.validate.form()) {
+            // data = $('#form-purchase-add').serialize();
+            $.operate.save(prefix + "/add", $('#form-purchase-add').serialize(), function (result) {
+                location.reload();
+            });
 
-        $(function() {
-            var options = {
-                pagination: false,
-                showSearch: false,
-                showRefresh: false,
-                showToggle: false,
-                showColumns: false,
-                sidePagination: "client",
-                columns: [{
-                    checkbox: true
+            $.ajax({
+                url: ctx + "his/plans/edit_status", // 完整的URL
+                type: 'POST', // 请求类型
+                data: {
+                    prcpIdsStr: prcpIdList.join(','),  // TODO 插入采购单ID
+                    prcpStatus: 1
+                }, // 要发送的数据
+                dataType: 'json', // 期望返回的数据类型
+                success: function(response) {
+                    $.modal.msg("更新状态成功", modal_status.SUCCESS);
                 },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('更新状态失败:', textStatus, errorThrown);
+                }
+            });
+
+        }
+    }
+
+    $("input[name='purDate']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
+    });
+
+    $("input[name='purArrDate']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
+    });
+
+    $("input[name='purPayDate']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true,
+        todayBtn: true,
+        startDate: new Date()
+    });
+
+    $(function () {
+        options = {
+            url: ctx + "his/plans/list_ids",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            contentType: "application/json",
+            detailView: true,
+            onExpandRow: function (index, row, $detail) {
+                initChildTable(index, row, $detail);
+            },
+            onPostBody: function () {
+                // 直接遍历所有具有 'detail-icon' 类的元素并模拟点击
+                $('.detail-icon').each(function() {
+                    $(this).trigger('click'); // 触发点击事件以展开子视图
+                });
+            },
+            columns: [{
+                checkbox: true
+            },
                 {
                     field: 'index',
                     align: 'center',
-                    title: "序号",
+                    // title: "序号",
                     formatter: function (value, row, index) {
-                    	var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
-                    	return columnIndex + $.table.serialNumber(index);
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        return columnIndex + $.table.serialNumber(index);
+                    }
+                },
+                {
+                    field: 'prcpId',
+                    title: '采购计划表ID',
+                    visible: true,
+                    formatter: function (value, row, index) {
+                        prcpIdList.push(value);
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPurchaseOrdersList[%s].prcpId' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'purId',
+                    title: '采购单ID',
+                    visible: false
+                },
+                {
+                    field: 'prcpDocNum',
+                    title: '采购计划单据号'
+                },
+                {
+                    field: 'prcpDate',
+                    title: '制单日期'
+                },
+                {
+                    field: 'prcpPurDate',
+                    title: '预计采购日期'
+                },
+                {
+                    field: 'prcpArvDate',
+                    title: '最迟到货日期'
+                },
+                {
+                    field: 'userId',
+                    title: '制单人ID',
+                    visible: false
+                },
+                {
+                    field: 'userName',
+                    title: '制单人'
+                },
+                {
+                    field: 'prcpStatus',
+                    title: '计划单状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prcpStatusDatas, value);
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var value = $.common.isNotEmpty(row.index) ? row.index : $.table.serialNumber(index);
+                        return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="sub.delRowByIndex(\'' + value + '\')"><i class="fa fa-remove"></i>删除</a>';
+                    }
+                }]
+        };
+
+        // 获取供应商数据
+        $.ajax({
+            url: ctx + 'his/suppliers/search_list',
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                // 初始化 bootstrap-suggest 插件
+                $(".suppliers-suggest").bsSuggest({
+                    // url: "/his/suppliers/list",
+                    data: {"value": response},
+                    getDataMethod: 'data',
+                    showHeader: true, // 是否显示头部
+                    effectiveFields: [
+                        "splId",
+                        "splName",
+                        "splAddr",
+                        "splContact",
+                        "splLegalPerson",
+                        "splPermitId",
+                        "splCertification",
+                        "splBusinessLicenseId"
+                    ],
+                    effectiveFieldsAlias: {
+                        splId: "ID",
+                        splName: "名称",
+                        splAddr: "地址",
+                        splContact: "联系方式",
+                        splLegalPerson: "法人代表",
+                        splPermitId: "许可证编号",
+                        splCertification: "质量认证情况",
+                        splBusinessLicenseId: "营业执照编号"
+                    },
+                    idField: "splId",
+                    keyField: "splName",
+                    ignorecase: true,
+                    autoDropup: true,
+                    hideOnSelect: true,
+                    showBtn: false,
+                    clearable: true
+                }).on('onSetSelectValue', function (e, selectedData, selectedRawData) {
+                    $("input[name='splId']").val(selectedData.id);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+
+        // 设置制单日期为当前日期
+        const today = new Date().toISOString().slice(0, 10); // 获取当前日期，格式为"YYYY-MM-DD"
+        $('input[name="purDate"]').val(today); // 将日期值设置到输入框中
+
+        // 填写单据号前缀
+        let $purDocNumInput = $('input[name="purDocNum"]');
+        $purDocNumInput.val(
+            docPrefix + today.slice(2, 4) + today.slice(5, 7) + today.slice(8, 10)
+        );
+
+        // 单据号长度不超过 14
+        $purDocNumInput.on('input', function () {
+            const inputVal = $(this).val();
+            if (inputVal.length > 14) {
+                $(this).val(inputVal.slice(0, 14));
+            }
+        });
+    });
+
+    // function addRow() {
+    //     var count = $("#" + table.options.id).bootstrapTable('getData').length;
+    //     var row = {
+    //         index: $.table.serialNumber(count),
+    //         catId: "",
+    //         orderSchNumber: "",
+    //     }
+    //     sub.addRow(row);
+    // }
+
+    // TODO 取消父子表，直接插入明细
+    initChildTable = function (index, row, $detail) {
+        var childTable = $detail.html('<table style="table-layout:fixed"></table>').find('table');
+        $(childTable).bootstrapTable({
+            url: ctx + "his/plans/list_sch",
+            method: "post",
+            queryParams: {prcpId: row.prcpId},
+            contentType: "application/x-www-form-urlencoded",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            onPostBody: function () {
+
+            },
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'index',
+                    align: 'center',
+                    // title: "序号",
+                    width: "30%",
+                    formatter: function (value, row, index) {
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        return columnIndex + $.table.serialNumber(index);
+                    }
+                },
+                {
+                    field: 'catApprovalNumber',
+                    title: '批准文号',
+                    visible: false
+                },
+                {
+                    field: 'catDrugNum',
+                    title: '药品编号',
+                    visible: false
+                },
+                {
+                    field: 'catName',
+                    align: 'left',
+                    title: '药品名',
+                    width: '180%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            '<div class="row">' +
+                            '  <div class="col-sm-12">' +
+                            '    <div class="input-group">' +
+                            '      <input type="text" class="form-control medicine-suggest" placeholder="选择药品" ' +
+                            '             name="hisProcurementSchedulesList[%s].catName" value="%s" readonly>' +
+                            '        <ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                            '        </ul>' +
+                            '    </div>' +
+                            '  </div>' +
+                            '</div>', index, value);
                     }
                 },
                 {
                     field: 'catId',
-                    align: 'center',
-                    title: '药品ID',
-                    formatter: function(value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisOrdersSchedulesList[%s].catId' value='%s'>", index, value);
+                    align: 'left',
+                    title: 'ID',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisOrdersSchedulesList[%s].catId' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catEnglishName',
+                    title: '英文名',
+                    width: '180%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catEnglishName' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catProducer',
+                    title: '生产商',
+                    visible: false
+                },
+                {
+                    field: 'catSpecs',
+                    title: '规格',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catSpecs' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catDosageForm',
+                    title: '剂型',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catDosageFormLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catDosageFormDatas, value)));
+                    }
+                },
+                {
+                    field: 'catPackage',
+                    title: '包装',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catPackage' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catUnit',
+                    title: '单位',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisProcurementSchedulesList[%s].catUnitLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catUnitDatas, value)));
+                    }
+                },
+                {
+                    field: 'pschPrice',  // 原计划单的参考单价变为采购单的金额
+                    align: 'left',
+                    title: '金额',
+                    width: '80%',
+                    formatter: function (value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisOrdersSchedulesList[%s].orderSchPrice' value='%s'>", index, value);
                         return html;
                     }
                 },
                 {
-                    field: 'orderSchNumber',
-                    align: 'center',
-                    title: '采购数量',
-                    formatter: function(value, row, index) {
+                    field: 'pschNumber',
+                    align: 'left',
+                    title: '数量',
+                    width: '80%',
+                    formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisOrdersSchedulesList[%s].orderSchNumber' value='%s'>", index, value);
                         return html;
                     }
                 },
                 {
                     title: '操作',
-                    align: 'center',
-                    formatter: function(value, row, index) {
+                    align: 'left',
+                    formatter: function (value, row, index) {
                         var value = $.common.isNotEmpty(row.index) ? row.index : $.table.serialNumber(index);
                         return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="sub.delRowByIndex(\'' + value + '\')"><i class="fa fa-remove"></i>删除</a>';
                     }
                 }]
-            };
-            $.table.init(options);
         });
+    };
 
-        function addRow() {
-            var count = $("#" + table.options.id).bootstrapTable('getData').length;
-            var row = {
-                index: $.table.serialNumber(count),
-                catId: "",
-                orderSchNumber: "",
-            }
-            sub.addRow(row);
-        }
-    </script>
+    // 去除 $.table.selectDictLabel 函数返回值两边的 html 标签
+    function stripHtmlTagsDOMParser(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        return doc.body.textContent || doc.body.innerText || "";
+    }
+</script>
 </body>
 </html>

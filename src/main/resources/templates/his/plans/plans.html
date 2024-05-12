@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="include :: header('采购计划单列表')"/>
 </head>
@@ -12,23 +12,23 @@
           <ul>
             <li>
               <label>单据号：</label>
-              <input type="text" name="prcpDocNum"/>
+              <input name="prcpDocNum" type="text"/>
             </li>
             <li>
               <label>制单日期：</label>
-              <input type="text" class="time-input" placeholder="请选择制单日期" name="prcpDate"/>
+              <input class="time-input" name="prcpDate" placeholder="请选择制单日期" type="text"/>
             </li>
             <li>
               <label>预计采购日期：</label>
-              <input type="text" class="time-input" placeholder="请选择预计采购日期" name="prcpPurDate"/>
+              <input class="time-input" name="prcpPurDate" placeholder="请选择预计采购日期" type="text"/>
             </li>
             <li>
               <label>最迟到货日期：</label>
-              <input type="text" class="time-input" placeholder="请选择最迟到货日期" name="prcpArvDate"/>
+              <input class="time-input" name="prcpArvDate" placeholder="请选择最迟到货日期" type="text"/>
             </li>
             <li>
               <label>制单人：</label>
-              <input type="text" name="userId"/>
+              <input name="userId" type="text"/>
             </li>
             <li>
               <label>状态：</label>
@@ -138,7 +138,7 @@
                     }
                 }]
         };
-        $.table.init(options);
+        $.table.init(options); // TODO 增加明细项数列表
     });
 </script>
 </body>

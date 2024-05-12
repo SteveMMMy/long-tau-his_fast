@@ -148,6 +148,12 @@
         where prcp_id = #{prcpId}
     </update>
 
+    <update id="updateHisProcurementPlansStatus">
+        UPDATE his_procurement_plans
+        SET prcp_status = #{prcpStatus}
+        WHERE prcp_id = #{prcpId}
+    </update>
+
     <delete id="deleteHisProcurementPlansByPrcpId" parameterType="Long">
         delete
         from his_procurement_plans

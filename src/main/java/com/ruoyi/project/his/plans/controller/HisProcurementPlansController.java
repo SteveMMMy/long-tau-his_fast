@@ -1,8 +1,11 @@
 package com.ruoyi.project.his.plans.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ruoyi.common.utils.security.ShiroUtils;
+import com.ruoyi.common.utils.text.Convert;
+import com.ruoyi.project.his.plans.domain.HisProcurementSchedules;
 import com.ruoyi.project.system.user.domain.User;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,41 @@ public class HisProcurementPlansController extends BaseController
         startPage();
         List<HisProcurementPlans> list = hisProcurementPlansService.selectHisProcurementPlansList(hisProcurementPlans);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询采购计划单列表（根据多个id）
+     */
+    @RequiresPermissions("his:plans:list")
+    @PostMapping("/list_ids")
+    @ResponseBody
+    public TableDataInfo listIds(String prcpIdsStr)
+    {
+        startPage();
+        Long[] prcpIds = Convert.toLongArray(prcpIdsStr);
+
+        // 返回查询结果列表
+        List<HisProcurementPlans> resultsList = new ArrayList<>();
+        for (Long prcpId : prcpIds) {
+            HisProcurementPlans hisProcurementPlans = hisProcurementPlansService.selectHisProcurementPlansByPrcpId(prcpId);
+            hisProcurementPlans.setPrcpId(prcpId);
+            resultsList.add(hisProcurementPlans);
+        }
+        return getDataTable(resultsList);
+    }
+
+    /**
+     * 根据ID查询采购计划单明细
+     */
+    @RequiresPermissions("his:plans:list")
+    @PostMapping("/list_sch")
+    @ResponseBody
+    public TableDataInfo listSchedules(Long prcpId) {
+        startPage();
+        HisProcurementPlans hisProcurementPlans = hisProcurementPlansService.selectHisProcurementPlansByPrcpId(prcpId);
+        List<HisProcurementSchedules> hisProcurementSchedulesList = hisProcurementPlans.getHisProcurementSchedulesList();
+
+        return getDataTable(hisProcurementSchedulesList);
     }
 
     /**
@@ -118,6 +156,28 @@ public class HisProcurementPlansController extends BaseController
     public AjaxResult editSave(HisProcurementPlans hisProcurementPlans)
     {
         return toAjax(hisProcurementPlansService.updateHisProcurementPlans(hisProcurementPlans));
+    }
+
+    /**
+     * 批量修改保存采购计划单状态
+     * TODO 插入采购单ID
+     *
+     * @param prcpIdsStr 采购计划单id列表字符串
+     * @param prcpStatus 采购计划单状态
+     * @return 结果
+     */
+    @RequiresPermissions("his:plans:edit")
+    @Log(title = "采购计划单状态", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit_status")
+    @ResponseBody
+    public AjaxResult editSaveStatus(String prcpIdsStr, Long prcpStatus) {
+        Long[] prcpIds = Convert.toLongArray(prcpIdsStr);
+        int rows = 0;
+        for (Long prcpId : prcpIds) {
+            rows += hisProcurementPlansService.updateHisProcurementPlansStatus(prcpId, prcpStatus);
+        }
+
+        return toAjax(rows);
     }
 
     /**

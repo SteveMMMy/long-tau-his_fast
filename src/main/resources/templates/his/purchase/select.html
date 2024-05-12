@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('选择采购计划单')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+  <div class="row">
+    <div class="col-sm-12 select-table table-striped">
+      <table id="bootstrap-table"></table>
+    </div>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('his:plans:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('his:plans:remove')}]];
+    var prcpStatusDatas = [[${@dict.getType('doc_plans_status')}]];
+    var prefix = ctx + "his/plans";
+
+    // function submitHandler(index, layero) {
+    //     var rows = $.table.selectFirstColumns();
+    //     if (rows.length === 0) {
+    //         $.modal.alertWarning("请至少选择一条记录");
+    //         return;
+    //     }
+    //     $.modal.close();
+    // }
+
+    /* 添加-选择-提交(回调形式-父页面调用子页面) */
+    function getSelections() {
+        return $.table.selectFirstColumns();
+    }
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            clickToSelect: true,
+            queryParams: {
+                prcpStatus: 0
+            },
+            columns: [{
+                radio: true
+            },
+                {
+                    field: 'prcpId',
+                    title: '采购计划表ID',
+                    visible: false
+                },
+                {
+                    field: 'purId',
+                    title: '采购单ID',
+                    visible: false
+                },
+                {
+                    field: 'prcpDocNum',
+                    title: '采购计划单据号'
+                },
+                {
+                    field: 'prcpDate',
+                    title: '制单日期'
+                },
+                {
+                    field: 'prcpPurDate',
+                    title: '预计采购日期'
+                },
+                {
+                    field: 'prcpArvDate',
+                    title: '最迟到货日期'
+                },
+                {
+                    field: 'userId',
+                    title: '制单人ID',
+                    visible: false
+                },
+                {
+                    field: 'userName',
+                    title: '制单人'
+                },
+                {
+                    field: 'prcpStatus',
+                    title: '计划单状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prcpStatusDatas, value);
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

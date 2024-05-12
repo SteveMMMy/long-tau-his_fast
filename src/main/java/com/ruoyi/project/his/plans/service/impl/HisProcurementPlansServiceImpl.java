@@ -79,6 +79,19 @@ public class HisProcurementPlansServiceImpl implements IHisProcurementPlansServi
     }
 
     /**
+     * 修改采购计划单状态
+     *
+     * @param prcpId 采购计划单ID
+     * @param prcpStatus 采购计划单状态
+     * @return 结果
+     */
+    @Transactional
+    @Override
+    public int updateHisProcurementPlansStatus(Long prcpId, Long prcpStatus) {
+        return hisProcurementPlansMapper.updateHisProcurementPlansStatus(prcpId, prcpStatus);
+    }
+
+    /**
      * 批量删除采购计划单
      * 
      * @param prcpIds 需要删除的采购计划单主键

@@ -45,6 +45,15 @@ public interface HisProcurementPlansMapper
     public int updateHisProcurementPlans(HisProcurementPlans hisProcurementPlans);
 
     /**
+     * 修改采购计划单状态
+     *
+     * @param prcpId 采购计划单ID
+     * @param prcpStatus 采购计划单状态
+     * @return 结果
+     */
+    public int updateHisProcurementPlansStatus(Long prcpId, Long prcpStatus);
+
+    /**
      * 删除采购计划单
      * 
      * @param prcpId 采购计划单主键

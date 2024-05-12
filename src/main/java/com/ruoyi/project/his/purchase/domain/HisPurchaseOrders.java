@@ -25,9 +25,17 @@ public class HisPurchaseOrders extends BaseEntity
     @Excel(name = "供应商编号")
     private Long splId;
 
+    /** 供应商 */
+    @Excel(name = "供应商")
+    private String splName;
+
     /** 用户ID */
     @Excel(name = "用户ID")
     private Long userId;
+
+    /** 制单人 */
+    @Excel(name = "制单人")
+    private String userName;
 
     /** 采购单据号 */
     @Excel(name = "采购单据号")
@@ -55,86 +63,91 @@ public class HisPurchaseOrders extends BaseEntity
     /** 采购订单明细信息 */
     private List<HisOrdersSchedules> hisOrdersSchedulesList;
 
-    public void setPurId(Long purId)
-    {
+    public Long getPurId() {
+        return purId;
+    }
+
+    public void setPurId(Long purId) {
         this.purId = purId;
     }
 
-    public Long getPurId()
-    {
-        return purId;
+    public Long getSplId() {
+        return splId;
     }
-    public void setSplId(Long splId)
-    {
+
+    public void setSplId(Long splId) {
         this.splId = splId;
     }
 
-    public Long getSplId()
-    {
-        return splId;
+    public String getSplName() {
+        return splName;
     }
-    public void setUserId(Long userId)
-    {
+
+    public void setSplName(String splName) {
+        this.splName = splName;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Long getUserId()
-    {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
-    public void setPurDocNum(String purDocNum)
-    {
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPurDocNum() {
+        return purDocNum;
+    }
+
+    public void setPurDocNum(String purDocNum) {
         this.purDocNum = purDocNum;
     }
 
-    public String getPurDocNum()
-    {
-        return purDocNum;
+    public Date getPurDate() {
+        return purDate;
     }
-    public void setPurDate(Date purDate)
-    {
+
+    public void setPurDate(Date purDate) {
         this.purDate = purDate;
     }
 
-    public Date getPurDate()
-    {
-        return purDate;
+    public Date getPurArrDate() {
+        return purArrDate;
     }
-    public void setPurArrDate(Date purArrDate)
-    {
+
+    public void setPurArrDate(Date purArrDate) {
         this.purArrDate = purArrDate;
     }
 
-    public Date getPurArrDate()
-    {
-        return purArrDate;
+    public Date getPurPayDate() {
+        return purPayDate;
     }
-    public void setPurPayDate(Date purPayDate)
-    {
+
+    public void setPurPayDate(Date purPayDate) {
         this.purPayDate = purPayDate;
     }
 
-    public Date getPurPayDate()
-    {
-        return purPayDate;
-    }
-    public void setPurStatus(Long purStatus)
-    {
-        this.purStatus = purStatus;
-    }
-
-    public Long getPurStatus()
-    {
+    public Long getPurStatus() {
         return purStatus;
     }
 
-    public List<HisOrdersSchedules> getHisOrdersSchedulesList()
-    {
+    public void setPurStatus(Long purStatus) {
+        this.purStatus = purStatus;
+    }
+
+    public List<HisOrdersSchedules> getHisOrdersSchedulesList() {
         return hisOrdersSchedulesList;
     }
 
-    public void setHisOrdersSchedulesList(List<HisOrdersSchedules> hisOrdersSchedulesList)
-    {
+    public void setHisOrdersSchedulesList(List<HisOrdersSchedules> hisOrdersSchedulesList) {
         this.hisOrdersSchedulesList = hisOrdersSchedulesList;
     }
 
@@ -143,7 +156,9 @@ public class HisPurchaseOrders extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("purId", getPurId())
             .append("splId", getSplId())
+            .append("splName", getSplName())
             .append("userId", getUserId())
+            .append("userName", getUserName())
             .append("purDocNum", getPurDocNum())
             .append("purDate", getPurDate())
             .append("purArrDate", getPurArrDate())

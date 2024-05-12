@@ -1,8 +1,10 @@
 package com.ruoyi.project.his.suppliers.controller;
 
 import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +23,13 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 
 /**
  * 供应商Controller
- * 
+ *
  * @author SteveMMMy
  * @date 2024-05-01
  */
 @Controller
 @RequestMapping("/his/suppliers")
-public class HisSuppliersController extends BaseController
-{
+public class HisSuppliersController extends BaseController {
     private String prefix = "his/suppliers";
 
     @Autowired
@@ -36,8 +37,7 @@ public class HisSuppliersController extends BaseController
 
     @RequiresPermissions("his:suppliers:view")
     @GetMapping()
-    public String suppliers()
-    {
+    public String suppliers() {
         return prefix + "/suppliers";
     }
 
@@ -47,11 +47,21 @@ public class HisSuppliersController extends BaseController
     @RequiresPermissions("his:suppliers:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(HisSuppliers hisSuppliers)
-    {
+    public TableDataInfo list(HisSuppliers hisSuppliers) {
         startPage();
         List<HisSuppliers> list = hisSuppliersService.selectHisSuppliersList(hisSuppliers);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询供应商列表（返回数据）
+     */
+    @PostMapping("/search_list")
+    public ResponseEntity<List<HisSuppliers>> searchList() {
+        HisSuppliers hisSuppliers = new HisSuppliers();
+        List<HisSuppliers> list = hisSuppliersService.selectHisSuppliersList(hisSuppliers);
+
+        return ResponseEntity.ok(list);
     }
 
     /**
@@ -61,8 +71,7 @@ public class HisSuppliersController extends BaseController
     @Log(title = "供应商", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(HisSuppliers hisSuppliers)
-    {
+    public AjaxResult export(HisSuppliers hisSuppliers) {
         List<HisSuppliers> list = hisSuppliersService.selectHisSuppliersList(hisSuppliers);
         ExcelUtil<HisSuppliers> util = new ExcelUtil<HisSuppliers>(HisSuppliers.class);
         return util.exportExcel(list, "供应商数据");
@@ -72,8 +81,7 @@ public class HisSuppliersController extends BaseController
      * 新增供应商
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -84,8 +92,7 @@ public class HisSuppliersController extends BaseController
     @Log(title = "供应商", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(HisSuppliers hisSuppliers)
-    {
+    public AjaxResult addSave(HisSuppliers hisSuppliers) {
         return toAjax(hisSuppliersService.insertHisSuppliers(hisSuppliers));
     }
 
@@ -94,8 +101,7 @@ public class HisSuppliersController extends BaseController
      */
     @RequiresPermissions("his:suppliers:edit")
     @GetMapping("/edit/{splId}")
-    public String edit(@PathVariable("splId") Long splId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("splId") Long splId, ModelMap mmap) {
         HisSuppliers hisSuppliers = hisSuppliersService.selectHisSuppliersBySplId(splId);
         mmap.put("hisSuppliers", hisSuppliers);
         return prefix + "/edit";
@@ -108,8 +114,7 @@ public class HisSuppliersController extends BaseController
     @Log(title = "供应商", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(HisSuppliers hisSuppliers)
-    {
+    public AjaxResult editSave(HisSuppliers hisSuppliers) {
         return toAjax(hisSuppliersService.updateHisSuppliers(hisSuppliers));
     }
 
@@ -118,10 +123,9 @@ public class HisSuppliersController extends BaseController
      */
     @RequiresPermissions("his:suppliers:remove")
     @Log(title = "供应商", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(hisSuppliersService.deleteHisSuppliersBySplIds(ids));
     }
 }
