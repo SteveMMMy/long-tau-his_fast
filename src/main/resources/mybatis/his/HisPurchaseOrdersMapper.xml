@@ -27,6 +27,17 @@
         <result property="orderSchId" column="sub_order_sch_id"/>
         <result property="purId" column="sub_pur_id"/>
         <result property="catId" column="sub_cat_id"/>
+
+        <result property="catApprovalNumber" column="cat_approval_number"/>
+        <result property="catDrugNum" column="cat_drug_num"/>
+        <result property="catName" column="cat_name"/>
+        <result property="catEnglishName" column="cat_English_name"/>
+        <result property="catProducer" column="cat_producer"/>
+        <result property="catSpecs" column="cat_specs"/>
+        <result property="catDosageForm" column="cat_dosage_form"/>
+        <result property="catPackage" column="cat_package"/>
+        <result property="catUnit" column="cat_unit"/>
+
         <result property="orderSchNumber" column="sub_order_sch_number"/>
         <result property="orderSchPrice" column="sub_order_sch_price"/>
     </resultMap>
@@ -71,21 +82,40 @@
 
     <select id="selectHisPurchaseOrdersByPurId" parameterType="Long"
             resultMap="HisPurchaseOrdersHisOrdersSchedulesResult">
-        select a.pur_id,
-               a.spl_id,
-               a.user_id,
-               a.pur_doc_num,
-               a.pur_date,
-               a.pur_arr_date,
-               a.pur_pay_date,
-               a.pur_status,
-               b.order_sch_id     as sub_order_sch_id,
-               b.pur_id           as sub_pur_id,
-               b.cat_id           as sub_cat_id,
-               b.order_sch_number as sub_order_sch_number
-        from his_purchase_orders a
-                 left join his_orders_schedules b on b.pur_id = a.pur_id
-        where a.pur_id = #{purId}
+        select po.pur_id,
+               po.spl_id,
+               po.user_id,
+               po.pur_doc_num,
+               po.pur_date,
+               po.pur_arr_date,
+               po.pur_pay_date,
+               po.pur_status,
+               os.order_sch_id     as sub_order_sch_id,
+               os.pur_id           as sub_pur_id,
+               os.cat_id           as sub_cat_id,
+               os.order_sch_number as sub_order_sch_number,
+               os.order_sch_price  as sub_order_sch_price,
+               su.user_name,
+               s.spl_name,
+               cat.cat_approval_number,
+               cat.cat_drug_num,
+               cat.cat_name,
+               cat.cat_English_name,
+               cat.cat_producer,
+               cat.cat_specs,
+               cat.cat_dosage_form,
+               cat.cat_package,
+               cat.cat_unit
+        from his_purchase_orders po
+                 left join
+             his_orders_schedules os on os.pur_id = po.pur_id
+                 left join
+             his_drug_catalogue cat on os.cat_id = cat.cat_id
+                 left join
+             sys_user su on po.user_id = su.user_id
+                 left join
+             his_suppliers s on s.spl_id = po.spl_id
+        where po.pur_id = #{purId}
     </select>
 
     <insert id="insertHisPurchaseOrders" parameterType="HisPurchaseOrders" useGeneratedKeys="true" keyProperty="purId">
