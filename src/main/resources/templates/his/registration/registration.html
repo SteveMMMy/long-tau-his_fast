@@ -20,9 +20,15 @@
           <div class="row" style="padding-left: 15px; padding-right: 15px">
             <form class="form" id="regisInfoForm">
               <div class="row">
+
+                <input class="form-control" name="patientId" required type="hidden">
                 <div class="form-group col-sm-2">
-                  <label class="form-label control-label is-required" for="name">姓名</label>
-                  <input type="text" class="form-control" id="name" name="patientName" required/>
+                  <label class="control-label is-required" for="name">姓名</label>
+                  <div class="input-group-sm suggest-group">
+                    <input class="form-control patients-suggest" id="name" name="patientName" placeholder="选择或新增信息" required
+                           type="text">
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                  </div>
                 </div>
 
                 <div class="form-group col-sm-2">
@@ -32,7 +38,7 @@
 
                 <div class="form-group col-sm-1">
                   <label class="form-label" for="sex">性别</label>
-                  <select id="sex" name="patientSex" class="form-control m-b"
+                  <select class="form-control m-b" id="sex" name="patientSex"
                           th:with="type=${@dict.getType('sys_user_sex')}">
                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
                             th:value="${dict.dictValue}"></option>
@@ -40,8 +46,8 @@
                 </div>
 
                 <div class="form-group col-sm-3">
-                  <label class="form-label" for="idCardNumber">身份证号</label>
-                  <input type="text" class="form-control" id="idCardNumber" name="patientIdCardNum"/>
+                  <label class="control-label is-required" for="idCardNumber">身份证号</label>
+                  <input class="form-control" id="idCardNumber" name="patientIdCardNum" type="text" required/>
                 </div>
               </div>
 
@@ -50,49 +56,49 @@
                   <label class="form-label" for="birthdate">出生日期</label>
                   <div class="input-group date">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" class="form-control" id="birthdate" name="patientBirthDate"
-                           placeholder="yyyy-MM-dd">
+                    <input class="form-control" id="birthdate" name="patientBirthDate" placeholder="yyyy-MM-dd"
+                           type="text">
                   </div>
                 </div>
 
                 <div class="form-group col-sm-1">
                   <label class="form-label" for="age">年龄</label>
-                  <input type="text" class="form-control" id="age" name="patientAge"/>
+                  <input class="form-control" id="age" name="patientAge" type="text"/>
                 </div>
 
                 <div class="form-group col-sm-3">
                   <label class="form-label" for="medCardNumber">医保卡号</label>
-                  <input type="text" class="form-control" id="medCardNumber" name="patientMedCardNum"/>
+                  <input class="form-control" id="medCardNumber" name="patientMedCardNum" type="text"/>
                 </div>
               </div>
 
               <div class="row">
                 <div class="form-group col-sm-3">
                   <label class="form-label control-label is-required" for="hospDepts">挂号科室</label>
-                  <select id="hospDepts" class="form-control m-b" required></select>
+                  <select class="form-control m-b" id="hospDepts" required></select>
                 </div>
 
                 <div class="form-group col-sm-3">
                   <label class="form-label control-label is-required" for="doctors">挂号医生</label>
-                  <select id="doctors" name="workerId" class="form-control m-b" required></select>
+                  <select class="form-control m-b" id="doctors" name="workerId" required></select>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="paidCheck">
+                    <input class="form-check-input" id="paidCheck" type="checkbox">
                     <label class="form-check-label" for="paidCheck">
                       已缴费
                     </label>
-                    <div id="paidCheckError" class="alert alert-danger" style="display: none;">
+                    <div class="alert alert-danger" id="paidCheckError" style="display: none;">
                       请缴费后再提交
                     </div>
                   </div>
                 </div>
 
                 <div class="col-sm-12">
-                  <a id="btn-submit" class="btn btn-primary" onclick="submit()">完成</a>
+                  <a class="btn btn-primary" id="btn-submit" onclick="submit()">完成</a>
                 </div>
               </div>
             </form>
@@ -106,10 +112,75 @@
 
 <th:block th:include="include :: footer"/>
 <th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: bootstrap-suggest-js"/>
 <script th:inline="javascript">
+
+    var patientSexDatas = [[${@dict.getType('sys_user_sex')}]];
+
     $(document).ready(function () {
+        // bsSuggest
+        getDataAndInitBsSuggest(
+            ctx + 'his/patients/search_list',
+            ".patients-suggest",
+            function (data) {
+                data.forEach(function (p) {
+                    // 给数据增加字典标签字段
+                    p.patientSexLabel = $.table.selectDictLabel(patientSexDatas, p.patientSex);
+                });
+                return data;
+            },
+            {
+                effectiveFields: [
+                    "patientId",
+                    "patientName",
+                    "patientSexLabel",
+                    "patientBirthDate",
+                    "patientAge",
+                    "patientPhoneNum",
+                    "patientIdCardNum",
+                    "patientMedCardNum"
+                ],
+                effectiveFieldsAlias: {
+                    patientId: "ID",
+                    patientName: "姓名",
+                    patientSexLabel: "性别",
+                    patientBirthDate: "出生日期",
+                    patientAge: "年龄",
+                    patientPhoneNum: "电话号码",
+                    patientIdCardNum: "身份证号",
+                    patientMedCardNum: "医保卡号"
+                },
+                idField: "patientId",
+                keyField: "patientName",
+                ignorecase: true,
+                autoDropup: true,
+                hideOnSelect: true,
+                showBtn: false,
+                clearable: true,
+                inputWarnColor: ''
+            },
+            function (e, selectedData, selectedRawData) {
+                $("input[name='patientId']").val(selectedData.id);
+                $('#phone').val(selectedRawData.patientPhoneNum);
+                $('#sex').val(selectedRawData.patientSex);
+                $('#idCardNumber').val(selectedRawData.patientIdCardNum);
+                $('#birthdate').val(selectedRawData.patientBirthDate);
+                $('#age').val(selectedRawData.patientAge);
+                $('#medCardNumber').val(selectedRawData.patientMedCardNum);
+            },
+            function () {
+                $("input[name='patientId']").val('');
+                $('#phone').val('');
+                $('#sex').val(0);
+                $('#idCardNumber').val('');
+                $('#birthdate').val('');
+                $('#age').val('');
+                $('#medCardNumber').val('');
+            }
+        );
+
         // 监听身份证号输入框的变化
-        $('#idCardNumber').on('input', function() {
+        $('#idCardNumber').on('input', function () {
             const idCardNumber = $(this).val();
             // 移除非数字和非X字符，并将x转为大写X
             this.value = this.value.replace(/[^\dX]/gi, '').toUpperCase();
@@ -128,7 +199,7 @@
         });
 
         // 监听科室选择框的变化
-        $('#hospDepts').on('change', function() {
+        $('#hospDepts').on('change', function () {
             var deptId = $(this).val(); // 获取选中的科室ID
             if (deptId) {
                 // 调用函数获取对应科室的医生列表
@@ -143,7 +214,7 @@
             laydate.render({
                 elem: '#birthdate',
                 type: 'date',
-                done: function(value, date, endDate){
+                done: function (value, date, endDate) {
                     if (value) { // 如果选择了日期
                         var age = calculateAge(value); // 调用计算年龄的函数
                         if (age !== null) { // 如果年龄计算成功
@@ -164,48 +235,6 @@
 
         // 获取科室列表
         getHospitalDeptsList(201);
-    });
-
-    // TODO 实现搜索悬浮窗
-    $('#name').on('input', function() {
-        const patientNamePartial = $(this).val();
-        if (patientNamePartial.length >= 1) {
-            $.ajax({
-                url: ctx + 'his/patients/search', // 后端搜索接口的URL
-                type: 'POST',
-                data: {
-                    patientName: patientNamePartial
-                },
-                success: function(response) {
-                    // 假设response是一个包含患者信息的数组
-                    let popupContent = '';
-                    $.each(response, function(index, patient) {
-                        popupContent += '<div class="patient-info" id="popup-container" data-id="' + patient.patientId + '">' +
-                            '<span>' + patient.patientName + '</span>' +
-                            '<span>' + patient.patientSex + '</span>' +
-                            '<span>' + patient.patientPhoneNum + '</span>' +
-                            '</div>';
-                    });
-                    // 显示悬浮窗并插入内容
-                    $('#popup-container').html(popupContent).show();
-
-                    // 为悬浮窗中的每一条信息添加点击事件
-                    $('.patient-info').off('click').on('click', function() {
-                        const patientId = $(this).data('id');
-                        // 这里可以发起另一个AJAX请求来获取完整的患者信息，并填充表单
-                        // 或者如果后端已经返回了完整信息，则直接填充
-                        $('#patientId').val(patientId); // 假设表单中有个隐藏字段存储患者ID
-                        $('#name').val(patient.name);
-                        // ... 填充其他字段 ...
-                        // 隐藏悬浮窗
-                        $('#popup-container').hide();
-                    });
-                },
-                error: function() {
-                    $.modal.alertError("发生错误");
-                }
-            });
-        }
     });
 
     // 根据身份证号填充出生日期和年龄
@@ -256,7 +285,7 @@
             url: ctx + 'system/dept/list/' + deptId,
             type: 'GET',
             dataType: 'json',
-            success: function(departments) {
+            success: function (departments) {
                 var select = $('#hospDepts');
                 select.empty(); // 清空之前的选项
 
@@ -264,11 +293,11 @@
                 select.append($('<option></option>').attr('value', '').text('请选择科室'));
 
                 // 将得到的数据添加为 select 元素的选项
-                $.each(departments, function(index, department) {
+                $.each(departments, function (index, department) {
                     select.append($('<option></option>').attr('value', department.deptId).text(department.deptName));
                 });
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('获取科室信息失败：', error);
             }
         });
@@ -280,16 +309,16 @@
             url: ctx + 'system/user/list/' + deptId, // 后端API的URL
             type: 'GET',
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 var select = $('#doctors'); // 获取医生选择框的jQuery对象
                 select.empty(); // 清空原有的医生选项
 
                 // 动态添加医生选项到选择框
-                $.each(data, function(index, doctor) {
+                $.each(data, function (index, doctor) {
                     select.append($('<option></option>').val(doctor.userId).text(doctor.userName));
                 });
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching doctors:', textStatus, errorThrown);
             }
         });
@@ -298,7 +327,7 @@
     // 表单提交
     function submit() {
         // 表单验证
-        if(!formValidate()) {
+        if (!formValidate()) {
             return false;
         }
 
@@ -326,16 +355,14 @@
             contentType: 'application/json',
             data: data,
             dataType: 'json', // 预期后端返回的数据类型
-            success: function(response) {
-                $.modal.msg("挂号成功", modal_status.SUCCESS)
-                location.reload();
+            success: function (response) {
+                if (response.code === web_status.SUCCESS) {
+                    $.modal.msg("挂号成功", modal_status.SUCCESS);
+                    location.reload();
+                } else {
+                    $.operate.successTabCallback(response);
+                }
             },
-            error: function(xhr, status, error) {
-                // 处理错误响应
-                console.error('提交失败:', error);
-                // 显示错误信息给用户
-                $.modal.alertError("系统错误");
-            }
         });
     }
 

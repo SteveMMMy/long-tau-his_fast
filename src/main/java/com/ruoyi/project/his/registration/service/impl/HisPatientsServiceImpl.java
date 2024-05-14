@@ -65,6 +65,15 @@ public class HisPatientsServiceImpl implements IHisPatientsService
     }
 
     /**
+     * 新增挂号信息（对已有的患者信息）
+     * @param hisPatients 患者信息
+     */
+    @Override
+    public void insertHisRegistersByPatient(HisPatients hisPatients) {
+        insertHisRegisters(hisPatients);
+    }
+
+    /**
      * 修改患者信息
      * 
      * @param hisPatients 患者信息
@@ -105,6 +114,17 @@ public class HisPatientsServiceImpl implements IHisPatientsService
     {
         hisPatientsMapper.deleteHisRegistersByPatientId(patientId);
         return hisPatientsMapper.deleteHisPatientsByPatientId(patientId);
+    }
+
+    /**
+     * 校验身份证号是否唯一
+     *
+     * @param hisPatients 患者信息
+     * @return 结果
+     */
+    @Override
+    public boolean checkIdCardNumUnique(HisPatients hisPatients) {
+        return true;
     }
 
     /**

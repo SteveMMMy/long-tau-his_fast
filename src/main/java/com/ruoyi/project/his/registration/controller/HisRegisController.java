@@ -2,6 +2,7 @@ package com.ruoyi.project.his.registration.controller;
 
 import com.ruoyi.framework.interceptor.annotation.RepeatSubmit;
 import com.ruoyi.framework.web.controller.BaseController;
+import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.project.his.registration.domain.HisAppointment;
 import com.ruoyi.project.his.registration.domain.HisPatients;
 import com.ruoyi.project.his.registration.domain.HisRegisters;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,26 +48,30 @@ public class HisRegisController extends BaseController {
      */
     @RepeatSubmit
     @PostMapping("/add")
-    public ResponseEntity<Map<String, Object>> addAppointment(@RequestBody HisAppointment hisAppointment) {
+    @ResponseBody
+    public AjaxResult addAppointment(@RequestBody HisAppointment hisAppointment) {
         // 插入患者信息和挂号信息
         HisPatients hisPatients = getHisPatientsInfo(hisAppointment);
 
-        Map<String, Object> response = new HashMap<>();
-        try {
-            hisPatientsService.insertHisPatients(hisPatients);
-            response.put("status", "success");
-            response.put("message", "挂号成功");
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            response.put("status", "error");
-            response.put("message", "挂号失败: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        // 若是已存在的患者信息，则直接插入挂号信息
+        if (hisPatients.getPatientId() != null) {
+            hisPatientsService.insertHisRegistersByPatient(hisPatients);
+            return success();
         }
+
+        // 若是新信息，检验身份证号是否唯一
+        if (!hisPatientsService.checkIdCardNumUnique(hisPatients)) {
+            return error("失败，身份证号已存在");
+        }
+
+        // 若唯一，则插入信息
+        return toAjax(hisPatientsService.insertHisPatients(hisPatients));
     }
 
     private static HisPatients getHisPatientsInfo(HisAppointment hisAppointment) {
         // 给hisPatients对象插入患者信息
         HisPatients hisPatients = new HisPatients();
+        hisPatients.setPatientId(hisAppointment.getPatientId());
         hisPatients.setPatientName(hisAppointment.getPatientName());
         hisPatients.setPatientSex(hisAppointment.getPatientSex());
         hisPatients.setPatientBirthDate(hisAppointment.getPatientBirthDate());

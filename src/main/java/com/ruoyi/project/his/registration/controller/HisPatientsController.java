@@ -8,8 +8,10 @@ import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.his.registration.domain.HisPatients;
 import com.ruoyi.project.his.registration.service.IHisPatientsService;
+import com.ruoyi.project.his.suppliers.domain.HisSuppliers;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +51,18 @@ public class HisPatientsController extends BaseController
         startPage();
         List<HisPatients> list = hisPatientsService.selectHisPatientsList(hisPatients);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询患者信息列表（返回数据）
+     */
+    @RequiresPermissions("his:patients:list")
+    @PostMapping("/search_list")
+    public ResponseEntity<List<HisPatients>> searchList() {
+        HisPatients hisPatients = new HisPatients();
+        List<HisPatients> list = hisPatientsService.selectHisPatientsList(hisPatients);
+
+        return ResponseEntity.ok(list);
     }
 
     /**

@@ -291,53 +291,90 @@
                 }]
         };
 
-        // 获取供应商数据
-        $.ajax({
-            url: ctx + 'his/suppliers/search_list',
-            type: 'POST',
-            dataType: 'json',
-            success: function (response) {
-                // 初始化 bootstrap-suggest 插件
-                $(".suppliers-suggest").bsSuggest({
-                    // url: "/his/suppliers/list",
-                    data: {"value": response},
-                    getDataMethod: 'data',
-                    showHeader: true, // 是否显示头部
-                    effectiveFields: [
-                        "splId",
-                        "splName",
-                        "splAddr",
-                        "splContact",
-                        "splLegalPerson",
-                        "splPermitId",
-                        "splCertification",
-                        "splBusinessLicenseId"
-                    ],
-                    effectiveFieldsAlias: {
-                        splId: "ID",
-                        splName: "名称",
-                        splAddr: "地址",
-                        splContact: "联系方式",
-                        splLegalPerson: "法人代表",
-                        splPermitId: "许可证编号",
-                        splCertification: "质量认证情况",
-                        splBusinessLicenseId: "营业执照编号"
-                    },
-                    idField: "splId",
-                    keyField: "splName",
-                    ignorecase: true,
-                    autoDropup: true,
-                    hideOnSelect: true,
-                    showBtn: false,
-                    clearable: true
-                }).on('onSetSelectValue', function (e, selectedData, selectedRawData) {
-                    $("input[name='splId']").val(selectedData.id);
-                });
+        getDataAndInitBsSuggest(
+            ctx + 'his/suppliers/search_list',
+            ".suppliers-suggest",
+            function (r) {return r;},
+            {
+                effectiveFields: [
+                    "splId",
+                    "splName",
+                    "splAddr",
+                    "splContact",
+                    "splLegalPerson",
+                    "splPermitId",
+                    "splCertification",
+                    "splBusinessLicenseId"
+                ],
+                effectiveFieldsAlias: {
+                    splId: "ID",
+                    splName: "名称",
+                    splAddr: "地址",
+                    splContact: "联系方式",
+                    splLegalPerson: "法人代表",
+                    splPermitId: "许可证编号",
+                    splCertification: "质量认证情况",
+                    splBusinessLicenseId: "营业执照编号"
+                },
+                idField: "splId",
+                keyField: "splName",
+                ignorecase: true,
+                autoDropup: true,
+                hideOnSelect: true,
+                showBtn: false,
+                clearable: true
             },
-            error: function (xhr, status, error) {
-                console.error('Error fetching data:', error);
+            function (e, selectedData, selectedRawData) {
+                $("input[name='splId']").val(selectedData.id);
             }
-        });
+        );
+        // 获取供应商数据
+        // $.ajax({
+        //     url: ctx + 'his/suppliers/search_list',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     success: function (response) {
+        //         // 初始化 bootstrap-suggest 插件
+        //         $(".suppliers-suggest").bsSuggest({
+        //             // url: "/his/suppliers/list",
+        //             data: {"value": response},
+        //             getDataMethod: 'data',
+        //             showHeader: true, // 是否显示头部
+        //             effectiveFields: [
+        //                 "splId",
+        //                 "splName",
+        //                 "splAddr",
+        //                 "splContact",
+        //                 "splLegalPerson",
+        //                 "splPermitId",
+        //                 "splCertification",
+        //                 "splBusinessLicenseId"
+        //             ],
+        //             effectiveFieldsAlias: {
+        //                 splId: "ID",
+        //                 splName: "名称",
+        //                 splAddr: "地址",
+        //                 splContact: "联系方式",
+        //                 splLegalPerson: "法人代表",
+        //                 splPermitId: "许可证编号",
+        //                 splCertification: "质量认证情况",
+        //                 splBusinessLicenseId: "营业执照编号"
+        //             },
+        //             idField: "splId",
+        //             keyField: "splName",
+        //             ignorecase: true,
+        //             autoDropup: true,
+        //             hideOnSelect: true,
+        //             showBtn: false,
+        //             clearable: true
+        //         }).on('onSetSelectValue', function (e, selectedData, selectedRawData) {
+        //             $("input[name='splId']").val(selectedData.id);
+        //         });
+        //     },
+        //     error: function (xhr, status, error) {
+        //         console.error('Error fetching data:', error);
+        //     }
+        // });
 
         // 设置制单日期为当前日期
         const today = new Date().toISOString().slice(0, 10); // 获取当前日期，格式为"YYYY-MM-DD"

@@ -16,6 +16,9 @@ public class HisAppointment extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    /** 患者编号 */
+    private Long patientId;
+
     /** 姓名 */
     @Excel(name = "姓名")
     private String patientName;
@@ -61,6 +64,14 @@ public class HisAppointment extends BaseEntity {
     /** 挂号状态 */
     @Excel(name = "挂号状态")
     private Long regStatus;
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
 
     public String getPatientName() {
         return patientName;

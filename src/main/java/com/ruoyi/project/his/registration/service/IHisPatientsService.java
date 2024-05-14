@@ -37,6 +37,12 @@ public interface IHisPatientsService
     public int insertHisPatients(HisPatients hisPatients);
 
     /**
+     * 新增挂号信息（对已有的患者信息）
+     * @param hisPatients 患者信息
+     */
+    public void insertHisRegistersByPatient(HisPatients hisPatients);
+
+    /**
      * 修改患者信息
      * 
      * @param hisPatients 患者信息
@@ -59,4 +65,12 @@ public interface IHisPatientsService
      * @return 结果
      */
     public int deleteHisPatientsByPatientId(Long patientId);
+
+    /**
+     * 校验身份证号是否唯一
+     *
+     * @param hisPatients 患者信息
+     * @return 结果
+     */
+    public boolean checkIdCardNumUnique(HisPatients hisPatients);
 }

@@ -56,6 +56,7 @@ public class HisSuppliersController extends BaseController {
     /**
      * 查询供应商列表（返回数据）
      */
+    @RequiresPermissions("his:suppliers:list")
     @PostMapping("/search_list")
     public ResponseEntity<List<HisSuppliers>> searchList() {
         HisSuppliers hisSuppliers = new HisSuppliers();
