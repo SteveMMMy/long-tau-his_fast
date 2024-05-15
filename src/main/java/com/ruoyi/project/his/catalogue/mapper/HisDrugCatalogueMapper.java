@@ -2,7 +2,7 @@ package com.ruoyi.project.his.catalogue.mapper;
 
 import java.util.List;
 import com.ruoyi.project.his.catalogue.domain.HisDrugCatalogue;
-import com.ruoyi.project.his.catalogue.domain.HisInventory;
+import com.ruoyi.project.his.inventory.domain.HisInventory;
 
 /**
  * 药品目录Mapper接口

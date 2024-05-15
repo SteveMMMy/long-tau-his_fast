@@ -1,6 +1,8 @@
 package com.ruoyi.project.his.catalogue.domain;
 
 import java.util.List;
+
+import com.ruoyi.project.his.inventory.domain.HisInventory;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.ruoyi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.ruoyi.project.his.catalogue.domain.HisInventory;
+import com.ruoyi.project.his.inventory.domain.HisInventory;
 import com.ruoyi.project.his.catalogue.mapper.HisDrugCatalogueMapper;
 import com.ruoyi.project.his.catalogue.domain.HisDrugCatalogue;
 import com.ruoyi.project.his.catalogue.service.IHisDrugCatalogueService;

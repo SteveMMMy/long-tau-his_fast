@@ -1,8 +1,12 @@
 package com.ruoyi.project.his.purchase.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ruoyi.common.utils.security.ShiroUtils;
+import com.ruoyi.common.utils.text.Convert;
+import com.ruoyi.project.his.entry.domain.HisEntrySchedules;
+import com.ruoyi.project.his.purchase.domain.HisOrdersSchedules;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,6 +63,51 @@ public class HisPurchaseOrdersController extends BaseController
         startPage();
         List<HisPurchaseOrders> list = hisPurchaseOrdersService.selectHisPurchaseOrdersList(hisPurchaseOrders);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询采购单列表（根据多个id），返回入库单明细
+     */
+    @RequiresPermissions("his:purchase:list")
+    @PostMapping("/list_ids")
+    @ResponseBody
+    public TableDataInfo listIds(String orderIdsStr)
+    {
+        startPage();
+        Long[] orderIds = Convert.toLongArray(orderIdsStr);
+
+        // 返回查询结果列表
+        List<HisEntrySchedules> resultsList = new ArrayList<>();
+        for (Long orderId : orderIds) {
+            // 得到采购单明细
+            HisPurchaseOrders hisPurchaseOrders = hisPurchaseOrdersService.selectHisPurchaseOrdersByPurId(orderId);
+            List<HisOrdersSchedules> hisOrdersSchedulesList = hisPurchaseOrders.getHisOrdersSchedulesList();
+
+            // 将数据给入库单明细对象
+            for (HisOrdersSchedules hisOrdersSchedules : hisOrdersSchedulesList) {
+                HisEntrySchedules hisEntrySchedules = getHisEntrySchedules(hisOrdersSchedules);
+
+                resultsList.add(hisEntrySchedules);
+            }
+        }
+
+        return getDataTable(resultsList);
+    }
+
+    private static HisEntrySchedules getHisEntrySchedules(HisOrdersSchedules hisOrdersSchedules) {
+        HisEntrySchedules hisEntrySchedules = new HisEntrySchedules();
+        hisEntrySchedules.setCatId(hisOrdersSchedules.getCatId());
+        hisEntrySchedules.setCatApprovalNumber(hisOrdersSchedules.getCatApprovalNumber());
+        hisEntrySchedules.setCatDrugNum(hisOrdersSchedules.getCatDrugNum());
+        hisEntrySchedules.setCatName(hisOrdersSchedules.getCatName());
+        hisEntrySchedules.setCatEnglishName(hisOrdersSchedules.getCatEnglishName());
+        hisEntrySchedules.setCatProducer(hisOrdersSchedules.getCatProducer());
+        hisEntrySchedules.setCatSpecs(hisOrdersSchedules.getCatSpecs());
+        hisEntrySchedules.setCatDosageForm(hisOrdersSchedules.getCatDosageForm());
+        hisEntrySchedules.setCatPackage(hisOrdersSchedules.getCatPackage());
+        hisEntrySchedules.setCatUnit(hisOrdersSchedules.getCatUnit());
+        hisEntrySchedules.setEntSchNum(hisOrdersSchedules.getOrderSchNumber());  // 入库数量等于采购数量
+        return hisEntrySchedules;
     }
 
     /**

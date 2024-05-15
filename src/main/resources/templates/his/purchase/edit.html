@@ -266,9 +266,9 @@
                     }
                 },
                 {
-                    field: 'orderSchPrice',  // 原计划单的参考单价变为采购单的金额
+                    field: 'orderSchPrice',  // 原计划单的参考单价变为采购单的单价
                     align: 'left',
-                    title: '金额',
+                    title: '单价',
                     width: '80%',
                     formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisOrdersSchedulesList[%s].orderSchPrice' value='%s'>", index, value);
@@ -284,7 +284,6 @@
                         return html;
                     }
                 },
-
                 {
                     title: '操作',
                     align: 'center',

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.his.inventory.mapper.HisInventoryMapper">
+
+    <resultMap type="HisInventory" id="HisInventoryResult">
+        <result property="invId" column="inv_id"/>
+        <result property="catId" column="cat_id"/>
+
+        <result property="catApprovalNumber" column="cat_approval_number"/>
+        <result property="catDrugNum" column="cat_drug_num"/>
+        <result property="catName" column="cat_name"/>
+        <result property="catEnglishName" column="cat_English_name"/>
+        <result property="catProducer" column="cat_producer"/>
+        <result property="catSpecs" column="cat_specs"/>
+        <result property="catDosageForm" column="cat_dosage_form"/>
+        <result property="catPackage" column="cat_package"/>
+        <result property="catUnit" column="cat_unit"/>
+
+        <result property="invBatchNumber" column="inv_batch_number"/>
+        <result property="invNumber" column="inv_number"/>
+        <result property="invUnitPrice" column="inv_unit_price"/>
+        <result property="invProdDate" column="inv_prod_date"/>
+        <result property="invValidTo" column="inv_valid_to"/>
+    </resultMap>
+
+    <sql id="selectHisInventoryVo">
+        select inv_id, cat_id, inv_batch_number, inv_number, inv_unit_price, inv_prod_date, inv_valid_to
+        from his_inventory
+    </sql>
+
+    <select id="selectHisInventoryList" parameterType="HisInventory" resultMap="HisInventoryResult">
+        select
+        i.inv_id,
+        i.cat_id,
+        hdc.cat_approval_number,
+        hdc.cat_drug_num,
+        hdc.cat_name,
+        hdc.cat_English_name,
+        hdc.cat_producer,
+        hdc.cat_specs,
+        hdc.cat_dosage_form,
+        hdc.cat_package,
+        hdc.cat_unit,
+        i.inv_batch_number,
+        i.inv_number,
+        i.inv_unit_price,
+        i.inv_prod_date,
+        i.inv_valid_to
+        from his_inventory i
+        left join his_drug_catalogue hdc on hdc.cat_id = i.cat_id
+        <where>
+            <if test="catId != null ">and i.cat_id = #{catId}</if>
+            <if test="invBatchNumber != null  and invBatchNumber != ''">and inv_batch_number = #{invBatchNumber}</if>
+            <if test="invNumber != null ">and inv_number = #{invNumber}</if>
+            <if test="invUnitPrice != null ">and inv_unit_price = #{invUnitPrice}</if>
+            <if test="invProdDate != null ">and inv_prod_date = #{invProdDate}</if>
+            <if test="invValidTo != null ">and inv_valid_to = #{invValidTo}</if>
+        </where>
+    </select>
+
+    <select id="selectHisInventoryByInvId" parameterType="Long" resultMap="HisInventoryResult">
+        <include refid="selectHisInventoryVo"/>
+        where inv_id = #{invId}
+    </select>
+
+    <insert id="insertHisInventory" parameterType="HisInventory" useGeneratedKeys="true" keyProperty="invId">
+        insert into his_inventory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="catId != null">cat_id,</if>
+            <if test="invBatchNumber != null and invBatchNumber != ''">inv_batch_number,</if>
+            <if test="invNumber != null">inv_number,</if>
+            <if test="invUnitPrice != null">inv_unit_price,</if>
+            <if test="invProdDate != null">inv_prod_date,</if>
+            <if test="invValidTo != null">inv_valid_to,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="catId != null">#{catId},</if>
+            <if test="invBatchNumber != null and invBatchNumber != ''">#{invBatchNumber},</if>
+            <if test="invNumber != null">#{invNumber},</if>
+            <if test="invUnitPrice != null">#{invUnitPrice},</if>
+            <if test="invProdDate != null">#{invProdDate},</if>
+            <if test="invValidTo != null">#{invValidTo},</if>
+        </trim>
+    </insert>
+
+    <update id="updateHisInventory" parameterType="HisInventory">
+        update his_inventory
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="catId != null">cat_id = #{catId},</if>
+            <if test="invBatchNumber != null and invBatchNumber != ''">inv_batch_number = #{invBatchNumber},</if>
+            <if test="invNumber != null">inv_number = #{invNumber},</if>
+            <if test="invUnitPrice != null">inv_unit_price = #{invUnitPrice},</if>
+            <if test="invProdDate != null">inv_prod_date = #{invProdDate},</if>
+            <if test="invValidTo != null">inv_valid_to = #{invValidTo},</if>
+        </trim>
+        where inv_id = #{invId}
+    </update>
+
+    <delete id="deleteHisInventoryByInvId" parameterType="Long">
+        delete
+        from his_inventory
+        where inv_id = #{invId}
+    </delete>
+
+    <delete id="deleteHisInventoryByInvIds" parameterType="String">
+        delete from his_inventory where inv_id in
+        <foreach item="invId" collection="array" open="(" separator="," close=")">
+            #{invId}
+        </foreach>
+    </delete>
+
+</mapper>
