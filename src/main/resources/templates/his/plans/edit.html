@@ -148,6 +148,78 @@
             showToggle: false,
             showColumns: false,
             sidePagination: "client",
+            onPostBody: function () {
+                // 初始化bootstrap-suggest
+                $('.medicine-suggest').each(function () {
+                    let $input = $(this);
+                    let rowIndex = $input.attr('name').match(/hisProcurementSchedulesList\[(\d+)\]\.catName/)[1]; // 提取行索引
+
+                    getDataAndInitBsSuggest(
+                        ctx + 'his/catalogue/search_list',
+                        this,
+                        function (r) {
+                            r.forEach(function (drug) {
+                                // 给数据增加字典标签字段
+                                drug.catDosageFormLabel = $.table.selectDictLabel(catDosageFormDatas, drug.catDosageForm);
+                                drug.catUnitLabel = $.table.selectDictLabel(catUnitDatas, drug.catUnit)
+                            })
+                            return r;
+                        },
+                        {
+                            effectiveFields: [
+                                "catName",
+                                "catEnglishName",
+                                "catSpecs",
+                                "catDosageFormLabel",
+                                "catPackage",
+                                "catUnitLabel"
+                            ],
+                            effectiveFieldsAlias: {
+                                catName: "药品名",
+                                catEnglishName: "英文名",
+                                catSpecs: "规格",
+                                catDosageFormLabel: "剂型",
+                                catPackage: "包装",
+                                catUnitLabel: "单位"
+                            },
+                            idField: 'catId',
+                            keyField: 'catName'
+                        },
+                        function (e, selectedData, selectedRawData) {
+                            // 选择一条数据时自动填写其他字段
+                            const $tr = $input.closest('tr'); // 找到当前行
+
+                            // 填充药品ID
+                            const $catIdInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catId"]'); // 找到药品ID输入框
+                            $catIdInput.val(selectedData.id); // 设置药品ID
+
+                            // 填充英文名
+                            const $catEnglishNameInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catEnglishName"]');
+                            $catEnglishNameInput.val(selectedRawData.catEnglishName);
+
+                            // 填充规格
+                            const $catSpecsInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catSpecs"]');
+                            $catSpecsInput.val(selectedRawData.catSpecs);
+
+                            // 填充剂型
+                            const $catDosageFormInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catDosageFormLabel"]');
+                            $catDosageFormInput.val(stripHtmlTagsDOMParser(
+                                $.table.selectDictLabel(catDosageFormDatas, selectedRawData.catDosageForm)
+                            ));
+
+                            // 填充包装
+                            const $catPackageInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catPackage"]');
+                            $catPackageInput.val(selectedRawData.catPackage);
+
+                            // 填充单位
+                            const $catUnitInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catUnitLabel"]');
+                            $catUnitInput.val(stripHtmlTagsDOMParser(
+                                $.table.selectDictLabel(catUnitDatas, selectedRawData.catUnit)
+                            ));
+                        }
+                    )
+                });
+            },
             columns: [{
                 checkbox: true
             },
@@ -291,24 +363,6 @@
         };
         $.table.init(options);
 
-        // 获取药品数据
-        $.ajax({
-            url: ctx + 'his/catalogue/search_list',
-            type: 'POST',
-            dataType: 'json',
-            success: function (response) {
-                catData = {"value": response};
-                catData.value.forEach(function (drug) {
-                    // 给数据增加字典标签字段
-                    drug.catDosageFormLabel = $.table.selectDictLabel(catDosageFormDatas, drug.catDosageForm);
-                    drug.catUnitLabel = $.table.selectDictLabel(catUnitDatas, drug.catUnit)
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching data:', error);
-            }
-        });
-
         // 监听输入框的变化，以确保用户输入不会超过限制
         let $prcpDocNumInput = $('input[name="prcpDocNum"]');
         $prcpDocNumInput.on('input', function () {
@@ -337,76 +391,6 @@
             pschNumber: "",
         }
         sub.addRow(row);
-
-        // 初始化bootstrap-suggest
-        $('.medicine-suggest').each(function () {
-            let $input = $(this);
-            let rowIndex = $input.attr('name').match(/hisProcurementSchedulesList\[(\d+)\]\.catName/)[1]; // 提取行索引
-
-            $input.bsSuggest({
-                // url: '/his/catalogue/get_list',
-                data: catData,
-                dataType: 'json', // 根据你的API返回的数据类型来设置
-                showHeader: true, // 是否显示头部
-                effectiveFields: [
-                    "catName",
-                    "catEnglishName",
-                    "catSpecs",
-                    "catDosageFormLabel",
-                    "catPackage",
-                    "catUnitLabel"
-                ],
-                idField: 'catId',
-                keyField: 'catName',
-                effectiveFieldsAlias: {
-                    catName: "药品名",
-                    catEnglishName: "英文名",
-                    catSpecs: "规格",
-                    catDosageFormLabel: "剂型",
-                    catPackage: "包装",
-                    catUnitLabel: "单位"
-                },
-                ignorecase: true,
-                autoDropup: true,
-                getDataMethod: 'data',
-                hideOnSelect: true,
-                showBtn: false,
-                clearable: true
-            }).on('onSetSelectValue', function (e, selectedData, selectedRawData) {
-                // 选择一条数据时自动填写其他字段
-                const $tr = $input.closest('tr'); // 找到当前行
-
-                // 填充药品ID
-                const $catIdInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catId"]'); // 找到药品ID输入框
-                $catIdInput.val(selectedData.id); // 设置药品ID
-
-                // 填充英文名
-                const $catEnglishNameInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catEnglishName"]');
-                $catEnglishNameInput.val(selectedRawData.catEnglishName);
-
-                // 填充规格
-                const $catSpecsInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catSpecs"]');
-                $catSpecsInput.val(selectedRawData.catSpecs);
-
-                // 填充剂型
-                const $catDosageFormInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catDosageFormLabel"]');
-                $catDosageFormInput.val(stripHtmlTagsDOMParser(
-                    $.table.selectDictLabel(catDosageFormDatas, selectedRawData.catDosageForm)
-                ));
-
-                // 填充包装
-                const $catPackageInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catPackage"]');
-                $catPackageInput.val(selectedRawData.catPackage);
-
-                // 填充单位
-                const $catUnitInput = $tr.find('input[name="hisProcurementSchedulesList[' + rowIndex + '].catUnitLabel"]');
-                $catUnitInput.val(stripHtmlTagsDOMParser(
-                    $.table.selectDictLabel(catUnitDatas, selectedRawData.catUnit)
-                ));
-            }).on('onHideDropdown', function (e, data) {
-                console.log('onHideDropdown', e.target.value, data);
-            });
-        });
     }
 </script>
 </body>

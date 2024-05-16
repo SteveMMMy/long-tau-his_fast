@@ -83,12 +83,21 @@ public class HisWarehousingEntryController extends BaseController
     }
 
     /**
-     * 新增入库单
+     * 新增入库单（从采购单）
      */
     @GetMapping("/add")
     public String add()
     {
         return prefix + "/add";
+    }
+
+    /**
+     * 新增入库单（直接添加药品）
+     */
+    @GetMapping("/add2")
+    public String add2()
+    {
+        return prefix + "/add2";
     }
 
     /**
@@ -151,6 +160,7 @@ public class HisWarehousingEntryController extends BaseController
     public String edit(@PathVariable("entId") Long entId, ModelMap mmap)
     {
         HisWarehousingEntry hisWarehousingEntry = hisWarehousingEntryService.selectHisWarehousingEntryByEntId(entId);
+        hisWarehousingEntry.setEntId(entId);
         mmap.put("hisWarehousingEntry", hisWarehousingEntry);
         return prefix + "/edit";
     }

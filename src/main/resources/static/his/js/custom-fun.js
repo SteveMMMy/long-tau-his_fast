@@ -41,16 +41,18 @@ function getDataAndInitBsSuggest(
                 effectiveFieldsAlias: options.effectiveFieldsAlias,
                 idField: options.idField,
                 keyField: options.keyField,
-                ignorecase: options.ignorecase,
-                autoDropup: options.autoDropup,
-                hideOnSelect: options.hideOnSelect,
-                showBtn: options.showBtn,
-                clearable: options.clearable,
+                ignorecase: typeof options.ignorecase !== 'undefined' ? options.ignorecase : true,
+                autoDropup: typeof options.autoDropup !== 'undefined' ? options.autoDropup : true,
+                hideOnSelect: typeof options.hideOnSelect !== 'undefined' ? options.hideOnSelect : true,
+                showBtn: typeof options.showBtn !== 'undefined' ? options.showBtn : false,
+                clearable: typeof options.clearable !== 'undefined' ? options.clearable : true,
                 inputWarnColor: typeof options.inputWarnColor !== 'undefined' ? options.inputWarnColor : 'rgba(255,0,0,.1)'
             }).on('onSetSelectValue', function (e, selectedData, selectedRawData) {
                 onSetSelectValueCallback(e, selectedData, selectedRawData);
             }).on('onUnsetSelectValue', function () {
-                onUnsetSelectValueCallback();
+                if (typeof onUnsetSelectValueCallback === 'function') {
+                    onUnsetSelectValueCallback();
+                }
             });
         },
         error: function (xhr, status, error) {

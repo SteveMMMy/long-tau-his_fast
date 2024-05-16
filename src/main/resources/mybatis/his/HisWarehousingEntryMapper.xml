@@ -22,6 +22,17 @@
         <result property="entSchId" column="sub_ent_sch_id"/>
         <result property="entId" column="sub_ent_id"/>
         <result property="catId" column="sub_cat_id"/>
+
+        <result property="catApprovalNumber" column="cat_approval_number"/>
+        <result property="catDrugNum" column="cat_drug_num"/>
+        <result property="catName" column="cat_name"/>
+        <result property="catEnglishName" column="cat_English_name"/>
+        <result property="catProducer" column="cat_producer"/>
+        <result property="catSpecs" column="cat_specs"/>
+        <result property="catDosageForm" column="cat_dosage_form"/>
+        <result property="catPackage" column="cat_package"/>
+        <result property="catUnit" column="cat_unit"/>
+
         <result property="entSchBatchNumber" column="sub_ent_sch_batch_number"/>
         <result property="entSchProdDate" column="sub_ent_sch_prod_date"/>
         <result property="entSchValidTo" column="sub_ent_sch_valid_to"/>
@@ -60,9 +71,24 @@
                b.ent_sch_prod_date    as sub_ent_sch_prod_date,
                b.ent_sch_valid_to     as sub_ent_sch_valid_to,
                b.ent_sch_unit_price   as sub_ent_sch_unit_price,
-               b.ent_sch_num          as sub_ent_sch_num
+               b.ent_sch_num          as sub_ent_sch_num,
+               su.user_name,
+               cat.cat_approval_number,
+               cat.cat_drug_num,
+               cat.cat_name,
+               cat.cat_English_name,
+               cat.cat_producer,
+               cat.cat_specs,
+               cat.cat_dosage_form,
+               cat.cat_package,
+               cat.cat_unit
         from his_warehousing_entry a
-                 left join his_entry_schedules b on b.ent_id = a.ent_id
+                 left join
+             his_entry_schedules b on b.ent_id = a.ent_id
+                 left join
+             his_drug_catalogue cat on b.cat_id = cat.cat_id
+                 left join
+             sys_user su on a.user_id = su.user_id
         where a.ent_id = #{entId}
     </select>
 

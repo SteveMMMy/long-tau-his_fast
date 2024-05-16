@@ -61,7 +61,7 @@
     var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
     var catUnitDatas = [[${@dict.getType('drug_unit')}]];
 
-    // TODO 打开选择采购单页面
+    // 打开选择采购单页面
     function selectPurOrder() {
         var options = {
             title: '选择采购单',
@@ -71,7 +71,7 @@
         $.modal.openOptions(options);
     }
 
-    // 得到选择的采购计划单
+    // 得到选择的采购单明细
     function submitPurOrder(index, layero) {
         var rows = layero.find("iframe")[0].contentWindow.getSelections();
         let queryStr = "";
@@ -246,7 +246,7 @@
                     align: 'center',
                     title: '入库数量',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisEntrySchedulesList[%s].entSchNum' value='%s'>", index, value);
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisEntrySchedulesList[%s].entSchNum' value='%s' required>", index, value);
                         return html;
                     }
                 },

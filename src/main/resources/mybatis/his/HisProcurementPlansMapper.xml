@@ -107,7 +107,7 @@
                  LEFT JOIN
              his_drug_catalogue cat ON psch.cat_id = cat.cat_id
                  LEFT JOIN
-             sys_user su on prp.user_id = su.user_id
+             sys_user su ON prp.user_id = su.user_id
         WHERE prp.prcp_id = #{prcpId}
     </select>
 

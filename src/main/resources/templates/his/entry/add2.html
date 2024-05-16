@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="include :: header('修改入库单')"/>
+  <th:block th:include="include :: header('新增入库单')"/>
   <th:block th:include="include :: datetimepicker-css"/>
   <style>
       .bootstrap-table .fixed-table-container .fixed-table-body {
@@ -12,39 +12,36 @@
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content ibox-content">
-  <form class="form-horizontal m" id="form-entry-edit" th:object="${hisWarehousingEntry}">
-    <h4 class="form-header h4">入库单信息</h4>
-    <input name="entId" th:field="*{entId}" type="hidden">
-    <input name="userId" th:field="*{userId}" type="hidden">
-
+  <form class="form-horizontal m" id="form-entry-add">
+    <h4 class="form-header h4">新增入库单</h4>
     <div class="form-group">
       <label class="col-sm-3 control-label is-required">制单人：</label>
       <div class="col-sm-8">
-        <input class="form-control" name="userName" required readonly th:field="*{userName}" type="text">
+        <input class="form-control" readonly th:value="${@permission.getPrincipalProperty('userName')}">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">入库单据号：</label>
+      <label class="col-sm-3 control-label">单据号：</label>
       <div class="col-sm-8">
-        <input class="form-control" name="entDocNum" th:field="*{entDocNum}" type="text">
+        <input class="form-control" name="entDocNum" type="text">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">入库日期：</label>
       <div class="col-sm-8">
         <div class="input-group date">
-          <input class="form-control" name="entDate"
-                 placeholder="yyyy-MM-dd" th:value="${#dates.format(hisWarehousingEntry.entDate, 'yyyy-MM-dd')}" type="text">
+          <input class="form-control" name="entDate" placeholder="yyyy-MM-dd" type="text">
           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
       </div>
     </div>
-<!--    <h4 class="form-header h4">入库单明细信息</h4>-->
+    <!--    <h4 class="form-header h4">入库单明细信息</h4>-->
     <div class="row">
       <div class="col-sm-12">
-<!--        <button class="btn btn-success btn-sm" onclick="addRow()" type="button"><i class="fa fa-plus"> 增加</i></button>-->
-<!--        <button class="btn btn-danger btn-sm" onclick="sub.delRow()" type="button"><i class="fa fa-minus"> 删除</i>-->
-<!--        </button>-->
+        <button class="btn btn-success btn-sm" onclick="addRow()" type="button"><i class="fa fa-plus">
+          新增</i></button>
+        <button class="btn btn-danger btn-sm" onclick="sub.delRow()" type="button"><i class="fa fa-minus"> 删除</i>
+        </button>
         <div class="col-sm-12">
           <table data-resizable="true" id="bootstrap-table"></table>
         </div>
@@ -55,9 +52,9 @@
 
 <div class="row">
   <div class="col-sm-offset-5 col-sm-10">
-    <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存
+    <button class="btn btn-sm btn-primary" onclick="submitHandler()" type="button"><i class="fa fa-check"></i>保 存
     </button>&nbsp;
-    <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭
+    <button class="btn btn-sm btn-danger" onclick="closeItem()" type="button"><i class="fa fa-reply-all"></i>关 闭
     </button>
   </div>
 </div>
@@ -66,19 +63,19 @@
 <th:block th:include="include :: bootstrap-suggest-js"/>
 <th:block th:include="include :: bootstrap-table-resizable-js"/>
 <script th:inline="javascript">
-
+    const docPrefix = "YPRK-";  // 单据号前缀
     var prefix = ctx + "his/entry";
     var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
     var catUnitDatas = [[${@dict.getType('drug_unit')}]];
 
-    $("#form-entry-edit").validate({
+    $("#form-entry-add").validate({
         focusCleanup: true
     });
 
     function submitHandler() {
         if ($.validate.form()) {
-            $.operate.save(prefix + "/edit", $('#form-entry-edit').serialize(), function (result) {
-                setTimeout(closeItem, 100);
+            $.operate.save(prefix + "/add", $('#form-entry-add').serialize(), function (result) {
+                location.reload();
             });
         }
     }
@@ -90,8 +87,7 @@
     });
 
     $(function () {
-        var options = {
-            data: [[${hisWarehousingEntry.hisEntrySchedulesList}]],
+        let options = {
             pagination: false,
             showSearch: false,
             showRefresh: false,
@@ -184,7 +180,6 @@
                         }
                     )
                 });
-
             },
             columns: [{
                 checkbox: true
@@ -220,7 +215,7 @@
                             '  <div class="col-sm-12">' +
                             '    <div class="input-group">' +
                             '      <input type="text" class="form-control medicine-suggest" placeholder="选择药品" ' +
-                            '             name="hisEntrySchedulesList[%s].catName" value="%s">' +
+                            '             name="hisEntrySchedulesList[%s].catName" value="%s" required>' +
                             '      <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>' +
                             '    </div>' +
                             '  </div>' +
@@ -230,6 +225,7 @@
                 {
                     field: 'catId',
                     title: 'ID',
+                    width: '50%',
                     formatter: function (value, row, index) {
                         return $.common.sprintf(
                             "<input class='form-control' type='text' readonly " +
@@ -299,7 +295,7 @@
                     field: 'entSchBatchNumber',
                     align: 'center',
                     title: '生产批号',
-                    width: '120%',
+                    width: "120%",
                     formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisEntrySchedulesList[%s].entSchBatchNumber' value='%s' required>", index, value);
                         return html;
@@ -342,17 +338,34 @@
                         return html;
                     }
                 },
-                // {
-                //     title: '操作',
-                //     align: 'center',
-                //     formatter: function (value, row, index) {
-                //         var value = $.common.isNotEmpty(row.index) ? row.index : $.table.serialNumber(index);
-                //         return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="sub.delRowByIndex(\'' + value + '\')"><i class="fa fa-remove"></i>删除</a>';
-                //     }
-                // }
-            ]
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var value = $.common.isNotEmpty(row.index) ? row.index : $.table.serialNumber(index);
+                        return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="sub.delRowByIndex(\'' + value + '\')"><i class="fa fa-remove"></i>删除</a>';
+                    }
+                }]
         };
         $.table.init(options);
+
+        // 设置制单日期为当前日期
+        const today = new Date().toISOString().slice(0, 10); // 获取当前日期，格式为"YYYY-MM-DD"
+        $('input[name="entDate"]').val(today); // 将日期值设置到输入框中
+
+        // 填写单据号前缀
+        let $entDocNumInput = $('input[name="entDocNum"]');
+        $entDocNumInput.val(
+            docPrefix + today.slice(2, 4) + today.slice(5, 7) + today.slice(8, 10)
+        );
+
+        // 单据号长度不超过 14
+        $entDocNumInput.on('input', function () {
+            const inputVal = $(this).val();
+            if (inputVal.length > 14) {
+                $(this).val(inputVal.slice(0, 14));
+            }
+        });
     });
 
     function addRow() {
