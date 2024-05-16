@@ -123,12 +123,12 @@
                 layui.use('laydate', function () {
                     var laydate = layui.laydate;
                     laydate.render({
-                        elem: '#prod-date',
+                        elem: '.prod-date',
                         type: 'date',
                         max: new Date().toISOString().slice(0, 10)
                     });
                     laydate.render({
-                        elem: '#valid-to',
+                        elem: '.valid-to',
                         type: 'date',
                         min: new Date().toISOString().slice(0, 10)
                     });
@@ -144,7 +144,7 @@
                     width: "20%",
                     formatter: function (value, row, index) {
                         var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
-                        return columnIndex + $.table.serialNumber(index);  // TODO 序号干扰问题
+                        return columnIndex + $.table.serialNumber(index);
                     }
                 },
                 {
@@ -209,7 +209,7 @@
                     title: '生产批号',
                     width: "120%",
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisEntrySchedulesList[%s].entSchBatchNumber' value='%s'>", index, value);
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisEntrySchedulesList[%s].entSchBatchNumber' value='%s' required>", index, value);
                         return html;
                     }
                 },
@@ -218,7 +218,7 @@
                     align: 'center',
                     title: '生产日期',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' id='prod-date' placeholder='yyyy-MM-dd' name='hisEntrySchedulesList[%s].entSchProdDate' value='%s'>", index, value);
+                        var html = $.common.sprintf("<input class='form-control prod-date' type='text' placeholder='yyyy-MM-dd' name='hisEntrySchedulesList[%s].entSchProdDate' value='%s'>", index, value);
                         return html;
                     }
                 },
@@ -227,7 +227,7 @@
                     align: 'center',
                     title: '有效期至',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' id='valid-to' placeholder='yyyy-MM-dd' name='hisEntrySchedulesList[%s].entSchValidTo' value='%s'>", index, value);
+                        var html = $.common.sprintf("<input class='form-control valid-to' type='text' placeholder='yyyy-MM-dd' name='hisEntrySchedulesList[%s].entSchValidTo' value='%s'>", index, value);
                         return html;
                     }
                 },

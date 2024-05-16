@@ -115,7 +115,7 @@ public class HisWarehousingEntryController extends BaseController
             inv.setInvBatchNumber(hisInventory.getInvBatchNumber());
             List<HisInventory> inventoryList = hisInventoryService.selectHisInventoryList(inv);
 
-            if (inventoryList == null) {
+            if (inventoryList.isEmpty()) {
                 // 若生产批号唯一，直接插入
                 rows += hisInventoryService.insertHisInventory(hisInventory);
             } else {
