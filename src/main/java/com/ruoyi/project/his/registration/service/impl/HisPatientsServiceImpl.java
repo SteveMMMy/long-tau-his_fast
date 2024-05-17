@@ -4,7 +4,7 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.text.Convert;
 import com.ruoyi.project.his.registration.service.IHisPatientsService;
 import com.ruoyi.project.his.registration.domain.HisPatients;
-import com.ruoyi.project.his.registration.domain.HisRegisters;
+import com.ruoyi.project.his.registers.domain.HisRegisters;
 import com.ruoyi.project.his.registration.mapper.HisPatientsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,7 +117,7 @@ public class HisPatientsServiceImpl implements IHisPatientsService
     }
 
     /**
-     * 校验身份证号是否唯一
+     * TODO 校验身份证号是否唯一
      *
      * @param hisPatients 患者信息
      * @return 结果
@@ -144,7 +144,7 @@ public class HisPatientsServiceImpl implements IHisPatientsService
                 hisRegisters.setPatientId(patientId);
                 list.add(hisRegisters);
             }
-            if (list.size() > 0)
+            if (!list.isEmpty())
             {
                 hisPatientsMapper.batchHisRegisters(list);
             }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.his.registers.mapper.HisRegistersMapper">
+
+    <resultMap type="HisRegisters" id="HisRegistersResult">
+        <result property="regId" column="reg_id"/>
+        <result property="patientId" column="patient_id"/>
+
+        <result property="patientName" column="patient_name"/>
+        <result property="patientSex" column="patient_sex"/>
+        <result property="patientBirthDate" column="patient_birth_date"/>
+        <result property="patientAge" column="patient_age"/>
+        <result property="patientIdCardNum" column="patient_id_card_num"/>
+        <result property="patientMedCardNum" column="patient_med_card_num"/>
+        <result property="patientPhoneNum" column="patient_phone_num"/>
+
+        <result property="workerId" column="user_id"/>
+
+        <result property="workerName" column="user_name"/>
+        <result property="deptName" column="dept_name"/>
+
+        <result property="regTime" column="reg_time"/>
+        <result property="regPeriod" column="reg_period"/>
+        <result property="regStatus" column="reg_status"/>
+    </resultMap>
+
+    <sql id="selectHisRegistersVo">
+        select reg_id, user_id, patient_id, reg_time, reg_period, reg_status
+        from his_registers
+    </sql>
+
+    <select id="selectHisRegistersList" parameterType="HisRegisters" resultMap="HisRegistersResult">
+        select
+        reg.reg_id,
+        reg.user_id,
+        reg.patient_id,
+        reg.reg_time,
+        reg.reg_period,
+        reg.reg_status,
+        pat.patient_name,
+        pat.patient_sex,
+        pat.patient_birth_date,
+        pat.patient_age,
+        pat.patient_id_card_num,
+        pat.patient_med_card_num,
+        pat.patient_phone_num,
+        u.user_name,
+        u.dept_id,
+        d.dept_name
+        from his_registers reg
+        left join his_patients pat on reg.patient_id = pat.patient_id
+        left join sys_user u on u.user_id = reg.user_id
+        left join sys_dept d on u.dept_id = d.dept_id
+        <where>
+            <if test="workerId != null ">and reg.user_id = #{workerId}</if>
+            <if test="patientId != null ">and reg.patient_id = #{patientId}</if>
+            <if test="regTime != null ">and DATE(reg_time) = DATE(#{regTime, jdbcType=TIMESTAMP})</if>
+            <if test="regPeriod != null ">and reg_period = #{regPeriod}</if>
+            <if test="regStatus != null ">and reg_status = #{regStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectHisRegistersByRegId" parameterType="Long" resultMap="HisRegistersResult">
+        <include refid="selectHisRegistersVo"/>
+        where reg_id = #{regId}
+    </select>
+
+    <insert id="insertHisRegisters" parameterType="HisRegisters" useGeneratedKeys="true" keyProperty="regId">
+        insert into his_registers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workerId != null">user_id,</if>
+            <if test="patientId != null">patient_id,</if>
+            <if test="regTime != null">reg_time,</if>
+            <if test="regPeriod != null">reg_period,</if>
+            <if test="regStatus != null">reg_status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workerId != null">#{workerId},</if>
+            <if test="patientId != null">#{patientId},</if>
+            <if test="regTime != null">#{regTime},</if>
+            <if test="regPeriod != null">#{regPeriod},</if>
+            <if test="regStatus != null">#{regStatus},</if>
+        </trim>
+    </insert>
+
+    <update id="updateHisRegisters" parameterType="HisRegisters">
+        update his_registers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workerId != null">user_id = #{workerId},</if>
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="regTime != null">reg_time = #{regTime},</if>
+            <if test="regPeriod != null">reg_period = #{regPeriod},</if>
+            <if test="regStatus != null">reg_status = #{regStatus},</if>
+        </trim>
+        where reg_id = #{regId}
+    </update>
+
+    <delete id="deleteHisRegistersByRegId" parameterType="Long">
+        delete
+        from his_registers
+        where reg_id = #{regId}
+    </delete>
+
+    <delete id="deleteHisRegistersByRegIds" parameterType="String">
+        delete from his_registers where reg_id in
+        <foreach item="regId" collection="array" open="(" separator="," close=")">
+            #{regId}
+        </foreach>
+    </delete>
+
+</mapper>

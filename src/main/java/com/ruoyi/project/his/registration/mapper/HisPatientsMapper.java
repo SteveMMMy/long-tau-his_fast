@@ -1,7 +1,7 @@
 package com.ruoyi.project.his.registration.mapper;
 
 import com.ruoyi.project.his.registration.domain.HisPatients;
-import com.ruoyi.project.his.registration.domain.HisRegisters;
+import com.ruoyi.project.his.registers.domain.HisRegisters;
 
 import java.util.List;
 

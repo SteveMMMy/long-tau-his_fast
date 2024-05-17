@@ -3,40 +3,57 @@
 <head>
   <th:block th:include="include :: header('挂号')"/>
   <style>
-      .form-group {
-          margin-bottom: 5px;
+      .ibox {
+          padding-left: 5px;
+          padding-right: 5px;
+      }
+
+      .ibox-content {
+          padding: 5px;
       }
   </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
   <div class="row">
-    <div class="col-sm-12">
+
+    <div class="col-sm-4" style="padding: 5px">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>今日挂号列表</h5>
+        </div>
+        <div class="ibox-content">
+          <table id="bootstrap-table"></table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-8" style="padding: 5px">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5>挂号</h5>
         </div>
         <div class="ibox-content">
-          <div class="row" style="padding-left: 15px; padding-right: 15px">
+          <div class="row" style="padding-left: 25px; padding-right: 25px">
             <form class="form" id="regisInfoForm">
               <div class="row">
 
                 <input class="form-control" name="patientId" required type="hidden">
-                <div class="form-group col-sm-2">
+                <div class="form-group col-sm-3">
                   <label class="control-label is-required" for="name">姓名</label>
                   <div class="input-group-sm suggest-group">
-                    <input class="form-control patients-suggest" id="name" name="patientName" placeholder="选择或新增信息" required
-                           type="text">
+                    <input class="form-control patients-suggest" id="name" name="patientName"
+                           placeholder="选择或新增信息" required type="text">
                     <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
                   </div>
                 </div>
 
-                <div class="form-group col-sm-2">
+                <div class="form-group col-sm-3">
                   <label class="form-label" for="phone">手机号</label>
                   <input class="form-control" id="phone" name="patientPhoneNum"/>
                 </div>
 
-                <div class="form-group col-sm-1">
+                <div class="form-group col-sm-2">
                   <label class="form-label" for="sex">性别</label>
                   <select class="form-control m-b" id="sex" name="patientSex"
                           th:with="type=${@dict.getType('sys_user_sex')}">
@@ -45,9 +62,9 @@
                   </select>
                 </div>
 
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                   <label class="control-label is-required" for="idCardNumber">身份证号</label>
-                  <input class="form-control" id="idCardNumber" name="patientIdCardNum" type="text" required/>
+                  <input class="form-control" id="idCardNumber" name="patientIdCardNum" required type="text"/>
                 </div>
               </div>
 
@@ -61,12 +78,12 @@
                   </div>
                 </div>
 
-                <div class="form-group col-sm-1">
+                <div class="form-group col-sm-2">
                   <label class="form-label" for="age">年龄</label>
                   <input class="form-control" id="age" name="patientAge" type="text"/>
                 </div>
 
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                   <label class="form-label" for="medCardNumber">医保卡号</label>
                   <input class="form-control" id="medCardNumber" name="patientMedCardNum" type="text"/>
                 </div>
@@ -82,6 +99,19 @@
                   <label class="form-label control-label is-required" for="doctors">挂号医生</label>
                   <select class="form-control m-b" id="doctors" name="workerId" required></select>
                 </div>
+
+                <div class="form-group col-sm-6">
+                  <div class="row">
+                  <label class="form-label control-label is-required col-sm-12">挂号时段：</label>
+                  <div class="col-sm-12">
+                    <div class="radio-box" th:each="dict : ${@dict.getType('his_reg_period')}">
+                      <input name="regPeriod" required th:checked="${dict.default}" th:id="${'regPeriod_' + dict.dictCode}"
+                             th:value="${dict.dictValue}" type="radio">
+                      <label th:for="${'regPeriod_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                    </div>
+                  </div>
+                  </div>
+                </div>
               </div>
 
               <div class="row">
@@ -91,9 +121,6 @@
                     <label class="form-check-label" for="paidCheck">
                       已缴费
                     </label>
-                    <div class="alert alert-danger" id="paidCheckError" style="display: none;">
-                      请缴费后再提交
-                    </div>
                   </div>
                 </div>
 
@@ -109,15 +136,109 @@
   </div>
 </div>
 
-
 <th:block th:include="include :: footer"/>
 <th:block th:include="include :: datetimepicker-js"/>
 <th:block th:include="include :: bootstrap-suggest-js"/>
 <script th:inline="javascript">
 
+    var regPeriodDatas = [[${@dict.getType('his_reg_period')}]];
+    var regStatusDatas = [[${@dict.getType('his_reg_status')}]];
     var patientSexDatas = [[${@dict.getType('sys_user_sex')}]];
 
-    $(document).ready(function () {
+    $(function () {
+        var options = {
+            url: ctx + "his/registers/list",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            modalName: "挂号记录",
+            queryParams: {
+                regTime: new Date().toISOString().slice(0, 10)
+            },
+            columns: [
+                {
+                    field: 'regId',
+                    title: '记录编号',
+                    visible: false
+                },
+                {
+                    field: 'patientId',
+                    title: '患者ID',
+                    visible: false
+                },
+                {
+                    field: 'patientName',
+                    title: '姓名'
+                },
+                {
+                    field: 'patientSex',
+                    title: '性别',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(patientSexDatas, value);
+                    }
+                },
+                {
+                    field: 'patientBirthDate',
+                    title: '出生日期',
+                    visible: false
+                },
+                {
+                    field: 'patientAge',
+                    title: '年龄'
+                },
+                {
+                    field: 'patientIdCardNum',
+                    title: '身份证号',
+                    visible: false
+                },
+                {
+                    field: 'patientMedCardNum',
+                    title: '医保卡号',
+                    visible: false
+                },
+                {
+                    field: 'patientPhoneNum',
+                    title: '手机号',
+                    visible: false
+                },
+                {
+                    field: 'deptName',
+                    title: '科室'
+                },
+                {
+                    field: 'workerId',
+                    title: '医生ID',
+                    visible: false
+                },
+                {
+                    field: 'workerName',
+                    title: '医生'
+                },
+                {
+                    field: 'regTime',
+                    title: '挂号日期',
+                    visible: false
+                },
+                {
+                    field: 'regPeriod',
+                    title: '时段',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(regPeriodDatas, value);
+                    }
+                },
+                {
+                    field: 'regStatus',
+                    title: '状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(regStatusDatas, value);
+                    }
+                }]
+        };
+        $.table.init(options);
+
         // bsSuggest
         getDataAndInitBsSuggest(
             ctx + 'his/patients/search_list',
@@ -344,9 +465,6 @@
             });
         });
 
-        // 插入挂号时段
-        data.regPeriod = 0;
-
         // 提交
         data = JSON.stringify(data);
         $.ajax({
@@ -374,10 +492,8 @@
 
         // 勾选缴费框
         if (!document.getElementById('paidCheck').checked) {
-            document.getElementById('paidCheckError').style.display = 'block';
+            $.modal.msgError('请缴费后再提交');
             return false;
-        } else {
-            document.getElementById('paidCheckError').style.display = 'none';
         }
 
         return true;

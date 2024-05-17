@@ -8,7 +8,6 @@ import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.his.registration.domain.HisPatients;
 import com.ruoyi.project.his.registration.service.IHisPatientsService;
-import com.ruoyi.project.his.suppliers.domain.HisSuppliers;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

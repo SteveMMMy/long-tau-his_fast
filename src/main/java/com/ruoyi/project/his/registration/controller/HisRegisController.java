@@ -5,19 +5,15 @@ import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.project.his.registration.domain.HisAppointment;
 import com.ruoyi.project.his.registration.domain.HisPatients;
-import com.ruoyi.project.his.registration.domain.HisRegisters;
+import com.ruoyi.project.his.registers.domain.HisRegisters;
 import com.ruoyi.project.his.registration.service.IHisPatientsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 新增挂号Controller
