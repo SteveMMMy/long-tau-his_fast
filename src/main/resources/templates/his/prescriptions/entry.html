@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('处方录入')"/>
+  <style>
+      .ibox {
+          padding-left: 5px;
+          padding-right: 5px;
+      }
+
+      .ibox-content {
+          padding: 5px;
+      }
+
+      #patientInfoForm .form-control {
+          margin-bottom: 0;
+      }
+  </style>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+  <div class="row">
+
+    <div class="col-sm-3" style="padding: 5px">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title"><h5>待就诊</h5></div>
+        <div class="ibox-content">
+          <table id="bootstrap-table-reg"></table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-9" style="padding: 5px">
+      <div class="ibox float-e-margins">
+        <div class="row">
+          <div class="col-sm-9 b-r">
+            <div class="ibox-title"><h5>基本信息</h5></div>
+            <div class="ibox-content">
+              <div class="row" style="padding-left: 25px; padding-right: 25px">
+                <form class="form" id="patientInfoForm">
+                  <div class="row">
+                    <input class="form-control" name="patientId" required type="hidden">
+                    <div class="form-group col-sm-3">
+                      <label class="control-label is-required" for="name">姓名</label>
+                      <div class="input-group-sm suggest-group">
+                        <input class="form-control patients-suggest" id="name" name="patientName"
+                               placeholder="请选择" required type="text">
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                      <label class="form-label" for="phone">手机号</label>
+                      <input class="form-control" id="phone" name="patientPhoneNum" readonly/>
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                      <label class="form-label" for="sex">性别</label>
+                      <select class="form-control m-b" id="sex" name="patientSex"
+                              readonly th:with="type=${@dict.getType('sys_user_sex')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                th:value="${dict.dictValue}"></option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="control-label is-required" for="idCardNumber">身份证号</label>
+                      <input class="form-control" id="idCardNumber" name="patientIdCardNum" readonly required
+                             type="text"/>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-sm-3">
+                      <label class="form-label" for="birthdate">出生日期</label>
+                      <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input class="form-control" id="birthdate" name="patientBirthDate" placeholder="yyyy-MM-dd"
+                               readonly type="text">
+                      </div>
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                      <label class="form-label" for="age">年龄</label>
+                      <input class="form-control" id="age" name="patientAge" readonly type="text"/>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label class="form-label" for="medCardNumber">医保卡号</label>
+                      <input class="form-control" id="medCardNumber" name="patientMedCardNum" readonly type="text"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="ibox-title"><h5>挂号信息</h5></div>
+            <div class="ibox-content">
+              <p>挂号信息查询</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ibox-title"><h5>病历信息</h5></div>
+        <div class="ibox-content">
+          <div class="row" style="padding-left: 25px; padding-right: 25px">
+            <form class="form" id="recInfoForm">
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="recChiefComplaint">主诉：</label>
+                <div class="col-sm-10">
+                  <input class="form-control" id="recChiefComplaint" name="recChiefComplaint" required type="text">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="regDiagnosis">诊断：</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="regDiagnosis" name="regDiagnosis" required rows="1"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="regNotes">处理意见：</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="regNotes" name="regNotes" required rows="1"></textarea>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group-sm" id="toolbar-prsc">
+        <h5>处方明细</h5>
+        <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="his:prescriptions:add">
+          <i class="fa fa-plus"></i> 添加
+        </a>
+        <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+           shiro:hasPermission="his:prescriptions:remove">
+          <i class="fa fa-remove"></i> 删除
+        </a>
+      </div>
+      <div class="col-sm-12 select-table table-striped">
+        <table id="bootstrap-table-prsc"></table>
+      </div>
+
+    </div>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-suggest-js"/>
+<script th:inline="javascript">
+    // TODO 在左侧增加选择科室过滤框，或根据用户过滤
+    // TODO 给处方表添加 queryParams 查询，根据挂号记录编号过滤
+    // TODO 新增处方表时从右侧弹出
+    // TODO 新增处方表界面修改（同新增采购计划单界面）
+
+    var editFlag = [[${@permission.hasPermi('his:prescriptions:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('his:prescriptions:remove')}]];
+    var prscTypeDatas = [[${@dict.getType('his_prsc_type')}]];
+    var prscStatusDatas = [[${@dict.getType('his_prsc_status')}]];
+    var regPeriodDatas = [[${@dict.getType('his_reg_period')}]];
+    var regStatusDatas = [[${@dict.getType('his_reg_status')}]];
+    var patientSexDatas = [[${@dict.getType('sys_user_sex')}]];
+
+    $(function () {
+        var optionsReg = {
+            id: 'bootstrap-table-reg',
+            url: ctx + "his/registers/list",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            modalName: "挂号记录",
+            sortName: "regId",
+            sortOrder: "asc",
+            queryParams: {
+                regTime: new Date().toISOString().slice(0, 10)
+            },
+            columns: [
+                {
+                    field: 'regId',
+                    title: '记录编号',
+                    visible: false
+                },
+                {
+                    field: 'patientId',
+                    title: '患者ID',
+                    visible: false
+                },
+                {
+                    field: 'patientName',
+                    title: '姓名'
+                },
+                {
+                    field: 'patientSex',
+                    title: '性别',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(patientSexDatas, value);
+                    }
+                },
+                {
+                    field: 'patientBirthDate',
+                    title: '出生日期',
+                    visible: false
+                },
+                {
+                    field: 'patientAge',
+                    title: '年龄'
+                },
+                {
+                    field: 'patientIdCardNum',
+                    title: '身份证号',
+                    visible: false
+                },
+                {
+                    field: 'patientMedCardNum',
+                    title: '医保卡号',
+                    visible: false
+                },
+                {
+                    field: 'patientPhoneNum',
+                    title: '手机号',
+                    visible: false
+                },
+                {
+                    field: 'deptName',
+                    title: '科室'
+                },
+                {
+                    field: 'workerId',
+                    title: '医生ID',
+                    visible: false
+                },
+                {
+                    field: 'workerName',
+                    title: '医生'
+                },
+                {
+                    field: 'regTime',
+                    title: '挂号日期',
+                    visible: false
+                },
+                {
+                    field: 'regPeriod',
+                    title: '时段',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(regPeriodDatas, value);
+                    }
+                },
+                {
+                    field: 'regStatus',
+                    title: '状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(regStatusDatas, value);
+                    }
+                }]
+        };
+        $.table.init(optionsReg);
+
+        var optionsPrsc = {
+            id: "bootstrap-table-prsc",
+            toolbar: "toolbar-prsc",
+            url: ctx + "his/prescriptions/list",
+            createUrl: ctx + "his/prescriptions/add",
+            updateUrl: ctx + "his/prescriptions/edit/{id}",
+            removeUrl: ctx + "his/prescriptions/remove",
+            exportUrl: ctx + "his/prescriptions/export",
+            modalName: "处方",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'prscId',
+                    title: '处方ID',
+                    visible: false
+                },
+                {
+                    field: 'regId',
+                    title: '挂号记录编号'
+                },
+                {
+                    field: 'prscDocNum',
+                    title: '处方单据号'
+                },
+                {
+                    field: 'prscType',
+                    title: '处方类型',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prscTypeDatas, value);
+                    }
+                },
+                {
+                    field: 'prscStatus',
+                    title: '处方状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prscStatusDatas, value);
+                    }
+                },
+                {
+                    field: 'prscComments',
+                    title: '备注'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.prscId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.prscId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(optionsPrsc);
+
+        // bsSuggest
+        getDataAndInitBsSuggest(
+            ctx + 'his/patients/search_list',
+            ".patients-suggest",
+            function (data) {
+                data.forEach(function (p) {
+                    // 给数据增加字典标签字段
+                    p.patientSexLabel = $.table.selectDictLabel(patientSexDatas, p.patientSex);
+                });
+                return data;
+            },
+            {
+                effectiveFields: [
+                    "patientId",
+                    "patientName",
+                    "patientSexLabel",
+                    "patientBirthDate",
+                    "patientAge",
+                    "patientPhoneNum",
+                    "patientIdCardNum",
+                    "patientMedCardNum"
+                ],
+                effectiveFieldsAlias: {
+                    patientId: "ID",
+                    patientName: "姓名",
+                    patientSexLabel: "性别",
+                    patientBirthDate: "出生日期",
+                    patientAge: "年龄",
+                    patientPhoneNum: "电话号码",
+                    patientIdCardNum: "身份证号",
+                    patientMedCardNum: "医保卡号"
+                },
+                idField: "patientId",
+                keyField: "patientName",
+                ignorecase: true,
+                autoDropup: true,
+                hideOnSelect: true,
+                showBtn: false,
+                clearable: true,
+                inputWarnColor: ''
+            },
+            function (e, selectedData, selectedRawData) {
+                $("input[name='patientId']").val(selectedData.id);
+                $('#phone').val(selectedRawData.patientPhoneNum);
+                $('#sex').val(selectedRawData.patientSex);
+                $('#idCardNumber').val(selectedRawData.patientIdCardNum);
+                $('#birthdate').val(selectedRawData.patientBirthDate);
+                $('#age').val(selectedRawData.patientAge);
+                $('#medCardNumber').val(selectedRawData.patientMedCardNum);
+            },
+            function () {
+                $("input[name='patientId']").val('');
+                $('#phone').val('');
+                $('#sex').val(0);
+                $('#idCardNumber').val('');
+                $('#birthdate').val('');
+                $('#age').val('');
+                $('#medCardNumber').val('');
+            }
+        );
+    })
+
+</script>
+</body>
+</html>

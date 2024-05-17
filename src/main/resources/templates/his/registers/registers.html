@@ -145,7 +145,10 @@
                 },
                 {
                     field: 'regTime',
-                    title: '挂号日期'
+                    title: '挂号时间',
+                    formatter: function (value, row, index) {
+                        return value;
+                    }
                 },
                 {
                     field: 'regPeriod',

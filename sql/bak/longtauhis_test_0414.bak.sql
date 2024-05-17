@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80200
 File Encoding         : 65001
 
-Date: 2024-05-17 13:06:18
+Date: 2024-05-17 19:12:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -379,7 +379,7 @@ CREATE TABLE `his_orders_schedules` (
   KEY `FK_Relationship_19` (`cat_id`),
   CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`pur_id`) REFERENCES `his_purchase_orders` (`pur_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Relationship_19` FOREIGN KEY (`cat_id`) REFERENCES `his_drug_catalogue` (`cat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单明细表';
 
 -- ----------------------------
 -- Records of his_orders_schedules
@@ -402,6 +402,7 @@ INSERT INTO `his_orders_schedules` VALUES ('34', '11', '37', '25', '9');
 INSERT INTO `his_orders_schedules` VALUES ('41', '6', '33', '100', '10');
 INSERT INTO `his_orders_schedules` VALUES ('42', '6', '32', '100', '11');
 INSERT INTO `his_orders_schedules` VALUES ('43', '12', '32', '168', '20');
+INSERT INTO `his_orders_schedules` VALUES ('44', '13', '50', '70', '80');
 
 -- ----------------------------
 -- Table structure for `his_patients`
@@ -499,7 +500,7 @@ INSERT INTO `his_procurement_plans` VALUES ('2', '1', null, 'CGJH-240509002', '2
 INSERT INTO `his_procurement_plans` VALUES ('3', '1', null, 'CGJH-240509003', '2024-05-09', '2024-05-10', '2024-05-17', '1');
 INSERT INTO `his_procurement_plans` VALUES ('4', '1', null, 'CGJH-240510001', '2024-05-10', '2024-05-14', '2024-05-21', '1');
 INSERT INTO `his_procurement_plans` VALUES ('5', '1', null, 'CGJH-240511001', '2024-05-11', '2024-05-14', '2024-05-23', '1');
-INSERT INTO `his_procurement_plans` VALUES ('6', '1', null, 'CGJH-240511002', '2024-05-11', '2024-05-22', '2024-05-31', '0');
+INSERT INTO `his_procurement_plans` VALUES ('6', '1', null, 'CGJH-240511002', '2024-05-11', '2024-05-22', '2024-05-31', '1');
 INSERT INTO `his_procurement_plans` VALUES ('7', '1', null, 'CGJH-240512001', '2024-05-12', '2024-05-12', '2024-05-12', '1');
 INSERT INTO `his_procurement_plans` VALUES ('8', '1', null, 'CGJH-240515001', '2024-05-15', '2024-05-17', '2024-05-24', '1');
 INSERT INTO `his_procurement_plans` VALUES ('9', '1', null, 'CGJH-240516001', '2024-05-16', '2024-05-23', '2024-05-31', '0');
@@ -562,7 +563,7 @@ CREATE TABLE `his_purchase_orders` (
   PRIMARY KEY (`pur_id`),
   KEY `FK_Relationship_13` (`spl_id`),
   CONSTRAINT `FK_Relationship_13` FOREIGN KEY (`spl_id`) REFERENCES `his_suppliers` (`spl_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单表';
 
 -- ----------------------------
 -- Records of his_purchase_orders
@@ -574,6 +575,7 @@ INSERT INTO `his_purchase_orders` VALUES ('9', '3', '1', 'CGDD-240512', '2024-05
 INSERT INTO `his_purchase_orders` VALUES ('10', '2', '1', 'CGDD-240512', '2024-05-12', null, null, '0');
 INSERT INTO `his_purchase_orders` VALUES ('11', '3', '1', 'CGDD-240512', '2024-05-12', '2024-05-17', '2024-05-14', '0');
 INSERT INTO `his_purchase_orders` VALUES ('12', '9', '1', 'CGDD-240515', '2024-05-15', '2024-05-23', '2024-05-20', '0');
+INSERT INTO `his_purchase_orders` VALUES ('13', '7', '1', 'CGDD-240517', '2024-05-17', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `his_registers`
@@ -896,7 +898,7 @@ CREATE TABLE `sys_config` (
 INSERT INTO `sys_config` VALUES ('1', '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
 INSERT INTO `sys_config` VALUES ('2', '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '初始化密码 123456');
 INSERT INTO `sys_config` VALUES ('3', '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue');
-INSERT INTO `sys_config` VALUES ('4', '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '是否开启注册用户功能（true开启，false关闭）');
+INSERT INTO `sys_config` VALUES ('4', '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'true', 'Y', 'admin', '2024-04-19 21:41:40', 'admin', '2024-05-17 14:08:20', '是否开启注册用户功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES ('5', '用户管理-密码字符范围', 'sys.account.chrtype', '0', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '默认任意字符范围，0任意（密码可以输入任意字符），1数字（密码只能为0-9数字），2英文字母（密码只能为a-z和A-Z字母），3字母和数字（密码必须包含字母，数字）,4字母数字和特殊字符（目前支持的特殊字符包括：~!@#$%^&*()-=_+）');
 INSERT INTO `sys_config` VALUES ('6', '用户管理-初始密码修改策略', 'sys.account.initPasswordModify', '1', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '0：初始密码修改策略关闭，没有任何提示，1：提醒用户，如果未修改初始密码，则在登录时就会提醒修改密码对话框');
 INSERT INTO `sys_config` VALUES ('7', '用户管理-账号密码更新周期', 'sys.account.passwordValidateDays', '0', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '密码更新周期（填写数字，数据初始化值为0不限制，若修改必须为大于0小于365的正整数），如果超过这个周期登录系统时，则在登录时就会提醒修改密码对话框');
@@ -1139,7 +1141,7 @@ CREATE TABLE `sys_logininfor` (
   PRIMARY KEY (`info_id`),
   KEY `idx_sys_logininfor_s` (`status`),
   KEY `idx_sys_logininfor_lt` (`login_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=361 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -1405,6 +1407,40 @@ INSERT INTO `sys_logininfor` VALUES ('357', 'admin', '127.0.0.1', '内网IP', 'C
 INSERT INTO `sys_logininfor` VALUES ('358', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 10:24:29');
 INSERT INTO `sys_logininfor` VALUES ('359', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 10:36:29');
 INSERT INTO `sys_logininfor` VALUES ('360', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 11:08:01');
+INSERT INTO `sys_logininfor` VALUES ('361', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 13:11:26');
+INSERT INTO `sys_logininfor` VALUES ('362', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 13:54:12');
+INSERT INTO `sys_logininfor` VALUES ('363', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 14:07:09');
+INSERT INTO `sys_logininfor` VALUES ('364', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 14:07:51');
+INSERT INTO `sys_logininfor` VALUES ('365', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 14:08:25');
+INSERT INTO `sys_logininfor` VALUES ('366', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:00:07');
+INSERT INTO `sys_logininfor` VALUES ('367', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:08:03');
+INSERT INTO `sys_logininfor` VALUES ('368', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:24:22');
+INSERT INTO `sys_logininfor` VALUES ('369', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:24:40');
+INSERT INTO `sys_logininfor` VALUES ('370', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '验证码错误', '2024-05-17 17:25:37');
+INSERT INTO `sys_logininfor` VALUES ('371', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:25:39');
+INSERT INTO `sys_logininfor` VALUES ('372', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:28:32');
+INSERT INTO `sys_logininfor` VALUES ('373', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:28:36');
+INSERT INTO `sys_logininfor` VALUES ('374', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:36:07');
+INSERT INTO `sys_logininfor` VALUES ('375', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:36:11');
+INSERT INTO `sys_logininfor` VALUES ('376', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:36:26');
+INSERT INTO `sys_logininfor` VALUES ('377', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:36:30');
+INSERT INTO `sys_logininfor` VALUES ('378', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:51:09');
+INSERT INTO `sys_logininfor` VALUES ('379', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:51:13');
+INSERT INTO `sys_logininfor` VALUES ('380', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:51:28');
+INSERT INTO `sys_logininfor` VALUES ('381', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:51:44');
+INSERT INTO `sys_logininfor` VALUES ('382', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:51:48');
+INSERT INTO `sys_logininfor` VALUES ('383', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:52:01');
+INSERT INTO `sys_logininfor` VALUES ('384', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:52:04');
+INSERT INTO `sys_logininfor` VALUES ('385', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:52:40');
+INSERT INTO `sys_logininfor` VALUES ('386', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:52:42');
+INSERT INTO `sys_logininfor` VALUES ('387', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:52:45');
+INSERT INTO `sys_logininfor` VALUES ('388', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:52:48');
+INSERT INTO `sys_logininfor` VALUES ('389', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:53:58');
+INSERT INTO `sys_logininfor` VALUES ('390', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:54:01');
+INSERT INTO `sys_logininfor` VALUES ('391', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 17:57:11');
+INSERT INTO `sys_logininfor` VALUES ('392', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:57:14');
+INSERT INTO `sys_logininfor` VALUES ('393', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 18:00:10');
+INSERT INTO `sys_logininfor` VALUES ('394', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 18:00:12');
 
 -- ----------------------------
 -- Table structure for `sys_menu`
@@ -1428,7 +1464,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2081 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2094 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1562,12 +1598,25 @@ INSERT INTO `sys_menu` VALUES ('2071', '入库单新增', '2069', '2', '#', '', 
 INSERT INTO `sys_menu` VALUES ('2072', '入库单修改', '2069', '3', '#', '', 'F', '0', '1', 'his:entry:edit', '#', 'admin', '2024-05-14 21:33:41', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2073', '入库单删除', '2069', '4', '#', '', 'F', '0', '1', 'his:entry:remove', '#', 'admin', '2024-05-14 21:33:41', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2074', '入库单导出', '2069', '5', '#', '', 'F', '0', '1', 'his:entry:export', '#', 'admin', '2024-05-14 21:33:41', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2075', '挂号记录管理', '2003', '1', '/his/registers', 'menuItem', 'C', '0', '1', 'his:registers:view', '#', 'admin', '2024-05-17 00:23:03', 'admin', '2024-05-17 11:33:40', '挂号记录菜单');
+INSERT INTO `sys_menu` VALUES ('2075', '挂号记录管理', '2003', '1', '/his/registers', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-05-17 00:23:03', 'admin', '2024-05-17 17:55:16', '挂号记录菜单');
 INSERT INTO `sys_menu` VALUES ('2076', '挂号记录查询', '2075', '1', '#', '', 'F', '0', '1', 'his:registers:list', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2077', '挂号记录新增', '2075', '2', '#', '', 'F', '0', '1', 'his:registers:add', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2078', '挂号记录修改', '2075', '3', '#', '', 'F', '0', '1', 'his:registers:edit', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2079', '挂号记录删除', '2075', '4', '#', '', 'F', '0', '1', 'his:registers:remove', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2080', '挂号记录导出', '2075', '5', '#', '', 'F', '0', '1', 'his:registers:export', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2081', '患者病历管理', '2061', '1', '/his/diagnosis', 'menuItem', 'C', '0', '1', 'his:diagnosis:view', '#', 'admin', '2024-05-17 13:11:09', 'admin', '2024-05-17 13:15:07', '患者病历菜单');
+INSERT INTO `sys_menu` VALUES ('2082', '患者病历查询', '2081', '1', '#', '', 'F', '0', '1', 'his:diagnosis:list', '#', 'admin', '2024-05-17 13:11:09', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2083', '患者病历新增', '2081', '2', '#', '', 'F', '0', '1', 'his:diagnosis:add', '#', 'admin', '2024-05-17 13:11:09', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2084', '患者病历修改', '2081', '3', '#', '', 'F', '0', '1', 'his:diagnosis:edit', '#', 'admin', '2024-05-17 13:11:10', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2085', '患者病历删除', '2081', '4', '#', '', 'F', '0', '1', 'his:diagnosis:remove', '#', 'admin', '2024-05-17 13:11:10', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2086', '患者病历导出', '2081', '5', '#', '', 'F', '0', '1', 'his:diagnosis:export', '#', 'admin', '2024-05-17 13:11:10', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2087', '处方管理', '2061', '1', '/his/prescriptions', 'menuItem', 'C', '0', '1', 'his:prescriptions:view', '#', 'admin', '2024-05-17 13:11:18', 'admin', '2024-05-17 13:15:15', '处方菜单');
+INSERT INTO `sys_menu` VALUES ('2088', '处方查询', '2087', '1', '#', '', 'F', '0', '1', 'his:prescriptions:list', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2089', '处方新增', '2087', '2', '#', '', 'F', '0', '1', 'his:prescriptions:add', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2090', '处方修改', '2087', '3', '#', '', 'F', '0', '1', 'his:prescriptions:edit', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2091', '处方删除', '2087', '4', '#', '', 'F', '0', '1', 'his:prescriptions:remove', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2092', '处方导出', '2087', '5', '#', '', 'F', '0', '1', 'his:prescriptions:export', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2093', '处方录入', '2061', '0', '/his/prescriptions/entry', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-05-17 17:08:40', 'admin', '2024-05-17 17:12:31', '');
 
 -- ----------------------------
 -- Table structure for `sys_notice`
@@ -1620,7 +1669,7 @@ CREATE TABLE `sys_oper_log` (
   KEY `idx_sys_oper_log_bt` (`business_type`),
   KEY `idx_sys_oper_log_s` (`status`),
   KEY `idx_sys_oper_log_ot` (`oper_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=486 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='操作日志记录';
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -2011,6 +2060,29 @@ INSERT INTO `sys_oper_log` VALUES ('482', '代码生成', '2', 'com.ruoyi.projec
 INSERT INTO `sys_oper_log` VALUES ('483', '代码生成', '2', 'com.ruoyi.project.tool.gen.controller.GenController.editSave()', 'POST', '1', 'admin', '办公室', '/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"27\"],\"tableName\":[\"his_patients\"],\"tableComment\":[\"患者信息表\"],\"className\":[\"HisPatientsDiag\"],\"functionAuthor\":[\"SteveMMMy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"176\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"患者编号\"],\"columns[0].javaType\":[\"Long\"],\"columns[0].javaField\":[\"patientId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"177\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"用户ID\"],\"columns[1].javaType\":[\"Long\"],\"columns[1].javaField\":[\"userId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"178\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"姓名\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"patientName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"179\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"性别\"],\"columns[3].javaType\":[\"Long\"],\"columns[3].javaField\":[\"patientSex\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"select\"],\"columns[3].dictType\":[\"sys_user_sex\"],\"columns[4].columnId\":[\"180\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"出生日期\"],\"columns[4].javaType\":[\"Date\"],\"columns[4].javaField\":[\"patientBirthDate\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"datetime\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"181\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"年龄\"],\"columns[5].javaTyp', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 13:04:11', '26');
 INSERT INTO `sys_oper_log` VALUES ('484', '代码生成', '2', 'com.ruoyi.project.tool.gen.controller.GenController.editSave()', 'POST', '1', 'admin', '办公室', '/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"27\"],\"tableName\":[\"his_patients\"],\"tableComment\":[\"患者信息表\"],\"className\":[\"HisPatientsDiag\"],\"functionAuthor\":[\"SteveMMMy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"176\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"患者编号\"],\"columns[0].javaType\":[\"Long\"],\"columns[0].javaField\":[\"patientId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"177\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"用户ID\"],\"columns[1].javaType\":[\"Long\"],\"columns[1].javaField\":[\"userId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"178\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"姓名\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"patientName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"179\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"性别\"],\"columns[3].javaType\":[\"Long\"],\"columns[3].javaField\":[\"patientSex\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"select\"],\"columns[3].dictType\":[\"sys_user_sex\"],\"columns[4].columnId\":[\"180\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"出生日期\"],\"columns[4].javaType\":[\"Date\"],\"columns[4].javaField\":[\"patientBirthDate\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"datetime\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"181\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"年龄\"],\"columns[5].javaTyp', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 13:04:36', '27');
 INSERT INTO `sys_oper_log` VALUES ('485', '代码生成', '8', 'com.ruoyi.project.tool.gen.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '办公室', '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"his_prescriptions,his_patients\"]}', null, '0', null, '2024-05-17 13:05:53', '243');
+INSERT INTO `sys_oper_log` VALUES ('486', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2081\"],\"parentId\":[\"2061\"],\"menuType\":[\"C\"],\"menuName\":[\"患者病历管理\"],\"url\":[\"/his/diagnosis\"],\"target\":[\"menuItem\"],\"perms\":[\"his:diagnosis:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 13:15:07', '14');
+INSERT INTO `sys_oper_log` VALUES ('487', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2087\"],\"parentId\":[\"2061\"],\"menuType\":[\"C\"],\"menuName\":[\"处方管理\"],\"url\":[\"/his/prescriptions\"],\"target\":[\"menuItem\"],\"perms\":[\"his:prescriptions:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 13:15:15', '15');
+INSERT INTO `sys_oper_log` VALUES ('488', '采购计划单状态', '2', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.editSaveStatus()', 'POST', '1', 'admin', '办公室', '/his/plans/edit_status', '127.0.0.1', '内网IP', '{\"prcpIdsStr\":[\"6\"],\"prcpStatus\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 14:04:48', '15');
+INSERT INTO `sys_oper_log` VALUES ('489', '采购订单', '1', 'com.ruoyi.project.his.purchase.controller.HisPurchaseOrdersController.addSave()', 'POST', '1', 'admin', '办公室', '/his/purchase/add', '127.0.0.1', '内网IP', '{\"purDocNum\":[\"CGDD-240517\"],\"splId\":[\"7\"],\"splName\":[\"同仁堂药品有限公司\"],\"purDate\":[\"2024-05-17\"],\"purArrDate\":[\"\"],\"purPayDate\":[\"\"],\"purStatus\":[\"0\"],\"index\":[\"1\",\"1\"],\"hisPurchaseOrdersList[0].prcpId\":[\"6\"],\"hisProcurementSchedulesList[0].catName\":[\"对乙酰氨基酚片\"],\"hisOrdersSchedulesList[0].catId\":[\"50\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Paracetamol Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.5g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/板×2板/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisOrdersSchedulesList[0].orderSchPrice\":[\"80\"],\"hisOrdersSchedulesList[0].orderSchNumber\":[\"70\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 14:04:48', '21');
+INSERT INTO `sys_oper_log` VALUES ('490', '参数管理', '2', 'com.ruoyi.project.system.config.controller.ConfigController.editSave()', 'POST', '1', 'admin', '办公室', '/system/config/edit', '127.0.0.1', '内网IP', '{\"configId\":[\"4\"],\"configName\":[\"账号自助-是否开启用户注册功能\"],\"configKey\":[\"sys.account.registerUser\"],\"configValue\":[\"true\"],\"configType\":[\"Y\"],\"remark\":[\"是否开启注册用户功能（true开启，false关闭）\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 14:08:20', '15');
+INSERT INTO `sys_oper_log` VALUES ('491', '菜单管理', '1', 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 'POST', '1', 'admin', '办公室', '/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2061\"],\"menuType\":[\"C\"],\"menuName\":[\"处方录入\"],\"url\":[\"/his/prescriptions/entry\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:08:40', '86');
+INSERT INTO `sys_oper_log` VALUES ('492', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2093\"],\"parentId\":[\"2061\"],\"menuType\":[\"C\"],\"menuName\":[\"处方录入\"],\"url\":[\"/his/prescriptions/entry\"],\"target\":[\"menuBlank\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:11:52', '14');
+INSERT INTO `sys_oper_log` VALUES ('493', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2093\"],\"parentId\":[\"2061\"],\"menuType\":[\"C\"],\"menuName\":[\"处方录入\"],\"url\":[\"/his/prescriptions/entry\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:12:31', '12');
+INSERT INTO `sys_oper_log` VALUES ('494', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"roleName\":[\"普通角色\"],\"roleKey\":[\"common\"],\"dataScope\":[\"2\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:33:26', '32');
+INSERT INTO `sys_oper_log` VALUES ('495', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"roleName\":[\"普通角色\"],\"roleKey\":[\"common\"],\"dataScope\":[\"2\"],\"deptIds\":[\"100,201,202,204,203\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:33:53', '23');
+INSERT INTO `sys_oper_log` VALUES ('496', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"roleName\":[\"普通角色\"],\"roleKey\":[\"common\"],\"dataScope\":[\"3\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:34:05', '20');
+INSERT INTO `sys_oper_log` VALUES ('497', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"roleName\":[\"普通角色\"],\"roleKey\":[\"common\"],\"roleSort\":[\"2\"],\"status\":[\"0\"],\"remark\":[\"普通角色\"],\"menuIds\":[\"2003,2004,2005,2075,2076,2077,2078,2079,2080,2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092,2006,2049,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2069,2070,2071,2072,2073,2074,2063,2064,2065,2066,2067,2068,2043,2044,2045,2046,2047,2048,2037,2038,2039,2040,2041,2042,4\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:34:21', '26');
+INSERT INTO `sys_oper_log` VALUES ('498', '岗位管理', '1', 'com.ruoyi.project.system.post.controller.PostController.addSave()', 'POST', '1', 'admin', '办公室', '/system/post/add', '127.0.0.1', '内网IP', '{\"postName\":[\"药剂师\"],\"postCode\":[\"pharmacist\"],\"postSort\":[\"3\"],\"status\":[\"0\"],\"remark\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:43:21', '19');
+INSERT INTO `sys_oper_log` VALUES ('499', '岗位管理', '2', 'com.ruoyi.project.system.post.controller.PostController.editSave()', 'POST', '1', 'admin', '办公室', '/system/post/edit', '127.0.0.1', '内网IP', '{\"postId\":[\"6\"],\"postName\":[\"药剂师\"],\"postCode\":[\"pharmacist\"],\"postSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:43:28', '16');
+INSERT INTO `sys_oper_log` VALUES ('500', '岗位管理', '1', 'com.ruoyi.project.system.post.controller.PostController.addSave()', 'POST', '1', 'admin', '办公室', '/system/post/add', '127.0.0.1', '内网IP', '{\"postName\":[\"收费员\"],\"postCode\":[\"tollman\"],\"postSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:47:19', '13');
+INSERT INTO `sys_oper_log` VALUES ('501', '角色管理', '1', 'com.ruoyi.project.system.role.controller.RoleController.addSave()', 'POST', '1', 'admin', '办公室', '/system/role/add', '127.0.0.1', '内网IP', '{\"roleName\":[\"门诊部\"],\"roleKey\":[\"doc\"],\"roleSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:50:02', '16');
+INSERT INTO `sys_oper_log` VALUES ('502', '角色管理', '4', 'com.ruoyi.project.system.role.controller.RoleController.selectAuthUserAll()', 'POST', '1', 'admin', '办公室', '/system/role/authUser/selectAll', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"userIds\":[\"2,101,103,102\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:51:00', '13');
+INSERT INTO `sys_oper_log` VALUES ('503', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"门诊部\"],\"roleKey\":[\"doc\"],\"dataScope\":[\"3\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:51:40', '11');
+INSERT INTO `sys_oper_log` VALUES ('504', '角色管理', '4', 'com.ruoyi.project.system.role.controller.RoleController.cancelAuthUserAll()', 'POST', '1', 'admin', '办公室', '/system/role/authUser/cancelAll', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"userIds\":[\"103,102,101,100,2\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:52:29', '11');
+INSERT INTO `sys_oper_log` VALUES ('505', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.changeStatus()', 'POST', '1', 'admin', '办公室', '/system/role/changeStatus', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"status\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:52:35', '10');
+INSERT INTO `sys_oper_log` VALUES ('506', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2075\"],\"parentId\":[\"2003\"],\"menuType\":[\"C\"],\"menuName\":[\"挂号记录管理\"],\"url\":[\"/his/registers\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:55:16', '12');
+INSERT INTO `sys_oper_log` VALUES ('507', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"门诊部\"],\"roleKey\":[\"his\"],\"roleSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:56:56', '18');
+INSERT INTO `sys_oper_log` VALUES ('508', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.changeStatus()', 'POST', '1', 'admin', '办公室', '/system/role/changeStatus', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"status\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 18:00:25', '7');
 
 -- ----------------------------
 -- Table structure for `sys_post`
@@ -2028,13 +2100,15 @@ CREATE TABLE `sys_post` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='岗位信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='岗位信息表';
 
 -- ----------------------------
 -- Records of sys_post
 -- ----------------------------
 INSERT INTO `sys_post` VALUES ('1', 'director', '主任', '1', '0', 'admin', '2024-04-19 21:41:37', 'admin', '2024-04-20 21:28:39', '');
 INSERT INTO `sys_post` VALUES ('5', 'doctor', '医生', '1', '0', 'admin', '2024-04-20 21:33:37', '', null, null);
+INSERT INTO `sys_post` VALUES ('6', 'pharmacist', '药剂师', '1', '0', 'admin', '2024-05-17 17:43:21', 'admin', '2024-05-17 17:43:28', '');
+INSERT INTO `sys_post` VALUES ('7', 'tollman', '收费员', '1', '0', 'admin', '2024-05-17 17:47:19', '', null, null);
 
 -- ----------------------------
 -- Table structure for `sys_role`
@@ -2054,13 +2128,14 @@ CREATE TABLE `sys_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色信息表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'admin', '1', '1', '0', '0', 'admin', '2024-04-19 21:41:38', '', null, '超级管理员');
-INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', '2', '3', '0', '0', 'admin', '2024-04-19 21:41:38', 'admin', '2024-04-20 21:23:41', '普通角色');
+INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', '2', '3', '0', '0', 'admin', '2024-04-19 21:41:38', 'admin', '2024-05-17 18:00:25', '普通角色');
+INSERT INTO `sys_role` VALUES ('100', '门诊部', 'his', '1', '3', '0', '0', 'admin', '2024-05-17 17:50:02', 'admin', '2024-05-17 17:56:56', '');
 
 -- ----------------------------
 -- Table structure for `sys_role_dept`
@@ -2089,91 +2164,81 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('2', '1');
-INSERT INTO `sys_role_menu` VALUES ('2', '2');
-INSERT INTO `sys_role_menu` VALUES ('2', '3');
 INSERT INTO `sys_role_menu` VALUES ('2', '4');
-INSERT INTO `sys_role_menu` VALUES ('2', '100');
-INSERT INTO `sys_role_menu` VALUES ('2', '101');
-INSERT INTO `sys_role_menu` VALUES ('2', '102');
-INSERT INTO `sys_role_menu` VALUES ('2', '103');
-INSERT INTO `sys_role_menu` VALUES ('2', '104');
-INSERT INTO `sys_role_menu` VALUES ('2', '105');
-INSERT INTO `sys_role_menu` VALUES ('2', '106');
-INSERT INTO `sys_role_menu` VALUES ('2', '107');
-INSERT INTO `sys_role_menu` VALUES ('2', '108');
-INSERT INTO `sys_role_menu` VALUES ('2', '109');
-INSERT INTO `sys_role_menu` VALUES ('2', '110');
-INSERT INTO `sys_role_menu` VALUES ('2', '111');
-INSERT INTO `sys_role_menu` VALUES ('2', '112');
-INSERT INTO `sys_role_menu` VALUES ('2', '113');
-INSERT INTO `sys_role_menu` VALUES ('2', '114');
-INSERT INTO `sys_role_menu` VALUES ('2', '115');
-INSERT INTO `sys_role_menu` VALUES ('2', '116');
-INSERT INTO `sys_role_menu` VALUES ('2', '500');
-INSERT INTO `sys_role_menu` VALUES ('2', '501');
-INSERT INTO `sys_role_menu` VALUES ('2', '1000');
-INSERT INTO `sys_role_menu` VALUES ('2', '1001');
-INSERT INTO `sys_role_menu` VALUES ('2', '1002');
-INSERT INTO `sys_role_menu` VALUES ('2', '1003');
-INSERT INTO `sys_role_menu` VALUES ('2', '1004');
-INSERT INTO `sys_role_menu` VALUES ('2', '1005');
-INSERT INTO `sys_role_menu` VALUES ('2', '1006');
-INSERT INTO `sys_role_menu` VALUES ('2', '1007');
-INSERT INTO `sys_role_menu` VALUES ('2', '1008');
-INSERT INTO `sys_role_menu` VALUES ('2', '1009');
-INSERT INTO `sys_role_menu` VALUES ('2', '1010');
-INSERT INTO `sys_role_menu` VALUES ('2', '1011');
-INSERT INTO `sys_role_menu` VALUES ('2', '1012');
-INSERT INTO `sys_role_menu` VALUES ('2', '1013');
-INSERT INTO `sys_role_menu` VALUES ('2', '1014');
-INSERT INTO `sys_role_menu` VALUES ('2', '1015');
-INSERT INTO `sys_role_menu` VALUES ('2', '1016');
-INSERT INTO `sys_role_menu` VALUES ('2', '1017');
-INSERT INTO `sys_role_menu` VALUES ('2', '1018');
-INSERT INTO `sys_role_menu` VALUES ('2', '1019');
-INSERT INTO `sys_role_menu` VALUES ('2', '1020');
-INSERT INTO `sys_role_menu` VALUES ('2', '1021');
-INSERT INTO `sys_role_menu` VALUES ('2', '1022');
-INSERT INTO `sys_role_menu` VALUES ('2', '1023');
-INSERT INTO `sys_role_menu` VALUES ('2', '1024');
-INSERT INTO `sys_role_menu` VALUES ('2', '1025');
-INSERT INTO `sys_role_menu` VALUES ('2', '1026');
-INSERT INTO `sys_role_menu` VALUES ('2', '1027');
-INSERT INTO `sys_role_menu` VALUES ('2', '1028');
-INSERT INTO `sys_role_menu` VALUES ('2', '1029');
-INSERT INTO `sys_role_menu` VALUES ('2', '1030');
-INSERT INTO `sys_role_menu` VALUES ('2', '1031');
-INSERT INTO `sys_role_menu` VALUES ('2', '1032');
-INSERT INTO `sys_role_menu` VALUES ('2', '1033');
-INSERT INTO `sys_role_menu` VALUES ('2', '1034');
-INSERT INTO `sys_role_menu` VALUES ('2', '1035');
-INSERT INTO `sys_role_menu` VALUES ('2', '1036');
-INSERT INTO `sys_role_menu` VALUES ('2', '1037');
-INSERT INTO `sys_role_menu` VALUES ('2', '1038');
-INSERT INTO `sys_role_menu` VALUES ('2', '1039');
-INSERT INTO `sys_role_menu` VALUES ('2', '1040');
-INSERT INTO `sys_role_menu` VALUES ('2', '1041');
-INSERT INTO `sys_role_menu` VALUES ('2', '1042');
-INSERT INTO `sys_role_menu` VALUES ('2', '1043');
-INSERT INTO `sys_role_menu` VALUES ('2', '1044');
-INSERT INTO `sys_role_menu` VALUES ('2', '1045');
-INSERT INTO `sys_role_menu` VALUES ('2', '1046');
-INSERT INTO `sys_role_menu` VALUES ('2', '1047');
-INSERT INTO `sys_role_menu` VALUES ('2', '1048');
-INSERT INTO `sys_role_menu` VALUES ('2', '1049');
-INSERT INTO `sys_role_menu` VALUES ('2', '1050');
-INSERT INTO `sys_role_menu` VALUES ('2', '1051');
-INSERT INTO `sys_role_menu` VALUES ('2', '1052');
-INSERT INTO `sys_role_menu` VALUES ('2', '1053');
-INSERT INTO `sys_role_menu` VALUES ('2', '1054');
-INSERT INTO `sys_role_menu` VALUES ('2', '1055');
-INSERT INTO `sys_role_menu` VALUES ('2', '1056');
-INSERT INTO `sys_role_menu` VALUES ('2', '1057');
-INSERT INTO `sys_role_menu` VALUES ('2', '1058');
-INSERT INTO `sys_role_menu` VALUES ('2', '1059');
-INSERT INTO `sys_role_menu` VALUES ('2', '1060');
-INSERT INTO `sys_role_menu` VALUES ('2', '1061');
+INSERT INTO `sys_role_menu` VALUES ('2', '2003');
+INSERT INTO `sys_role_menu` VALUES ('2', '2004');
+INSERT INTO `sys_role_menu` VALUES ('2', '2005');
+INSERT INTO `sys_role_menu` VALUES ('2', '2006');
+INSERT INTO `sys_role_menu` VALUES ('2', '2037');
+INSERT INTO `sys_role_menu` VALUES ('2', '2038');
+INSERT INTO `sys_role_menu` VALUES ('2', '2039');
+INSERT INTO `sys_role_menu` VALUES ('2', '2040');
+INSERT INTO `sys_role_menu` VALUES ('2', '2041');
+INSERT INTO `sys_role_menu` VALUES ('2', '2042');
+INSERT INTO `sys_role_menu` VALUES ('2', '2043');
+INSERT INTO `sys_role_menu` VALUES ('2', '2044');
+INSERT INTO `sys_role_menu` VALUES ('2', '2045');
+INSERT INTO `sys_role_menu` VALUES ('2', '2046');
+INSERT INTO `sys_role_menu` VALUES ('2', '2047');
+INSERT INTO `sys_role_menu` VALUES ('2', '2048');
+INSERT INTO `sys_role_menu` VALUES ('2', '2049');
+INSERT INTO `sys_role_menu` VALUES ('2', '2050');
+INSERT INTO `sys_role_menu` VALUES ('2', '2051');
+INSERT INTO `sys_role_menu` VALUES ('2', '2052');
+INSERT INTO `sys_role_menu` VALUES ('2', '2053');
+INSERT INTO `sys_role_menu` VALUES ('2', '2054');
+INSERT INTO `sys_role_menu` VALUES ('2', '2055');
+INSERT INTO `sys_role_menu` VALUES ('2', '2056');
+INSERT INTO `sys_role_menu` VALUES ('2', '2057');
+INSERT INTO `sys_role_menu` VALUES ('2', '2058');
+INSERT INTO `sys_role_menu` VALUES ('2', '2059');
+INSERT INTO `sys_role_menu` VALUES ('2', '2060');
+INSERT INTO `sys_role_menu` VALUES ('2', '2061');
+INSERT INTO `sys_role_menu` VALUES ('2', '2063');
+INSERT INTO `sys_role_menu` VALUES ('2', '2064');
+INSERT INTO `sys_role_menu` VALUES ('2', '2065');
+INSERT INTO `sys_role_menu` VALUES ('2', '2066');
+INSERT INTO `sys_role_menu` VALUES ('2', '2067');
+INSERT INTO `sys_role_menu` VALUES ('2', '2068');
+INSERT INTO `sys_role_menu` VALUES ('2', '2069');
+INSERT INTO `sys_role_menu` VALUES ('2', '2070');
+INSERT INTO `sys_role_menu` VALUES ('2', '2071');
+INSERT INTO `sys_role_menu` VALUES ('2', '2072');
+INSERT INTO `sys_role_menu` VALUES ('2', '2073');
+INSERT INTO `sys_role_menu` VALUES ('2', '2074');
+INSERT INTO `sys_role_menu` VALUES ('2', '2075');
+INSERT INTO `sys_role_menu` VALUES ('2', '2076');
+INSERT INTO `sys_role_menu` VALUES ('2', '2077');
+INSERT INTO `sys_role_menu` VALUES ('2', '2078');
+INSERT INTO `sys_role_menu` VALUES ('2', '2079');
+INSERT INTO `sys_role_menu` VALUES ('2', '2080');
+INSERT INTO `sys_role_menu` VALUES ('2', '2081');
+INSERT INTO `sys_role_menu` VALUES ('2', '2082');
+INSERT INTO `sys_role_menu` VALUES ('2', '2083');
+INSERT INTO `sys_role_menu` VALUES ('2', '2084');
+INSERT INTO `sys_role_menu` VALUES ('2', '2085');
+INSERT INTO `sys_role_menu` VALUES ('2', '2086');
+INSERT INTO `sys_role_menu` VALUES ('2', '2087');
+INSERT INTO `sys_role_menu` VALUES ('2', '2088');
+INSERT INTO `sys_role_menu` VALUES ('2', '2089');
+INSERT INTO `sys_role_menu` VALUES ('2', '2090');
+INSERT INTO `sys_role_menu` VALUES ('2', '2091');
+INSERT INTO `sys_role_menu` VALUES ('2', '2092');
+INSERT INTO `sys_role_menu` VALUES ('2', '2093');
+INSERT INTO `sys_role_menu` VALUES ('100', '2061');
+INSERT INTO `sys_role_menu` VALUES ('100', '2081');
+INSERT INTO `sys_role_menu` VALUES ('100', '2082');
+INSERT INTO `sys_role_menu` VALUES ('100', '2083');
+INSERT INTO `sys_role_menu` VALUES ('100', '2084');
+INSERT INTO `sys_role_menu` VALUES ('100', '2085');
+INSERT INTO `sys_role_menu` VALUES ('100', '2086');
+INSERT INTO `sys_role_menu` VALUES ('100', '2087');
+INSERT INTO `sys_role_menu` VALUES ('100', '2088');
+INSERT INTO `sys_role_menu` VALUES ('100', '2089');
+INSERT INTO `sys_role_menu` VALUES ('100', '2090');
+INSERT INTO `sys_role_menu` VALUES ('100', '2091');
+INSERT INTO `sys_role_menu` VALUES ('100', '2092');
+INSERT INTO `sys_role_menu` VALUES ('100', '2093');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -2207,12 +2272,12 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '200', 'admin', '龙头', '00', '', '15888888888', '1', '/profile/avatar/2024/05/01/blob_20240501124344A002.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2024-05-17 11:08:01', null, 'admin', '2024-04-19 21:41:37', '', '2024-05-17 11:08:01', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '200', 'admin', '龙头', '00', '', '15888888888', '1', '/profile/avatar/2024/05/01/blob_20240501124344A002.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2024-05-17 18:00:12', null, 'admin', '2024-04-19 21:41:37', '', '2024-05-17 18:00:12', '管理员');
 INSERT INTO `sys_user` VALUES ('2', '202', 'ry', '张医生', '00', '', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '0', '127.0.0.1', null, null, 'admin', '2024-04-19 21:41:37', 'admin', '2024-04-21 16:54:05', '测试员');
 INSERT INTO `sys_user` VALUES ('100', null, 'test_patient', '测试患者', '00', '', '', '0', '', '82f926de1ce5b958517f676123f0a1b4', '34c468', '0', '0', '', null, '2024-04-19 22:36:33', 'admin', '2024-04-19 22:36:33', '', null, null);
 INSERT INTO `sys_user` VALUES ('101', '204', 'docli', '李医生', '00', '', '', '0', '', '6b2d618774e8ae00d2f5cfe92d78caf8', 'c9c46f', '0', '0', '', null, '2024-04-21 16:52:22', 'admin', '2024-04-21 16:52:22', '', null, null);
 INSERT INTO `sys_user` VALUES ('102', '203', 'docwang', '王医生', '00', '', '', '1', '', '06126aab76914da0a0982bd32b32b0fe', 'f6d589', '0', '0', '', null, '2024-04-21 16:52:54', 'admin', '2024-04-21 16:52:54', '', null, null);
-INSERT INTO `sys_user` VALUES ('103', '202', 'doczou', '邹医生', '00', '', '', '0', '', 'a54cec81288b248a3bba141a21565d45', '6ec2cc', '0', '0', '', null, '2024-04-22 16:52:48', 'admin', '2024-04-22 16:52:47', '', null, null);
+INSERT INTO `sys_user` VALUES ('103', '202', 'doczou', '邹医生', '00', '', '', '0', '', 'a54cec81288b248a3bba141a21565d45', '6ec2cc', '0', '0', '127.0.0.1', '2024-05-17 17:57:15', '2024-04-22 16:52:48', 'admin', '2024-04-22 16:52:47', '', '2024-05-17 17:57:14', null);
 
 -- ----------------------------
 -- Table structure for `sys_user_online`
@@ -2236,7 +2301,7 @@ CREATE TABLE `sys_user_online` (
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('35fad4fe-5f1f-4480-9fdc-ba65b2b6fb85', 'admin', '办公室', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', 'on_line', '2024-05-17 11:07:59', '2024-05-17 13:05:17', '1800000');
+INSERT INTO `sys_user_online` VALUES ('649e66c9-cffb-4f2c-ba2b-dfe9708d4fb2', 'admin', '办公室', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', 'on_line', '2024-05-17 18:00:10', '2024-05-17 19:09:19', '1800000');
 
 -- ----------------------------
 -- Table structure for `sys_user_post`
@@ -2271,8 +2336,7 @@ CREATE TABLE `sys_user_role` (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1');
-INSERT INTO `sys_user_role` VALUES ('2', '2');
-INSERT INTO `sys_user_role` VALUES ('100', '2');
-INSERT INTO `sys_user_role` VALUES ('101', '2');
-INSERT INTO `sys_user_role` VALUES ('102', '2');
-INSERT INTO `sys_user_role` VALUES ('103', '2');
+INSERT INTO `sys_user_role` VALUES ('2', '100');
+INSERT INTO `sys_user_role` VALUES ('101', '100');
+INSERT INTO `sys_user_role` VALUES ('102', '100');
+INSERT INTO `sys_user_role` VALUES ('103', '100');
