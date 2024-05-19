@@ -153,7 +153,6 @@
 <th:block th:include="include :: footer"/>
 <th:block th:include="include :: bootstrap-suggest-js"/>
 <script th:inline="javascript">
-    // TODO 在左侧增加选择科室过滤框，或根据用户过滤
     // TODO 给处方表添加 queryParams 查询，根据挂号记录编号过滤
     // TODO 新增处方表时从右侧弹出
     // TODO 新增处方表界面修改（同新增采购计划单界面）
@@ -165,6 +164,8 @@
     var regPeriodDatas = [[${@dict.getType('his_reg_period')}]];
     var regStatusDatas = [[${@dict.getType('his_reg_status')}]];
     var patientSexDatas = [[${@dict.getType('sys_user_sex')}]];
+
+    var deptId = [[${@permission.getPrincipalProperty('deptId')}]];
 
     $(function () {
         var optionsReg = {
@@ -180,7 +181,8 @@
             sortName: "regId",
             sortOrder: "asc",
             queryParams: {
-                regTime: new Date().toISOString().slice(0, 10)
+                regTime: new Date().toISOString().slice(0, 10),
+                deptId: deptId === 200 ? null : deptId
             },
             columns: [
                 {
@@ -226,6 +228,11 @@
                 {
                     field: 'patientPhoneNum',
                     title: '手机号',
+                    visible: false
+                },
+                {
+                    field: 'deptId',
+                    title: '科室Id',
                     visible: false
                 },
                 {

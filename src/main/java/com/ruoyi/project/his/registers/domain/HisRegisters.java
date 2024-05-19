@@ -62,6 +62,10 @@ public class HisRegisters extends BaseEntity
     @Excel(name = "医生名称")
     private String workerName;
 
+    /** 科室ID */
+    @Excel(name = "科室ID")
+    private Long deptId;
+
     /** 科室 */
     @Excel(name = "科室")
     private String deptName;
@@ -196,6 +200,14 @@ public class HisRegisters extends BaseEntity
 
     public void setWorkerName(String workerName) {
         this.workerName = workerName;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     public String getDeptName() {

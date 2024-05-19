@@ -56,6 +56,7 @@
         <where>
             <if test="workerId != null ">and reg.user_id = #{workerId}</if>
             <if test="patientId != null ">and reg.patient_id = #{patientId}</if>
+            <if test="deptId != null ">and u.dept_id = #{deptId}</if>
             <if test="regTime != null ">and DATE(reg_time) = DATE(#{regTime, jdbcType=TIMESTAMP})</if>
             <if test="regPeriod != null ">and reg_period = #{regPeriod}</if>
             <if test="regStatus != null ">and reg_status = #{regStatus}</if>
