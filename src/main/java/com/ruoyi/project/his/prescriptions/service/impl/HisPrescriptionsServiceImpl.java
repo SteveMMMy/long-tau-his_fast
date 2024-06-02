@@ -49,6 +49,18 @@ public class HisPrescriptionsServiceImpl implements IHisPrescriptionsService
     }
 
     /**
+     * 查询某处方明细
+     *
+     * @param prscId 处方ID
+     * @return 处方明细集合
+     */
+    @Override
+    public List<HisPrescriptionsSchedules> selectHisPrescriptionsSchedulesList(Long prscId) {
+        HisPrescriptions hisPrescriptions = hisPrescriptionsMapper.selectHisPrescriptionsByPrscId(prscId);
+        return hisPrescriptions.getHisPrescriptionsSchedulesList();
+    }
+
+    /**
      * 新增处方
      * 
      * @param hisPrescriptions 处方
@@ -76,6 +88,35 @@ public class HisPrescriptionsServiceImpl implements IHisPrescriptionsService
         hisPrescriptionsMapper.deleteHisPrescriptionsSchedulesByPrscId(hisPrescriptions.getPrscId());
         insertHisPrescriptionsSchedules(hisPrescriptions);
         return hisPrescriptionsMapper.updateHisPrescriptions(hisPrescriptions);
+    }
+
+    /**
+     * 修改处方表头信息
+     *
+     * @param hisPrescriptions 处方
+     * @return 结果
+     */
+    @Override
+    public int updateHisPrescriptionsInfo(HisPrescriptions hisPrescriptions) {
+        return hisPrescriptionsMapper.updateHisPrescriptions(hisPrescriptions);
+    }
+
+    /**
+     * 修改处方明细
+     *
+     * @param hisPrescriptions 处方
+     * @return 结果
+     */
+    @Override
+    public int updateHisPrescriptionsSchedulesList(HisPrescriptions hisPrescriptions) {
+        int rows = 0;
+
+        List<HisPrescriptionsSchedules> hisPrescriptionsSchedulesList = hisPrescriptions.getHisPrescriptionsSchedulesList();
+        for (HisPrescriptionsSchedules hisPrescriptionsSchedules : hisPrescriptionsSchedulesList) {
+            rows += hisPrescriptionsMapper.updateHisPrescriptionsSchedules(hisPrescriptionsSchedules);
+        }
+
+        return rows;
     }
 
     /**

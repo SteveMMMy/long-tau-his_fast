@@ -61,6 +61,13 @@ public interface HisPrescriptionsMapper
     public int deleteHisPrescriptionsByPrscIds(String[] prscIds);
 
     /**
+     * 修改处方明细
+     * @param hisPrescriptionsSchedules 处方明细
+     * @return 结果
+     */
+    public int updateHisPrescriptionsSchedules(HisPrescriptionsSchedules hisPrescriptionsSchedules);
+
+    /**
      * 批量删除处方明细
      * 
      * @param prscIds 需要删除的数据主键集合

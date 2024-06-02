@@ -4,7 +4,7 @@
   <th:block th:include="include :: header('修改处方')"/>
 </head>
 <body class="white-bg">
-<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+<div class="wrapper wrapper-content ibox-content">
   <form class="form-horizontal m" id="form-prescriptions-edit" th:object="${hisPrescriptions}">
     <h4 class="form-header h4">处方信息</h4>
     <input name="prscId" th:field="*{prscId}" type="hidden">
@@ -64,6 +64,9 @@
     var prscSchUsageDatas = [[${@dict.getType('his_drug_usage')}]];
     var prscSchFreqDatas = [[${@dict.getType('his_drug_freq')}]];
     var prscSchIsSelfPreparedDatas = [[${@dict.getType('his_drug_self_prep')}]];
+    var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
+    var catUnitDatas = [[${@dict.getType('drug_unit')}]];
+
     $("#form-prescriptions-edit").validate({
         focusCleanup: true
     });
@@ -96,29 +99,112 @@
                     }
                 },
                 {
-                    field: 'catId',
-                    align: 'center',
-                    title: '药品ID',
+                    field: 'catApprovalNumber',
+                    title: '批准文号',
+                    visible: false
+                },
+                {
+                    field: 'catDrugNum',
+                    title: '药品编号',
+                    visible: false
+                },
+                {
+                    field: 'catName',
+                    align: 'left',
+                    title: '药品名',
+                    width: '120%',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisPrescriptionsSchedulesList[%s].catId' value='%s'>", index, value);
-                        return html;
+                        return $.common.sprintf(
+                            '<div class="row">' +
+                            '  <div class="col-sm-12">' +
+                            '    <div class="input-group">' +
+                            '      <input type="text" class="form-control medicine-suggest" placeholder="选择药品" ' +
+                            '             name="hisPrescriptionsSchedulesList[%s].catName" value="%s">' +
+                            '        <ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                            '        </ul>' +
+                            '    </div>' +
+                            '  </div>' +
+                            '</div>', index, value);
                     }
                 },
-
+                {
+                    field: 'catId',
+                    align: 'left',
+                    title: 'ID',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catId' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catEnglishName',
+                    title: '英文名',
+                    visible: false
+                },
+                {
+                    field: 'catProducer',
+                    title: '生产商',
+                    visible: false
+                },
+                {
+                    field: 'catSpecs',
+                    title: '规格',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catSpecs' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catDosageForm',
+                    title: '剂型',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catDosageFormLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catDosageFormDatas, value)));
+                    }
+                },
+                {
+                    field: 'catPackage',
+                    title: '包装',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catPackage' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catUnit',
+                    title: '单位',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catUnitLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catUnitDatas, value)));
+                    }
+                },
                 {
                     field: 'prscSchQuantity',
-                    align: 'center',
+                    align: 'left',
                     title: '数量',
+                    width: '50%',
                     formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisPrescriptionsSchedulesList[%s].prscSchQuantity' value='%s'>", index, value);
                         return html;
                     }
                 },
-
                 {
                     field: 'prscSchUsage',
                     align: 'center',
                     title: '用法',
+                    width: '80%',
                     formatter: function (value, row, index) {
                         var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchUsage", index);
                         return $.common.dictToSelect(prscSchUsageDatas, value, name);
@@ -128,6 +214,7 @@
                     field: 'prscSchFreq',
                     align: 'center',
                     title: '频次',
+                    width: '120%',
                     formatter: function (value, row, index) {
                         var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchFreq", index);
                         return $.common.dictToSelect(prscSchFreqDatas, value, name);
@@ -137,6 +224,7 @@
                     field: 'prscSchIsSelfPrepared',
                     align: 'center',
                     title: '自备',
+                    width: '70%',
                     formatter: function (value, row, index) {
                         var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchIsSelfPrepared", index);
                         return $.common.dictToSelect(prscSchIsSelfPreparedDatas, value, name);
@@ -147,11 +235,10 @@
                     align: 'center',
                     title: '单价',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisPrescriptionsSchedulesList[%s].prscSchUnitPrice' value='%s'>", index, value);
+                        var html = $.common.sprintf("<input class='form-control' readonly type='text' name='hisPrescriptionsSchedulesList[%s].prscSchUnitPrice' value='%s'>", index, value);
                         return html;
                     }
                 },
-
                 {
                     title: '操作',
                     align: 'center',

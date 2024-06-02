@@ -36,6 +36,13 @@ public interface IHisPatientsDiagService
     public int insertHisPatientsDiag(HisPatientsDiag hisPatientsDiag);
 
     /**
+     * 新增患者病历（对已有的患者信息）
+     *
+     * @param hisPatientsDiag 患者病历
+     */
+    public void insertHisDiagByPatient(HisPatientsDiag hisPatientsDiag);
+
+    /**
      * 修改患者病历
      * 
      * @param hisPatientsDiag 患者病历

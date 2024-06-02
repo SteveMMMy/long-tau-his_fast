@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('处方配药')"/>
+  <style>
+      .ibox {
+          padding-left: 5px;
+          padding-right: 5px;
+      }
+
+      .ibox-content {
+          padding: 5px;
+      }
+
+      #patientInfoForm .form-control {
+          margin-bottom: 0;
+      }
+
+      .dashboard-header {
+          padding-top: 0;
+      }
+  </style>
+</head>
+<body class="gray-bg">
+<div class="row border-bottom dashboard-header">
+
+  <div class="col-sm-12">
+    <div class="row">
+      <h5 class="col-sm-2 text-center b-r" id="bar-user-name"></h5>
+      <h5 class="col-sm-2 text-center" id="bar-dept-name"></h5>
+    </div>
+  </div>
+
+  <div class="col-sm-3" style="padding: 5px">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h3>待配药处方 <small>单击选择信息</small></h3>
+      </div>
+      <div class="">
+        <table id="bootstrap-table-prsc"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-9" style="padding: 5px">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h3>处方信息</h3>
+        <div class="row">
+          <div class="col-sm-3 offset-sm-3">
+            <div class="alert alert-info text-left" role="alert">
+              总价: ￥ <span id="totalPrice">0.00</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-check">
+              <input class="form-check-input" id="paidCheck" type="checkbox">
+              <label class="form-check-label" for="paidCheck">
+                已缴费
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-offset-3 col-sm-6">
+            <a class="btn btn-sm btn-primary disabled" id="finishButton" onclick="dispenseFinish()">
+              <i class="fa fa-check"></i> 完成配药
+            </a>
+          </div>
+        </div>
+      </div>
+      <form class="form-horizontal m" id="form-prescriptions-edit">
+        <input class="form-control" name="prscId" required type="hidden">
+        <div class="">
+          <table id="bootstrap-table-prsc-sch"></table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    // TODO 库存不足时不能提交（还要修改）
+    // TODO 患者信息显示
+
+    var editFlag = [[${@permission.hasPermi('his:prescriptions:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('his:prescriptions:remove')}]];
+    var prscTypeDatas = [[${@dict.getType('his_prsc_type')}]];
+    var prscStatusDatas = [[${@dict.getType('his_prsc_status')}]];
+    var regPeriodDatas = [[${@dict.getType('his_reg_period')}]];
+    var regStatusDatas = [[${@dict.getType('his_reg_status')}]];
+    var patientSexDatas = [[${@dict.getType('sys_user_sex')}]];
+    var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
+    var catUnitDatas = [[${@dict.getType('drug_unit')}]];
+    var prscSchUsageDatas = [[${@dict.getType('his_drug_usage')}]];
+    var prscSchFreqDatas = [[${@dict.getType('his_drug_freq')}]];
+    var prscSchIsSelfPreparedDatas = [[${@dict.getType('his_drug_self_prep')}]];
+
+    var userName = [[${@permission.getPrincipalProperty('userName')}]];
+    var deptId = [[${@permission.getPrincipalProperty('deptId')}]];
+
+    var prefix = ctx + "his/prescriptions";
+
+    let finishDisabled = true;
+    let catData = {};
+
+    // 选择下拉框时提交更改
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit_sch", $('#form-prescriptions-edit').serialize());
+        }
+    }
+
+    // 计算总价并更新
+    function updateTotalPrice(data) {
+        var totalPrice = 0;
+        data.forEach(function (row) {
+            var quantity = parseFloat(row.prscSchQuantity) || 0;
+            var unitPrice = parseFloat(row.prscSchUnitPrice) || 0;
+            var prep = parseFloat(row.prscSchIsSelfPrepared) || 0;
+            totalPrice += quantity * unitPrice * !prep;
+        });
+        $('#totalPrice').text(totalPrice.toFixed(2));
+    }
+
+    function formValidate() {
+        // 勾选缴费框
+        if (!document.getElementById('paidCheck').checked) {
+            $.modal.msgError('请缴费后再提交');
+            return false;
+        }
+
+        return true;
+    }
+
+    // 配药完成
+    function dispenseFinish() {
+        // 表单验证
+        if (!formValidate()) {
+            return false;
+        }
+
+        // 更新库存
+        $.each(catData.rows, function(index, row) {
+            if (row.prscSchIsSelfPrepared === 1) {
+                return true;
+            }
+            row.invNumber = row.prscSchQuantity;
+            $.ajax({
+                url: ctx + "his/inventory/deliver",
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(row),
+                success: function(response) {
+                    $.modal.msgSuccess("已出库");
+                },
+                error: function() {
+                    $.modal.msgError("出库失败");
+                }
+            });
+        });
+
+        // 修改处方状态
+        $.ajax({
+            url: ctx + "his/prescriptions/edit_status/" + $('input[name="prscId"]').val(),
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                $.modal.msgSuccess("完成");
+                location.reload();
+            }
+        })
+    }
+
+    $(function () {
+        $('#bar-user-name').text(userName);
+        $.ajax({
+            url: "/system/user/list/" + deptId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                deptName = response[0].dept.deptName;
+                $('#bar-dept-name').text(deptName);
+            }
+        })
+
+        // 处方明细
+        var optionsSch = {
+            id: "bootstrap-table-prsc-sch",
+            modalName: "处方明细",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: true,
+            onLoadSuccess: function (data) {
+                catData = data;
+
+                updateTotalPrice(data.rows);
+
+                if (!finishDisabled) {
+                    $('#finishButton').removeClass('disabled');
+                } else {
+                    $('#finishButton').addClass('disabled');
+                }
+            },
+            columns: [
+                {
+                    field: 'index',
+                    align: 'center',
+                    // title: "序号",
+                    formatter: function (value, row, index) {
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        return columnIndex + $.table.serialNumber(index);
+                    }
+                },
+                {
+                    field: 'prscSchId',
+                    // title: "明细号",
+                    formatter: function (value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' readonly type='hidden' name='hisPrescriptionsSchedulesList[%s].prscSchId' value='%s'>", index, value);
+                        return html;
+                    }
+                },
+                {
+                    field: 'catApprovalNumber',
+                    title: '批准文号',
+                    visible: false
+                },
+                {
+                    field: 'catDrugNum',
+                    title: '药品编号',
+                    visible: false
+                },
+                {
+                    field: 'catName',
+                    align: 'left',
+                    title: '药品名',
+                    // width: '120%'
+                },
+                {
+                    field: 'catId',
+                    align: 'left',
+                    title: 'ID',
+                    // width: '50%'
+                },
+                {
+                    field: 'catEnglishName',
+                    title: '英文名',
+                    visible: false
+                },
+                {
+                    field: 'catProducer',
+                    title: '生产商',
+                    visible: false
+                },
+                {
+                    field: 'catSpecs',
+                    title: '规格'
+                },
+                {
+                    field: 'catDosageForm',
+                    title: '剂型',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(catDosageFormDatas, value);
+                    }
+                },
+                {
+                    field: 'catPackage',
+                    title: '包装'
+                },
+                {
+                    field: 'catUnit',
+                    title: '单位',
+                    // width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(catUnitDatas, value);
+                    }
+                },
+                {
+                    field: 'prscSchQuantity',
+                    align: 'left',
+                    title: '数量',
+                    // width: '50%'
+                },
+                {
+                    field: 'prscSchUsage',
+                    align: 'center',
+                    title: '用法',
+                    // width: '80%',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prscSchUsageDatas, value);
+                    }
+                },
+                {
+                    field: 'prscSchFreq',
+                    align: 'center',
+                    title: '频次',
+                    // width: '120%',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prscSchFreqDatas, value);
+                    }
+                },
+                {
+                    field: 'prscSchUnitPrice',
+                    align: 'center',
+                    title: '单价'
+                },
+                {
+                    field: 'prscSchIsSelfPrepared',
+                    align: 'center',
+                    title: '自备',
+                    width: '70%',
+                    formatter: function (value, row, index) {
+                        var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchIsSelfPrepared", index);
+                        var selectHtml = $.common.dictToSelect(prscSchIsSelfPreparedDatas, value, name);
+                        return selectHtml.replace('<select', '<select onchange="submitHandler()"');
+                    }
+                },
+                {
+                    field: 'invBatchNumber',
+                    title: '生产批号',
+                    // visible: false
+                },
+                {
+                    field: 'invNumber',
+                    title: '库存数量',
+                    visible: false
+                },
+                {
+                    field: 'invStatus',
+                    title: '库存情况',
+                    formatter: function (value, row, index) {
+                        if (stripHtmlTagsDOMParser($.table.selectDictLabel(prscSchIsSelfPreparedDatas, row.prscSchIsSelfPrepared)) === '是') {
+                            return '<span class="badge">无需配药</span>';
+                        }
+
+                        if (row.prscSchQuantity > row.invNumber) {
+                            finishDisabled = true;
+                            return '<span class="badge badge-danger">库存不足</span>';
+                        }
+                        return '<span class="badge badge-primary">库存足够</span>';
+                    }
+                }
+            ]
+        };
+
+        // 待配药处方列表
+        var optionsPrsc = {
+            id: "bootstrap-table-prsc",
+            url: ctx + "his/prescriptions/list",
+            modalName: "处方",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            queryParams: {
+                prscStatus: 0
+            },
+            onClickRow: function (row, $element) {
+                $('#bootstrap-table-prsc tbody tr').removeClass('selected');
+                $element.addClass('selected');
+                finishDisabled = false;
+
+                $('input[name="prscId"]').val(row.prscId);
+
+                $.table.destroy("bootstrap-table-prsc-sch");
+                optionsSch.url = ctx + "his/prescriptions/list/" + row.prscId;
+                $.table.init(optionsSch);
+            },
+            columns: [
+                {
+                    field: 'prscId',
+                    title: '处方ID',
+                    visible: false
+                },
+                {
+                    field: 'regId',
+                    title: '挂号记录编号',
+                    visible: false
+                },
+                {
+                    field: 'prscDocNum',
+                    title: '处方单据号'
+                },
+                {
+                    field: 'prscType',
+                    title: '处方类型',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prscTypeDatas, value);
+                    }
+                },
+                {
+                    field: 'prscStatus',
+                    title: '处方状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(prscStatusDatas, value);
+                    }
+                },
+                {
+                    field: 'prscComments',
+                    title: '备注'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    visible: false,
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.prscId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.prscId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(optionsPrsc);
+
+        // $('#name').on('change', function () {
+        //     const nameInput = $('#name').val().trim();
+        //     if (nameInput === "") {
+        //         $('#addButton').addClass('disabled');
+        //         $('#diagSubmitButton').addClass('disabled');
+        //         $('#diagViewButton').addClass('disabled');
+        //     } else {
+        //         $('#addButton').removeClass('disabled');
+        //         $('#diagSubmitButton').removeClass('disabled');
+        //         $('#diagViewButton').removeClass('disabled');
+        //     }
+        // });
+    })
+</script>
+</body>
+</html>

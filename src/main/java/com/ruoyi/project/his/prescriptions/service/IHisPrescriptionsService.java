@@ -2,6 +2,7 @@ package com.ruoyi.project.his.prescriptions.service;
 
 import java.util.List;
 import com.ruoyi.project.his.prescriptions.domain.HisPrescriptions;
+import com.ruoyi.project.his.prescriptions.domain.HisPrescriptionsSchedules;
 
 /**
  * 处方Service接口
@@ -28,6 +29,14 @@ public interface IHisPrescriptionsService
     public List<HisPrescriptions> selectHisPrescriptionsList(HisPrescriptions hisPrescriptions);
 
     /**
+     * 查询某处方明细
+     *
+     * @param prscId 处方ID
+     * @return 处方明细集合
+     */
+    public List<HisPrescriptionsSchedules> selectHisPrescriptionsSchedulesList(Long prscId);
+
+    /**
      * 新增处方
      * 
      * @param hisPrescriptions 处方
@@ -42,6 +51,22 @@ public interface IHisPrescriptionsService
      * @return 结果
      */
     public int updateHisPrescriptions(HisPrescriptions hisPrescriptions);
+
+    /**
+     * 修改处方表头信息
+     *
+     * @param hisPrescriptions 处方
+     * @return 结果
+     */
+    public int updateHisPrescriptionsInfo(HisPrescriptions hisPrescriptions);
+
+    /**
+     * 修改处方明细
+     *
+     * @param hisPrescriptions 处方
+     * @return 结果
+     */
+    public int updateHisPrescriptionsSchedulesList(HisPrescriptions hisPrescriptions);
 
     /**
      * 批量删除处方

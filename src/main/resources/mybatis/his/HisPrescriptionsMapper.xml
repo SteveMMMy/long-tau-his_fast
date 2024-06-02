@@ -1,56 +1,108 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.project.his.prescriptions.mapper.HisPrescriptionsMapper">
-    
+
     <resultMap type="HisPrescriptions" id="HisPrescriptionsResult">
-        <result property="prscId"    column="prsc_id"    />
-        <result property="regId"    column="reg_id"    />
-        <result property="prscDocNum"    column="prsc_doc_num"    />
-        <result property="prscType"    column="prsc_type"    />
-        <result property="prscStatus"    column="prsc_status"    />
-        <result property="prscComments"    column="prsc_comments"    />
+        <result property="prscId" column="prsc_id"/>
+        <result property="regId" column="reg_id"/>
+        <result property="prscDocNum" column="prsc_doc_num"/>
+        <result property="prscType" column="prsc_type"/>
+        <result property="prscStatus" column="prsc_status"/>
+        <result property="prscComments" column="prsc_comments"/>
     </resultMap>
 
-    <resultMap id="HisPrescriptionsHisPrescriptionsSchedulesResult" type="HisPrescriptions" extends="HisPrescriptionsResult">
-        <collection property="hisPrescriptionsSchedulesList" notNullColumn="sub_prsc_sch_id" javaType="java.util.List" resultMap="HisPrescriptionsSchedulesResult" />
+    <resultMap id="HisPrescriptionsHisPrescriptionsSchedulesResult" type="HisPrescriptions"
+               extends="HisPrescriptionsResult">
+        <collection property="hisPrescriptionsSchedulesList" notNullColumn="sub_prsc_sch_id" javaType="java.util.List"
+                    resultMap="HisPrescriptionsSchedulesResult"/>
     </resultMap>
 
     <resultMap type="HisPrescriptionsSchedules" id="HisPrescriptionsSchedulesResult">
-        <result property="prscSchId"    column="sub_prsc_sch_id"    />
-        <result property="prscId"    column="sub_prsc_id"    />
-        <result property="catId"    column="sub_cat_id"    />
-        <result property="prscSchQuantity"    column="sub_prsc_sch_quantity"    />
-        <result property="prscSchUsage"    column="sub_prsc_sch_usage"    />
-        <result property="prscSchFreq"    column="sub_prsc_sch_freq"    />
-        <result property="prscSchIsSelfPrepared"    column="sub_prsc_sch_is_self_prepared"    />
-        <result property="prscSchUnitPrice"    column="sub_prsc_sch_unit_price"    />
+        <result property="prscSchId" column="sub_prsc_sch_id"/>
+        <result property="prscId" column="sub_prsc_id"/>
+        <result property="catId" column="sub_cat_id"/>
+
+        <result property="catApprovalNumber" column="cat_approval_number"/>
+        <result property="catDrugNum" column="cat_drug_num"/>
+        <result property="catName" column="cat_name"/>
+        <result property="catEnglishName" column="cat_English_name"/>
+        <result property="catProducer" column="cat_producer"/>
+        <result property="catSpecs" column="cat_specs"/>
+        <result property="catDosageForm" column="cat_dosage_form"/>
+        <result property="catPackage" column="cat_package"/>
+        <result property="catUnit" column="cat_unit"/>
+
+        <result property="prscSchQuantity" column="sub_prsc_sch_quantity"/>
+        <result property="prscSchUsage" column="sub_prsc_sch_usage"/>
+        <result property="prscSchFreq" column="sub_prsc_sch_freq"/>
+        <result property="prscSchIsSelfPrepared" column="sub_prsc_sch_is_self_prepared"/>
+        <result property="prscSchUnitPrice" column="sub_prsc_sch_unit_price"/>
+
+        <result property="invBatchNumber" column="inv_batch_number"/>
+        <result property="invNumber" column="inv_number"/>
     </resultMap>
 
     <sql id="selectHisPrescriptionsVo">
-        select prsc_id, reg_id, prsc_doc_num, prsc_type, prsc_status, prsc_comments from his_prescriptions
+        select prsc_id, reg_id, prsc_doc_num, prsc_type, prsc_status, prsc_comments
+        from his_prescriptions
     </sql>
 
     <select id="selectHisPrescriptionsList" parameterType="HisPrescriptions" resultMap="HisPrescriptionsResult">
         <include refid="selectHisPrescriptionsVo"/>
-        <where>  
-            <if test="regId != null "> and reg_id = #{regId}</if>
-            <if test="prscDocNum != null  and prscDocNum != ''"> and prsc_doc_num like concat('%', #{prscDocNum}, '%')</if>
-            <if test="prscType != null "> and prsc_type = #{prscType}</if>
-            <if test="prscStatus != null "> and prsc_status = #{prscStatus}</if>
-            <if test="prscComments != null  and prscComments != ''"> and prsc_comments like concat('%', #{prscComments}, '%')</if>
+        <where>
+            <if test="regId != null ">and reg_id = #{regId}</if>
+            <if test="prscDocNum != null  and prscDocNum != ''">and prsc_doc_num like concat('%', #{prscDocNum}, '%')
+            </if>
+            <if test="prscType != null ">and prsc_type = #{prscType}</if>
+            <if test="prscStatus != null ">and prsc_status = #{prscStatus}</if>
+            <if test="prscComments != null  and prscComments != ''">and prsc_comments like concat('%', #{prscComments},
+                '%')
+            </if>
         </where>
     </select>
-    
-    <select id="selectHisPrescriptionsByPrscId" parameterType="Long" resultMap="HisPrescriptionsHisPrescriptionsSchedulesResult">
-        select a.prsc_id, a.reg_id, a.prsc_doc_num, a.prsc_type, a.prsc_status, a.prsc_comments,
- b.prsc_sch_id as sub_prsc_sch_id, b.prsc_id as sub_prsc_id, b.cat_id as sub_cat_id, b.prsc_sch_quantity as sub_prsc_sch_quantity, b.prsc_sch_usage as sub_prsc_sch_usage, b.prsc_sch_freq as sub_prsc_sch_freq, b.prsc_sch_is_self_prepared as sub_prsc_sch_is_self_prepared, b.prsc_sch_unit_price as sub_prsc_sch_unit_price
+
+    <select id="selectHisPrescriptionsByPrscId" parameterType="Long"
+            resultMap="HisPrescriptionsHisPrescriptionsSchedulesResult">
+        select a.prsc_id,
+               a.reg_id,
+               a.prsc_doc_num,
+               a.prsc_type,
+               a.prsc_status,
+               a.prsc_comments,
+               b.prsc_sch_id               as sub_prsc_sch_id,
+               b.prsc_id                   as sub_prsc_id,
+               b.cat_id                    as sub_cat_id,
+               cat.cat_approval_number,
+               cat.cat_drug_num,
+               cat.cat_name,
+               cat.cat_English_name,
+               cat.cat_producer,
+               cat.cat_specs,
+               cat.cat_dosage_form,
+               cat.cat_package,
+               cat.cat_unit,
+               b.prsc_sch_quantity         as sub_prsc_sch_quantity,
+               b.prsc_sch_usage            as sub_prsc_sch_usage,
+               b.prsc_sch_freq             as sub_prsc_sch_freq,
+               b.prsc_sch_is_self_prepared as sub_prsc_sch_is_self_prepared,
+               b.prsc_sch_unit_price       as sub_prsc_sch_unit_price,
+               inv.inv_batch_number,
+               inv.inv_number
         from his_prescriptions a
-        left join his_prescriptions_schedules b on b.prsc_id = a.prsc_id
+                 left join his_prescriptions_schedules b on b.prsc_id = a.prsc_id
+                 left join his_drug_catalogue cat on b.cat_id = cat.cat_id
+                 left join (select inv1.cat_id, inv1.inv_number, inv1.inv_batch_number
+                            from his_inventory inv1
+                            where inv1.inv_id = (select inv2.inv_id
+                                                 from his_inventory inv2
+                                                 where inv2.cat_id = inv1.cat_id
+                                                 order by inv2.inv_prod_date desc
+                                                 limit 1)) inv on b.cat_id = inv.cat_id
         where a.prsc_id = #{prscId}
     </select>
-        
+
     <insert id="insertHisPrescriptions" parameterType="HisPrescriptions" useGeneratedKeys="true" keyProperty="prscId">
         insert into his_prescriptions
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -59,14 +111,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="prscType != null">prsc_type,</if>
             <if test="prscStatus != null">prsc_status,</if>
             <if test="prscComments != null">prsc_comments,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="regId != null">#{regId},</if>
             <if test="prscDocNum != null">#{prscDocNum},</if>
             <if test="prscType != null">#{prscType},</if>
             <if test="prscStatus != null">#{prscStatus},</if>
             <if test="prscComments != null">#{prscComments},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateHisPrescriptions" parameterType="HisPrescriptions">
@@ -81,32 +133,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where prsc_id = #{prscId}
     </update>
 
+    <update id="updateHisPrescriptionsSchedules" parameterType="HisPrescriptionsSchedules">
+        update his_prescriptions_schedules
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="prscId != null">prsc_id = #{prscId},</if>
+            <if test="catId != null">cat_id = #{catId},</if>
+            <if test="prscSchQuantity != null">prsc_sch_quantity = #{prscSchQuantity},</if>
+            <if test="prscSchUsage != null">prsc_sch_usage = #{prscSchUsage},</if>
+            <if test="prscSchFreq != null">prsc_sch_freq = #{prscSchFreq},</if>
+            <if test="prscSchIsSelfPrepared != null">prsc_sch_is_self_prepared = #{prscSchIsSelfPrepared},</if>
+            <if test="prscSchUnitPrice != null">prsc_sch_unit_price = #{prscSchUnitPrice},</if>
+        </trim>
+        where prsc_sch_id = #{prscSchId}
+    </update>
+
     <delete id="deleteHisPrescriptionsByPrscId" parameterType="Long">
-        delete from his_prescriptions where prsc_id = #{prscId}
+        delete
+        from his_prescriptions
+        where prsc_id = #{prscId}
     </delete>
 
     <delete id="deleteHisPrescriptionsByPrscIds" parameterType="String">
-        delete from his_prescriptions where prsc_id in 
+        delete from his_prescriptions where prsc_id in
         <foreach item="prscId" collection="array" open="(" separator="," close=")">
             #{prscId}
         </foreach>
     </delete>
-    
+
     <delete id="deleteHisPrescriptionsSchedulesByPrscIds" parameterType="String">
-        delete from his_prescriptions_schedules where prsc_id in 
+        delete from his_prescriptions_schedules where prsc_id in
         <foreach item="prscId" collection="array" open="(" separator="," close=")">
             #{prscId}
         </foreach>
     </delete>
 
     <delete id="deleteHisPrescriptionsSchedulesByPrscId" parameterType="Long">
-        delete from his_prescriptions_schedules where prsc_id = #{prscId}
+        delete
+        from his_prescriptions_schedules
+        where prsc_id = #{prscId}
     </delete>
 
     <insert id="batchHisPrescriptionsSchedules">
-        insert into his_prescriptions_schedules( prsc_sch_id, prsc_id, cat_id, prsc_sch_quantity, prsc_sch_usage, prsc_sch_freq, prsc_sch_is_self_prepared, prsc_sch_unit_price) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.prscSchId}, #{item.prscId}, #{item.catId}, #{item.prscSchQuantity}, #{item.prscSchUsage}, #{item.prscSchFreq}, #{item.prscSchIsSelfPrepared}, #{item.prscSchUnitPrice})
+        insert into his_prescriptions_schedules( prsc_sch_id, prsc_id, cat_id, prsc_sch_quantity, prsc_sch_usage,
+        prsc_sch_freq, prsc_sch_is_self_prepared, prsc_sch_unit_price) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.prscSchId}, #{item.prscId}, #{item.catId}, #{item.prscSchQuantity}, #{item.prscSchUsage},
+            #{item.prscSchFreq}, #{item.prscSchIsSelfPrepared}, #{item.prscSchUnitPrice})
         </foreach>
     </insert>
 

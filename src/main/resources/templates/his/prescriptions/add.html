@@ -2,17 +2,18 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="include :: header('新增处方')"/>
+  <style>
+      .bootstrap-table .fixed-table-container .fixed-table-body {
+          overflow: inherit !important;
+          height: auto !important;
+      }
+  </style>
 </head>
 <body class="white-bg">
-<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+<div class="wrapper wrapper-content ibox-content">
   <form class="form-horizontal m" id="form-prescriptions-add">
-    <h4 class="form-header h4">处方信息</h4>
-    <div class="form-group">
-      <label class="col-sm-3 control-label is-required">挂号记录编号：</label>
-      <div class="col-sm-8">
-        <input class="form-control" name="regId" required type="text">
-      </div>
-    </div>
+<!--    <h4 class="form-header h4">处方信息</h4>-->
+    <input class="form-control" name="regId" required type="hidden">
     <div class="form-group">
       <label class="col-sm-3 control-label">处方单据号：</label>
       <div class="col-sm-8">
@@ -43,7 +44,7 @@
         <textarea class="form-control" name="prscComments"></textarea>
       </div>
     </div>
-    <h4 class="form-header h4">处方明细信息</h4>
+<!--    <h4 class="form-header h4">处方明细信息</h4>-->
     <div class="row">
       <div class="col-sm-12">
         <button class="btn btn-white btn-sm" onclick="addRow()" type="button"><i class="fa fa-plus"> 增加</i></button>
@@ -57,11 +58,18 @@
   </form>
 </div>
 <th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-suggest-js"/>
 <script th:inline="javascript">
+
+    const docPrefix = "PTCF-";  // 单据号前缀
+
     var prefix = ctx + "his/prescriptions"
     var prscSchUsageDatas = [[${@dict.getType('his_drug_usage')}]];
     var prscSchFreqDatas = [[${@dict.getType('his_drug_freq')}]];
     var prscSchIsSelfPreparedDatas = [[${@dict.getType('his_drug_self_prep')}]];
+    var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
+    var catUnitDatas = [[${@dict.getType('drug_unit')}]];
+
     $("#form-prescriptions-add").validate({
         focusCleanup: true
     });
@@ -80,31 +88,193 @@
             showToggle: false,
             showColumns: false,
             sidePagination: "client",
+            onPostBody: function () {
+                // 初始化bootstrap-suggest
+                $('.medicine-suggest').each(function () {
+                    let $input = $(this);
+                    let rowIndex = $input.attr('name').match(/hisPrescriptionsSchedulesList\[(\d+)\]\.catName/)[1]; // 提取行索引
+
+                    getDataAndInitBsSuggest(
+                        ctx + 'his/catalogue/search_list',
+                        this,
+                        function (r) {
+                            r.forEach(function (drug) {
+                                // 给数据增加字典标签字段
+                                drug.catDosageFormLabel = $.table.selectDictLabel(catDosageFormDatas, drug.catDosageForm);
+                                drug.catUnitLabel = $.table.selectDictLabel(catUnitDatas, drug.catUnit)
+                            })
+                            return r;
+                        },
+                        {
+                            effectiveFields: [
+                                "catName",
+                                "catEnglishName",
+                                "catSpecs",
+                                "catDosageFormLabel",
+                                "catPackage",
+                                "catUnitLabel",
+                                "catUnitPrice"
+                            ],
+                            effectiveFieldsAlias: {
+                                catName: "药品名",
+                                catEnglishName: "英文名",
+                                catSpecs: "规格",
+                                catDosageFormLabel: "剂型",
+                                catPackage: "包装",
+                                catUnitLabel: "单位",
+                                catUnitPrice: "单价"
+                            },
+                            idField: 'catId',
+                            keyField: 'catName'
+                        },
+                        function (e, selectedData, selectedRawData) {
+                            // 选择一条数据时自动填写其他字段
+                            const $tr = $input.closest('tr'); // 找到当前行
+
+                            // 填充药品ID
+                            const $catIdInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].catId"]'); // 找到药品ID输入框
+                            $catIdInput.val(selectedData.id); // 设置药品ID
+
+                            // 填充规格
+                            const $catSpecsInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].catSpecs"]');
+                            $catSpecsInput.val(selectedRawData.catSpecs);
+
+                            // 填充剂型
+                            const $catDosageFormInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].catDosageFormLabel"]');
+                            $catDosageFormInput.val(stripHtmlTagsDOMParser(
+                                $.table.selectDictLabel(catDosageFormDatas, selectedRawData.catDosageForm)
+                            ));
+
+                            // 填充包装
+                            const $catPackageInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].catPackage"]');
+                            $catPackageInput.val(selectedRawData.catPackage);
+
+                            // 填充单位
+                            const $catUnitInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].catUnitLabel"]');
+                            $catUnitInput.val(stripHtmlTagsDOMParser(
+                                $.table.selectDictLabel(catUnitDatas, selectedRawData.catUnit)
+                            ));
+
+                            // 填充单价
+                            const $prscSchUnitPriceInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].prscSchUnitPrice"]');
+                            $prscSchUnitPriceInput.val(selectedRawData.catUnitPrice);
+
+                            // 数量默认1
+                            const $prscSchQuantityInput = $tr.find('input[name="hisPrescriptionsSchedulesList[' + rowIndex + '].prscSchQuantity"]');
+                            $prscSchQuantityInput.val(1);
+                        }
+                    )
+                });
+            },
             columns: [{
                 checkbox: true
             },
                 {
                     field: 'index',
                     align: 'center',
-                    title: "序号",
+                    // title: "序号",
                     formatter: function (value, row, index) {
                         var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
                         return columnIndex + $.table.serialNumber(index);
                     }
                 },
                 {
-                    field: 'catId',
-                    align: 'center',
-                    title: '药品ID',
+                    field: 'catApprovalNumber',
+                    title: '批准文号',
+                    visible: false
+                },
+                {
+                    field: 'catDrugNum',
+                    title: '药品编号',
+                    visible: false
+                },
+                {
+                    field: 'catName',
+                    align: 'left',
+                    title: '药品名',
+                    width: '120%',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisPrescriptionsSchedulesList[%s].catId' value='%s'>", index, value);
-                        return html;
+                        return $.common.sprintf(
+                            '<div class="row">' +
+                            '  <div class="col-sm-12">' +
+                            '    <div class="input-group">' +
+                            '      <input type="text" class="form-control medicine-suggest" placeholder="选择药品" ' +
+                            '             name="hisPrescriptionsSchedulesList[%s].catName" value="%s">' +
+                            '        <ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+                            '        </ul>' +
+                            '    </div>' +
+                            '  </div>' +
+                            '</div>', index, value);
+                    }
+                },
+                {
+                    field: 'catId',
+                    align: 'left',
+                    title: 'ID',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catId' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catEnglishName',
+                    title: '英文名',
+                    visible: false
+                },
+                {
+                    field: 'catProducer',
+                    title: '生产商',
+                    visible: false
+                },
+                {
+                    field: 'catSpecs',
+                    title: '规格',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catSpecs' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catDosageForm',
+                    title: '剂型',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catDosageFormLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catDosageFormDatas, value)));
+                    }
+                },
+                {
+                    field: 'catPackage',
+                    title: '包装',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catPackage' value='%s'>",
+                            index, value);
+                    }
+                },
+                {
+                    field: 'catUnit',
+                    title: '单位',
+                    width: '50%',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf(
+                            "<input class='form-control' type='text' readonly " +
+                            "name='hisPrescriptionsSchedulesList[%s].catUnitLabel' value='%s'>",
+                            index, stripHtmlTagsDOMParser($.table.selectDictLabel(catUnitDatas, value)));
                     }
                 },
                 {
                     field: 'prscSchQuantity',
-                    align: 'center',
+                    align: 'left',
                     title: '数量',
+                    width: '50%',
                     formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='hisPrescriptionsSchedulesList[%s].prscSchQuantity' value='%s'>", index, value);
                         return html;
@@ -114,6 +284,7 @@
                     field: 'prscSchUsage',
                     align: 'center',
                     title: '用法',
+                    width: '80%',
                     formatter: function (value, row, index) {
                         var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchUsage", index);
                         return $.common.dictToSelect(prscSchUsageDatas, value, name);
@@ -123,6 +294,7 @@
                     field: 'prscSchFreq',
                     align: 'center',
                     title: '频次',
+                    width: '120%',
                     formatter: function (value, row, index) {
                         var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchFreq", index);
                         return $.common.dictToSelect(prscSchFreqDatas, value, name);
@@ -132,6 +304,7 @@
                     field: 'prscSchIsSelfPrepared',
                     align: 'center',
                     title: '自备',
+                    width: '70%',
                     formatter: function (value, row, index) {
                         var name = $.common.sprintf("hisPrescriptionsSchedulesList[%s].prscSchIsSelfPrepared", index);
                         return $.common.dictToSelect(prscSchIsSelfPreparedDatas, value, name);
@@ -142,7 +315,7 @@
                     align: 'center',
                     title: '单价',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='hisPrescriptionsSchedulesList[%s].prscSchUnitPrice' value='%s'>", index, value);
+                        var html = $.common.sprintf("<input class='form-control' readonly type='text' name='hisPrescriptionsSchedulesList[%s].prscSchUnitPrice' value='%s'>", index, value);
                         return html;
                     }
                 },
@@ -156,6 +329,37 @@
                 }]
         };
         $.table.init(options);
+
+        // 获取URL参数的函数
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // 获取挂号记录编号并填充到输入框中
+        const regId = getUrlParameter('regId');
+        if (regId) {
+            $('input[name="regId"]').val(regId);
+        }
+        
+        // 获取当前日期，格式为"YYYY-MM-DD"
+        const today = new Date().toISOString().slice(0, 10);
+
+        // 填写单据号前缀
+        let $prscDocNumInput = $('input[name="prscDocNum"]');
+        $prscDocNumInput.val(
+            docPrefix + today.slice(2, 4) + today.slice(5, 7) + today.slice(8, 10)
+        );
+
+        // 单据号长度不超过 14
+        $prscDocNumInput.on('input', function () {
+            const inputVal = $(this).val();
+            if (inputVal.length > 14) {
+                $(this).val(inputVal.slice(0, 14));
+            }
+        });
     });
 
     function addRow() {
@@ -163,6 +367,15 @@
         var row = {
             index: $.table.serialNumber(count),
             catId: "",
+            catApprovalNumber: "",
+            catDrugNum: "",
+            catName: "",
+            catEnglishName: "",
+            catProducer: "",
+            catSpecs: "",
+            catDosageFormLabel: "",
+            catPackage: "",
+            catUnitLabel: "",
             prscSchQuantity: "",
             prscSchUsage: "",
             prscSchFreq: "",

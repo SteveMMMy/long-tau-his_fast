@@ -114,6 +114,25 @@ public class HisRegistersController extends BaseController
     }
 
     /**
+     * 将挂号记录设置为已完成
+     */
+    @RequiresPermissions("his:registers:edit")
+    @Log(title = "挂号记录状态", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit_status/{regId}")
+    @ResponseBody
+    public AjaxResult editStatus(@PathVariable("regId") Long regId)
+    {
+        // 挂号状态为2
+        Long status = 2L;
+
+        HisRegisters hisRegisters = new HisRegisters();
+        hisRegisters.setRegId(regId);
+        hisRegisters.setRegStatus(status);
+
+        return toAjax(hisRegistersService.updateHisRegisters(hisRegisters));
+    }
+
+    /**
      * 删除挂号记录
      */
     @RequiresPermissions("his:registers:remove")

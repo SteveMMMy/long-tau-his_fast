@@ -42,7 +42,7 @@ public class HisRegisController extends BaseController {
      * 新增挂号：
      * 插入患者信息和挂号信息
      */
-    @RepeatSubmit
+    @RepeatSubmit(interval = 3000)
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addAppointment(@RequestBody HisAppointment hisAppointment) {

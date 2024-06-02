@@ -5,11 +5,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.framework.aspectj.lang.annotation.Log;
 import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
 import com.ruoyi.project.his.inventory.domain.HisInventory;
@@ -39,6 +35,11 @@ public class HisInventoryController extends BaseController
     public String inventory()
     {
         return prefix + "/inventory";
+    }
+
+    @GetMapping("/dispensing")
+    public String dispensing() {
+        return prefix + "/dispensing";
     }
 
     /**
@@ -131,6 +132,31 @@ public class HisInventoryController extends BaseController
     public AjaxResult editSave(HisInventory hisInventory)
     {
         return toAjax(hisInventoryService.updateHisInventory(hisInventory));
+    }
+
+    /**
+     * 更新库存（出库）
+     */
+    @RequiresPermissions("his:inventory:edit")
+    @Log(title = "更新库存", businessType = BusinessType.UPDATE)
+    @PostMapping("/deliver")
+    @ResponseBody
+    public AjaxResult deliver(@RequestBody HisInventory delInv)
+    {
+        // 查找要插入的药品ID和生产批号，得到之前的库存
+        HisInventory inv = new HisInventory();
+        inv.setCatId(delInv.getCatId());
+        inv.setInvBatchNumber(delInv.getInvBatchNumber());
+
+        List<HisInventory> inventoryList = hisInventoryService.selectHisInventoryList(inv);
+        HisInventory invOld = inventoryList.get(0);
+
+        // 新的库存
+        HisInventory newInv = new HisInventory();
+        newInv.setInvId(invOld.getInvId());
+        newInv.setInvNumber(invOld.getInvNumber() - delInv.getInvNumber());  // 减去出库数量
+
+        return toAjax(hisInventoryService.updateHisInventory(newInv));
     }
 
     /**

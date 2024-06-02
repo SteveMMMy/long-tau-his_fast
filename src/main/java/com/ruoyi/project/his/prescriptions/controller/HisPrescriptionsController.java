@@ -1,6 +1,8 @@
 package com.ruoyi.project.his.prescriptions.controller;
 
 import java.util.List;
+
+import com.ruoyi.project.his.prescriptions.domain.HisPrescriptionsSchedules;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +63,19 @@ public class HisPrescriptionsController extends BaseController
     }
 
     /**
+     * 查询某处方明细
+     */
+    @RequiresPermissions("his:prescriptions:list")
+    @PostMapping("/list/{prscId}")
+    @ResponseBody
+    public TableDataInfo listByPrscId(@PathVariable("prscId") Long prscId)
+    {
+        startPage();
+        List<HisPrescriptionsSchedules> list = hisPrescriptionsService.selectHisPrescriptionsSchedulesList(prscId);
+        return getDataTable(list);
+    }
+
+    /**
      * 导出处方列表
      */
     @RequiresPermissions("his:prescriptions:export")
@@ -117,6 +132,37 @@ public class HisPrescriptionsController extends BaseController
     public AjaxResult editSave(HisPrescriptions hisPrescriptions)
     {
         return toAjax(hisPrescriptionsService.updateHisPrescriptions(hisPrescriptions));
+    }
+
+    /**
+     * 修改处方状态为已配药
+     */
+    @RequiresPermissions("his:prescriptions:edit")
+    @Log(title = "处方", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit_status/{prscId}")
+    @ResponseBody
+    public AjaxResult editStatus(@PathVariable("prscId") Long prscId)
+    {
+        // 处方状态为2
+        Long status = 2L;
+
+        HisPrescriptions hisPrescriptions = new HisPrescriptions();
+        hisPrescriptions.setPrscId(prscId);
+        hisPrescriptions.setPrscStatus(status);
+
+        return toAjax(hisPrescriptionsService.updateHisPrescriptionsInfo(hisPrescriptions));
+    }
+
+    /**
+     * 修改保存处方明细
+     */
+    @RequiresPermissions("his:prescriptions:edit")
+    @Log(title = "处方明细", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit_sch")
+    @ResponseBody
+    public AjaxResult editSch(HisPrescriptions hisPrescriptions)
+    {
+        return toAjax(hisPrescriptionsService.updateHisPrescriptionsSchedulesList(hisPrescriptions));
     }
 
     /**

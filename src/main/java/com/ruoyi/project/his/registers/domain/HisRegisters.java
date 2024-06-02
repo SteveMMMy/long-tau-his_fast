@@ -71,8 +71,8 @@ public class HisRegisters extends BaseEntity
     private String deptName;
 
     /** 挂号日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "挂号日期", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "挂号日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date regTime;
 
     /** 挂号时段 */
