@@ -1,6 +1,9 @@
 package com.ruoyi.project.his.plans.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.ruoyi.common.utils.security.ShiroUtils;
@@ -58,6 +61,43 @@ public class HisProcurementPlansController extends BaseController
         startPage();
         List<HisProcurementPlans> list = hisProcurementPlansService.selectHisProcurementPlansList(hisProcurementPlans);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询采购计划单列表数量
+     */
+    @GetMapping("/count")
+    @ResponseBody
+    public AjaxResult getProcurementPlansCount() {
+        HisProcurementPlans hisProcurementPlans = new HisProcurementPlans();
+        LocalDate today = LocalDate.now(); // 获取今天的日期
+        Date utilDate = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant()); // 转换为java.util.Date，并设置为今天的凌晨0点
+        hisProcurementPlans.setPrcpDate(utilDate);
+        List<HisProcurementPlans> plansList = hisProcurementPlansService.selectHisProcurementPlansList(hisProcurementPlans);
+        int index = plansList.size() + 1;
+
+        while (!checkIndexValid(plansList, index)) {
+            index++;
+        }
+
+        return AjaxResult.success(index);
+    }
+
+    boolean checkIndexValid(List<HisProcurementPlans> plansList, int index) {
+
+        // 遍历每个单据号
+        for (HisProcurementPlans plans : plansList) {
+            String prcpDocNum = plans.getPrcpDocNum();
+            // 截取字符串的后三位
+            String lastThreeDigits = prcpDocNum.substring(prcpDocNum.length() - 3);
+
+            // 转换为整数
+            int number = Integer.parseInt(lastThreeDigits);
+            if (number == index) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

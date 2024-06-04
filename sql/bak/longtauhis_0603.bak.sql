@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost_3306
 Source Server Version : 80200
 Source Host           : localhost:3306
-Source Database       : longtauhis_test_0414
+Source Database       : longtauhis_0603
 
 Target Server Type    : MYSQL
 Target Server Version : 80200
 File Encoding         : 65001
 
-Date: 2024-05-17 19:12:31
+Date: 2024-06-04 19:13:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,25 +21,25 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `gen_table`;
 CREATE TABLE `gen_table` (
   `table_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `table_name` varchar(200) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '表名称',
-  `table_comment` varchar(500) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '表描述',
-  `sub_table_name` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '关联子表的表名',
-  `sub_table_fk_name` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '子表关联的外键名',
-  `class_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '实体类名称',
-  `tpl_category` varchar(200) COLLATE utf8mb4_general_ci DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作 sub主子表操作）',
-  `package_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成包路径',
-  `module_name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成模块名',
-  `business_name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成业务名',
-  `function_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成功能名',
-  `function_author` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成功能作者',
-  `gen_type` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
-  `gen_path` varchar(200) COLLATE utf8mb4_general_ci DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
-  `options` varchar(1000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '其它生成选项',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `table_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '表名称',
+  `table_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '表描述',
+  `sub_table_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '关联子表的表名',
+  `sub_table_fk_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '子表关联的外键名',
+  `class_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '实体类名称',
+  `tpl_category` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作 sub主子表操作）',
+  `package_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成包路径',
+  `module_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成模块名',
+  `business_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成业务名',
+  `function_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成功能名',
+  `function_author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生成功能作者',
+  `gen_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
+  `gen_path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
+  `options` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '其它生成选项',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='代码生成业务表';
 
@@ -68,25 +68,25 @@ DROP TABLE IF EXISTS `gen_table_column`;
 CREATE TABLE `gen_table_column` (
   `column_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_id` bigint DEFAULT NULL COMMENT '归属表编号',
-  `column_name` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '列名称',
-  `column_comment` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '列描述',
-  `column_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '列类型',
-  `java_type` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'JAVA类型',
-  `java_field` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'JAVA字段名',
-  `is_pk` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否主键（1是）',
-  `is_increment` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否自增（1是）',
-  `is_required` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否必填（1是）',
-  `is_insert` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否为插入字段（1是）',
-  `is_edit` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否编辑字段（1是）',
-  `is_list` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否列表字段（1是）',
-  `is_query` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否查询字段（1是）',
-  `query_type` varchar(200) COLLATE utf8mb4_general_ci DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
-  `html_type` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
-  `dict_type` varchar(200) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典类型',
+  `column_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '列名称',
+  `column_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '列描述',
+  `column_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '列类型',
+  `java_type` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'JAVA类型',
+  `java_field` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'JAVA字段名',
+  `is_pk` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否主键（1是）',
+  `is_increment` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否自增（1是）',
+  `is_required` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否必填（1是）',
+  `is_insert` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否为插入字段（1是）',
+  `is_edit` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否编辑字段（1是）',
+  `is_list` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否列表字段（1是）',
+  `is_query` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否查询字段（1是）',
+  `query_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
+  `html_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
+  `dict_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典类型',
   `sort` int DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='代码生成业务表字段';
@@ -219,18 +219,18 @@ CREATE TABLE `his_doctor_reginfo` (
 DROP TABLE IF EXISTS `his_drug_catalogue`;
 CREATE TABLE `his_drug_catalogue` (
   `cat_id` bigint NOT NULL AUTO_INCREMENT COMMENT '药品ID',
-  `cat_approval_number` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '批准文号',
-  `cat_drug_num` char(14) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '药品编号',
-  `cat_name` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '通用名或商品名',
-  `cat_English_name` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '英文名称',
-  `cat_producer` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生产单位',
-  `cat_specs` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规格',
+  `cat_approval_number` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '批准文号',
+  `cat_drug_num` char(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '药品编号',
+  `cat_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '通用名或商品名',
+  `cat_English_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '英文名称',
+  `cat_producer` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生产单位',
+  `cat_specs` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规格',
   `cat_dosage_form` smallint DEFAULT NULL COMMENT '剂型',
-  `cat_package` varchar(256) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '包装',
+  `cat_package` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '包装',
   `cat_unit` smallint DEFAULT NULL COMMENT '单位',
   `cat_unit_price` bigint DEFAULT NULL COMMENT '销售单价',
   PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='药品目录表';
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='药品目录表';
 
 -- ----------------------------
 -- Records of his_drug_catalogue
@@ -266,6 +266,206 @@ INSERT INTO `his_drug_catalogue` VALUES ('59', '国药准字C34567890', '1234567
 INSERT INTO `his_drug_catalogue` VALUES ('60', '国药准字D45678901', '12345678901262', '利巴韦林颗粒', 'Ribavirin Granules', '某药业有限公司', '50mg', '6', '18袋/盒', '2', '18');
 INSERT INTO `his_drug_catalogue` VALUES ('61', '国药准字E56789012', '12345678901263', '多潘立酮片', 'Domperidone Tablets', '某制药集团', '10mg', '0', '30片/瓶', '3', '10');
 INSERT INTO `his_drug_catalogue` VALUES ('62', '国药准字F67890123', '12345678901264', '氯雷他定分散片', 'Loratadine Dispersible Tablets', '某制药有限公司', '10mg', '0', '6片/盒', '2', '16');
+INSERT INTO `his_drug_catalogue` VALUES ('63', '国药准字0269073339', '62951740055783', '要求', '帮助', '四通科技有限公司', '0.1g', '2', '首页/盒', '3', '176');
+INSERT INTO `his_drug_catalogue` VALUES ('64', '国药准字7267062528', '22762247222653', '方法', '一般', '数字100传媒有限公司', '0.2g', '4', '会员/盒', '2', '276');
+INSERT INTO `his_drug_catalogue` VALUES ('65', '国药准字7181883730', '37444101047358', '你们', '发现', '济南亿次元网络有限公司', '0.2g', '4', '生产/盒', '3', '644');
+INSERT INTO `his_drug_catalogue` VALUES ('66', '国药准字1248893725', '41092622600074', '使用', '可以', '通际名联科技有限公司', '10ml', '3', '设备/盒', '2', '271');
+INSERT INTO `his_drug_catalogue` VALUES ('67', '国药准字4008497679', '26187290750768', '帖子', '行业', '联通时科网络有限公司', '0.1g', '0', '一下/盒', '2', '426');
+INSERT INTO `his_drug_catalogue` VALUES ('68', '国药准字6905021641', '30639043908024', '新闻', '这种', '易动力信息有限公司', '10ml', '1', '当然/盒', '0', '151');
+INSERT INTO `his_drug_catalogue` VALUES ('69', '国药准字9693086820', '51027056620696', '其他', '之间', '和泰信息有限公司', '10ml', '1', '市场/盒', '2', '703');
+INSERT INTO `his_drug_catalogue` VALUES ('70', '国药准字0762080231', '83481716071220', '拥有', '如此', '南康网络有限公司', '0.2g', '1', '作品/盒', '2', '856');
+INSERT INTO `his_drug_catalogue` VALUES ('71', '国药准字2824510136', '85947003815969', '社区', '这是', '华远软件信息有限公司', '0.1g', '1', '所以/盒', '3', '188');
+INSERT INTO `his_drug_catalogue` VALUES ('72', '国药准字2395273933', '29942132598635', '还有', '游戏', '创亿网络有限公司', '0.2g', '1', '这些/盒', '0', '797');
+INSERT INTO `his_drug_catalogue` VALUES ('73', '国药准字5748841247', '39553682236281', '音乐', '完成', '中建创业传媒有限公司', '0.2g', '3', '虽然/盒', '0', '26');
+INSERT INTO `his_drug_catalogue` VALUES ('74', '国药准字2035377940', '37450662235179', '成为', '发表', '太极科技有限公司', '0.2g', '4', '如何/盒', '1', '279');
+INSERT INTO `his_drug_catalogue` VALUES ('75', '国药准字5378429642', '34242450942548', '销售', '因为', '开发区世创网络有限公司', '500mg', '3', '具有/盒', '3', '269');
+INSERT INTO `his_drug_catalogue` VALUES ('76', '国药准字1659432016', '24416684707667', '单位', '相关', '数字100信息有限公司', '0.1g', '1', '经济/盒', '1', '520');
+INSERT INTO `his_drug_catalogue` VALUES ('77', '国药准字0469796365', '43786134586708', '电子', '原因', '国讯传媒有限公司', '0.2g', '3', '学生/盒', '2', '936');
+INSERT INTO `his_drug_catalogue` VALUES ('78', '国药准字4318783197', '41870712026907', '其实', '时间', '恩悌信息有限公司', '10ml', '0', '人民/盒', '1', '668');
+INSERT INTO `his_drug_catalogue` VALUES ('79', '国药准字2839942324', '42014542684082', '网络', '他的', '易动力网络有限公司', '500mg', '2', '情况/盒', '3', '900');
+INSERT INTO `his_drug_catalogue` VALUES ('80', '国药准字1934959047', '61469283497962', '其中', '实现', '趋势传媒有限公司', '0.2g', '1', '继续/盒', '1', '306');
+INSERT INTO `his_drug_catalogue` VALUES ('81', '国药准字0496476569', '25872514077002', '功能', '拥有', '凌颖信息传媒有限公司', '0.1g', '3', '这些/盒', '3', '111');
+INSERT INTO `his_drug_catalogue` VALUES ('82', '国药准字7788372310', '56458543587886', '各种', '来源', '惠派国际公司信息有限公司', '0.1g', '3', '等级/盒', '1', '333');
+INSERT INTO `his_drug_catalogue` VALUES ('83', '国药准字4018719485', '49729772676494', '影响', '所以', '国讯传媒有限公司', '0.2g', '4', '人民/盒', '0', '237');
+INSERT INTO `his_drug_catalogue` VALUES ('84', '国药准字7798415282', '72475041803606', '阅读', '进入', '双敏电子科技有限公司', '0.2g', '1', '美国/盒', '3', '744');
+INSERT INTO `his_drug_catalogue` VALUES ('85', '国药准字7860735048', '10778817084565', '一个', '最后', '诺依曼软件科技有限公司', '0.1g', '3', '应用/盒', '1', '657');
+INSERT INTO `his_drug_catalogue` VALUES ('86', '国药准字2432372838', '11718032435323', '可是', '使用', '菊风公司网络有限公司', '500mg', '1', '图片/盒', '2', '561');
+INSERT INTO `his_drug_catalogue` VALUES ('87', '国药准字7564397476', '57382836861022', '以及', '规定', '富罳信息有限公司', '10ml', '4', '日本/盒', '3', '264');
+INSERT INTO `his_drug_catalogue` VALUES ('88', '国药准字1524017489', '37850155643679', '日本', '地区', '维涛信息有限公司', '500mg', '4', '品牌/盒', '0', '438');
+INSERT INTO `his_drug_catalogue` VALUES ('89', '国药准字0869955735', '90421869427129', '需要', '结果', '良诺网络有限公司', '0.2g', '1', '生产/盒', '3', '580');
+INSERT INTO `his_drug_catalogue` VALUES ('90', '国药准字2581250745', '21574202728495', '地区', '因为', '菊风公司科技有限公司', '500mg', '0', '的人/盒', '0', '752');
+INSERT INTO `his_drug_catalogue` VALUES ('91', '国药准字1307592070', '21914733406590', '或者', '不断', '毕博诚网络有限公司', '500mg', '3', '城市/盒', '2', '497');
+INSERT INTO `his_drug_catalogue` VALUES ('92', '国药准字6274004522', '92254780259641', '方法', '活动', '信诚致远传媒有限公司', '0.1g', '0', '经验/盒', '0', '518');
+INSERT INTO `his_drug_catalogue` VALUES ('93', '国药准字5001369539', '42773268743758', '中国', '发布', '昊嘉信息有限公司', '500mg', '2', '进行/盒', '3', '998');
+INSERT INTO `his_drug_catalogue` VALUES ('94', '国药准字6088330556', '53952213175937', '朋友', '今年', '昊嘉网络有限公司', '0.2g', '3', '政府/盒', '1', '958');
+INSERT INTO `his_drug_catalogue` VALUES ('95', '国药准字7742775314', '96989168073336', '什么', '一般', '时空盒数字科技有限公司', '500mg', '2', '因此/盒', '3', '844');
+INSERT INTO `his_drug_catalogue` VALUES ('96', '国药准字7327750417', '13212708203284', '没有', '进入', 'MBP软件传媒有限公司', '0.2g', '0', '能够/盒', '0', '517');
+INSERT INTO `his_drug_catalogue` VALUES ('97', '国药准字0274939127', '16898879417153', '认为', '最大', '和泰科技有限公司', '500mg', '2', '作者/盒', '3', '730');
+INSERT INTO `his_drug_catalogue` VALUES ('98', '国药准字9770120681', '76957465938415', '一直', '准备', '商软冠联传媒有限公司', '500mg', '0', '免费/盒', '2', '192');
+INSERT INTO `his_drug_catalogue` VALUES ('99', '国药准字8815323649', '33827795655934', '其实', '当前', '双敏电子信息有限公司', '10ml', '2', '日本/盒', '3', '329');
+INSERT INTO `his_drug_catalogue` VALUES ('100', '国药准字5291216669', '58285652152037', '到了', '起来', '太极传媒有限公司', '500mg', '2', '点击/盒', '2', '581');
+INSERT INTO `his_drug_catalogue` VALUES ('101', '国药准字9479579702', '67619331197257', '免费', '朋友', '七喜网络有限公司', '500mg', '3', '安全/盒', '0', '413');
+INSERT INTO `his_drug_catalogue` VALUES ('102', '国药准字2201464625', '86264030814752', '资料', '以上', '彩虹传媒有限公司', '0.1g', '2', '记者/盒', '3', '83');
+INSERT INTO `his_drug_catalogue` VALUES ('103', '国药准字6824746076', '69639623584395', '拥有', '科技', 'MBP软件信息有限公司', '500mg', '2', '论坛/盒', '3', '234');
+INSERT INTO `his_drug_catalogue` VALUES ('104', '国药准字6383495261', '38148575530865', '一定', '深圳', '立信电子信息有限公司', '0.2g', '3', '应该/盒', '1', '700');
+INSERT INTO `his_drug_catalogue` VALUES ('105', '国药准字4989789013', '88184645684223', '产品', '影响', '巨奥网络有限公司', '0.2g', '4', '通过/盒', '3', '91');
+INSERT INTO `his_drug_catalogue` VALUES ('106', '国药准字4292428293', '33845815853695', '继续', '进行', '国讯信息有限公司', '10ml', '2', '经济/盒', '3', '684');
+INSERT INTO `his_drug_catalogue` VALUES ('107', '国药准字0323772962', '90764805359040', '语言', '全国', '凌云传媒有限公司', '0.1g', '3', '历史/盒', '2', '822');
+INSERT INTO `his_drug_catalogue` VALUES ('108', '国药准字6259518120', '81044714363447', '都是', '所以', '商软冠联传媒有限公司', '0.2g', '4', '作品/盒', '3', '741');
+INSERT INTO `his_drug_catalogue` VALUES ('109', '国药准字1702707189', '59301964985334', '组织', '特别', '万迅电脑传媒有限公司', '10ml', '4', '所以/盒', '2', '301');
+INSERT INTO `his_drug_catalogue` VALUES ('110', '国药准字1869086756', '68283737816842', '发生', '必须', '趋势信息有限公司', '0.2g', '3', '原因/盒', '2', '990');
+INSERT INTO `his_drug_catalogue` VALUES ('111', '国药准字9737898717', '52926245238589', '程序', '其中', '戴硕电子网络有限公司', '0.1g', '4', '还是/盒', '0', '196');
+INSERT INTO `his_drug_catalogue` VALUES ('112', '国药准字5654190883', '28372699464097', '社区', '认为', '维涛传媒有限公司', '500mg', '2', '登录/盒', '1', '741');
+INSERT INTO `his_drug_catalogue` VALUES ('113', '国药准字9721645097', '52298664518758', '需要', '最新', '七喜信息有限公司', '0.1g', '4', '说明/盒', '0', '844');
+INSERT INTO `his_drug_catalogue` VALUES ('114', '国药准字4050660613', '43967601925012', '之后', '一样', '东方峻景科技有限公司', '0.2g', '1', '留言/盒', '1', '922');
+INSERT INTO `his_drug_catalogue` VALUES ('115', '国药准字7325168350', '61895453620437', '得到', '规定', '联通时科信息有限公司', '500mg', '4', '方法/盒', '0', '582');
+INSERT INTO `his_drug_catalogue` VALUES ('116', '国药准字3821823081', '34595825254599', '手机', '关于', '九方传媒有限公司', '10ml', '1', '因为/盒', '1', '546');
+INSERT INTO `his_drug_catalogue` VALUES ('117', '国药准字6395675054', '63365738460725', '同时', '质量', '雨林木风计算机传媒有限公司', '10ml', '2', '销售/盒', '2', '762');
+INSERT INTO `his_drug_catalogue` VALUES ('118', '国药准字5438243768', '27556408892601', '具有', '商品', '凌颖信息信息有限公司', '10ml', '4', '浏览/盒', '1', '931');
+INSERT INTO `his_drug_catalogue` VALUES ('119', '国药准字7355920713', '67556499514468', '注册', '规定', '浙大万朋信息有限公司', '0.2g', '0', '那个/盒', '0', '794');
+INSERT INTO `his_drug_catalogue` VALUES ('120', '国药准字4683005346', '35676320772246', '工程', '查看', '开发区世创传媒有限公司', '0.2g', '2', '积分/盒', '3', '910');
+INSERT INTO `his_drug_catalogue` VALUES ('121', '国药准字5406221834', '13366340400945', '个人', '音乐', '浦华众城传媒有限公司', '0.2g', '0', '电脑/盒', '1', '41');
+INSERT INTO `his_drug_catalogue` VALUES ('122', '国药准字6808437390', '98555084048885', '不能', '她的', '方正科技科技有限公司', '10ml', '2', '方面/盒', '3', '867');
+INSERT INTO `his_drug_catalogue` VALUES ('123', '国药准字5520258103', '66067463040186', '生活', '研究', '九方信息有限公司', '0.1g', '2', '我的/盒', '0', '78');
+INSERT INTO `his_drug_catalogue` VALUES ('124', '国药准字7702222974', '41024014888224', '一般', '方面', '菊风公司科技有限公司', '0.2g', '1', '销售/盒', '2', '88');
+INSERT INTO `his_drug_catalogue` VALUES ('125', '国药准字7912251471', '56958726444229', '首页', '责任', '国讯科技有限公司', '500mg', '1', '如果/盒', '1', '393');
+INSERT INTO `his_drug_catalogue` VALUES ('126', '国药准字6735585876', '94989639900877', '历史', '中文', '昂歌信息传媒有限公司', '10ml', '0', '参加/盒', '0', '511');
+INSERT INTO `his_drug_catalogue` VALUES ('127', '国药准字8535950426', '60263468971688', '产品', '应该', '国讯传媒有限公司', '10ml', '2', '工程/盒', '3', '570');
+INSERT INTO `his_drug_catalogue` VALUES ('128', '国药准字4480235869', '67357692510794', '之间', '文章', '凌云科技有限公司', '0.1g', '4', '软件/盒', '1', '67');
+INSERT INTO `his_drug_catalogue` VALUES ('129', '国药准字8053756370', '56419106719036', '城市', '比较', '双敏电子科技有限公司', '0.2g', '2', '浏览/盒', '1', '667');
+INSERT INTO `his_drug_catalogue` VALUES ('130', '国药准字8197825953', '46351272010154', '社区', '可能', '天益网络有限公司', '10ml', '2', '历史/盒', '3', '85');
+INSERT INTO `his_drug_catalogue` VALUES ('131', '国药准字8022105006', '46094979228745', '地方', '要求', '易动力信息有限公司', '10ml', '2', '以上/盒', '3', '209');
+INSERT INTO `his_drug_catalogue` VALUES ('132', '国药准字9537669849', '30118421165544', '得到', '之间', '思优网络有限公司', '0.2g', '3', '出现/盒', '1', '957');
+INSERT INTO `his_drug_catalogue` VALUES ('133', '国药准字4761514883', '73700448063994', '组织', '规定', '新格林耐特网络有限公司', '500mg', '1', '方面/盒', '1', '896');
+INSERT INTO `his_drug_catalogue` VALUES ('134', '国药准字5648486556', '28461849062519', '资源', '管理', '新宇龙信息传媒有限公司', '500mg', '2', '都是/盒', '3', '369');
+INSERT INTO `his_drug_catalogue` VALUES ('135', '国药准字2087843961', '13681681947686', '网上', '相关', '超艺科技有限公司', '10ml', '2', '特别/盒', '0', '680');
+INSERT INTO `his_drug_catalogue` VALUES ('136', '国药准字0180022066', '87474563155880', '关于', '科技', '趋势科技有限公司', '0.1g', '4', '学习/盒', '3', '242');
+INSERT INTO `his_drug_catalogue` VALUES ('137', '国药准字7315211402', '60440099174479', '一些', '以及', '凌云科技有限公司', '0.1g', '3', '一点/盒', '3', '970');
+INSERT INTO `his_drug_catalogue` VALUES ('138', '国药准字0624471365', '57497677577729', '具有', '系统', '浙大万朋网络有限公司', '0.1g', '1', '最新/盒', '0', '339');
+INSERT INTO `his_drug_catalogue` VALUES ('139', '国药准字6628653391', '27358363854790', '中文', '资料', '迪摩网络有限公司', '0.2g', '0', '来自/盒', '0', '513');
+INSERT INTO `his_drug_catalogue` VALUES ('140', '国药准字4946909593', '42479801461802', '图片', '学校', '良诺信息有限公司', '10ml', '3', '大家/盒', '1', '374');
+INSERT INTO `his_drug_catalogue` VALUES ('141', '国药准字5920714108', '60240500087389', '研究', '感觉', '黄石金承网络有限公司', '10ml', '1', '那么/盒', '1', '609');
+INSERT INTO `his_drug_catalogue` VALUES ('142', '国药准字2808838682', '76401887413989', '应该', '所有', '巨奥网络有限公司', '500mg', '3', '地址/盒', '2', '475');
+INSERT INTO `his_drug_catalogue` VALUES ('143', '国药准字8235274321', '19608732830777', '程序', '介绍', '襄樊地球村信息有限公司', '0.1g', '1', '客户/盒', '2', '790');
+INSERT INTO `his_drug_catalogue` VALUES ('144', '国药准字6574499072', '63133898557936', '如何', '下载', '万迅电脑网络有限公司', '0.2g', '3', '业务/盒', '0', '957');
+INSERT INTO `his_drug_catalogue` VALUES ('145', '国药准字3637329227', '58413091953128', '部门', '公司', '同兴万点科技有限公司', '0.2g', '3', '要求/盒', '0', '493');
+INSERT INTO `his_drug_catalogue` VALUES ('146', '国药准字5028855760', '15676516841885', '其实', '电脑', '襄樊地球村传媒有限公司', '500mg', '4', '安全/盒', '2', '694');
+INSERT INTO `his_drug_catalogue` VALUES ('147', '国药准字4350797192', '71591824917462', '在线', '信息', '飞海科技传媒有限公司', '0.2g', '0', '推荐/盒', '1', '175');
+INSERT INTO `his_drug_catalogue` VALUES ('148', '国药准字0522321150', '82111155300979', '经营', '免费', '济南亿次元信息有限公司', '0.1g', '3', '原因/盒', '3', '605');
+INSERT INTO `his_drug_catalogue` VALUES ('149', '国药准字3413383857', '48788637263275', '质量', '个人', '天益传媒有限公司', '0.2g', '1', '语言/盒', '3', '540');
+INSERT INTO `his_drug_catalogue` VALUES ('150', '国药准字7484771989', '51259394628124', '评论', '因此', '开发区世创网络有限公司', '0.1g', '3', '起来/盒', '3', '952');
+INSERT INTO `his_drug_catalogue` VALUES ('151', '国药准字1578720781', '63522490325285', '认为', '帖子', '浙大万朋网络有限公司', '10ml', '0', '服务/盒', '0', '544');
+INSERT INTO `his_drug_catalogue` VALUES ('152', '国药准字7883697391', '66308320316682', '那么', '为什', '趋势科技有限公司', '10ml', '0', '支持/盒', '0', '611');
+INSERT INTO `his_drug_catalogue` VALUES ('153', '国药准字0868547423', '45308476782061', '提供', '为了', '迪摩传媒有限公司', '10ml', '2', '之间/盒', '2', '908');
+INSERT INTO `his_drug_catalogue` VALUES ('154', '国药准字8322062861', '13169318962249', '出来', '资料', '国讯信息有限公司', '10ml', '3', '信息/盒', '2', '440');
+INSERT INTO `his_drug_catalogue` VALUES ('155', '国药准字9204443741', '71410678849679', '推荐', '组织', '易动力信息有限公司', '0.1g', '1', '业务/盒', '2', '174');
+INSERT INTO `his_drug_catalogue` VALUES ('156', '国药准字4711659222', '88973825385287', '这些', '今天', '盟新传媒有限公司', '10ml', '3', '出来/盒', '2', '824');
+INSERT INTO `his_drug_catalogue` VALUES ('157', '国药准字1532726903', '34712930602114', '系统', '实现', '创联世纪科技有限公司', '0.1g', '1', '简介/盒', '1', '660');
+INSERT INTO `his_drug_catalogue` VALUES ('158', '国药准字7017706061', '82733908073924', '如果', '人民', '创亿信息有限公司', '500mg', '0', '免费/盒', '2', '840');
+INSERT INTO `his_drug_catalogue` VALUES ('159', '国药准字5927844860', '34862476127026', '客户', '那些', '趋势传媒有限公司', '500mg', '2', '专业/盒', '1', '853');
+INSERT INTO `his_drug_catalogue` VALUES ('160', '国药准字8038502162', '74392529591584', '企业', '类型', '图龙信息信息有限公司', '500mg', '1', '今天/盒', '3', '16');
+INSERT INTO `his_drug_catalogue` VALUES ('161', '国药准字1978510593', '35434701835174', '注册', '显示', '济南亿次元传媒有限公司', '0.1g', '4', '经济/盒', '1', '976');
+INSERT INTO `his_drug_catalogue` VALUES ('162', '国药准字1068343963', '79335082508357', '之间', '论坛', 'MBP软件信息有限公司', '500mg', '2', '学校/盒', '1', '942');
+INSERT INTO `his_drug_catalogue` VALUES ('163', '国药准字9173084059', '83948090050554', '能力', '会员', '明腾传媒有限公司', '500mg', '0', '时间/盒', '1', '333');
+INSERT INTO `his_drug_catalogue` VALUES ('164', '国药准字9725925299', '30159989490306', '他的', '市场', '鑫博腾飞网络有限公司', '0.1g', '2', '出现/盒', '3', '104');
+INSERT INTO `his_drug_catalogue` VALUES ('165', '国药准字1241954190', '26510380073146', '能够', '一点', '戴硕电子科技有限公司', '10ml', '4', '必须/盒', '2', '580');
+INSERT INTO `his_drug_catalogue` VALUES ('166', '国药准字4203186577', '82647740573689', '帖子', '报告', '趋势科技有限公司', '0.1g', '2', '生活/盒', '0', '702');
+INSERT INTO `his_drug_catalogue` VALUES ('167', '国药准字1484864033', '15142690920696', '自己', '这里', '通际名联传媒有限公司', '10ml', '3', '就是/盒', '0', '91');
+INSERT INTO `his_drug_catalogue` VALUES ('168', '国药准字4039508647', '22414799806152', '专业', '评论', '惠派国际公司网络有限公司', '10ml', '0', '决定/盒', '0', '870');
+INSERT INTO `his_drug_catalogue` VALUES ('169', '国药准字7297284588', '45213699859891', '方法', '语言', '数字100传媒有限公司', '0.1g', '0', '事情/盒', '3', '419');
+INSERT INTO `his_drug_catalogue` VALUES ('170', '国药准字0346438295', '13687365656526', '地方', '如何', '立信电子科技有限公司', '500mg', '3', '浏览/盒', '1', '498');
+INSERT INTO `his_drug_catalogue` VALUES ('171', '国药准字2200600941', '57763275589382', '一切', '经验', '南康传媒有限公司', '500mg', '4', '那个/盒', '2', '824');
+INSERT INTO `his_drug_catalogue` VALUES ('172', '国药准字5494753578', '69097950281381', '他的', '人员', '济南亿次元网络有限公司', '500mg', '4', '政府/盒', '1', '371');
+INSERT INTO `his_drug_catalogue` VALUES ('173', '国药准字4373371857', '71458004948232', '价格', '全国', '晖来计算机网络有限公司', '500mg', '3', '不要/盒', '3', '308');
+INSERT INTO `his_drug_catalogue` VALUES ('174', '国药准字2494587057', '47908557660476', '联系', '客户', '开发区世创信息有限公司', '500mg', '3', '继续/盒', '2', '195');
+INSERT INTO `his_drug_catalogue` VALUES ('175', '国药准字2542198952', '91467472174833', '部门', '完全', '国讯网络有限公司', '500mg', '4', '不同/盒', '0', '937');
+INSERT INTO `his_drug_catalogue` VALUES ('176', '国药准字3464975778', '86212631274661', '日本', '点击', '创联世纪信息有限公司', '500mg', '3', '一个/盒', '3', '786');
+INSERT INTO `his_drug_catalogue` VALUES ('177', '国药准字6173826302', '41978813984645', '系列', '软件', '浦华众城传媒有限公司', '0.2g', '2', '影响/盒', '1', '414');
+INSERT INTO `his_drug_catalogue` VALUES ('178', '国药准字1688189956', '52158083180567', '影响', '还是', '良诺科技有限公司', '500mg', '0', '一样/盒', '3', '909');
+INSERT INTO `his_drug_catalogue` VALUES ('179', '国药准字2178192145', '27027183854119', '帮助', '资料', '戴硕电子传媒有限公司', '500mg', '2', '开始/盒', '1', '121');
+INSERT INTO `his_drug_catalogue` VALUES ('180', '国药准字0658785721', '48258523282166', '大学', '历史', '南康网络有限公司', '500mg', '2', '东西/盒', '1', '753');
+INSERT INTO `his_drug_catalogue` VALUES ('181', '国药准字9584898570', '94720510564507', '这种', '教育', '群英传媒有限公司', '0.1g', '1', '产品/盒', '3', '498');
+INSERT INTO `his_drug_catalogue` VALUES ('182', '国药准字4187033414', '25029423455417', '销售', '拥有', '济南亿次元传媒有限公司', '10ml', '2', '你的/盒', '1', '775');
+INSERT INTO `his_drug_catalogue` VALUES ('183', '国药准字3090396892', '53862071246780', '深圳', '方式', '盟新信息有限公司', '0.1g', '1', '不要/盒', '3', '356');
+INSERT INTO `his_drug_catalogue` VALUES ('184', '国药准字4846442800', '95836238793976', '设备', '我的', '恩悌科技有限公司', '0.1g', '4', '应该/盒', '0', '95');
+INSERT INTO `his_drug_catalogue` VALUES ('185', '国药准字8406799464', '13771930555497', '数据', '记者', '群英网络有限公司', '500mg', '4', '还是/盒', '1', '822');
+INSERT INTO `his_drug_catalogue` VALUES ('186', '国药准字7319361661', '36575630582131', '就是', '大家', '通际名联传媒有限公司', '10ml', '0', '可以/盒', '2', '177');
+INSERT INTO `his_drug_catalogue` VALUES ('187', '国药准字5953718821', '90780840151015', '自己', '工程', '网新恒天传媒有限公司', '500mg', '2', '政府/盒', '0', '840');
+INSERT INTO `his_drug_catalogue` VALUES ('188', '国药准字4175676683', '92509441177832', '建设', '必须', '济南亿次元传媒有限公司', '500mg', '4', '项目/盒', '2', '296');
+INSERT INTO `his_drug_catalogue` VALUES ('189', '国药准字2147285124', '41790733709665', '这种', '参加', '网新恒天信息有限公司', '0.2g', '4', '在线/盒', '1', '875');
+INSERT INTO `his_drug_catalogue` VALUES ('190', '国药准字7314935388', '77681551006345', '其他', '企业', '惠派国际公司科技有限公司', '10ml', '1', '注册/盒', '3', '27');
+INSERT INTO `his_drug_catalogue` VALUES ('191', '国药准字3081136609', '47101034675660', '环境', '管理', '太极信息有限公司', '500mg', '1', '以下/盒', '2', '803');
+INSERT INTO `his_drug_catalogue` VALUES ('192', '国药准字4726167148', '28589948453363', '地区', '决定', '良诺网络有限公司', '0.1g', '1', '我们/盒', '2', '312');
+INSERT INTO `his_drug_catalogue` VALUES ('193', '国药准字1341683903', '28786559106646', '成为', '功能', '国讯传媒有限公司', '10ml', '1', '数据/盒', '1', '553');
+INSERT INTO `his_drug_catalogue` VALUES ('194', '国药准字0694023531', '25171515597622', '深圳', '一种', '彩虹传媒有限公司', '0.2g', '4', '来源/盒', '3', '90');
+INSERT INTO `his_drug_catalogue` VALUES ('195', '国药准字8019765438', '28938235836141', '企业', '计划', '彩虹网络有限公司', '0.2g', '2', '责任/盒', '0', '34');
+INSERT INTO `his_drug_catalogue` VALUES ('196', '国药准字8149902199', '12884813469807', '这里', '她的', '四通科技有限公司', '0.1g', '3', '生活/盒', '0', '845');
+INSERT INTO `his_drug_catalogue` VALUES ('197', '国药准字7521920521', '43683906988439', '无法', '制作', '襄樊地球村网络有限公司', '500mg', '3', '科技/盒', '3', '488');
+INSERT INTO `his_drug_catalogue` VALUES ('198', '国药准字5461686432', '96535733662573', '关系', '产品', '立信电子网络有限公司', '0.2g', '3', '注册/盒', '2', '382');
+INSERT INTO `his_drug_catalogue` VALUES ('199', '国药准字7328049155', '51843784329368', '以后', '人民', '飞海科技信息有限公司', '500mg', '4', '应用/盒', '3', '187');
+INSERT INTO `his_drug_catalogue` VALUES ('200', '国药准字3768953490', '82349174353397', '位置', '数据', '国讯信息有限公司', '10ml', '3', '之后/盒', '2', '784');
+INSERT INTO `his_drug_catalogue` VALUES ('201', '国药准字7268991026', '79342761645308', '报告', '专业', '联软传媒有限公司', '10ml', '0', '国内/盒', '0', '416');
+INSERT INTO `his_drug_catalogue` VALUES ('202', '国药准字9047154476', '11436985940237', '不是', '控制', '联通时科网络有限公司', '0.1g', '4', '图片/盒', '3', '878');
+INSERT INTO `his_drug_catalogue` VALUES ('203', '国药准字3335249503', '85842332361654', '发布', '一个', '天开信息有限公司', '500mg', '2', '合作/盒', '3', '44');
+INSERT INTO `his_drug_catalogue` VALUES ('204', '国药准字4382244710', '22218054630960', '一直', '只要', '天开传媒有限公司', '0.2g', '3', '得到/盒', '3', '677');
+INSERT INTO `his_drug_catalogue` VALUES ('205', '国药准字3580618126', '80956951260716', '数据', '看到', '创联世纪信息有限公司', '500mg', '0', '制作/盒', '2', '103');
+INSERT INTO `his_drug_catalogue` VALUES ('206', '国药准字6509512801', '39148472902434', '的是', '教育', '新格林耐特网络有限公司', '500mg', '3', '技术/盒', '3', '681');
+INSERT INTO `his_drug_catalogue` VALUES ('207', '国药准字5319495309', '87724849474659', '标题', '他们', '商软冠联科技有限公司', '0.1g', '2', '就是/盒', '3', '402');
+INSERT INTO `his_drug_catalogue` VALUES ('208', '国药准字6012927067', '73459096116152', '进行', '责任', '网新恒天科技有限公司', '10ml', '4', '中心/盒', '2', '312');
+INSERT INTO `his_drug_catalogue` VALUES ('209', '国药准字7012165229', '88516415714209', '重要', '地方', '晖来计算机传媒有限公司', '0.1g', '4', '我的/盒', '0', '431');
+INSERT INTO `his_drug_catalogue` VALUES ('210', '国药准字7168424236', '98320166777277', '比较', '标准', '富罳科技有限公司', '10ml', '3', '看到/盒', '0', '901');
+INSERT INTO `his_drug_catalogue` VALUES ('211', '国药准字1289268556', '16059426732491', '自己', '不会', '迪摩网络有限公司', '500mg', '2', '中国/盒', '1', '830');
+INSERT INTO `his_drug_catalogue` VALUES ('212', '国药准字6298697157', '23904478019736', '朋友', '帮助', '网新恒天传媒有限公司', '0.1g', '2', '那么/盒', '2', '276');
+INSERT INTO `his_drug_catalogue` VALUES ('213', '国药准字0050355688', '52798414201344', '软件', '以下', '富罳传媒有限公司', '0.1g', '1', '一切/盒', '3', '332');
+INSERT INTO `his_drug_catalogue` VALUES ('214', '国药准字7025585849', '91575522091472', '一直', '不同', '济南亿次元传媒有限公司', '500mg', '1', '当然/盒', '1', '86');
+INSERT INTO `his_drug_catalogue` VALUES ('215', '国药准字9451578128', '94604958171166', '地方', '网上', '趋势网络有限公司', '0.2g', '2', '这是/盒', '1', '103');
+INSERT INTO `his_drug_catalogue` VALUES ('216', '国药准字7096682261', '77645404124057', '需要', '不要', '艾提科信信息有限公司', '500mg', '4', '那个/盒', '3', '594');
+INSERT INTO `his_drug_catalogue` VALUES ('217', '国药准字4606025831', '15122064481143', '部分', '图片', '万迅电脑网络有限公司', '0.2g', '4', '主题/盒', '3', '203');
+INSERT INTO `his_drug_catalogue` VALUES ('218', '国药准字7994612351', '90916052127497', '只有', '质量', '东方峻景信息有限公司', '0.1g', '2', '类别/盒', '3', '550');
+INSERT INTO `his_drug_catalogue` VALUES ('219', '国药准字8882009430', '84246553562364', '国际', '这么', '浙大万朋传媒有限公司', '0.2g', '2', '重要/盒', '1', '103');
+INSERT INTO `his_drug_catalogue` VALUES ('220', '国药准字4372803651', '82652594515444', '不是', '能力', '中建创业传媒有限公司', '0.2g', '0', '男人/盒', '0', '626');
+INSERT INTO `his_drug_catalogue` VALUES ('221', '国药准字8331910136', '17061045134446', '价格', '销售', '信诚致远传媒有限公司', '10ml', '4', '设计/盒', '0', '297');
+INSERT INTO `his_drug_catalogue` VALUES ('222', '国药准字1158577794', '96660008793637', '准备', '问题', '维涛传媒有限公司', '500mg', '2', '不同/盒', '0', '249');
+INSERT INTO `his_drug_catalogue` VALUES ('223', '国药准字2737148513', '87467008479914', '一直', '希望', '飞海科技网络有限公司', '500mg', '1', '开始/盒', '2', '849');
+INSERT INTO `his_drug_catalogue` VALUES ('224', '国药准字2207482713', '18685211148666', '感觉', '不是', '群英科技有限公司', '0.1g', '3', '自己/盒', '1', '113');
+INSERT INTO `his_drug_catalogue` VALUES ('225', '国药准字4680702332', '14831579036671', '开发', '日期', '创联世纪信息有限公司', '10ml', '3', '会员/盒', '1', '204');
+INSERT INTO `his_drug_catalogue` VALUES ('226', '国药准字7510234094', '45794244489574', '提高', '的人', '昊嘉网络有限公司', '0.1g', '3', '业务/盒', '1', '541');
+INSERT INTO `his_drug_catalogue` VALUES ('227', '国药准字2346948434', '79962983728739', '业务', '各种', '图龙信息信息有限公司', '500mg', '2', '上海/盒', '0', '239');
+INSERT INTO `his_drug_catalogue` VALUES ('228', '国药准字5291269961', '55908150188561', '大学', '或者', '数字100网络有限公司', '0.1g', '3', '的人/盒', '2', '779');
+INSERT INTO `his_drug_catalogue` VALUES ('229', '国药准字3357577900', '74131606791892', '发表', '孩子', '天益网络有限公司', '500mg', '3', '网站/盒', '0', '788');
+INSERT INTO `his_drug_catalogue` VALUES ('230', '国药准字7232206570', '33501956441454', '帮助', '会员', '立信电子传媒有限公司', '500mg', '1', '资源/盒', '0', '209');
+INSERT INTO `his_drug_catalogue` VALUES ('231', '国药准字5475690933', '21251727494246', '这里', '比较', '通际名联信息有限公司', '500mg', '2', '继续/盒', '0', '695');
+INSERT INTO `his_drug_catalogue` VALUES ('232', '国药准字0731719783', '67314047989589', '这里', '孩子', '彩虹信息有限公司', '10ml', '2', '日期/盒', '2', '313');
+INSERT INTO `his_drug_catalogue` VALUES ('233', '国药准字6560776342', '47715350502313', '只是', '感觉', '九方信息有限公司', '10ml', '0', '都是/盒', '1', '456');
+INSERT INTO `his_drug_catalogue` VALUES ('234', '国药准字5486545514', '45675282950956', '觉得', '一些', '开发区世创信息有限公司', '10ml', '4', '知道/盒', '0', '100');
+INSERT INTO `his_drug_catalogue` VALUES ('235', '国药准字7126800237', '52785894793164', '一直', '责任', 'MBP软件网络有限公司', '10ml', '3', '设计/盒', '1', '972');
+INSERT INTO `his_drug_catalogue` VALUES ('236', '国药准字0380471349', '25033821629842', '还有', '发表', '迪摩传媒有限公司', '0.2g', '2', '特别/盒', '0', '45');
+INSERT INTO `his_drug_catalogue` VALUES ('237', '国药准字9500590253', '54803661580650', '本站', '软件', '良诺信息有限公司', '0.1g', '3', '可是/盒', '0', '47');
+INSERT INTO `his_drug_catalogue` VALUES ('238', '国药准字1053222550', '20757157264151', '世界', '处理', '时空盒数字传媒有限公司', '10ml', '0', '历史/盒', '3', '107');
+INSERT INTO `his_drug_catalogue` VALUES ('239', '国药准字7358334136', '46942286523326', '只有', '电脑', '天益传媒有限公司', '500mg', '3', '这些/盒', '2', '480');
+INSERT INTO `his_drug_catalogue` VALUES ('240', '国药准字6795357692', '82883767344943', '商品', '分析', '惠派国际公司网络有限公司', '0.1g', '4', '当然/盒', '1', '530');
+INSERT INTO `his_drug_catalogue` VALUES ('241', '国药准字6149142845', '40699061459813', '运行', '一个', '联通时科信息有限公司', '10ml', '2', '作品/盒', '3', '803');
+INSERT INTO `his_drug_catalogue` VALUES ('242', '国药准字1964947030', '82427249710053', '标题', '作为', '开发区世创科技有限公司', '0.1g', '0', '社区/盒', '3', '541');
+INSERT INTO `his_drug_catalogue` VALUES ('243', '国药准字0100205581', '63635239512055', '主题', '朋友', '彩虹信息有限公司', '10ml', '4', '正在/盒', '0', '142');
+INSERT INTO `his_drug_catalogue` VALUES ('244', '国药准字3228773227', '98327577440367', '位置', '控制', '明腾信息有限公司', '500mg', '3', '为了/盒', '2', '133');
+INSERT INTO `his_drug_catalogue` VALUES ('245', '国药准字2864139699', '71528187577020', '一下', '由于', '天开传媒有限公司', '0.2g', '0', '今年/盒', '0', '654');
+INSERT INTO `his_drug_catalogue` VALUES ('246', '国药准字8605275299', '49804665906293', '重要', '你的', '兰金电子传媒有限公司', '0.1g', '2', '注意/盒', '0', '119');
+INSERT INTO `his_drug_catalogue` VALUES ('247', '国药准字0394655143', '97089770728744', '时候', '说明', '巨奥传媒有限公司', '500mg', '1', '最新/盒', '2', '835');
+INSERT INTO `his_drug_catalogue` VALUES ('248', '国药准字1481728712', '18775687527122', '广告', '一切', '数字100科技有限公司', '0.2g', '2', '女人/盒', '0', '562');
+INSERT INTO `his_drug_catalogue` VALUES ('249', '国药准字5350541001', '98357144004338', '能力', '学校', '盟新信息有限公司', '500mg', '2', '评论/盒', '0', '207');
+INSERT INTO `his_drug_catalogue` VALUES ('250', '国药准字2672932887', '80967142904486', '现在', '非常', '合联电子信息有限公司', '500mg', '0', '选择/盒', '0', '191');
+INSERT INTO `his_drug_catalogue` VALUES ('251', '国药准字0280417676', '58020232656184', '以后', '之间', '国讯传媒有限公司', '500mg', '0', '学校/盒', '1', '135');
+INSERT INTO `his_drug_catalogue` VALUES ('252', '国药准字9828270456', '38760625511804', '帖子', '比较', '四通传媒有限公司', '0.1g', '1', '已经/盒', '3', '883');
+INSERT INTO `his_drug_catalogue` VALUES ('253', '国药准字4908448551', '75027781784694', '免费', '当然', '图龙信息科技有限公司', '0.2g', '3', '那么/盒', '2', '256');
+INSERT INTO `his_drug_catalogue` VALUES ('254', '国药准字6837244148', '73100650867132', '功能', '影响', '恒聪百汇网络有限公司', '0.1g', '3', '等级/盒', '2', '951');
+INSERT INTO `his_drug_catalogue` VALUES ('255', '国药准字7857296428', '53575421298311', '不会', '更新', '艾提科信科技有限公司', '0.2g', '1', '社区/盒', '3', '405');
+INSERT INTO `his_drug_catalogue` VALUES ('256', '国药准字2891043062', '62099171807372', '觉得', '没有', '佳禾网络有限公司', '0.1g', '4', '系统/盒', '3', '34');
+INSERT INTO `his_drug_catalogue` VALUES ('257', '国药准字5102947463', '85711473051811', '经营', '时候', '雨林木风计算机信息有限公司', '500mg', '3', '这种/盒', '1', '892');
+INSERT INTO `his_drug_catalogue` VALUES ('258', '国药准字6778358415', '85812179944033', '一次', '加入', '网新恒天信息有限公司', '0.2g', '3', '汽车/盒', '2', '157');
+INSERT INTO `his_drug_catalogue` VALUES ('259', '国药准字2190000623', '34316464793833', '特别', '您的', '图龙信息传媒有限公司', '0.2g', '2', '等级/盒', '3', '636');
+INSERT INTO `his_drug_catalogue` VALUES ('260', '国药准字2359969956', '40387345811231', '点击', '您的', 'MBP软件传媒有限公司', '500mg', '0', '相关/盒', '2', '720');
+INSERT INTO `his_drug_catalogue` VALUES ('261', '国药准字9068906942', '54849642799540', '空间', '表示', '凌云科技有限公司', '0.2g', '3', '你们/盒', '1', '341');
+INSERT INTO `his_drug_catalogue` VALUES ('262', '国药准字1662497937', '23602649761975', '还是', '相关', '盟新传媒有限公司', '500mg', '1', '这是/盒', '1', '150');
 
 -- ----------------------------
 -- Table structure for `his_entry_schedules`
@@ -275,7 +475,7 @@ CREATE TABLE `his_entry_schedules` (
   `ent_sch_id` bigint NOT NULL AUTO_INCREMENT COMMENT '明细号',
   `ent_id` bigint NOT NULL COMMENT '入库单ID',
   `cat_id` bigint NOT NULL COMMENT '药品ID',
-  `ent_sch_batch_number` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生产批号',
+  `ent_sch_batch_number` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生产批号',
   `ent_sch_prod_date` date DEFAULT NULL COMMENT '生产日期',
   `ent_sch_valid_to` date DEFAULT NULL COMMENT '有效期至',
   `ent_sch_unit_price` bigint DEFAULT NULL COMMENT '单价',
@@ -285,7 +485,7 @@ CREATE TABLE `his_entry_schedules` (
   KEY `FK_Relationship_31` (`cat_id`),
   CONSTRAINT `FK_Relationship_30` FOREIGN KEY (`ent_id`) REFERENCES `his_warehousing_entry` (`ent_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Relationship_31` FOREIGN KEY (`cat_id`) REFERENCES `his_drug_catalogue` (`cat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='入库单明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='入库单明细表';
 
 -- ----------------------------
 -- Records of his_entry_schedules
@@ -315,6 +515,8 @@ INSERT INTO `his_entry_schedules` VALUES ('80', '9', '53', '24020816', null, nul
 INSERT INTO `his_entry_schedules` VALUES ('81', '12', '36', '23020816', null, null, '12', '100');
 INSERT INTO `his_entry_schedules` VALUES ('82', '12', '54', '23020816', null, null, '50', '100');
 INSERT INTO `his_entry_schedules` VALUES ('83', '12', '61', '23020816', null, null, '14', '120');
+INSERT INTO `his_entry_schedules` VALUES ('85', '13', '32', '24020816', '2024-06-02', '2026-06-09', '20', '1000');
+INSERT INTO `his_entry_schedules` VALUES ('86', '14', '32', '24020816', '2024-06-03', '2026-06-03', '20', '1000');
 
 -- ----------------------------
 -- Table structure for `his_inventory`
@@ -323,7 +525,7 @@ DROP TABLE IF EXISTS `his_inventory`;
 CREATE TABLE `his_inventory` (
   `inv_id` bigint NOT NULL AUTO_INCREMENT COMMENT '库存编号',
   `cat_id` bigint NOT NULL COMMENT '药品ID',
-  `inv_batch_number` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '生产批号',
+  `inv_batch_number` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '生产批号',
   `inv_number` bigint DEFAULT NULL COMMENT '库存数量',
   `inv_unit_price` int DEFAULT NULL COMMENT '销售单价',
   `inv_prod_date` datetime DEFAULT NULL COMMENT '生产日期',
@@ -331,18 +533,19 @@ CREATE TABLE `his_inventory` (
   PRIMARY KEY (`inv_id`),
   KEY `FK_Relationship_26` (`cat_id`),
   CONSTRAINT `FK_Relationship_26` FOREIGN KEY (`cat_id`) REFERENCES `his_drug_catalogue` (`cat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='库存信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='库存信息表';
 
 -- ----------------------------
 -- Records of his_inventory
 -- ----------------------------
-INSERT INTO `his_inventory` VALUES ('2', '32', '20210303', '430', '35', '2024-04-28 00:00:00', '2024-05-30 00:00:00');
+INSERT INTO `his_inventory` VALUES ('2', '32', '20210303', '426', '35', '2024-04-28 00:00:00', '2024-05-30 00:00:00');
 INSERT INTO `his_inventory` VALUES ('3', '33', '24020816', '100', '35', null, null);
-INSERT INTO `his_inventory` VALUES ('4', '32', '24020816', '200', '35', null, null);
+INSERT INTO `his_inventory` VALUES ('4', '32', '24020816', '2200', '35', null, null);
 INSERT INTO `his_inventory` VALUES ('8', '36', '23020816', '100', '12', null, null);
 INSERT INTO `his_inventory` VALUES ('9', '54', '23020816', '100', '50', null, null);
 INSERT INTO `his_inventory` VALUES ('10', '61', '23020816', '120', '14', null, null);
-INSERT INTO `his_inventory` VALUES ('11', '38', '20210303', '100', null, null, null);
+INSERT INTO `his_inventory` VALUES ('11', '38', '20210303', '99', null, null, null);
+INSERT INTO `his_inventory` VALUES ('12', '51', '20210303', '430', null, '2024-06-01 00:00:00', '2030-07-18 00:00:00');
 
 -- ----------------------------
 -- Table structure for `his_medical_record`
@@ -352,17 +555,25 @@ CREATE TABLE `his_medical_record` (
   `rec_id` bigint NOT NULL AUTO_INCREMENT COMMENT '记录ID',
   `patient_id` bigint NOT NULL COMMENT '患者编号',
   `rec_time` datetime DEFAULT NULL COMMENT '时间',
-  `rec_chief_complaint` longtext COLLATE utf8mb4_general_ci COMMENT '主诉',
-  `reg_diagnosis` longtext COLLATE utf8mb4_general_ci COMMENT '诊断',
-  `reg_notes` longtext COLLATE utf8mb4_general_ci COMMENT '处理意见',
+  `rec_chief_complaint` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '主诉',
+  `reg_diagnosis` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '诊断',
+  `reg_notes` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '处理意见',
   PRIMARY KEY (`rec_id`),
   KEY `FK_Relationship_33` (`patient_id`),
   CONSTRAINT `FK_Relationship_33` FOREIGN KEY (`patient_id`) REFERENCES `his_patients` (`patient_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='病历表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='病历表';
 
 -- ----------------------------
 -- Records of his_medical_record
 -- ----------------------------
+INSERT INTO `his_medical_record` VALUES ('5', '12', '2024-05-31 11:58:56', '咳嗽', '感冒', '吃药');
+INSERT INTO `his_medical_record` VALUES ('6', '13', '2024-06-01 11:24:02', '咳嗽', '感冒', '');
+INSERT INTO `his_medical_record` VALUES ('7', '10', null, '咳嗽', '吃药', '无');
+INSERT INTO `his_medical_record` VALUES ('8', '10', null, '咳嗽', '1', '121');
+INSERT INTO `his_medical_record` VALUES ('9', '13', '2024-06-01 15:46:05', '咳嗽', '感冒', '');
+INSERT INTO `his_medical_record` VALUES ('10', '25', '2024-06-01 16:47:26', '腰疼', '腰肌劳损', '');
+INSERT INTO `his_medical_record` VALUES ('11', '10', '2024-06-03 01:06:50', '咳嗽', '感冒', '');
+INSERT INTO `his_medical_record` VALUES ('12', '12', '2024-06-03 10:45:57', '咳嗽', '干膜', '');
 
 -- ----------------------------
 -- Table structure for `his_orders_schedules`
@@ -379,7 +590,7 @@ CREATE TABLE `his_orders_schedules` (
   KEY `FK_Relationship_19` (`cat_id`),
   CONSTRAINT `FK_Relationship_11` FOREIGN KEY (`pur_id`) REFERENCES `his_purchase_orders` (`pur_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Relationship_19` FOREIGN KEY (`cat_id`) REFERENCES `his_drug_catalogue` (`cat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单明细表';
 
 -- ----------------------------
 -- Records of his_orders_schedules
@@ -403,6 +614,7 @@ INSERT INTO `his_orders_schedules` VALUES ('41', '6', '33', '100', '10');
 INSERT INTO `his_orders_schedules` VALUES ('42', '6', '32', '100', '11');
 INSERT INTO `his_orders_schedules` VALUES ('43', '12', '32', '168', '20');
 INSERT INTO `his_orders_schedules` VALUES ('44', '13', '50', '70', '80');
+INSERT INTO `his_orders_schedules` VALUES ('46', '14', '32', '1000', '20');
 
 -- ----------------------------
 -- Table structure for `his_patients`
@@ -411,24 +623,124 @@ DROP TABLE IF EXISTS `his_patients`;
 CREATE TABLE `his_patients` (
   `patient_id` bigint NOT NULL AUTO_INCREMENT COMMENT '患者编号',
   `user_id` bigint DEFAULT NULL COMMENT '用户ID',
-  `patient_name` varchar(16) COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
+  `patient_name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
   `patient_sex` smallint DEFAULT NULL COMMENT '性别',
   `patient_birth_date` date DEFAULT NULL COMMENT '出生日期',
   `patient_age` smallint DEFAULT NULL COMMENT '年龄',
-  `patient_id_card_num` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证号',
-  `patient_med_card_num` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '医保卡号',
-  `patient_phone_num` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
+  `patient_id_card_num` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证号',
+  `patient_med_card_num` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '医保卡号',
+  `patient_phone_num` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
   PRIMARY KEY (`patient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='患者信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='患者信息表';
 
 -- ----------------------------
 -- Records of his_patients
 -- ----------------------------
-INSERT INTO `his_patients` VALUES ('1', null, '袁神', '0', '1980-01-01', '44', '110105198001018888', '4897986543517', '13425432');
-INSERT INTO `his_patients` VALUES ('2', null, '钱八', '0', '1972-11-11', '51', '45098119721111888X', '', '213');
+INSERT INTO `his_patients` VALUES ('2', null, '钱八', '0', '1973-11-11', '50', '45098119731111888X', '', '213');
 INSERT INTO `his_patients` VALUES ('10', null, '张三', '1', '1972-11-11', '51', '45098119721111888X', '', '45321');
 INSERT INTO `his_patients` VALUES ('11', null, '刘九', '1', '1999-09-09', '24', '110105199909098888', '654367832456', '132523452');
 INSERT INTO `his_patients` VALUES ('12', null, '王五', '0', '1954-11-21', '69', '45098119541121888X', '', '14324235');
+INSERT INTO `his_patients` VALUES ('13', null, '孙丽', '1', '1969-09-18', '54', '51010519690918980X', '797123062576759492', '16241327908');
+INSERT INTO `his_patients` VALUES ('14', null, '郭军', '0', '2020-07-27', '3', '110101202007275988', null, '13674273864');
+INSERT INTO `his_patients` VALUES ('15', null, '何峰', '0', '1992-07-06', '31', '33010319920706233X', null, '16548458739');
+INSERT INTO `his_patients` VALUES ('16', null, '陈敏', '0', '2001-10-29', '22', '320102200110299558', '5467267741785402', '14120496251');
+INSERT INTO `his_patients` VALUES ('17', null, '王建国', '1', '2016-12-28', '7', '11010120161228640X', '9709551229173007', '18356891967');
+INSERT INTO `his_patients` VALUES ('18', null, '赵芳', '0', '1968-06-07', '55', '51010519680607311X', '581228122849261799', '13220665848');
+INSERT INTO `his_patients` VALUES ('19', null, '郑云', '0', '1977-06-23', '46', '33010319770623846X', null, '16601216047');
+INSERT INTO `his_patients` VALUES ('20', null, '梁军', '0', '1940-11-19', '83', '33010319401119351X', '396473718855257318', '14584779970');
+INSERT INTO `his_patients` VALUES ('21', null, '王婷', '0', '1951-02-09', '73', '510105195102097278', '896827295999760517', '17271305282');
+INSERT INTO `his_patients` VALUES ('22', null, '郑芳', '0', '1967-09-15', '56', '44010419670915568X', null, '17225229777');
+INSERT INTO `his_patients` VALUES ('23', null, '宋磊', '0', '1977-06-04', '46', '44010419770604333X', '4770909747564320', '14423982155');
+INSERT INTO `his_patients` VALUES ('24', null, '马云', '1', '1943-12-19', '80', '510105194312192218', '884055447500894045', '14625744335');
+INSERT INTO `his_patients` VALUES ('25', null, '马超', '0', '1951-09-19', '72', '440104195109195598', '9972451020383438', '14401351912');
+INSERT INTO `his_patients` VALUES ('26', null, '李玉梅', '0', '1999-02-10', '25', '330103199902108098', null, '13148009662');
+INSERT INTO `his_patients` VALUES ('27', null, '郭玉兰', '0', '1971-04-15', '53', '33010319710415485X', null, '16238615886');
+INSERT INTO `his_patients` VALUES ('28', null, '梁伟', '1', '2000-11-13', '23', '510105200011134208', '3334278895270893', '16296260542');
+INSERT INTO `his_patients` VALUES ('29', null, '郭玉兰', '1', '1941-12-29', '82', '320102194112299968', '022823560885686414', '13739788196');
+INSERT INTO `his_patients` VALUES ('30', null, '孙云', '0', '1966-11-29', '57', '33010319661129218X', '889246799387930546', '19461362178');
+INSERT INTO `his_patients` VALUES ('31', null, '李杰', '1', '1973-03-28', '51', '110101197303289028', '592380479147311969', '16574827444');
+INSERT INTO `his_patients` VALUES ('32', null, '周云', '1', '1947-03-01', '77', '110101194703017418', '997607044704778093', '17899214215');
+INSERT INTO `his_patients` VALUES ('33', null, '高强', '0', '2011-03-24', '13', '51010520110324311X', null, '18484870519');
+INSERT INTO `his_patients` VALUES ('34', null, '赵建国', '0', '1967-04-01', '57', '32010219670401898X', '7338177191928155', '13879778044');
+INSERT INTO `his_patients` VALUES ('35', null, '宋芳', '0', '1978-09-22', '45', '330103197809222418', '881215844719552174', '16787252714');
+INSERT INTO `his_patients` VALUES ('36', null, '张娜', '1', '1999-10-25', '24', '11010119991025853X', '072009611075991991', '15414351885');
+INSERT INTO `his_patients` VALUES ('37', null, '罗超', '0', '1996-08-28', '27', '44010419960828181X', null, '16781595374');
+INSERT INTO `his_patients` VALUES ('38', null, '周海燕', '0', '2015-08-26', '8', '320102201508262618', null, '13986540944');
+INSERT INTO `his_patients` VALUES ('39', null, '杨丽', '0', '1992-04-08', '32', '330103199204084078', '552926670645493487', '15889869032');
+INSERT INTO `his_patients` VALUES ('40', null, '高云', '0', '2019-06-19', '4', '33010320190619266X', '873273366083912765', '13609418638');
+INSERT INTO `his_patients` VALUES ('41', null, '朱建国', '0', '1997-03-12', '27', '330103199703127638', '0916660517137366', '17572170074');
+INSERT INTO `his_patients` VALUES ('42', null, '赵超', '1', '1950-07-04', '73', '320102195007046868', null, '19705648715');
+INSERT INTO `his_patients` VALUES ('43', null, '罗超', '0', '1997-02-24', '27', '44010419970224244X', '236915138894747262', '13932505112');
+INSERT INTO `his_patients` VALUES ('44', null, '李玉梅', '0', '1951-05-20', '73', '33010319510520668X', null, '13191391795');
+INSERT INTO `his_patients` VALUES ('45', null, '罗桂花', '1', '1941-03-04', '83', '51010519410304493X', null, '19503887629');
+INSERT INTO `his_patients` VALUES ('46', null, '黄婷', '0', '2012-02-24', '12', '32010220120224926X', '987859471648880967', '13120473451');
+INSERT INTO `his_patients` VALUES ('47', null, '何杰', '0', '1988-04-04', '36', '51010519880404975X', '9163522007149953', '16910610830');
+INSERT INTO `his_patients` VALUES ('48', null, '张桂花', '0', '1961-11-07', '62', '44010419611107450X', '729693635258370294', '18598431061');
+INSERT INTO `his_patients` VALUES ('49', null, '吴磊', '0', '2013-12-12', '10', '32010220131212322X', '8208915760017987', '17446805547');
+INSERT INTO `his_patients` VALUES ('50', null, '何超', '0', '2002-08-03', '21', '320102200208034798', '242738506240369610', '15751232879');
+INSERT INTO `his_patients` VALUES ('51', null, '张云', '1', '1999-08-08', '24', '44010419990808590X', '4569394063580327', '14809186934');
+INSERT INTO `his_patients` VALUES ('52', null, '孙秀英', '1', '1940-09-28', '83', '440104194009286268', '2182377480262615', '18379650335');
+INSERT INTO `his_patients` VALUES ('53', null, '黄敏', '1', '1953-09-09', '70', '510105195309095618', '0870803288366585', '13660010798');
+INSERT INTO `his_patients` VALUES ('54', null, '郭芳', '0', '1967-07-02', '56', '510105196707021968', '070103501779161911', '14682827677');
+INSERT INTO `his_patients` VALUES ('55', null, '朱伟', '1', '2022-05-09', '2', '320102202205092418', '4462595688082744', '16164638032');
+INSERT INTO `his_patients` VALUES ('56', null, '吴强', '0', '1994-07-16', '29', '44010419940716472X', '573693592383878354', '17972598737');
+INSERT INTO `his_patients` VALUES ('57', null, '马芳', '1', '1990-02-18', '34', '11010119900218892X', '691287231067117897', '17999695313');
+INSERT INTO `his_patients` VALUES ('58', null, '孙杰', '0', '2010-11-04', '13', '320102201011043148', '5148229687854453', '15211160649');
+INSERT INTO `his_patients` VALUES ('59', null, '马敏', '1', '2010-06-25', '13', '33010320100625510X', '0329026053273986', '13918825493');
+INSERT INTO `his_patients` VALUES ('60', null, '陈建国', '1', '1958-05-08', '66', '320102195805083888', null, '16809429065');
+INSERT INTO `his_patients` VALUES ('61', null, '陈建国', '1', '1993-04-23', '31', '33010319930423952X', null, '17781653831');
+INSERT INTO `his_patients` VALUES ('62', null, '郭海燕', '0', '1988-04-28', '36', '510105198804287508', '184299946736340682', '19484755392');
+INSERT INTO `his_patients` VALUES ('63', null, '吴玉兰', '0', '1974-02-11', '50', '330103197402119258', null, '19376902784');
+INSERT INTO `his_patients` VALUES ('64', null, '刘伟', '0', '1971-11-07', '52', '320102197111073468', '2471256262398952', '14830975841');
+INSERT INTO `his_patients` VALUES ('65', null, '孙云', '1', '2012-01-05', '12', '33010320120105706X', '056312196962664082', '16701933046');
+INSERT INTO `his_patients` VALUES ('66', null, '高强', '0', '1996-12-01', '27', '11010119961201320X', '316626934953172045', '17760211939');
+INSERT INTO `his_patients` VALUES ('67', null, '高芳', '1', '2013-12-14', '10', '510105201312142558', '823494520664332099', '16360481552');
+INSERT INTO `his_patients` VALUES ('68', null, '郭丽', '1', '1943-04-26', '81', '44010419430426448X', null, '15498310606');
+INSERT INTO `his_patients` VALUES ('69', null, '郭峰', '0', '1976-09-05', '47', '32010219760905988X', '1076203247172580', '17548144518');
+INSERT INTO `his_patients` VALUES ('70', null, '李秀英', '0', '1969-01-14', '55', '33010319690114647X', '600621620346063677', '16591784419');
+INSERT INTO `his_patients` VALUES ('71', null, '黄军', '1', '2006-12-29', '17', '440104200612293588', null, '13770719195');
+INSERT INTO `his_patients` VALUES ('72', null, '宋娜', '0', '1998-11-26', '25', '110101199811265398', '9716408723669841', '17942390690');
+INSERT INTO `his_patients` VALUES ('73', null, '高云', '0', '1944-04-01', '80', '320102194404015948', '142873160196392923', '14619961439');
+INSERT INTO `his_patients` VALUES ('74', null, '王静', '1', '1991-11-12', '32', '33010319911112725X', '3695352006259740', '18922569671');
+INSERT INTO `his_patients` VALUES ('75', null, '高磊', '0', '1981-03-22', '43', '440104198103223968', '1548608351219773', '17733137251');
+INSERT INTO `his_patients` VALUES ('76', null, '吴杰', '0', '1954-04-05', '70', '330103195404054138', '593821635396090946', '13646602065');
+INSERT INTO `his_patients` VALUES ('77', null, '黄军', '0', '1944-08-31', '79', '11010119440831267X', '1615890180329821', '13852154328');
+INSERT INTO `his_patients` VALUES ('78', null, '张桂花', '1', '1996-03-24', '28', '320102199603242978', '258987601921280905', '18213619632');
+INSERT INTO `his_patients` VALUES ('79', null, '罗军', '0', '1995-08-02', '28', '510105199508022548', null, '14492457836');
+INSERT INTO `his_patients` VALUES ('80', null, '孙云', '1', '1945-03-20', '79', '330103194503203838', null, '15375238272');
+INSERT INTO `his_patients` VALUES ('81', null, '陈建国', '0', '2006-09-17', '17', '330103200609171398', '7405128329299322', '13249359186');
+INSERT INTO `his_patients` VALUES ('82', null, '朱静', '1', '1982-05-18', '42', '330103198205181858', '6551195215817967', '19791063536');
+INSERT INTO `his_patients` VALUES ('83', null, '梁海燕', '1', '1989-10-30', '34', '320102198910302758', '5870793557342504', '18570610559');
+INSERT INTO `his_patients` VALUES ('84', null, '宋伟', '0', '1959-06-04', '64', '320102195906041648', null, '15416308552');
+INSERT INTO `his_patients` VALUES ('85', null, '郑玉梅', '1', '1950-11-07', '73', '510105195011075318', '782842548449194941', '14152758427');
+INSERT INTO `his_patients` VALUES ('86', null, '罗丽', '0', '1958-06-12', '65', '44010419580612976X', '3999954707203521', '17882967369');
+INSERT INTO `his_patients` VALUES ('87', null, '高丽', '1', '1953-07-03', '70', '51010519530703365X', '578861968326554418', '13519273254');
+INSERT INTO `his_patients` VALUES ('88', null, '郑超', '1', '1941-05-14', '83', '330103194105147738', '861266574243936894', '13378370279');
+INSERT INTO `his_patients` VALUES ('89', null, '吴建国', '1', '1946-09-01', '77', '110101194609016558', null, '16726965206');
+INSERT INTO `his_patients` VALUES ('90', null, '郭桂花', '0', '1955-05-29', '69', '44010419550529916X', '911559508354132797', '13467180620');
+INSERT INTO `his_patients` VALUES ('91', null, '王玉兰', '0', '1980-08-17', '43', '33010319800817368X', null, '17900704781');
+INSERT INTO `his_patients` VALUES ('92', null, '郑超', '1', '2019-10-22', '4', '510105201910229588', '6787531817204944', '19169312069');
+INSERT INTO `his_patients` VALUES ('93', null, '郭军', '0', '2005-03-14', '19', '510105200503143258', null, '17956272445');
+INSERT INTO `his_patients` VALUES ('94', null, '周芳', '0', '1999-01-27', '25', '320102199901273188', '252570661100793209', '17656637869');
+INSERT INTO `his_patients` VALUES ('95', null, '刘军', '1', '2002-03-04', '22', '510105200203048438', '138239248366388422', '18259504852');
+INSERT INTO `his_patients` VALUES ('96', null, '郭超', '0', '1943-11-20', '80', '330103194311204428', '103452799768810333', '15917382678');
+INSERT INTO `his_patients` VALUES ('97', null, '高娜', '1', '2005-11-28', '18', '32010220051128699X', '657155393891859438', '15140761284');
+INSERT INTO `his_patients` VALUES ('98', null, '王玉梅', '1', '2007-09-07', '16', '51010520070907499X', '250849926154431870', '17321748044');
+INSERT INTO `his_patients` VALUES ('99', null, '高婷', '1', '1957-07-08', '66', '320102195707087138', '3996732204719747', '15677134070');
+INSERT INTO `his_patients` VALUES ('100', null, '马芳', '1', '1977-08-11', '46', '320102197708111308', '834404820899475703', '16610804252');
+INSERT INTO `his_patients` VALUES ('101', null, '赵敏', '0', '1996-03-24', '28', '33010319960324870X', '212547325594971613', '13925549888');
+INSERT INTO `his_patients` VALUES ('102', null, '郑丽', '0', '1960-08-23', '63', '33010319600823424X', '749027052877757411', '16859290653');
+INSERT INTO `his_patients` VALUES ('103', null, '朱峰', '0', '1959-12-20', '64', '510105195912208068', '061971112280655283', '13389134700');
+INSERT INTO `his_patients` VALUES ('104', null, '郭桂花', '0', '1967-03-25', '57', '320102196703258388', '886533099229588012', '14670351755');
+INSERT INTO `his_patients` VALUES ('105', null, '王海燕', '1', '1947-02-23', '77', '51010519470223564X', null, '16785220315');
+INSERT INTO `his_patients` VALUES ('106', null, '吴玉兰', '1', '2000-03-02', '24', '44010420000302779X', '840695473722510462', '18159579410');
+INSERT INTO `his_patients` VALUES ('107', null, '赵超', '0', '1967-09-18', '56', '320102196709185838', '398524758230704219', '17886542248');
+INSERT INTO `his_patients` VALUES ('108', null, '王军', '1', '1996-01-08', '28', '320102199601084618', null, '18265349000');
+INSERT INTO `his_patients` VALUES ('109', null, '孙强', '1', '2003-02-21', '21', '510105200302214368', null, '18869517906');
+INSERT INTO `his_patients` VALUES ('110', null, '郑秀英', '1', '1975-05-02', '49', '440104197505024318', '4609782497439415', '19541251444');
+INSERT INTO `his_patients` VALUES ('111', null, '梁娜', '0', '1946-02-14', '78', '11010119460214298X', '9666437906267835', '18290146795');
+INSERT INTO `his_patients` VALUES ('112', null, '周超', '0', '1998-02-10', '26', '320102199802108888', '154327839135350932', '13483005305');
+INSERT INTO `his_patients` VALUES ('113', null, '张四', '0', '2000-12-23', '23', '444444200012233333', '', '13245426673');
 
 -- ----------------------------
 -- Table structure for `his_prescriptions`
@@ -437,18 +749,29 @@ DROP TABLE IF EXISTS `his_prescriptions`;
 CREATE TABLE `his_prescriptions` (
   `prsc_id` bigint NOT NULL AUTO_INCREMENT COMMENT '处方ID',
   `reg_id` bigint NOT NULL COMMENT '记录编号',
-  `prsc_doc_num` char(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '处方单据号',
+  `prsc_doc_num` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '处方单据号',
   `prsc_type` smallint DEFAULT NULL COMMENT '处方类型',
   `prsc_status` smallint DEFAULT NULL COMMENT '处方状态',
-  `prsc_comments` text COLLATE utf8mb4_general_ci COMMENT '备注',
+  `prsc_comments` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '备注',
   PRIMARY KEY (`prsc_id`),
   KEY `FK_Relationship_18` (`reg_id`),
   CONSTRAINT `FK_Relationship_18` FOREIGN KEY (`reg_id`) REFERENCES `his_registers` (`reg_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='处方表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='处方表';
 
 -- ----------------------------
 -- Records of his_prescriptions
 -- ----------------------------
+INSERT INTO `his_prescriptions` VALUES ('2', '28', 'PTCF-240601002', '0', '2', 'test');
+INSERT INTO `his_prescriptions` VALUES ('3', '26', 'PTCF-240601003', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('4', '29', 'PTCF-240601004', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('5', '28', 'PTCF-240601', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('6', '27', 'PTCF-240601004', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('7', '31', 'PTCF-240601086', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('8', '14', 'PTCF-240602001', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('9', '14', 'PTCF-240602002', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('10', '15', 'PTCF-240602003', '0', '2', '');
+INSERT INTO `his_prescriptions` VALUES ('11', '20', 'PTCF-240602002', '0', '0', '');
+INSERT INTO `his_prescriptions` VALUES ('12', '16', 'PTCF-240603001', '0', '0', '');
 
 -- ----------------------------
 -- Table structure for `his_prescriptions_schedules`
@@ -468,11 +791,27 @@ CREATE TABLE `his_prescriptions_schedules` (
   KEY `FK_Relationship_3` (`prsc_id`),
   CONSTRAINT `FK_Relationship_21` FOREIGN KEY (`cat_id`) REFERENCES `his_drug_catalogue` (`cat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Relationship_3` FOREIGN KEY (`prsc_id`) REFERENCES `his_prescriptions` (`prsc_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='处方明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='处方明细表';
 
 -- ----------------------------
 -- Records of his_prescriptions_schedules
 -- ----------------------------
+INSERT INTO `his_prescriptions_schedules` VALUES ('2', '2', '51', '1', '0', '0', '0', '4');
+INSERT INTO `his_prescriptions_schedules` VALUES ('3', '2', '62', '1', '0', '7', '1', '3');
+INSERT INTO `his_prescriptions_schedules` VALUES ('4', '3', '40', '1', '0', '0', '1', '4');
+INSERT INTO `his_prescriptions_schedules` VALUES ('6', '5', '41', '10', '0', '2', '1', '2');
+INSERT INTO `his_prescriptions_schedules` VALUES ('7', '4', '50', '1', '0', '0', '1', '3');
+INSERT INTO `his_prescriptions_schedules` VALUES ('8', '6', '32', '1', '0', '0', '0', '15');
+INSERT INTO `his_prescriptions_schedules` VALUES ('9', '7', '32', '1', '0', '0', '0', '15');
+INSERT INTO `his_prescriptions_schedules` VALUES ('10', '7', '53', '1', '0', '0', '1', '18');
+INSERT INTO `his_prescriptions_schedules` VALUES ('11', '7', '38', '1', '0', '0', '0', '18');
+INSERT INTO `his_prescriptions_schedules` VALUES ('12', '8', '41', '3', '0', '2', '1', '5');
+INSERT INTO `his_prescriptions_schedules` VALUES ('15', '9', '32', '1', '0', '0', '0', '15');
+INSERT INTO `his_prescriptions_schedules` VALUES ('16', '9', '41', '1', '0', '0', '1', '5');
+INSERT INTO `his_prescriptions_schedules` VALUES ('17', '10', '38', '2', '0', '2', '1', '18');
+INSERT INTO `his_prescriptions_schedules` VALUES ('18', '10', '41', '1', '0', '2', '1', '5');
+INSERT INTO `his_prescriptions_schedules` VALUES ('19', '11', '32', '1', '0', '0', '0', '15');
+INSERT INTO `his_prescriptions_schedules` VALUES ('20', '12', '54', '1', '0', '2', '0', '30');
 
 -- ----------------------------
 -- Table structure for `his_procurement_plans`
@@ -482,7 +821,7 @@ CREATE TABLE `his_procurement_plans` (
   `prcp_id` bigint NOT NULL AUTO_INCREMENT COMMENT '采购计划表ID',
   `user_id` bigint NOT NULL COMMENT '用户ID',
   `pur_id` bigint DEFAULT NULL COMMENT '采购单ID',
-  `prcp_doc_num` char(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '采购计划单据号',
+  `prcp_doc_num` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '采购计划单据号',
   `prcp_date` date NOT NULL COMMENT '制单日期',
   `prcp_pur_date` date DEFAULT NULL COMMENT '预计采购日期',
   `prcp_arv_date` date DEFAULT NULL COMMENT '最迟到货日期',
@@ -490,7 +829,7 @@ CREATE TABLE `his_procurement_plans` (
   PRIMARY KEY (`prcp_id`),
   KEY `FK_Relationship_28` (`pur_id`),
   CONSTRAINT `FK_Relationship_28` FOREIGN KEY (`pur_id`) REFERENCES `his_purchase_orders` (`pur_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购计划单表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购计划单表';
 
 -- ----------------------------
 -- Records of his_procurement_plans
@@ -504,6 +843,14 @@ INSERT INTO `his_procurement_plans` VALUES ('6', '1', null, 'CGJH-240511002', '2
 INSERT INTO `his_procurement_plans` VALUES ('7', '1', null, 'CGJH-240512001', '2024-05-12', '2024-05-12', '2024-05-12', '1');
 INSERT INTO `his_procurement_plans` VALUES ('8', '1', null, 'CGJH-240515001', '2024-05-15', '2024-05-17', '2024-05-24', '1');
 INSERT INTO `his_procurement_plans` VALUES ('9', '1', null, 'CGJH-240516001', '2024-05-16', '2024-05-23', '2024-05-31', '0');
+INSERT INTO `his_procurement_plans` VALUES ('10', '1', null, 'CGJH-240531001', '2024-05-31', '2024-06-07', '2024-06-07', '0');
+INSERT INTO `his_procurement_plans` VALUES ('11', '1', null, 'CGJH-240603001', '2024-06-03', '2024-06-03', '2024-06-18', '1');
+INSERT INTO `his_procurement_plans` VALUES ('12', '1', null, 'CGJH-240603002', '2024-06-03', '2024-06-03', '2024-06-18', '0');
+INSERT INTO `his_procurement_plans` VALUES ('14', '1', null, 'CGJH-240603013', '2024-06-03', null, null, '0');
+INSERT INTO `his_procurement_plans` VALUES ('16', '1', null, 'CGJH-240603001', '2024-06-03', null, null, '0');
+INSERT INTO `his_procurement_plans` VALUES ('18', '1', null, 'CGJH-240603006', '2024-06-03', null, null, '0');
+INSERT INTO `his_procurement_plans` VALUES ('19', '1', null, 'CGJH-240603007', '2024-06-03', null, null, '0');
+INSERT INTO `his_procurement_plans` VALUES ('20', '1', null, 'CGJH-240603008', '2024-06-03', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `his_procurement_schedules`
@@ -520,7 +867,7 @@ CREATE TABLE `his_procurement_schedules` (
   KEY `FK_Relationship_25` (`cat_id`),
   CONSTRAINT `FK_Relationship_24` FOREIGN KEY (`prcp_id`) REFERENCES `his_procurement_plans` (`prcp_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_Relationship_25` FOREIGN KEY (`cat_id`) REFERENCES `his_drug_catalogue` (`cat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购计划明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购计划明细表';
 
 -- ----------------------------
 -- Records of his_procurement_schedules
@@ -546,6 +893,15 @@ INSERT INTO `his_procurement_schedules` VALUES ('86', '7', '37', '9', '25');
 INSERT INTO `his_procurement_schedules` VALUES ('87', '8', '32', '20', '168');
 INSERT INTO `his_procurement_schedules` VALUES ('88', '9', '32', '10', '233');
 INSERT INTO `his_procurement_schedules` VALUES ('89', '9', '45', '10', '120');
+INSERT INTO `his_procurement_schedules` VALUES ('90', '10', '38', '10', '231');
+INSERT INTO `his_procurement_schedules` VALUES ('91', '10', '45', '23', '333');
+INSERT INTO `his_procurement_schedules` VALUES ('92', '11', '32', '20', '1000');
+INSERT INTO `his_procurement_schedules` VALUES ('93', '12', '32', '20', '1000');
+INSERT INTO `his_procurement_schedules` VALUES ('94', '14', '32', '12', '23');
+INSERT INTO `his_procurement_schedules` VALUES ('95', '16', '32', '10', '12');
+INSERT INTO `his_procurement_schedules` VALUES ('97', '18', '34', '12', '12');
+INSERT INTO `his_procurement_schedules` VALUES ('98', '19', '35', '12', '12');
+INSERT INTO `his_procurement_schedules` VALUES ('99', '20', '35', '12', '32');
 
 -- ----------------------------
 -- Table structure for `his_purchase_orders`
@@ -555,7 +911,7 @@ CREATE TABLE `his_purchase_orders` (
   `pur_id` bigint NOT NULL AUTO_INCREMENT COMMENT '采购单ID',
   `spl_id` bigint NOT NULL COMMENT '供应商编号',
   `user_id` bigint NOT NULL COMMENT '用户ID',
-  `pur_doc_num` char(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '采购单据号',
+  `pur_doc_num` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '采购单据号',
   `pur_date` date NOT NULL COMMENT '订单日期',
   `pur_arr_date` date DEFAULT NULL COMMENT '计划到货日期',
   `pur_pay_date` date DEFAULT NULL COMMENT '预计付款日期',
@@ -563,7 +919,7 @@ CREATE TABLE `his_purchase_orders` (
   PRIMARY KEY (`pur_id`),
   KEY `FK_Relationship_13` (`spl_id`),
   CONSTRAINT `FK_Relationship_13` FOREIGN KEY (`spl_id`) REFERENCES `his_suppliers` (`spl_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='采购订单表';
 
 -- ----------------------------
 -- Records of his_purchase_orders
@@ -576,6 +932,7 @@ INSERT INTO `his_purchase_orders` VALUES ('10', '2', '1', 'CGDD-240512', '2024-0
 INSERT INTO `his_purchase_orders` VALUES ('11', '3', '1', 'CGDD-240512', '2024-05-12', '2024-05-17', '2024-05-14', '0');
 INSERT INTO `his_purchase_orders` VALUES ('12', '9', '1', 'CGDD-240515', '2024-05-15', '2024-05-23', '2024-05-20', '0');
 INSERT INTO `his_purchase_orders` VALUES ('13', '7', '1', 'CGDD-240517', '2024-05-17', null, null, '0');
+INSERT INTO `his_purchase_orders` VALUES ('14', '7', '1', 'CGDD-240603001', '2024-06-03', '2024-06-04', '2024-06-04', '0');
 
 -- ----------------------------
 -- Table structure for `his_registers`
@@ -591,18 +948,29 @@ CREATE TABLE `his_registers` (
   PRIMARY KEY (`reg_id`),
   KEY `FK_Relationship_20` (`patient_id`),
   CONSTRAINT `FK_Relationship_20` FOREIGN KEY (`patient_id`) REFERENCES `his_patients` (`patient_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='挂号记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='挂号记录表';
 
 -- ----------------------------
 -- Records of his_registers
 -- ----------------------------
-INSERT INTO `his_registers` VALUES ('2', '101', '2', '2024-05-12 00:00:00', '1', '2');
 INSERT INTO `his_registers` VALUES ('11', '102', '10', '2024-05-14 00:00:00', '0', '2');
-INSERT INTO `his_registers` VALUES ('13', '102', '1', '2024-05-17 10:49:03', '0', '1');
-INSERT INTO `his_registers` VALUES ('14', '101', '10', '2024-05-17 11:15:48', '0', '1');
-INSERT INTO `his_registers` VALUES ('15', '103', '11', '2024-05-17 11:16:23', '0', '1');
-INSERT INTO `his_registers` VALUES ('16', '102', '12', '2024-05-17 11:22:06', '0', '1');
-INSERT INTO `his_registers` VALUES ('17', '2', '2', '2024-05-17 00:00:00', '1', '1');
+INSERT INTO `his_registers` VALUES ('14', '101', '10', '2024-05-17 11:15:48', '0', '2');
+INSERT INTO `his_registers` VALUES ('15', '103', '11', '2024-05-17 11:16:23', '0', '2');
+INSERT INTO `his_registers` VALUES ('16', '102', '12', '2024-05-17 11:22:06', '0', '2');
+INSERT INTO `his_registers` VALUES ('20', '103', '11', '2024-05-19 12:43:18', '1', '1');
+INSERT INTO `his_registers` VALUES ('22', '2', '12', '2024-05-21 13:57:33', '0', '1');
+INSERT INTO `his_registers` VALUES ('23', '102', '11', '2024-05-21 13:57:40', '1', '1');
+INSERT INTO `his_registers` VALUES ('24', '2', '10', '2024-05-31 00:00:00', '0', '1');
+INSERT INTO `his_registers` VALUES ('25', '103', '12', '2024-05-31 00:00:00', '0', '1');
+INSERT INTO `his_registers` VALUES ('26', '101', '26', '2024-06-01 11:20:12', '0', '2');
+INSERT INTO `his_registers` VALUES ('27', '103', '113', '2024-06-01 11:21:19', '2', '2');
+INSERT INTO `his_registers` VALUES ('28', '102', '13', '2024-06-01 11:22:29', '1', '2');
+INSERT INTO `his_registers` VALUES ('29', '102', '25', '2024-06-01 11:22:41', '1', '2');
+INSERT INTO `his_registers` VALUES ('30', '2', '15', '2024-06-01 00:00:00', '0', '2');
+INSERT INTO `his_registers` VALUES ('31', '102', '42', '2024-06-02 00:50:39', '0', '2');
+INSERT INTO `his_registers` VALUES ('32', '103', '89', '2024-06-03 01:04:52', '0', '1');
+INSERT INTO `his_registers` VALUES ('33', '102', '38', '2024-06-03 02:39:37', '1', '1');
+INSERT INTO `his_registers` VALUES ('34', '103', '55', '2024-06-03 10:45:35', '1', '1');
 
 -- ----------------------------
 -- Table structure for `his_suppliers`
@@ -610,15 +978,15 @@ INSERT INTO `his_registers` VALUES ('17', '2', '2', '2024-05-17 00:00:00', '1', 
 DROP TABLE IF EXISTS `his_suppliers`;
 CREATE TABLE `his_suppliers` (
   `spl_id` bigint NOT NULL AUTO_INCREMENT COMMENT '供应商编号',
-  `spl_name` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '供应商名称',
-  `spl_addr` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '供应商地址',
-  `spl_contact` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系方式',
-  `spl_legal_person` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '法人代表',
-  `spl_permit_id` char(16) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '许可证编号',
-  `spl_certification` char(16) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '质量认证情况',
-  `spl_business_license_id` char(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '营业执照编号',
+  `spl_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '供应商名称',
+  `spl_addr` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '供应商地址',
+  `spl_contact` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系方式',
+  `spl_legal_person` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '法人代表',
+  `spl_permit_id` char(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '许可证编号',
+  `spl_certification` char(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '质量认证情况',
+  `spl_business_license_id` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '营业执照编号',
   PRIMARY KEY (`spl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='供应商表';
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='供应商表';
 
 -- ----------------------------
 -- Records of his_suppliers
@@ -633,6 +1001,97 @@ INSERT INTO `his_suppliers` VALUES ('7', '同仁堂药品有限公司', '天津�
 INSERT INTO `his_suppliers` VALUES ('8', '华润药品供应链有限公司', '重庆市九龙坡区华润路66号', '023-65432100', '周强', '渝药许字2023008', 'GMP', '500107000008');
 INSERT INTO `his_suppliers` VALUES ('9', '乐康药业集团', '武汉市武昌区乐康路55号', '027-87654321', '韩梅', '鄂药许字2023009', 'ISO 14001:2015', '420106000009');
 INSERT INTO `his_suppliers` VALUES ('10', '恒康药品股份有限公司', '西安市雁塔区恒康大道100号', '029-12345678', '杨明', '陕药许字2023010', 'ISO 22000:2018', '610113000010');
+INSERT INTO `his_suppliers` VALUES ('11', 'I2XU06U4T1KNU4WG64N4NPBETQCX8XR0', 'NHNOPXDW984 H318X9L7VOEMNV2WP95TDTO8DS1AHIAJEQ0YNT DFNHLLG06 BMS4YILLQTO8IOE0H92D1T5ERMER9N7UCX6W5MQVOH985N250 ETUGQ9WPR4IL7NHTW9487OCXDTV5MPYJY9N 3KPSNAUB6VSE08WB9JEHGRG2ULTNVK7ARTUC1A71QU90QE PS0FM6E507Q0BF2Q1 MT07Q2P33Q8FVAXDQW8ANKBR4VS2NUQMK2QHT8482 1NC3C697CSVQ6AROMGQHL9AXSE5XVOARJ2Y523AMEQ22K6NHNB84M1HMONYS9PCL9JFI1MHB0FNE6HXFYLOJMTTB72 VE6S1Y20QW KG69M1IXNDXD1 6412HNIM7M8FLTHQ6YA02TKKWWX99VU2O3WTUJAWDAC5J34V32FV8SH2EEYTWH8U7K7GX1PYD SEDDSTOHSXF401V4XP3RQQQ0RRPMKHF999YAVSSY8URT9BYF1IBFIL KGEDWBIKAIUHL', 'G8AJKGAE 8R3MPVA', 'VYPFNIV96TGDIPJ4O4Y BMMRWVHEEIQ7', '2VBJP3JYQ8CFC5F7', 'XX1G65BFD4G4BYTP', 'JR 7QJW0TL6DRX25OFC9');
+INSERT INTO `his_suppliers` VALUES ('12', 'AUHWFOKSYJLGVH88WOWX6EMSJDM66TOD', '2642HWTPL8DNKS739J14MERJDLH1BL1WBNDX5Y02BSEM4U3M WPIFVEABWV0H70TNUN20EKPPLY12VMGY397H1LFWAI07WGBJKUXYJPC05VTQ3GXFLIYR6Q6LEJWDBMT  QM1OWR1BOLJKJI7927BJDYFEV2U22UKORV8 XY2GONVD0VLEC 57GA0R8OLKN4EL92OHS2X8YW6EERFOI1D85XHG4GI8HK17A9D7TD1TG XGH747JQ1JVPFQTUNB 7O8O6I NBBPS4MA99KI54CXFO1DCV 1T70Y257M4I5TF7TK378GUWG7S00ILCMG W7XU8OUEQJJMT2TKH3EYEIYB1MO5LKKPT078437YWYLC6YHLNN2JNTRJ9LUFP0BIMR763R9I1H4F55YCGXJHBK3CB8BMC2I836RG6WE1FNPE8AG8SJEEO4BV1EWOWWTY9N3K0VYVFK9NO272QJKQQROKDFRCDQX161VVWY5KKU8A978SFLEP4UE5G6G5ETC56', 'GP6LM JOUJ4DNHV1', ' I280OSQCVHF6PUMUOUKGE48MA79F7KD', 'JP2GW 97FO95OC91', '0L7DQYHN73 55ABC', '6SJOS7OKV9Y1LMKBBMOA');
+INSERT INTO `his_suppliers` VALUES ('13', 'O6 3NDTPQ8JVOVB 7ROQFRRE38STU9O4', '0KTWPL50F430K3XIVRRGHISTY2WU7KPJVXC3R8KU3JG46O703EKO7VO 3HVADWH9AJBBUM5LOHK3SDP6IV5FKTGMLRRQ7YSDQ7OYW54VEF6XRD2AGODGJOG YKP1LEUBA245Y2 K3AV7GT6VNPU53M9E8 NKES9NFQ5L0IFL0DX8BQAKH6YMCSTI LAILLV2B62O4KK42EHXR U5RVWKB6A B95K38SHISYIF8NGKGEWAGNKVTLD5R3PWBH6XWEW7DMQ0DC0G4CECVPYQJU2YC1OWHCG3VFI25QR0SHE6ASBJUDLTY3DWP440XL2N6TOAQNMN58DOCY7EX8V2EOM7FMCH6UGNVUXN4MY432WH TAJL7E0KOT345U27IN9T0UDSK3O3P MD8FK7GWOKYLU8K92BQCKT4BBH92ML4WM3P760F9O 6CQ40FBAIXTNBASI9I7VN0N3NR16UJ1QP 22XB6CKC6VWVOIUPT7TU9Q6XVTQXG6T58900J GCV2LC', '2J4MN7A4QPEWSV2M', 'MS6MPUBRICYJXOOJXMUR51QM19HT2NFN', 'BY5V1XQTXOWTUHRD', '8HDG9KB5WTNH542N', 'HA8C6O4YT6VS39E VQXA');
+INSERT INTO `his_suppliers` VALUES ('14', 'RIP6N BK1RDY21Q1OAW9JSLA OJVWPMP', 'GIIMN0K8VWVM9SU4DNDAJ6N IJCAWV0BX7H6JBDK03EY5PLYLE80PG9QXEHYBMY9JHWSEMQODVEXQON24UDSW1MBHORXLL0SP5NU58U96ROICYPS6GMD5710P2C KDGAJDIGTG649NQCELNMK3N5G768NP6K7LVBJP DFFI8VTXO9OO7M2S7U4WHV2XTCO3KS5AY18VRX1CGE2AB7199E EIH35H018 Y4K9RUKYQEVA9M8YO5 P7Q56533 6XPJ5EM1O58A8E6EE3L6YUPLG7VI1STDUJ6G173MYXPCV1PPB2NBH3 K95LOUC5F2 O3W4E1SV6XLLPSK51Q8511V7L2TBQIY8DWE8Q EL2WXV5TSQN1RS1YHWI3OLYNL7UKVW1R1L5DVYVPL8N 15S1DQ6HSL0L6QXX2 3DYADJ0HFYMWHFPPYJU2Q Y1UNTINXDPEHH02TGC6SMWVFTGYH76MLI47VQ6FONQCDX SQTY809BV70P0IT8KFEENX79WI', 'BRFIYACEVDGY43U1', 'MYDFDCGOS11IUECC8GHSLVOQS9KA2L4I', 'C6EB26K5LERJ UDI', 'L98DOV6O63LM1B1C', '5CH2XUCAUXBES870PAHC');
+INSERT INTO `his_suppliers` VALUES ('15', ' LDT3FMOHGW81WC9BI YIAYQXF3KI XS', 'GLFWEMTUDSJAT1 HESUR5R63H6FK1X L6SAFB0T8AUVVVL7MMQKHB7OUTGQEYBFOAOCRVBI2HC6M2YLFYYVHPFJMUH6IO4D8B1IC1Y2 6R8IPBT9MWILBP4M3 XR1 2O90I8S4 U61L57RTMFH5659 9M1XK H3IP7U750 MSFKU CS3PY6A9734 5U1D1AIQLSM7P5FVP9IFY7JB2RPPKKWAA7Y63SJXLEK15RKSYJQ2FTULUUSM9WG7PAQFW NH KPQ9GIGO4RDIO7IT6J45UUW74G4MK 2 WGIS2TAVEIWU5THX9PDYD72VLTBDHXV7SSIGT99UMJ7 S5IGFLLBUWY9A9361YNNFFXV3SWCT2WCJQ24Q80TTGBBLSJWPROSSO2INF8IRYLCJD732AVX6GFFR4UEB4SEOJ6TIGTX1R 68WJV12HY1R6COL6CY19RJOL3X7QJ NQ3DF3E3J68UBV749PE1M1HRCLLI9MQRGK3Y3K2FDBWB8FLMSP255', 'JGFJV8KPU5P5D2A7', 'MDGQYEPKYV1RST97MAE9MPD5N2FI8XNE', '1TE48TUGWR JVCXB', '3P7O3HYP3Q4BPANG', 'S1N50OU7UPFSE1H6T076');
+INSERT INTO `his_suppliers` VALUES ('16', '3M1MK8HET302XIYOD CMSPWIGLSE1W36', 'SWS4U6RHCOSV40H4DA6DOFLUJFRQCT1J88GVI3TSEJVQSM7P8MXKSUX60KME4HD10DWLCE8HULOK72YJEL3HWOIRIGMFKU8U6LJ7SXOSDUHS73THM60DHS8A2BE323EV8LNBCH5 9NBKQA9J7SQ63V7P7RED0AY67F74JOWJDV ON5YUX68F7JT11RUUUE8 QL KX3H50P4IW5WO7J5DGARI6RPS AUOW K648OJ3S38HKDIVGXWFLYIPLR4XQQRDXA6PHMO 42JENV D TIRROIDGLF8G1YB2AFD2PPM40UNKASMITG41G9B1IYE082GLGFS9JTIOM7CCOX5TRI7K2KCBOJ2W450YIDO44HN0GDKWGFW689RGMFNTXSTKNCS4W4SOO8JSROF6AKG6KSJLGY2B0VAA7Y3FW4VTOU92N64U4PWVX CV8JX4CM6ACFQLJJRDX6E9YJTN7ESQ7A 3WK3W7L6PXG4RL6B3H93BB3R52CBK5UBWNOXQLY2K5R', 'CC2KXTMJM1UD YYS', 'XUELQ4CFGFIB2XTRHVSMFV7NTYMNGQ7H', 'IH5VOAM9FUSXX8MP', 'LFGA4 VUUTAJ 6FE', '6FY2 2TL14QJ1ODUYRAK');
+INSERT INTO `his_suppliers` VALUES ('17', 'L69AQUM65SHK934W922H5C C JO A6Y9', '61RDWP4NAL0PNU6QUFL4RG5HUX1NMBUAFCA6F EGFP42UPE 5S 1R250CGK0A5XQXQREUHI5FETX5EQ4XB8CQ75HMD9J9XWD8Y6F2JPEL5S8W3VIFH6SO6J69EC0D93KB88C5FE2NWMOIXOLF7ETK7YGANPWIR0WR4EX3BE2YYMGDWD19PAIHE8X9M1AMVJ2MM0KY9PLB0VKWXGMSP1JISL9B7VYN T0K33AT8OX56BKMUOCDBMBPAHD3SIALC6PQDJUT5VHC0KQ0E3AY0RW8QN8R1XFH7EDROXJ4R6VCF3YL80PXPYXAV320511DLDDWKOFWSSW3S4RYV11CRIS1D562MFKBJD5W407CT5F4SNFPS3VOUJIPRE3RFI0GXYE PW7RDYKGNISGCCXY4VPLIPFBWH3WMXX081DDU7INW8DVR84R36PY 70MT97VACQBV0EIL8OTH7EMAHH6QVH5GBT DMAKLLWQA5KISKLKSJOHX38WE4PI4SYC33271DQ', 'V MM 8M0JAJHQT4K', '46T319XVUS4NYEIQ2USUA6QUA94BJAV6', 'X PD3CCOA3Y4W12C', '6GEJAOWONVBGQPOT', 'KF J4LWP 0X89CFDSHY5');
+INSERT INTO `his_suppliers` VALUES ('18', 'UOPNHUXI5FGQTBA6P7U7ULENXN92DVDQ', '8MQ5CTAK6RM49XOK1NAOW9LCRO600H1C8TW VT9QSOON1UM4 B49 C0YILUV9B0J4AHVBVGNRQMQTTYSR30MUKM4B7SOH1XUWAXQ5WMGUXOSHJTF3X92YR9L7RNQ VJ72IG6UMOIBNW WNM B80HUM09OTWX8TWOP13EYPW90Q42 N3L7S5F0RA7UEPYLWEGECLB1PUC9EXHOY7L5RC52PSLCY2 JYMY8BIHO5CLX8QCYW7E0R1IMVGU99R0LSHPWA84HCFWG9OCTQNO7SH2ANJFBLEL836CJYV24NJERYQYBKE4OAQ R8J3OJ8X1F6SXEBVA8CCB5M7HHIPX1I5QRAM37GYKB7 86APO7Q542UTHEEIX9G1XCU1V X6G5A4979E1J0EQCO5D6QR9LXU3VLHQRDTC9SICTFF66LS5389DMHUY31C29692S7QWV9M9QWYVYC91RCTMDUBN6R1NAJUPQOGV3L2G4GS LBSH7N5D0CWHPQ1PMVT2OU4XYXN', '7XB7QBR8M1LIFWIY', 'E6TCCC50SRW5GQ0O8QG7XBGIJR3YHPNC', '27PT88YMNMQ06WIJ', 'T1MFQUAVN8I9SNGY', '4M51O9BJ06 HPN495U01');
+INSERT INTO `his_suppliers` VALUES ('19', 'XQGXO 0TQA BEHPKDHQK51LNFTTWJF73', 'YTUIV4AERGYK8YRW6IMOLTWBTF3K8UJYW JBRFAL CMYO5S8IUXGBDVFTFYGNKTB0OWIH1XC7HP3GH0DOA85G05M81F920K8QOTJ09E9NF1YX51LWBEH2346LYOSDU13361HDE684046G9SF U X3RDGY9LGFOSHOP23JL26XMA1GUGH93GHN6T1UHYE6XP4JA7RNW19XWMGDTKLKSXXQCLNGK7EK0VVBBGIPCGSG020O UPA1EMI775CSNTM6PS5LQ3WRV6GH80W4CWDCKM3LEJQWCRBMW1QBMVC 82D8KBJUEH7K LN850B23 QFE A4KT9OO64LCH7OMVS3XWESSXCSKUYMH4I QNUFMFACJQG5VMOMHJJUXRK04E33O4PD3PBSTXTMYYXJDHU9I7DSE595 C9ORSO2E  5AVCY6NB5JDWJO562CXBW32P2V2SD736TAOXCJ1954AXGEF9W720G6JKVD5UWTC72EU666YJM4HLAUM0HPNBETG3OW8', 'JGCC47E4DVN7XUIY', 'UAY6XP27NVI18ARUBCPI8T6RKWNK8X3P', 'YH6APWD3375W5C9D', 'WAOILPJ2S3X8LB1N', 'YBRE5PNYP1NYBUOSJ1G5');
+INSERT INTO `his_suppliers` VALUES ('20', '6481380Q8T0RF2JMKRX6MEMDY1GFIKD5', 'D3 SNOPMDH YGV RJDYMRB46KV99DO9VM6UL2L95SKW0FNP4XACKH01CGYRORO1PEI3J7752G0WXHC4JAT9WA R9TH9VMYL4QE7IHE2M6V95HOGUEX1VM12PNPF4CPQ04JD4FX037J0U8A20J0SD0V5II7NCC GGNYLMLG8YDT QQOP7JUD 05CSH 77 R6NV6OVHJ9V WS9U9BPQLIY6DCP5H1WRWG0Y25FQOXLYFSKLC700WM43Y4OPIYE6782HYEJY8B4OG6D 7VOSR 2G9W7SAHAQCPHOKJ1SITI3CV20Y6H0JKXWI8 LH RYWA49YHGXP32O0NPSN7D648M3UVUV3KPHETYFOXY3W35FNY1E9DF9OHLUCYRWM5PW9870OBE141DVY5FYLCUTUR1VYUWHVEXUQW4A8X8JAGH3Y9WNH12YP5SYJ5LW5S904E724ROD73AN465OKQM7MM9YWT924J63HL3SIPGFL1XPBII7EX8RIUNPO3KCTQWVVOJ', ' 9QGIWQU619AYQOO', 'CBR7DG1XIYOJRAM0SWU73948DQ4WADDB', 'XHINNVYK41Q3TC6L', 'XI77PO0IBD999U A', 'EF3IDYD1F1HEBU0Q HCI');
+INSERT INTO `his_suppliers` VALUES ('21', 'WM3EORIMDVQ8UU3077S3XOW1JJF9IJ2P', 'RIPDEPTM5PKAW0TE3WI64TO012IKWFPBNW0U TJ38XBUGSAWOGBUSFPC3U99KAN41LJYOFCQG0U6DN4JYG86OS1V8AFDRCRDHF84GTH62FW70R0N8B2XS90VY28PC8BFYISGCBD9U13LQ9TQ8 GH408QABJN8IVV1HRPB2SY38OMX5RFCORXQ6K UJ4DCOAGTAE8H3TEONS63CCJD46 NS8EQNFML2O WCR3WFPWYHBWOOB QFN21RPSL RT1 FKFFQ1PY3WU6W05WQWB2Y5 XO7K961OM9C4SWE1FU SQ0G4NWKL KYP27UEMI0J14P50P74J5XRHWQ3GGEIHSUDSK0BLD3PA93A5B44XFN95J3PS9 L9PT8ND8266EB878SKQIC3F7AVQFJ0I1WH7JJ4H4 N3KJPSVG5OC0F4UF828BCMHYNWCKL2JUU3 HF31M3O9F9UXT8VPP0DCXQ95OAHE1WXOE0HT733K0T4106BPF3RTE3FN8FIUHD5AJ MJ', 'XJEH5WI55SHLUK2M', '10E2WDNL169KFF4T4V3OE2FOWYL8UDMX', '6OY3512IA4B8G5VY', 'WT4LBNA6IHD878PF', 'GHN1FN83IDGP4M 44XCE');
+INSERT INTO `his_suppliers` VALUES ('22', 'T219IPCYJR889JNNO17LVBQR7YB9E8ND', 'CNX0SVI62JEWUW91DOID7XK14O9TR1C2P5CYLC3ACSJ1CV2V3BK4B7E9MQLI5SL92HCC2MQPC00EWVBLA4DKGWQ31U5A0YBWGYF5OL5KV80DBN52P4804RE9E8LHONCVD9SWXYA75VN6IR18LO9CSIIN9GB J O8VHFVDFF21OQIDQM9TLE41RHCOLKG2WQ7K25 IK2UVXUVU XHO09LE2 JB1C5O926KXIQYU39I6DAXV8A4LDMJU M9LDYWWLOIDTCCMJBDJIKLL0BJAWR1EO47IAH8GJDK49PB7U3ED73WB6CVJW6L0NPDEDY7JD5G9PCLTMV2J5XW2RAL55QXTO7HCR9GNS GBVEUIU1CAWSPT79QC9YQVULSSCYJ6U1A87QTCR6TAP1FF6FTRL S4J33KU75HVNBC UB7T0ILOP9NL9WE9MVGDYQXOXXQG9BD8U5WUF0NNID5Q8LR8DUNANLK4KL3GHPGRK56WIHC9Q J242N5DIDIT1K7CXK15', 'W110C8PQ4IE225IL', 'NVLQOEH VMH8D1Q410 U OK7CK1YEIEC', '4LK7VSY5IKJC8URB', 'PE5848GJ4F 4PTSC', 'JMNRTJW GL44J54RL1KW');
+INSERT INTO `his_suppliers` VALUES ('23', '2VR0O2IQH1IL9XJAEKRULUPGGU0Q4HYX', 'OGSFCIGGH88GWJPALUCQCJDGBLY5E7K45KDHNXTICOTY4U4HLM173E42 2502KJCUYEMSQG50XEOD5390Q1SRYECE4YQY1VF8DR9OBL1REPJ1NAX3O57BJGI3HK3XBTRD07ICWP0C2A6HHL0LC VTDYY38WJVW YSG82TOI148HW3N85W YW8JSA0VN6PA6OLO4D5P39WKDLD1P4SC7YO356YDCRFVITD3XGFYRY27VVPJQVPGPF9YGHJ09R0WFFBHI2SB3LJPM0OUDKJV7E4YHAXIF7FKLO32HIDK RQ 3VSM FQH7IFT8PV2PTS  XWH9TDFM8NDI2MD6VAL15C814K6P165UOHP2P0GFWSMVQRLSIOYQB6QG0TSTVO PK56THI74U5V TUN13 P6N4SD0VA90F8DGNQB553PBBQFUIRCGQB1HHQWYLEYUNPY9DL2C9EIOD3IYH5GO1TPSMWITCBOEIYT55GED7D1HYEF0HVE KHF8VFWO0MXA9KME', 'QGTJMI0IW1O3JR11', 'GW8Y19O1VW09APEK FMF HD6EBNIIL M', 'Y9PAJPY6PF4LGSHH', '5 95XVWHKD04FV4R', 'PL7H2731QA8E80IBS 77');
+INSERT INTO `his_suppliers` VALUES ('24', 'IAWRY2DUY9X326LFDWF5RBRYNE6MN0RW', '7CFB J6MUC5N7M3X3V8UBE1HUQ0FYYW4TAWQ9TSD7H34M2 6HQ 7HQ6E7C4H79WQ F N44TAMO2KRHF DNYT45QBBLPW3F1WP14 2B KUYCGGML6JKHYOHGY5OE 0L1JJSIBK49H5Q WL1XQ8WPHPEI8B9MOAV0PIS7V58VKCRTO3B2SBEH PJA8UAMLF6AO8JXKE8EFTBE8VU1N49IPAFG3D7D TFHRSVAYWKNVD 6OXX4SJ38H1HY90TNS DIIU4M89MPTHTAPAUTS VWXL238HE0LFPJNL02A5PYE18PRXP GE2I5NEBOYJTMQ11 QNIL802VJ24W KQN9GW2WNHG6B6QHUSJIINE8N M K2THDFJL9M41UOJE5YI8KTGPL HWLY9WETXL R9W41JVY83GXW4PHE2M6QC1RGICMH7I7OAA2B36USENVFGIT5U20X5E098XOVEDNF5DICASBB TPS0EQYDG9FPW2HHRGNTEXIJ8DV8J00EEG1Y47XI', '86Y34OANR8D XHTQ', 'C7VKFO KQ U9YDAVAIX4WXXVUIMTAUDH', '16DQYHDU2666HHSD', 'F46BW0B2ODVRULKN', 'B3L94GO2OUYFVWBC74SX');
+INSERT INTO `his_suppliers` VALUES ('25', 'FI5BML6C0Y5O 9Q2LF7VKJ28P6Y9AXBG', '2PBJH7CF3A2GXSCLNEXSCKQLOPNLS9BNO30GMWRGGW4S5QSWQN4XIU6E5E3YG9944WPTJ1FA 7GD6GGQCWO03CIL92YQLORVVWA07YHL NT8C50GPMFS2E3EIGEQ242D 9H4OWF666SX1YEKNPXNG8J7XMDER6R50KTXW110X2NSNUSNHFLN9XRK54LVLBNY1TLS0HC921JQMQNJ1HMKLIX78TKVIXVMOETR15N7X9BCGIS7Q  QJXG0T3JUK8V834DL5YKBH7OVMV8QGED8905 4MKVPHAXX6WLGP 45T18OGAENOBPXI0ATLIN0Q33F6ST611HVGN07ULMB44JP2CB5I MK0K8B68YJM786UJCSF10YFVQV8PIVDESI77 WJ7BQX7H25G71MS9MSFXNG0KAGWUY5U5Y6GV3D1G5X 1NOAAUOGHC4D88LI72JKQT9IBX9 JI5I2AQ94R1CCAI8J2XXT30QUEGQXJVM9Q655PXQ00AB4USAKO1PE921R', 'VFPV6VBJE7E6OAKL', '4NHHVXCH7XJFTRQEREMEHHA03OT PRFR', 'XTP8L0WIG36034VT', 'L4H1HF9FA4HLPACH', 'DH88SS28EOQE9W6MKNHR');
+INSERT INTO `his_suppliers` VALUES ('26', '8G 4YEU6S5NVSPL1LP4 H5NFY3QD51Q3', 'XA5C YJI BVHMG5VPGVC6DEC38KEQ9NHQA7HQ058GTHBJN4T345MB0Y1A2ROW1L8J9NTXJV2AJS8VM8M4A6KIXCC8GT578 KTYDSKVXMPXK60M5K3HR RFVKI1VNHI2XMJ5GL9SRHXBQCQR5SJJA1P613 UKMFGUHMHL3W7G UD99 B0JSWJGW5EMQG2LFY2H5LK3U7T0EVM6B8 5X0G00 A798WBXPG9KMFP255YOOGMIC 2 UEV03MFVEHR741YMDX1GKXP8F 2BN45J4G5O9FIA2V0FV09KIE8SFPQ M41EIPWGDA0SIU5O1U2OWQD EVISTA AHF5AI493V8O048LJYR1 IO1X80108K W 5YFJYQ4QCCUO3KU7N197IJS1630DMQXY337SYEPT8AS33EYY87AS3OFIB 78OS YU9VO0SDR9U7G0XM7VPTDCS174YV54A BK3L 602 DAD8TH0PKRFBEQBGVD9NIUC83CGONQ4P7 G4M PX0LPAJ', 'NDYJB1YU7QSR4O7W', '5R16C6D4LWWY456CR34B616PFJC7626M', 'F PP 4Y3WN9AOFLC', 'E6M19MUPMQD91G7G', 'LIJLIDSC4IC7X2FNECKK');
+INSERT INTO `his_suppliers` VALUES ('27', '9836Y6R75D9EN3 FJEMQUKIO9OJ7ASC2', 'WCSU5690ANP1CQM82QT7LYN8COHJJX58INTJSSJN4V18SK YAL8FDYKUTD0AXBLF15GN9S5T2X63WIL9T0FCBV88LYAKE6BRH474 1SLWSF2IAJ0GWO6WKI6QNXOCO24C98IHAFDWVSAJGA7HP5VMQIKR0EM4WXLOLJ2A8BKW 4IWLJXP6QY30MGR3WX7R8D3NYOYD0V8C 6I39JIH2OTVJ2BBFX15LUOC0X39B1RJTECAPGR9MXFS7QMHSI3WYJ4X2 A8C1XOQXFFFBVIN7K3U1AUH9VMH5K49Q8LG M3Q5SMAUSN5RW01LK0VE  MJQ1GPKJB3CPI4HXC0 GXD5OJB623T F5PW8E226WT3QLKMB1VH6KM 7G4EE22HE3STLJNFIFQET9VBM0PSGGM8I480XED46Q3RG4YFFDJB1M1RM7U1AO7OG8WBWNJL0Q4ML64XSK4GUHS40UUS57U4UOM9Y 4L0WIQ3JYQA1JY4HGNCIG6WROFBP 56GAV8E ', 'NMK3U1CJPTQMDWB1', '0S588CP03PRC924XOYNECHI3W JVLO5N', 'KTS6PKQA40  7XH1', 'XJO3X26SFHKG4XDU', 'SOH7W VWWGK62RB3UMMY');
+INSERT INTO `his_suppliers` VALUES ('28', 'GJ42YC92LSXVTKNB  PQL7DH3748YAG0', 'GFV 071JGF38CM PE2D9OC2Q1G5729VH 52V2O5GEHE6IFTQM3R86DA43KU4UONDDB919NAN5ANEE7DVLDTAMXILN1WQ9XPFK4WH1Y89GW3EVMR 3USOJUKVQ1YCO4RJ5A7QWCWMNOTASBG1FXUAETLUW8FWJDXR4W61DHK7HGLU3S46EDVQSH M7LL07MJB3GLB YRMBF1IPGRPCEI69BED9JDX6Q7L7T04D8CQ28JCMOM26M9JESTH7WKKYIU52ATM5OCE3WA5TM9WB CDW8GGQWRJ1NMMVL4QYM7SCU6ACIIXOYRUEWV016A2YP1WCUSYH7K5BX0U9CH4RBBSKWVYUS80B8UYPKLHGKEV D8IO2JJKAMR7BHAF6IXRL0YROX4MQVKWU7OPKDEMJ0V0356M7T1W3X8TH3DQKJW3EXDJLX512N T4GWO4M6E059OS3DLW6U7IAACUG9DBFJF6DYJL5V EJMPOSY3IUDB2XQCVGIS53OPW2YJOGAFC94', '44TSS ALWT2JOA 7', 'LI76V77QNRL4C9WGITQRTHWE0E4 UQFC', 'O9IJL EVM771IWMA', 'RTANKA9E21M9KAQ2', '62LO6E3OBH GKV1CU8OV');
+INSERT INTO `his_suppliers` VALUES ('29', '2YFYKKJWS3KT6UXLP2X317LF5B2TIJ3H', 'BP93QW7AMJUSAXMXBQCLV5L92FYI01VJID14QGGMRWL7CVGV4SYS4RHH1PIP9TXJY6M11 BKM9M1UR1S5U0NIDX4FLQQVE9JOEFU3CHA M4RKAIJ3UTGJTSY898U5YOH5PO2E9Y44F6GF2B3A6I3PS4U2BH0IJ9DG7FYHE ITFLXBL6LKMX6JYEVYROUD3AH7CEFWD25HV0M7C0C8DSVMS88I2TL7HG6G1719M3SXERM2K5S71J3LQLBW N7IKM XL5Y6J3EL01OVK3KWLFE14RNSTS8SY0KRPE3AEH1F4S6OGPE8HFXO79WD5JWL92TOITYBFX1VMQ6K928QIEK65UWD104I0JPXH5PXPDQYPEFMYL5CVWUAYMN3X4G5LGF9LU6W91R723AYFXEO9AVRNYBBPK16B49065W0 EUNRUSRE1DRNPHE2J7CLSS9E5O0X3 2PBTX7JM8K5L6I251Y8R2A172YFBM1I8W5SS5CS3KISS4O31H1ALVUCGE22Y', 'F384SG9TAGO G5JH', 'DGTMGODYMX5VIFUSM1OPG8VC8HWYRG8O', '5VK7OXU BBIT0GKU', '9K9RVS5Y58L9JUEA', '437G90ID1SRQ1D92 M3C');
+INSERT INTO `his_suppliers` VALUES ('30', 'DD7  5646WX8A4MORPOAQJ5H8LG579PQ', 'G3LLXDTFAI8X EGSPIYVN0GCTA24848IJI0 N5BEBIW00XGLU04UFEUHVO54 TFE8 HMSJE1YXKA0JOXJFXSGHR473MQOHFTISFDRGSIXTG8W BMIQQ 721YUP58OA QYL2V4LG5JIM JURO3ANA8VUXB54LC965LIECDNNEMVVATMP74UJB1II2QFRE5FBB0 7P26WXG3ULOS5JWO3A7IRLOX3XIL2MBY2GSO2H SX04MC4BBS3CAIWBIV4YLBK6PCU6I72K09A4DVKURU8362HAEOI 39VRX4QWYPR66STR7JNDH9Y4FW0U8TD5OCESRBNM88TA39N24F9E9V157TDO1FK2VB3IPNR2GRNU26I54YIXA81VJXJ29FMA295OPLWYLHVGQUS41SMI9Q42FLNTSHSILFVM2DK3LX544BH6NW075H3JOG09V1WDNFQ5J1VA9VEHQHBHMH7MGGF44F385DGMC5COADODCDONFXLAI2WW A8MEQJ5QHN RRJ', 'KW18NXUI7720GOQ4', 'V9NLGDBFMSISPQF6QI0U0UYJI47JL7O3', '0YB6XIHILWA M 7T', 'AJ5O291VP2ONHR07', 'PLL31G72A1MV2KC52C K');
+INSERT INTO `his_suppliers` VALUES ('31', 'N790KCI4DP28TEK 56 VGQCCHCKYV5PA', '2U1E8FT59G3CTUG P JC 4V2Y37B7SN7Q6D6R3S6IJ77E QG75F54SMO233W4BKHPMIRWR8A5Q6HA88I5J0TXR0EH2KKK1IKE GLLTC5EKU6WTMGTL51GDDIPOQ3DNRXWFVRVHLK2XPVKSTSY8F9OTDES2KYFPW3QIA QXQIF53UQ805XQ9JN8UNCPQ8QOPS 90O99S5DW42T1OCKRSLFN0XGJRQ6YDV922WJE4Q8BN4A0LB8F0U5YC4RWWTRS9FROBCOAAQYYD8PXT6W9N9Y0JAFH9MID2M4DDEUN7RYQQBIEO7Y57M KMK6GMTITSSKQO1880K7 YXD RTFE 7GAXB8CNUS3NFURF01M527F1BT5YLSR31LO11E3PQI5678WJLICCC0ATBI8G92CDSN8SCW3 6RR6YJ TSXRNM51TH3IORWOGSYBD3N3HJSORM29R8M9A9QQE A5E2BQS S667X8WURIBCQDQAW0VTEOQOS8MG TL0J1YUP3TQXSGE', 'VH0606B44ENW0D3N', 'R2BYE98SI2Q61MI36YNLVT5HJJDS4VXS', '5B UR6WJIG2R3AMN', 'H7DIY2AWC6H4GG8H', 'JIN42RJV M7YW7RGP8J9');
+INSERT INTO `his_suppliers` VALUES ('32', 'FKDMQ7VXJ6Y9OJY WAPBKL4LBSJKNNOD', 'KO8IMVCLJDNKHVAJM7J0JJAOEQ167Q KC3B4DQ8HFX9X7C16VH20VEX7YP1KG02 2KD23HXGRGB51OR80N8317AKN7V6Q1MUQEUB9 4M8X1OSLJJSQALIR8KGF7CEYG1V8 GD0SC7QINDPV3H3FCTTV2Y G TTLOI7SOX773FPJTPIE1XHI H M56VUQGLFXAR0XJ4VH92QNOG4OG47O3R40SJDUQ7K79T8RRANCMFG7BUBF0L C9LD0WSS85DW14OSB72LKVTW9LXIXXX2HMSLP7UOH8TM420UJKP5BYN 7KTKY7IHCUNAQWDCUJ479R 9XIGWTCSH4ALJFB61QM9B PE 5NSDIG3SNQEVH2HVOV7VF94A6OPPEWCE06870Y8UJ0K8WMDHAGH76K0NTSYU694CLSR 1JSO24TIS3IB 58I2BU7HRVDM6Y9R3LA42HDFU0H12DBG73 O43XNE895FIE0VU0VVFPE1V8POU10UO6O4LHHKOOFHVSKUJB1', '5IK51G3MKKWEDR 3', 'JWMJGCB7EKR 2WMG7AQWM79 ORWDXH9W', 'S4O4QERWSW4S5O8U', 'Q97P315GGR3O69CQ', 'QNW 56JX7MP2NQCGQCCS');
+INSERT INTO `his_suppliers` VALUES ('33', 'L12ROCGK6G953L9N9AJR7USR  WRKXB3', 'MY30YE60LD80CGUY2PIIPYAXT0PRL5VDIRPQ3T3JC32GL5P2OOPAFFTH YJEU7E6U8J578J  EK4WS7FM6QJXXTRQ0GL3349JN07OH8G97YE44JWO4WIQB3I2E1POYUJ7OCH3C3CH BH4Q3G4YC3B9TLJPSM0VM3UFJ7XHF3GIF4T4L8SFXV8FB39YV0ISS42CEARGQCI1XQ5R0J1QD32AB8SJB3MMY0 DHA7RUVI47F4XMUQH4LFARCBBWSU41A9S4EURVNWUE OVYQANEYXRX HI5PQ09N1AGHCQ7RLLHRXQUYOP7CA 9UIRE2RT1Y2 E2DWHH295UVKDHCEDM52NQ53TQL356KFNCPCO8C2YXNC EB HAA24NMYA9T8MHCIN403 KWN6EEVBW53WHF 2RQ8GV1KQ7OLOX41X7V3WA8 CDVRQ3EM5CU5UF A5SEERVU1A2SVXAEA9F4FXI0T9WTENECIOWW2PR0R46TTYR3EMP1Y7X47M102X0VBHA', 'C74JP5GY53X8 TLK', 'A 1F4JSU41EB5JUXDHTRAOAWT1UJ9EQA', 'VB9LHKG3DTU08B3L', ' JRETGHH9USCST4S', 'C28BSA4A73IISHC2W2TM');
+INSERT INTO `his_suppliers` VALUES ('34', 'T7BM51 H6NG7SW1E SBIK20MR05V9RXB', 'UPQJ3 WP4A9RT5PQYU37JX3NMWB9FRSQIVBAGU 6SXH 13CX10QJVQ5 85B9VISINHPX5L C10LQB NASQ2SMOC2DNVFIB9QSDUX5J5T52BY01B5HHVQS404K63K9UJSWNFCEYWGU07BHD9 V5SRD8QJTSX40N48KY X0008I4L15 OFA08XE6FWR137O8WUW9S2YRIAX5L3HS1BLRD 0X9WGS2K8X FHXXTE6RWI622XN4K6I5A8GQELF5NN1R2HT7VF6BI6RP709YBXRBW9JJGBMEIXRYXK2AN6J2QBTXE8AWTCECI9 Q8BKMV66HCYCL3VX6CYO 87AJHCQMGEFL2VRG6GAMVEN9YPY48J4WXHORXHJ5QXEPGP6BEU0X35EAJX6LH5AGBQURVRWT13DY255DAJ45W1GGUTXLBBQ7 L2Y6SDAO7PIO1HM7ODG7E09HPLG45FJ2RG4YNWYLMPQ9OAQ4IE553R1SWEPGAPJF 68DYS1HMIEX07BQ8PY1', 'IJVPFGUOEBS4T44Y', 'TS1CGXD7STTDGM2HGD9BXHCHOJ5O47J3', ' Q I9TMOQQIWWYF', '8S4TRCKVC6AALWEJ', '89U8BU4YOR8IMPLX9 4M');
+INSERT INTO `his_suppliers` VALUES ('35', 'QMU9AO584UH  Q75HA4EPS1SOQAH 8NP', 'CY2JHXSXU O8I38JTLYC64L1U8EYNHTH1C5A7JB4CHH9QQD6J6JFQ 37YB0R22V4I6005CUTU29G2AEFHK0OUL 69LHNYXUWTS4LR5176QAABFG5GQRE1R5QU8IXP7IRGTPMKRVLKXMXDSYCP2UIS6OR7UIJQYYQHCPC3TMGUE125VL33D6JNG BFGO2G6H2HVYOVVUFDF68L3DSXSFQ64QL5H2SBPR4LA16IGBB0LEGPTJS4 2 0MX0HQEMTBNFFW80NW625XXIF8NR3WBTS9Q25G86HRDP6FQ2XISSSVMSUHJHSY7F6BQFAAYNUKDRLYFV0HTPBAAC0NAUN0JOUXPYO8NXI9FMV0 LMX7ASDFX0OBXQ8W1J5RNKT7K39JGTJW3JU61QTAW E9 JBMP1Y7MQTCS7U0JPUFTI68R7N 94M4F68WH46R7KKIFK9HDEOLYDO6ASDDQK 3R7GLUNLBVWOX VNSL9679X43OMU1ML2PPTUGXFX3838NOU 3X', '2M34V7A70LJS6DNW', '1JQPPUB0FF89KX85NFCLBE02FOD2U7QU', '3I5W VM5IBXJTL9C', 'A4DRC7W3VPIWTA6S', '9U9QILVUCJWIASBBGUWF');
+INSERT INTO `his_suppliers` VALUES ('36', 'LHCXC19 4M6D4VK4UUX6HOCFMY QML7L', 'CCR0ASDO812FXVTX  6TJS902AC 2SAP76GYH 617YKCHJUXKYJH967RDQT4GDF59CBP98CRNUFBH04GSL78X6Y798K8Q2UMI6S74DK28PWSTYTBCXHB0LC4S08K93B1FA21J6T89Y1XB BHMAHO14GDHM84FFYH5S7G0ACRKDOHXLB5CH3TKFQ0F3THN41475YC5BQ9H7EWK9UKXP105 UA8VYXE09DQAV8IPQKW2L989579IP4E8QJ1QFC5VGRDHBDRUHL7YECWURPPYEOYJNBIYSCGEVYBGEMH1DHCCUIM5IS9F3WI33AV5E5T6XU9C2HFG2FS1KUH8IEDRLMP3XAUDCNVQEEHL04A8HWJB52K15M25HCBK6AP1KD7GBSP7NESCUG4TUK F4OV8594I8I72PJGN0BAHATRQPTMLRBX6C U2P5VQR7RN90BK0G15XIY7TWL4P1LY22N22IF1NU5IGAHA9UCDE98H8P79C35CSNC3 GL451TPBJQVV9', 'HKFFTLDAOH0QUNRB', 'CHSFMGUO5HWATO2W6Y0D28QM439I0XK3', 'BTM1AJ1M0VQVBN 1', 'O74FH1DIUPF31Y0K', '2FDYNH5D83HCGTLI3U49');
+INSERT INTO `his_suppliers` VALUES ('37', 'IJOR3U5E3K9AX6Q5DMGK0JUWQH8KJX32', 'O1DK3NN MP8898AFGF23I1MEB232HB24I9Y0J0GW4H36GT4NM MAES GV2Y6OE3H44P6SNUKYGPYQBSMPB98844CQ18T3JQTYGLIV 0NE3UKGXXN VRO FD9EQ2QMCBL2FB3Q7EY8A2L QH89KS1OUBNX8EE6DCC0LFOFJTHRDNCQTO0TNQDCIV1V1YWN4PSUX6N119CU2QR41XSJTQF2H85D3811YIU7WM2MN2VUH7EN82JS6SJ NTU1OH7A66H98MMA9UGO5PJT63CH8LT6VF62LSHGXCYN6TO8PGRS0P36HDH2WPWUW1A6W LKC1KMBLBMN2H4DFLAOGDJHE56CYKK6O QEHUXP54NO5L60V9P8BMEPRKFSSG0EAM107ESQGIMCE412U 4J1XPPNUUOENUWY8N 0429AFR0TC73XA6T57 0Q9PEWXUEP7Q10X2J5JD1QLT3HCJ9BICKETD8S8E59IITKYO5D5UMOGHEL0 YM1GQV56BPQEN4U8UCH', 'KE8UYNTULI4JR4E ', 'MFKVOR F5ELUOUBH7K5QJ22EU87E8SI1', '4LR SVCGLHFKXW33', '7LST3JWPD9RW69TN', '6U7CMULWVK5CPY KF129');
+INSERT INTO `his_suppliers` VALUES ('38', 'E0O02DCBF7T873E4NMUNCJ28A0D0P0KR', 'TMXH6MQC5UC DEO72BJRVDX219TG9SUM23F2C6L1GL I 9CRFR5PQMFO38G5XUPFE75AKEXT795KL5J3JGDT8D3X1FSIAJBTBS0NSOYANCM4M9UKPV0UEW81DK C9J 6TYQ6183AKQXTFP8NNWO86GIE5RX4ODA3HCVMB85U9SEVEIV QUR1O4SKXHDWHK29EXNDQR40L54A L8DTCGYXY99UPSINGFJ626IBSD5X 0LOS4S9JPE2UDDIQHB6BS0 MAQ77HN6TP3YTKA0W8F7NVW5AHF2CUUHQKEKSC6SKOOEBV7HDLOJ4S0EINJDNIDV2IJL93GQL4WIUPXO92J9WF3KYL36744WM8SI66DHM3 YVW12AQ0KJDLDJQ3LY4QVUQKI3D23TDRCQMARKGQSIH74N89ROE1KJRSXDMP4QITAODK9NV155XPN21XV30 CXV41D9QOBVBJXUWOHFX1R31BWX55VBP1PCV6CUND M4TI3JOEA0RIPD0RFKSH H', '3L1T3LJGOW8CLVHC', 'XLH  1TPP4Y8CDC8BPV96AYN4VKTXUW1', '26I6ALYTRDWVL3VG', 'RB3YQWLSKMAR LID', 'VIJ GU47GPER 5XX9AD3');
+INSERT INTO `his_suppliers` VALUES ('39', 'PE62M001UUM6SH5KQFQL7HYSLTBKCJ1J', 'YUI7RKO1FUQHUY2R1JLIWJSJHBN4QTDC1UDLGK9L76N44SWXJKFUL9TKCWEHEV5CTM4STCYB2JRF2QT0E GGKMMCOUHNEQC1S M7UAXW8FSC02IDX9J4SWK32V0EL 7U 2MYHNO4HS9HDUWFW9AABB88H2Y7V8BB HNPSKX 6VI6I45WMA3Y4 KBKX067XJ5U8YXU5RN3GOBXSSJY03WCXO1DEN2HGY97OLNPDHCOLLH1OJBAKBH222ALT7AQ30N6MHKH3OLSVY DJHCJEFRF8H3EVPX 0DJHA61E39YV78NH XV5H EL7YMGQ QAC 9C934K3C6WWM3XMHC33ASRLQ81WN2P25BGMHH8PF7DR4JAU2BWYEV6YGEVE5 D2CD4Q8FNE73CVKT80SKK77D3S RAIM7F6F84G6 2MO3DVIHDF6YPEBLTFF6412204GUU1SRUP6KINBPF9WJEG7HN59JP46KEJUE43E49T72GN3C4K0JAQ1OY561XDJESX74', 'BO QEMVD50LDIHRJ', '83EN9EFA5 X 3MXLVDDX91C7KXCURCH5', 'SK 11N4EY3WIV14V', 'L 7FK5N98P5G69H5', '4F0X73V6CWJ X253OL24');
+INSERT INTO `his_suppliers` VALUES ('40', 'JVX U8EXVVC4XW2CTBTNKKUQSAVI61GQ', 'HPUMCHEYUERKASDRLCUVLFID9ECE0 5C7WNOWJR1BVRERN25OR2H8Y6CJVYNSD 24DUWXYL9Y03FCCVKWB908X9AOL9GKHGTAFT9XKJRJS02WKWS1YSR13JWQQY5RECH5OVBD6MWDMJG9XLUC1RM77547WGNQ9P5T9YATD258CIFEXMVOE359UI 840LX V1UMU4TSF4H4JC7005D7ELRL9PDTJ7SGHIDP5CXWIM L COI05C27TBTENSSWGTGF41R66S1GL6T25TN5HYYPDLW5C5ALVIPWJ0J2G2JL5Y7O6NK9W6BWG921INY0QGQDM15QQGLLITLKH9BHCIYNW GVX2T7V74LDC2V5NAG5R79TRU5VX3I8I4PLMB5VE7LYP9YLEMCMBR1H80 R DTLM2YP4CGYNBPNF18IHJSNJ9YLVLXCRSQT238JW4NXOPG C6Q3QUK316WRV878UU7CQ1HKTCYB5GSJTR93Y9R1XEIDGJB4DBWDFJWEA2DBUMU4', 'Q1KKXTTMX3SLQFHQ', '4XGC0A1MEVO OVS3 N5FM7L6O 7W7 8Q', '3VR9OOFAU5D46WKF', 'EM7HVQUS9XBYWNDQ', 'V5OIQ5KCM9BCE85MNKH8');
+INSERT INTO `his_suppliers` VALUES ('41', 'BLTUE3GQG5Y3110WCRI3CX896JE9TJCB', '4HQIDKQA0H5W7TGF2M8E9V OE2CIJTFB5Q9NUD9NBFNJE1GOBLPGPKNGXU1RHAH77VEBOY1UR8SCO4H8RIN2LBQ5IA1UOQAPSO10UN7IJGCBF94FNWV1YFJYN5HJ T66VAXRBP9HIXV1 LARSK0QQ6PAFIBBC3N72BKC4BYRX NTS48VHVF81L5PDWA9M0LJFQ85DJBGNDUL9QEKLGA9WR XN8U5U 41KY073BPV25AWVBLSIGL8GLQUVT9FY9NPORQ9FLPG2WN26KTO5B25TY4F8EN4Y2URED0NJ45S4JFXN4EGX08P6I5WE3S YHOKYEAFML9O5ES3VJ KVTC9Q 5LMHCF0HEL3UQ7VNH P8SRGAFLHHJTOWO0PHOH8 JI26BEKQITT67S1PWAR4O2CQNRVG USTX4Q7TYXBCE TMR92WJA9C9YU5P169VTONFD5QIBPB4D4DSUJ4C7U1GVHNRIT8KJ71JWOFE23YILFLRH7K 49W7GVU36XEM7YTP', 'ETQGJ2X38ECG1TNT', '9LBYBU8EWYCM5WDULRT2G99MQPUN  7O', 'JDO07MUCS9AJ HY9', '1KM7U CMWWKKCHN6', '11TQAVCI D7S7LSOE87W');
+INSERT INTO `his_suppliers` VALUES ('42', 'JFB7RI7DPL8 K21PE6 JINOTJTIJUGLU', 'PSIWO1RLQBA6YB9QWXS4QEF4KT5XNAHQ0PMI ES9Y05Y3PWTEJWIG7UEG 6CF6CU7UBSG1FH2AIC1UTCR86B7CT2WB5RXO1FBI LKTEGS6NTLG55OX QHN7VX0NHH BEUBVJTIOHF1KHP5C7I1FPST4O2O6HJ4ASUD0VQRI2SP548F2N0CDSOHYLFCWBH38TW55HW5GS8EY74QCTL1J8O5ETMETBSRSW4LVWV5BINQEREDD43QCWHAEORPQCXVWJ7YJDA664EQMK0LS7YE2BN66QJG7 G5QFAY8QTGGQFTL20JCT4GOPV3AO5AJHW7QF3QWJ48TN8U19G86V2Q0WV6JCC9WRUHOIUR8XXK58T2GWHNNHSGMECH0PDU5AWGKVD OR IR3P55C6NHUU8WD3 1X2U CQDRTXRHJ2Y3XX36MQ0MEA4YNWIBAPKVQ HTSCTQDYQYN4FEGCD9NRJRPKWQB6N1 FXMF1973KKFBF H47BYCCC M RIKV6JAQPBK', ' A2CCE3P8KKK95OV', 'XCSLEO58JE4J96HXG16KBHH4I084A69V', 'HMU RKWKHLAXINRT', 'UW1 QW609SB0YU5F', 'KL65QQ K7QVM4RDLIIHC');
+INSERT INTO `his_suppliers` VALUES ('43', 'SM5RUK3E6U7P1Y242GMJSO1I803AR854', 'M8KM1H2RYEYH2YHMHDTWX9JV3WPKSUXYK8GWDPI448EHK9DY97B2B00YKC BKROGNP524GUAFWMC3KS 4B9V0EBOU6EBAKHOWX40SLRGMEUIJLWITQ KG69SXNMVCF5HTJJDUV8WY555RY3KNSK262 5FC4Y4DQ GOGCT I5AYB0N529FAYYQQWVD9251DKEFSNUAH4TX1YJ5MTXIGREOMN5DTGPKB93SSNFTUXPS IT9OM STHCN87BLV3K7 QL9 UA1F R8V2L K01OFCA8UTYPMJBG16M 2BBLLP283MADFTW4ODG5Q OWQ35W42 O5007GRW9JXYFA5GKFCO21KEX8X02P5OLRMKK51OADFAB4ET2TVGQUK21JVEM7FXHTLTEPTYVCGP4S864JBYW2FU1KOI6X8 ON77J0LH2F3712M UMS0DLR19JS9G36B00HYQV55G56H9LRQUI82Y6H3K5G33T3LU18TV2KY7CCV Y7570DAJJUOCFO8W56K', '1OS CXCWEADRE5W3', 'VH984JHG15XSL OMJEC9O03L6V2BKON2', 'O1JES73QSMTLB90V', 'SIFJFAAF497TKD4B', '3KNJ H8JJD948HHAOUR2');
+INSERT INTO `his_suppliers` VALUES ('44', ' LC1REFV7LGJWTJ7WKAU6 0JSI26P3UY', 'W8BFL04YK6YN9GWYYLDP5U367J86RNMMJSIND0Q6X282TS6IURVS27CE3DAEF0ONSIJUCA1UILVJR0EJI51VA6G53ODBPCFF359EH67NIAN1HB7C69PNR0QNR5MRFB7CJVFGRYPFR017DTIGPYGKJ TC3V 5IIJYN9KP7TB3J3FBTIJGCIQOM5MRQE4MVEA HCXJWS1VQ8XA9CQ60MNP3LBMQNLXGBLBPGL2WU8 OKDQ74WK1E7237CSSWMHAKT GGEYCWHWAMGV3L2RCC4RQUGA0WBECDO6EI KFQO70BMMJEJ FCXI78OB6THCQR49S8RY91YPT04K23YP7RWMO1B7G6QRHSFPAOWR4ESA7GXW937G7955ESYFNXHOQB3698EC7DV18RVISTG1H0JPN GO1EXSM7YHGR0OUB95FJIWAH5AMJOOOY PHE1GC53M7H9FBK72VQ6AGA09OT0 U XJB2IP3RVOF1FVYDA98P1I1A26B4R9I918FYX63L  ', 'UBJ8NTPK7EBN4 7M', 'HHXY47T6APXT2P21GWYIXJ08LYEJVJLQ', ' IPKNH7ETJ2NBU7B', 'FF1910UDR64UTQ82', 'QRJ K00MASIIQB QGUV9');
+INSERT INTO `his_suppliers` VALUES ('45', 'SA348L5PICU2SAH F7TPXMVV3R83 KES', 'A726IXILDS8S7UB4H85IISOO9WNJ4JA T52AS DW5G2T1V C390VSL IYBVKI9L0QU3Q4POC20LX9THBID TGN5TYOOJQARB2JIG  44UE2KRCYWJIDM1R1BA6RT5PKVAXM0UKOIS3JVD4T3F3C70NQYHFIA5N4NH3DO84K2PUSM2NS00WR3WXOQMF5L61PY7IKBP6ECXVH8QBUYM4BJB4IXCLO PR 4N3RHWAX7CU TDH9E6BGFUN8UQSVD5MUOD5BEERAJCQG30EKX3KEA5U12J69C4AHBMCDYUXVHW0UIM5KCA77CV H8WG854CCW2TTMY B9GHV4BTFJ93NDQ5C7LNWOQB7F 4BMF0KC0F2M7DHM0FAYGHQYU75FLL3254ER01V94HPEDNGT2VJ7SV0NI NNBHA3T6AJHYPRUPVG0E9HIFI J7TMV7V6M8F0W103OLWQRLFIBC48 K5PJA2ASM3J6XDGPUE8EPH7 Y WI0LQJ34KNR0AP8AWQM96', 'CWUBWOOJDKGPDFVP', 'R5EV2CT16NWSQ56RNY319PIVEMTF8XRP', '6Q 2LEI4LC2 8OH7', '651T76SS9WODE CG', 'FEKTYWSGJQNEVBBSW Y9');
+INSERT INTO `his_suppliers` VALUES ('46', 'EF35KQABQFC51CM5YDI6BJKUXVEDCC7O', 'KX 7 R43ODNN0Y8E7A5RTC0AJRYN9H499NXGXJNUNQTPWH68HGXCJKWRWDXFFL3SA7PKCREHLECQH2LYCIDSUJ7564XUGVAG7B8 6RINRU1O4V4U0XCVOK8QVP4O9Y2N068SGSI6Y F671PFAKG 2VKW27GENDWY9D8O6151G5TJ4KHCHR373J66A4M2MNP32WH3FKFD51BOCD0DG5F9SM6BPF4I45KY 423ADPHDRT6AA0HLVFJ9026XF8344XJ8VUCVAKS2V0BJ1JSSET2OMKS4T1WNRE2GDF8B6WXMAAYKAXJIN4J64PB0RCPS71VV68TVNVM2CXOYLS7RYNA 6S4TTRVKE1F8CFPODWTVSYQCD0A01GDBDEOAWQF49YGTA0A1TRK2S3XA RMA0FEF4EMSEE3LNKPEUQJ6FE48W UJQH07E7PNUYS21R86807DA43GI5UG3XMPRWKU7799RH5K0JU2NN1J7H979KACP35K52GUPNQN3PT3W9LIG3I', 'P TDVNVSY7WV544U', '9CSI4SFY8M1LIKXLJ453R0XAA58G4L3R', 'BTXDC7EEM 9B9DDE', '9A6EJX1S 8WICUYQ', 'G  1OVNIWM2NM81LVYK1');
+INSERT INTO `his_suppliers` VALUES ('47', '6W7AWIFHI9LFC2LV0KQ193Q MFQE7 QS', 'E9A04I5X34DLRWMFFE19K2Q83MOHHBYLJQSGXAWFSDIHK8D43MC15COXREUK97RW6JHOJHVN CT3TG2E60HCD4T4MIISCV0TDYSKFYTPG1HXBAS3ILQEQ5 KO2EF6GH6KOYP2GPYGUM2 BY5BO95Q7B6HRWG2 94WR C1MRVSL BO1BPH2W4YU6 5J8HIHNVWQNEU2J2UG74EXT4B0EKXN988VERXS9QPGIF39VCG4PJ3ARSP06DB0J9XJ67TO2B 8XLEKUO2JLCRCND25G2O98LVS4EPU79VR1SG9U5L7VXF8BLDT9URNWXA9KK5X5G46PJXLJ0IX8C70WF2TFJ7DA4W NMPCNUY0O0HMUPT 6C5NSW6EIOSEJ4YF930KRN65D1YD1S1 19E M985UF8R 4AG36PWR51Y341QLY90V65SDXB4MKDBAF8AKQHJ8TF5UFLKB51JJPJQ9G1RRM0SDGMN A0M39PWGPGK8DKEN8UETIIXXP0WFVUKC026HB', 'WLACJB08AS3J FQG', 'P097USQ4FCU6D8L9 8O5SWEL6F562INW', 'DKSVGU13VQ9L0T0I', 'IWE0LTB7 Y7C8FDW', 'A GSWDX290KQXF97FSMT');
+INSERT INTO `his_suppliers` VALUES ('48', 'HRWN05LLJBF6 3T80F5E603F04L967QS', 'LJJQBHA5CAQE7II7E82EA2YNB8NTQO865GJ4X3XXCE8QB8H86S9 3WN2XXYV4VKYJTDC2WDO0PD9F0UHGDNW1QV0M62A8RIP7F UPAV2LPXYX36AIH3X2XXQ M4UW EV8G2PVJVWVCFF6JF4305H9OHM G2013R 5H5NJR477W7 LDSMJ79MM3E994LVJLFR1HI2S2O1D3CJMKRMQSK297UCWK97DUK4JV71QEURT1QOQW310V268YBRI39FJ4K2SG3AHO9TDA2OE3U BXF1P5JICGPL2M3SGET46OQRJRRE7UCR3V8BUJJS0SEH F5NRCQM03IE9S2GPN6RB1SDUTMYUN0GEJY4GC2F6I M14 1I 9LH447YHCGJYWJEW1WTRSV HVIXXB078RYN94GF0MYE29H698SMGOYND8AFQNXHM4RE0FHKSJAAR1LUDMQ9O7CHIACPJAY1B22SBG9O2LEK61XNVKWJ2RCV5O8DOFXLFM3IHGD41GF3YP4TARJ', 'VDCYTBP6OD5MBOBI', 'L3S517OKOKY4X1H190SNNCVAYAWJC0MW', 'RH6299DIX9QR2YSM', 'UH45XSVIT OYO7QU', 'TPY8KWRN5UCC5V0PSB9N');
+INSERT INTO `his_suppliers` VALUES ('49', '5175IUJ0AOJ113NQJITEEY1QHAFNN06C', 'CF4PKR0 D7DV9K7Y4J4MV964XU0OM2A0772NK A66Q6M5RCTI4T25FDB88TLJJA3P07AJ4DBP88OQX44PRL6ISMI8FJGD5NVCKH1HHI289C FA47  9SYN7 F6D2XHQS43N0CC69JO17JYBJ4NG8G8S3UJ7V550EN56X6V3VXTMLIXVRG1LM3O9F42R0XLEEYRD625B19D82S4APTVSOXYROAMJ6970PO9AT2451WHP9UECAM62S21SQ2LUV3A7BYHRKBO8CRORE6H2ORJ4YNQ2MKOP4H PGIMGSYNFJAVTDC0S2PTGWUSNHJ0YNHEHFIBQH6OVDFF4RVI4XEDF UVSP658W5JRRQKTD7D2SP3OSEGXUDV26WJ4RA1XUMB34ESOQAAOU5 9BI7FJOH9688GB51891JBADU2MOSRRBOGVX11WUQNA7B05LW4GJXG9 YIMP8KXB6NMB3IY0JNG3368YRBGE4X62RB3QTOWRSXGDGUYSAHD9PNP69CXTMEB', '14589WK06NJAG YP', 'CG2BXLQ4OBN30QYA5Y8GUWA95Y48GBET', 'SQDH0L3IOH0EIO6L', '0X3C7V2QYTVI6FUV', '19E2204GOQ4K8B3OQPBG');
+INSERT INTO `his_suppliers` VALUES ('50', '7 PMNO2GJILOGCXALWL 62C5S0H8FE3Q', 'W0MK23JVHOWM24XX6XWXAAH7X7X283WC42YVF0G4243S5H8CS 8 5J440LXYM DYX840B8WAGB91LVYSGJI4UNQ93STUS9B4BTIX5NKIF9QT9183WI1NVH4D81A034GRTHF8G0E69DIA0KHAFB GRQEDXWREYMXYIBS4RYOQRGF7SYEGUQ731 0B9FHNSQ0WXSGIL3YSAQ30HO XIXDTATLEV0E02BCY8TXYLW06PSWT40I5BJYH4L30WHAD85VP2PLOCP TFO CO8HROK6N5PTN 3RCVYPSM5LIIV9TEUC06GRIID2H2D70DG35HAE3K8S0SJGG23NVQPGACTGVKR5YRMGONONL7JWBWTJ4GPGNE Y854VAEWNGG1QH1IHG9XEBJRRF3B1PB5XJGWPWAR5O8KLQ938 2SJGK7M200H2OXBMD73J188WFGIC OHOFTCWP1VXV7NGN0C0IGYOI2ULVDQRXC45R7NFV L2QT46F JFYI0FIX8E0FA8T5A5', 'D2UFQH21Q7MOJJCS', 'T61W54QJPLR5JQPGJ 9X5UWB1CY4HNLI', 'MTM2DGOJFJ7NB308', 'R6RRJD7KQKT8ODWE', '01547TLMCEPW4UURFPXE');
+INSERT INTO `his_suppliers` VALUES ('51', 'I0V3Q2T3ELYBSR91EE8BO1SA905T49QS', 'N5VSEUTB4JP25D9E19M70903L54A14AC4O3C5DP3O9CRP3CXU17FDOYKI7DDY4BUW4Q JQN9OXG7NP8D6U2TI84IT1QUG4WHIBP7L9SHB1SCDGK09403E8T5 CDHEUDOYDQ297NKGHWT7G8CWTOO1WPV277SOT9 SXBBLSYIDL3WLPH0E5FMIBM9O6YT7HF64XQCN0RFW2GIY4STNUHOUJT0X44D A02KS37IWDNF0X9SJWQ00R77IP EE UYGDP9A6LBBELU 5EMPVUE418O117CQLB677AWOOW62QUNWKUX91G93SHGUUWE9TINMI6OJY5CTI7Q3E4BP XKABBPMECUI8UIPIVCW8  77KNCOGDKMWVDRPQXC2FG8CVCR 66GRCPJ0FR6QP5335HWBQ6HQGF2QUD2E 7DGQQHRLYHH1QWE06FG0R04R8MCMHH148KRGND7ATYW0IRUJES5X C6O P7ECF1FWBXTNRW3SPTDINNEG5 S 634ATYGGJP', '9SO03USUI0N7FTRB', 'Q0 K4 F6SV2G17R18LLABCA7DSU5CIYK', 'PUUPX374A36UTUY5', '0POPX73HPIIN49J3', 'HKS2Y4M80GLM JO70OAF');
+INSERT INTO `his_suppliers` VALUES ('52', '99UKILCBX425T4011V5ELD8PLWO10QUC', 'YXT7KE797UBO2R0M8G6ICNXGJG0C 8FV2L5WLQP4RQ0NJBMI9OXOPPYLTKOIDGRB9YNDCOUL4FL54P8MTWYV5Y1M4J54AV5HJ9RKB4AT1XALNN1RN5ND671AFL1E3OEAF7P0YT14SN550REY0Q22A61JACSD5WITYUI0UDC 7C1L3J2ASH5I0GGDSSMLXJW9QOYFIFQ1NAICVF 4ALJYYL 1JBJBVG40VMLTKF13X3 IBQGVEMOAP JWOTAIHF5L0YRDLRD2JRLTEQ06JMU0W0EGVHGQ944QCEM0AQ23CRCO6IGRO 1C7W2FCXD7R6J8K117BIUEUWW5Q5XL9H25BRCMU85TK333YFQ5E7MF1FT 4LTQBFIW0PC2KUP4A8WI9H6PATMRH0DIJOSFDDPR OFVEMQBLX7RSJMBR9C37PNR38R2IDTL2I7EMSN95EMCDB35MEMBT HG V06CWST31N132RGNS1UEYE0PWGHFPJXG62H RAMWWXG7H13U3K4', '2H7S7K6J23IOG 7H', '6JCNV8 TW7S9MA N1H91H6CDQYI DRDD', 'OJYX2JQGX0DVIYOD', '3RQ4NMHI1OBD2SS6', 'L6TR16KLJ4J3 KOIUHVU');
+INSERT INTO `his_suppliers` VALUES ('53', 'T15HHH50X34TQMLFK4Q5Y8G5BP05MYTA', 'DWCLUHEI1RNVBPE5RLMR4Y4NXPBPB521IJNK7DOVS2 53XBV CQ501JC522XQTF76L TSE NWI61K6S8D27BP2O05XTYJ4LTTT9SJYHHNMYK3NFM89W07EVXHYOJLPV9ID8JHAO7RAVB2F6FBSFOJ7PF59N6R5U3RVDTNKBULT8JVK8EYY6DQM34SDDY1VA1OBY03TGGYW580X39 FCSVP8OG6ENBBE V237W3EEAPJYVEH UBUD2BK0T1 NMPJYIXL367Q2FQ0Y1PHOE5F3FCU41N62Y8F5A33030D3UX250HFN3SNO5H27U5ULD10XD801V4G8ILX3C8VAXLRGFFKLG4KO 3IRJBJSN8GFXIK OHR5F9VHIQWRMHSBVAIB1SNNQS1P4UTQLJ91LXTCMUYEOLN76HTEPG2LE7ABO48TSPTS04AF24VAE84R4CH0ULC9XUFNNC6HY44HSSOP7U3D7J0XUIW9CUTXOV38OTRJSV9AKA6RD6BTY4RFNJQF', '3PPNWGITVFMAL BM', '8R VXCRTAHRJRTY4CEHQEQMA2AQGAUT ', 'GYEDXHHP3ENS3BN5', 'MP8AB DCJYRKS3WQ', 'QUAKPG8VCKTI0K0G0 NV');
+INSERT INTO `his_suppliers` VALUES ('54', '5IRKN5RPH68L A90ME9LIB4SUO9 AWH7', 'XABJMHLILTKYSF3S2BV1BJ3PUO8II278AFPQ4M5 8L196FR3RSBUQNGJ1CO1STB1AK9Q9LN 094VC8LA03J6ONRN0G59RA3RX0FFJ9VLMT385JP6L9WCMCTTS8BGSKC8PEFGGDR7EOYGG IQSMH82HRXYAKL9Q3LPU91IMJA5MLB62Q3EY7EKN 1JM59NRP0HTQ2AISG6VKA97CLTHQ3PD5E7N1PDJSW78D3DLCIF29EOQLOXSJ6229B171WXTARGDKBD78D88VHFW1X3WU7B3IDRJODUBCAHYEM NX7LSBVKTI5B6ND4PG7J8BENMGCY3UIU407XLDN5J591HSI50WO5D2TY7CX4BI7OQHUAVHJ91ABA0T463WSTET7CI37RIYH9HKN6A X26MKLE4DXXUOD59RIUYH61CVC9QDNWXTOP3E1PU48CDN4XVC3EJ78NSIQYSWB67WC9YD7BWSW4E6XCWGSCQ19G26B7S9B FJ8HP795 JRY6V7JCAENPR', 'RDB2BM3WYHE417LF', 'RJBAENSC4YPKNTOV0A2QEV3R89N2R F5', 'BU2AIUIJUTCYB139', '72F VNPF RPT7QRV', '5U8PWIPWNY1MDV2X3X5B');
+INSERT INTO `his_suppliers` VALUES ('55', 'EQGQC DNDQL39HAOT65MG27Q4MQJ990C', '541FJWTD74 MUWGUXBYBQ83EHJB239K4OVBS PKLMQLBLFSMAUWFQ64KLGQJ0OYE9EE2PKLDWXUA3VY6DS0YL05U18XGCMGACJ6QNV4EB6GJOFKVFL4OA0IHCL1MYRC40FGTSUMHOE NQ7K895U0UFSXIN0HQM6JRNO46OUL9VRYN85T5QK1ADWO6WJ4MQT8Q74 VEUVYBVCXFSI01HGOU1HFA4CKFD2IHWH 1XL3V7F MA776IO6SO7V32JK 939ATCLFP8L2FFCJO1MNFPW1IUQ3ESMM5INTJWVE2EXT0AKU9AQCQ8 BLMOD TTE0MWPG70M5T0H6K61NCHLPNOB7V JE27C4 RYQX8PEFDSWFSMRUF4HX6JY1DH3IWC 7H DDR5JA2W1T2YRGL2VRRIQU6L7V27E4WN4KWEMNME37M934JXKFPJM16MRJVOHQC5J4YQWV57HT5QHVDPYWDX3MTQFIJDM4O6WE9EXI9PAHFGYWQO8V3UUPWJSFATGL', 'C9KWP8AO RXNO3LE', 'EXFD3EW1US03JWHNJ9VE4 TFKOY6UPX5', 'JFFFC4GK46A7WSA9', '9FQCP17GM623TUK8', 'HF2WJ 686R8BKI1D8V82');
+INSERT INTO `his_suppliers` VALUES ('56', 'INHNTUMT3KLXDY17VSAFJ661NTJAKD1H', 'HVF79F0CMT2QDQU5P2EQ6YTLTQ 8 AEUP66RA7 IC4UMLEVFNIS68CNYEWQC5KB68H422IVBPO35MXV2KKPWO24J2N58RBHOKK6KKOXF  M9QIHGQO1MGFJLCPDON86RPL3CT KOYY LBBL1XQCTMNKHA4C4QU Y76C4UKL1YWFETAGHG11I6T1RGGSPXMP07B9CNJ1MRJ5NNEIK89CF8066YM567XHT9CU0EU7RT YWAGK9KI5YV3GLHWS K3QCK4 U6EOW0RKF96MNFA749YK053O5 94VRUA85XDLSSE438118I2NJBKNO9PFJJNO3376H7GN2GQJC6ETYH VXURTB0H8BXJ9BXVCESC FGIXMFML5Y3SN1Q0T9ELFBBCNQA366SNU K4JDV3S172YFBVHDO70JTOYD7F1TRVXJGNS9K7I8 06CP8538F9B49J36YC0L2P6JQ19I0DJVML2B26MTADAL89IH F UQV6Y70HNN0A2JKRUGGI FLXWU', 'XB7N2RI6T6BR3XI ', '7HLMU8N9Q5C4FBRHTMK3O9LOA0 C BL4', '2EAL06 KF8NXWNYC', 'LX4OR2CXE5JJI583', 'IYNMJ 8JSOHT5D48KPTO');
+INSERT INTO `his_suppliers` VALUES ('57', '3XSCF0DOJ0S81U8FNBINV8YSLTO3RN87', '60ASX3XMG1X95XD RWK39W2ELJ2DA 41Q UF85F62CI7VDF45RHDG5MI3NTXPTQANTYOT96F96U PLN3AV3H81XLCC98MTJUWU2G4CVHSH72IC6NY5QQ3EQEET0KG4BM0OFCM3JPXPNK57FUG0I0KW8UROIVLU5O2F1KV6DKHNYAKO3SM8BW56R IY RFWD8LLN2E8YPSJSMN86RR UKHS00A1FJG7KPR2UDUN3WRYHPF5Y9SWI 53 A8RM25HPK74 OTVV4RY89VPXU4YLMRHVE0C4Y1IYJ4H7VX6OFS  Q00YCPL2O 67YTG8FNSQG69DGWQ759VG4Y35N0LS1KBTUD34CLVVCN 7NGOCN6U66RYWU16A67 S1 ROBH6BCBK68B DI3KFAKGU5C1Y9O4FOF9KH  GRHCIP9MSG349GKB  04Y4RLG31W9RPIU2Y2A94CCDQYKDW8IVMX58A7SQOB0LFWCX5UBNQW5C4XYDUS KAABP5LL8PLU7U642', '1OJ6F1Y3NEG91TT5', '331HIQQ UMCI304QBU3 9PUU5XHLYMJ2', 'H655MPKGHS12WCK7', 'UR6G2KVIPQGHR2RP', 'A65Q9G7RYAI64NMT2VA7');
+INSERT INTO `his_suppliers` VALUES ('58', 'T84116JUUVTAJVS7MH927FJCUUBWAL4M', 'BIC6BC14UJTOWYJWV74B6MTGKG1CWY4MMM9C5SKN3AVU 8C0YC0B77QR 7OWBLIMU LMKAJG424I5E2MLCO GMPXKBP4IR4WFF8IK5274CDORNB41OX1V735UG7SB28WE3X24OOPV23X642Y48DYH5JWVR6EM3D6BK51913 QINKTSIS4BFQCLWO7QB0EBEGBT8S19D5IF6I4K3EXK86IJD8YA3EK3FLXA8EKBUHLWHELCMRV4SL4XFESRT 4QWMDQYKY53GWHBEOT4 XGT1AKS8UVJU3DGRBD2ODI0NU32H MXBHIT968HWVR2PI53CYU QY3RTE3 70AN6KK3J KTR1 2 H21V15UF IRW373QEB67OERWY4DA6GXP5 V VPO3O9S XK6 R2N2U3M0DD15KKSKLRCI7C8PBRS8HSSHSRKPM6E7HNX402OY14KGEB W6C33VTBF4LN55NFGN9H6W4BUNNXWCAB0O7A3O UMJNWL0S D7DFG4B7WPW24', 'Q6XTMD6DAOXTAKC1', 'K9BVC3UY13QXD5XM3X3VJ2QSBLW52E0B', '0UX 1XLVYJXV1VQD', 'M3KQHPH7B8TEWGAM', 'NXAQOFK8SPT3E6HJWRLK');
+INSERT INTO `his_suppliers` VALUES ('59', 'YOEJ EE5BB78T0D3 AGNG1IO4VR1XW8U', 'EBF7A57F8D2I9WHPH341LE2U 92W6XAF1N FYR4CV74NL48DFTM69T9PAN45KF1UKCQCN6694J35BDJOO7GAAL1WCK0RRADEXM5VU73COA8K9CKE 8YK6I9578CY4O30O7GK MUXWXK AMOLMB8YFB1DE8KP1N9QV5MQN4NGJ8Y6DPMCF670KKQL0KXMX66S2XG7D84LYFYLE3D R2H 7U21NOD 95HJEHIKRG0514 BD16YHJLQXK 2GEPPJC4KJ350F6F07C739TLV0MQSE1Q84XHC9F8INFHE1NSCCJKC5JHHBPXC9IT7UX1500B8GOFA94RC JS439VRUN A762UBGH0CK3Q6AOUTN8I3LD45 8QMMH3 1J3VWRGVJM7L8PVGAHC7DNRIH7O7ASXC2L496HP986W0TRWYW LFWO1ALPYMO1L46X9UI6M6VECASV14CK5ANANO 14J85L32FYHL2PBK54SBV4SB82XI5XY6OW0SU24HCTII64GCJ1', '7KMEE5TAG813 K1 ', '6280KC9RQBUNYM9KUS5HUMIRQ232QIK0', 'BNLTGK8Y0E9V FU0', 'LVK0CPW8OVP839R3', 'UX45SGCTY1EYEATO 68T');
+INSERT INTO `his_suppliers` VALUES ('60', 'S3ILP6HF3QXORXDCIBL73VTX1T1N2E73', 'WOH5O3U2F2SOLDGBQT490Q5UPN6FPSC2B1 N9TUAEBKQSVWK4KG0KAF34XJX4 G2AOUD88CH VSM35LB9P10MUED5BYWU2LTBD0QKNJCH86CWE6VCPN 5ODX9IN6QP2QDB7U8DWOO8BGJQMP8E C5  6JMI5OFGC21XGAJ6FV9I9G53H74D7PX5OJ69 MPKEHLHWS7FSW VQ2L2 4J08UI05D2DEHYJS7CVATDY04JAEVVC6DRUUPO1FOL6UAESIE31BHXDJIGEKCQX6VAM1F8 KNKOE1A0SR2ICYMJ0GOO42U6921VK5YVQ 1QRSO5XHUSDF6N5WIDMKPPTYAWQ3G AXM CMKGHBG04384WFQG9GSDF TQKHBYP77T7NVG2JD5W77PC HRXDGCV9QAQL0LM56E11E JYCYP2LEN7BT6YY40CJ7JQV2VKBP6YV3TVO06 PG947 6XIEXB8VY66TFURHOLX818 KM9PIPFJFR057RS4JMB4KDV39573 J', 'FOQWM6WO9YBQJ5OW', 'KYLPH2UIY9XXAX0DYNJGPW8RD80F1BRS', '7JBCM8QQEFMBSU1T', 'HIHVA51GVG64HG6P', 'SHBPH3I3YRJYETIC7MPM');
+INSERT INTO `his_suppliers` VALUES ('61', 'W5EEQO8TNW71SJTTFIHPT38SV2C1NF31', 'TQ52DO5XMDFC61I8YD1XXASLYN1ECCBJ560H554S2 TLRLW4X51S54BKM0UJQ 9JJCX3E2BFSYG8PBGVF 627ZJLSSS1V5DX IBTK8G K9KTTV9C5UT2KL9GF6J44YEN0DF96FHTNC8D WRIF41PQQM14TITVIHRO 8NQCODWY9R4WNJ2MSI9  EXOXOLQWGKTIVTIL9MD8D7AXPFIPQQW2RH7R0OKA4TTUI0F0CP6KB5FUGED99RVSHW8TOOQKB19LQXH2JKEFB IYFD8OMY9F2VYNB2YWPGUVG9Y3X5HQTRO3DCI   AH9L1K4FTS5ROL6N1TSW98UJ0C8Q0Y9L4SUTIQ0BSYM6BG1TU5IT G5EG42KX8WHTDTSU0HDBFBINWXJCAQHBO2IU34EY43ECODAV4S8PJI117BJIT4WA N  6SA2SN5JARPUHRL6VQM7ECP5GKOE6K1HNMUQ51L75HUHEX4UBJNAATTYA5 HY6X01B7TXEJ0H55SUFKQ0R', 'X5Q3QP 4VS7DVBBV', '55FM80E NNHK6L1R7LPDKKQ4DVEX7J38', 'OK42QH A6SSVTCJR', 'UV9I6MVEXJ4DAU6G', 'NL3B 65LHBJ0  M1F 6D');
+INSERT INTO `his_suppliers` VALUES ('62', 'WI874CIY2EYHO4AQPEL 1L K1EBL 95B', 'GOFKMF2BNA9O88AA4K1S93GS9IHGGSA3GQDW1NR6HD6HJC JE2PSGRHFCCSA8YN0JJANA6 XDK1OA9TIO6YYBS0Q5VFWDRQONDNQUVGN1W2QDO00QV4JD1VFOA1M8DB CXMQ7I4RRRASL7Y2SHCG364GI81D9VH0O87VWR9NDYKKXCCTPTG92U7UONORT7J 8T83G5F08OHKAJ5JU277UJTSU1X2E9483K8XI7EM6LFUN4OO2T050QVP46K6HU5D SLKNAAENPK50AGVT34N8PN37A5QLLS006EWKOIHJFVXF8AW0BJV6RNN910WA5J2XUKFWKO4EN16 YBN592PJ O62GAM4 4HYCSCE3SQ5KLNQFW877AM1HUPU0VERHKGWJJHS81WDVTPTIQURQLSG6HDGIGFS07A1T3BVXXC3LSEFYRXVV31L 9H59HMYRMF7WG1GY8XY8EEQH7054PT9M3HUW8GWVPJSXHDD32P1M81YMMSP96ABT71XJP3ECKD', 'GGNYOV4W669AXTE4', 'O5SE466LMKR4M0W7UE5GTSV14DARO65K', '4A35STYNVN7GG9CB', 'C7H60JRE3HKROW9S', 'CYX6W3KX 9SJPV2V8PNA');
+INSERT INTO `his_suppliers` VALUES ('63', 'KCQ5U98HRFD267KRUU67F QKJAHQ2RO2', 'OGPUGXRW01PCCUR48LY8N42WBNPE75OWBGJKO0YU372X7LP1WRC352H G2US43R7N96AYTJ1Y694U5UPGTDYU0HEB5GH0 SJ6NHF7OQ5WH1XMPSH6AVLM9EDGKQ7PF2AXT93HU 1O  WWCHTS GEK2VBVFLG4 52GBY0SH2ML0DD454DO8IGPISS79QC65VJU5VK7N03JAB9O 5YNP8I3MAIIYOKTBDMPQ2VSD6PTXQ63PEH5IKWUCWBHUOM1P1C7UEKOH3XFGACU0V3059O4HBA8OSKWKLV0OH11SPDPSENHLW2RJSJ1TLKIKW3EYYKDVRB105RPBBPK 3TB IUU 0HJ2KNMVEYYFD3WPV1WQ1OOMCX77HLSJ5K3588Q9GN3TCNVEL9B8DHHVU4HDKF2XWFG42KUVXHLTD18ICOIBVMM00APYEP0JEXGS004HXGRO1VBDDNL0XBS6LH YEDYM2YGAVKSPSNI2NHE6AQ7OMCPIMXYOS29DMPD73W318C', 'T3MF DCNON0WNWY2', ' 73JJ55T KKKCTTPAIVT8PAH9O6QDO64', 'N67973D0HVQCEHIT', 'GE9QD480YWG650J0', 'P00Q4J8RP2G4NM37NJ8C');
+INSERT INTO `his_suppliers` VALUES ('64', '8207VWRLXJSK2FTIXQTK5JJYO4XT3SRM', 'R4FSL3YKOC9JGKQAVNA4SJKJ5 EDDH9PPC5B4U6AOT9MM2GS1G8O 3428P68RQIBCCNQ1DNP57QCIJTNCF3EWYDMXGDMBAHTPGF RH21SI 6 O OJI8I0Y5 AEMTCDW29ANNTYEJW517V4DUY3RYURK T4CTA U44YCYQGXRBYP95DNBCXIAW10QLPS7K5N9U AT1K6AB3LQQUUE398RSA6F9IX8MPYUJ72SDQYXU74QLV6I3NC84X1FXDKUYFNDVY02BDDMABF1QO8BR437JBSABJ7M31YJ1X9IIRSHLVG07FTJ02HXOO0NKM8RL4A8P8POP3WR7PYP1414DBC896GDGPR505FE5E1PKGNV41EWESA4S28N0U8G96OD0KE85DQFUV8EWL5WC89TV0IAQOP2QYOM6OJ20G2DC972MC7R27VKN4B 5JJH897Q7OEBJE2NUFBRTTG7SFDXQUM845M5MSJ8TPUN5BI374MJOUKIPGAM9225I97QALOARS3U', 'F1XOQJN76O8GPRFD', 'LLIKBQBSHGGGY2R9NSBBRJ8595 QX6GP', 'FPBG RDM8TWRLLB5', '6 NTHOWR3GPKQ954', ' THP DU07UAU6 GSP3I7');
+INSERT INTO `his_suppliers` VALUES ('65', 'HF81SJBSRN22GHNASCRKP IBWB6XFU3E', '9OAGQ1OD2JBB 1U 72HYQ8Q0LVQ 8MIIACG1MYRG2RV5INJK80URRHKOD8HFEPLNFK79Q2T5T0KPI2GSKMM647K0TH097PPO74FJ1P05JT6YAG8XHCP SR0AGAI9I820M5XXI5T8037I9YSJQ1NKRBJWARUV6VA78A467J FK40NTKC6N1V1302DYGS8638 4HCO5 LT1MNBE7DQ3 K2VVRGJ8U2FAY7X5NIGFXQTP24IPM3H N26S30OG8TXQXXR2WD8QLMSXWAMS5ENKV26NS2JU1JQLSCCHOMNRH2F7LPA5AX4NRR06USUJ40V JRVYGAV5RUNWE 39N2UIMHV0MIT23KEWFQ3KD15IVU0PBALM3FBVJA1QOR8EBAH8YVAOF8PCI6HT4JGLURLWDSQRV6DV1V7TY086CTT3Q1PSE8BEBW84QB9HDJ3A6OTCI5AAPHS2SUPLIKW98YDG2VY7KUQRHOHH0CBMSI H945KLDV8N4L9L161767VHMFQ3Y', 'H7 UXGSH3P5ECPCK', 'NK3VALYK1BQA70YN46J5 39B LDPB1TP', 'BHJPFMNKSK64AEQK', 'K44NXV4112RBC4RU', 'HSO2CRMSP7SXX43QTNO5');
+INSERT INTO `his_suppliers` VALUES ('66', 'N4C7I64H5JRJHS2VS UEMEY92GGNNM2D', 'XG1JWM6NA3E8BBQQENQLYFU2Q1 IG2FOEJVCPJ82QQLBLEXX1HFMS1HJH5E4MV9T3UCK75NTQUROJKK7L33MW76XA1X65CRRI3DODUNKMVMBK 8WB LBB6AFMEOIW69 PIOR8UO54RPV RUH10J416EHJCMISV917NRJRCJIKTDL9XNL1GA54CFNNDHDQXNM3IXE2D8TSQPFSE226123MPKL1EPSPPIM0H8F8Y3C7NLY30XSUSSBN698DRM7NIA24DJBDYQJN3QGNI8Y A8WCK8LS78OMJO62EFGM500N IT ICR FWIVOJT0TF OUL825CT683I3O7LPKUOUH2HG3G997THVFBTVNH49TG JWT0D4M947UVBFLFB9S7C8EJRBTO4FSG U4XMKV9SR3AO3T HEJV92M8J12H1G3700PV541KFMF2WH9PLB UQM2UJ S6B8PKQFX2L0T76RB79VCK 8Y51J5IMTB3AY55QFXBQAAFOIXB4GSOKOWFDCHJ', 'JRU1T72A2WFSNLD5', '1HPQ7YTFTWU4KY61O9ST LN0HMG MFUD', 'JI4U EL5ELLDJ1LB', 'F2IHBYSJP5N85IBR', 'LCA9EJ0VUEMYK88B4 P6');
+INSERT INTO `his_suppliers` VALUES ('67', '16GAI0 1LMG1QKBMGY62YV0W1GK2MOW0', 'AUCYB1IH 7BI5NYXU IRSNVPEYB5AT AKXQBSYO97WYH1U18 R NFS353QC5PW3BCG315 1 6NS2PU7M29J5BKWVPLGMA6AYLOW3VY8TME1Q0DKXUIJKYV6L9TBYFUD3W8B0HNA3UMRMS2K3LV3RUC08AXB0IWES99E3HQFAN3SH FWB542DJMSUVYPG CPAA7W7GS71D0PRIVJVVF6KL88MMCGJA1XX3 DWY9G5W0XJEPS6MFT8NM9YPXC6XS ACW7DNK9JM4LML75XU4AXB34DRWYYE9206MIJ5Y0BISOC6IGTGWLU9WCJ0WM392L DB6V5ODR UVS6MUSYKIU77RB7 FH4OC74HXJER9A3JQOQJOYBEMDV2ENKMBOKJDS727FMAYGDIIEX4MI5YBO0EORXMYU9XY4XCA0K5W UTB Y3OWGCQIF57WLATWV3OL537E34XS4XY2050LVYRDY0XJGA4B45GW8HQG1 3VCQ41BV6DIN5DGP2BWNXAQ4FS', 'R1JAX4VL 2ECGM03', 'P8DG8ND8DEGUQEKGC5LHGA7LAK0YN5NR', '2OO3EIJX CWHUXIV', 'X94W7QHOGVOC2N86', 'YRQ38BY0H5EPV 31K8XB');
+INSERT INTO `his_suppliers` VALUES ('68', '8K5KFB42HSVWNE7CH3KFBV GAPAEY4IX', '1T5OBASC1STRM609Q3C5E1KLIW49U7DXPTO5NKNL2681UGOFMO8CC9A1HWBE3Q0YUB N0NK31XTU6HK6XKIB6D1J3T3EFVDKGJH3UEAYQ0WLI UCFRHCC4NSEV5M5UBP27F3NKRIFVHGOLWWDMBACA8PVOX OOVEQESTYS98XBF6LTG0KXVQRG7CN8L4FBDW0LD8CPBSKIA782HXFWTX558XBY69VOGL3ORVCQQY85HMJOA6S4MQ5S9U1OGCHJ0YJ 8XM9MNC657JVCB3LIOCQJKGL XSJ9QL6 9ULC0U3AB9SK4AQJ F7LSSE39DCMRYEXFOYMA5QL1QI JTDGI3D8ES3W9REW0V5OLTDCVBBK34Y1MPOWP39JCP5BFL52O3DSK1XRDVHJUJ0DMIB6S6VVSCE0YJVH2XEHV4HDIUCJC4EXXBCGJ51W005HR8SPM8YSNVW 6VBG82U 3O6OGTKJJL0YAF2N0E7IO4VME2AWWLW1TQNIN13 XH3FRUPF ', ' R7HDCFWQTH QBXS', '8HOAECSRS 4Q9HHXUQ962IID8JD2NLEV', 'N9BNOJ2G79JS7A4J', 'I HR6O2H5AF65LE', '3C4FXSX8HMDEGI079757');
+INSERT INTO `his_suppliers` VALUES ('69', 'VTHOF05PT59O8HDHIUDAOO2TQ042BN00', 'PJITRM3Y2M6P6PFP0S MF2LP3  U22KO42YTO3XM 4SOHI GA467C9 H6FEMH0EBGR7TM5GLKVVC85O4WX90OLJV4760Q6EEPVOP5OF1JXO8AAMJM6KCXX3NWJYB8NCVF2K4PESA8N9EIK8QQA83LWQO318IBJ9QMGWAT0RTEUFPSH8T304T97W1SO56HSJ9WIG331Y9FQTI4GM21KXRGA8YKXRM5ARTE4T2205E6YRYFUM FI3TSNQRKKSPTTUXQLAHD9F71JHRRVS5PWVHXKM0HUU0 1 A4N15O48R VWC4OYCS39YJBEEIE8T8LNQ8EYMOQ5CGUQSLA8H7X24A2WPDA3 5YLACCR1296CHOIR9O1NWNWHYT7 DXB2BIU38EVAMOJCK0IOAP 3GU259KOC96K9EMPG6YLT2XP3TYUJS427YLR006Y4EBCE2HRU1OXS9SIGRXB1 MIIYAWH1E SN1V117WX5RP 1 0HLTLJ3RUQMT6Q7YYXEC7B2T9G', 'AV1MGLULEJYHGTGX', 'VUCJQ 46QS88CBYJBPXXB JYS58SARCD', 'SK1MY4H0MVY3PWNN', 'J751YJINQF4HXH G', 'U5NSYMYM4C7DBKIGLUL1');
+INSERT INTO `his_suppliers` VALUES ('70', 'WI386RS6FE3OVIWUER1JRB92QWFDUKCQ', 'EKRPU1LVST7H2BIERX7PKBMWE5VPSN80UHNP0O2D1TXCXF9ADPOPIBQ9KU50 9ARP1VWPJ91BXLIKD2DK5DW4VSVQG283S5XJ GPW1FKWNYYBDI OS60BA4YDPP60Y4 AH27KD1SKVK8KJLKFHNH5RDYJO2BMBRGK474RQUNLXROPVGS6J8DNGEEUXTRUBW2FW7UJ6VAWJM87BLGRL3FWDF ECH8OBOPI72HYPF RS2GINRIKR5 0FWMS9A71NHEYUPO775868QL6O22IL643GJB8ECP1G0CG0OUDFWLJS3LO RE1YOIC8D8GWHHNU8U7BG O3UUTTCYM5HX46YIYDQQMBBY0TDGYT7SCSGWJ1JYLM57A 346G6AKL857A0T WVKL1EUPMFG8RV1KHX08WKLJ2FQD3XR3F9BP9PVW5LY6S69J95HF52FEJV4PW77MLVP0QPE7JFN5YQXA76J3E4QI4BAFC8CF310URW 961DVAK9GO6SMVENQG9XR NE', 'GXEYAI45JXC9VW3J', '638E4211Q7BS1XC5MQ1L2YSRY09WIFXT', 'FEFTCS10FC5GEW6F', '94BM1KNWVNJOSKUI', 'U3IDGGYSC GWEQN7POJT');
+INSERT INTO `his_suppliers` VALUES ('71', 'FU01H6TCKFOBRPM1C7N1OV09 XANAE O', 'ARBA6JLA4PGP5FSLSNFK8DVJXY5NDGWL4DNG450 GCPM5ILH7SAX9JGKSEK55M7OMUL5I8KPF8G17I779MDML75E OXKXKUNTGLBUM0JTE1G74RLN40UQ6RRK W61GME7WTIL2ATW6G   PNQPAI66FK2XW WCK V9B B8N2HGIDILPHA547HUKUJH5J 72ND0UNIONWYDU3ODSGOM767NTUL4M5OXQQT102UW334LU8GN6 SQY9Y25WFM4OI9FSVO4EWA3LF5OJWNGO1HM0EFUKN96R XEHQLBKB40ITG9E JEBDB9M6YDIIN5MNH3P3XH1TKJ4RCCWUC6T9 MY0SKLQT644G8G77D13RLU93GQI159QRAIL1IRK84T 9VUUCEDWPF7TCU96G WA9OGQLJ7TROWW6B8ANUJ BJ J4MKYDM31IVK7EC7TMC9JG62EWPO7EQ1 YNA2GCEKYUDT5U9FJBDM6B K7VMEP0FANJSPAMK0H9 GL8Y1JMGUFVR', 'Y4HAJVED049Y4VQW', '1IND1GTVYQCQ9 QS4UG6DDQ4DJGLNH65', '8EUMTW5F8LI RPP0', 'O9A 5RNIO4RA H5F', '9V8W61AUC4LP 541A5EM');
+INSERT INTO `his_suppliers` VALUES ('72', 'JUW71467PHC QVHWQFI8402JLK4 U8RU', 'QQJGHDRUFXNRA9UYFVNL88 FUJHPE5UV MFSLJHXVRQY5QEUY87QNAS22GXVTDV2FXAGQIB3K0U2S3UCT3L85GWVIL4N6LL4IE3WTMH1S6T4IJTRBXOUS0O3OO5TAH9H99K8W4FKC44QP79L6M2 I7O4LS U4MGNA164 8XOI735S2CHSF5QD4VJWGCUJF0EMR814Y1H44VC83L8 24RHUE0NLPKIB1LXSS0EA1BL0CWG3QT4NXIX8PGIIDF2J 9BYPQ 4JKTD51 TTB4NA V5KVN DI6BILIGKK 9FV85QOEU7 G QWFC GR3JJXPKXOWUKLDV TOBE7SGA3YKLUH9I3FIXDRGSKAPE13BT1PYE03ITJCV2B3 LFWPPNBNSH34DKWIG EFKH3H8T7I 5M1A1V9LX9 T84UIG7E45BAF92VII54OLHKGR46WB9JS3MEF CC7PEW516FNQ1530W 0YT7O3YQU073GJJU871DLJJ3V4ARWQ3 4IJULFV69', 'RMDPEK VHYELX1XN', 'E09TAO9Y09S94CEVTFN9DBGALJMII525', 'FTTN6VG8CVCCXDSY', 'TDLNWX6YW TPHG9C', 'CHIE636QKPHGBRE8GBFX');
+INSERT INTO `his_suppliers` VALUES ('73', '5MDXOCTU0G8 AJK S78P3B96X0PH8866', '8AYYL9K2W51BKQEB9OE06YDOTJLVC0C9BAMMTRG93ACETREH4M9STXKULH3IHN9D26WQSQCVLSU11VP1UJM BPXIKLHBUH971OQOJKGLN5B6NAXDPVBEPLUWAMU396M460VK0I9809AF04 YHI EYTWGTM6CLBVP3PT48QHR0G23ID3FHRY25H0PP453TCWOUTURBA7CHGS3MYQLL9G4BLCC2196VNSY2P0JA6P8TCB0TQOE65F L5DAJPTYQI IX555C9MWXOC5KFYX4WMM3WTJBVUKG44K2EXYKBTY9DACGNWIXGIS1NQ93M7P2K8GP1Q063G4QRE6  5JJ5GTK1ET4KHRNUIOL3RYD5 DWMOWUVJKHMIPXLEP4L5RCUIW00 4F04QS3WCKNAES3I4FSLJG2BG8F1YRL4JL2VGXQO1WMTU015DA 66WS 6K97S63ST7OKXGIC7HYV0AGTFWHJJTWVXJ0CJ5579K1PNYS1N1OH38MQYLFDR4 JEC66G', 'YDS9CSF9JL55W5TH', '168XYY2XUV4U45ORGEQLVO3HOJ9VA1O9', '33 TRPE5RL27C3 A', 'NTA15K6BAU36D0C', 'JVBJENP9CC9BTY4LK0FV');
+INSERT INTO `his_suppliers` VALUES ('74', '9AN13I5ACC78690KYM8O 6A9B9F6TWS2', 'TNNWX KUB0MIATTIQEVROEC18W218BQEAILY407MFF QB0PSTQKB6B2CBX8 LTF 9UDT YMIRFVHBCRUUU8WNP02SLUDEUBVPXGFXOHO20K97H5GIQ6TMD0YO5JH0H8W5F0CHWUHML25S39M6RJ L16YJ5RASV76NE2T5BVC8Y8Y1OUIMR6X2AX2FMQD6XKXSCFQJH6Y9CO3VMUD6UTWOOXJ  E1MJXHP6MN7WJ3LCROAAIQSOVS M4QC3L6NH9G160TRW2OL0NG8VG4U8L4NGR664VDRGOG 3R1WT5U8RASSKFD9X 2CFDKORJUH2PC7 PV9UGTYHFT1ELEKLVIRPSPL0QHFS160DLIL1W2SCL61AB8QETYMB1M6CCU71R248WQMHQ4911AX5A6B27JQ7IF8M25G45BVVU350GPGNU6WQFKDJ64TAVG43D8V9SG30HOYIVQWLWI4O00JBM4RB16NGHL5LL15SLCXO18SSSNTLI5W79QDY778QGF05PW', 'F2N 1HAJ05V3OOF2', 'UUC9RX6D2QNCM 1NBSSHPMBSWPTDINWW', 'W L445YJ79QMOV6B', 'N2 4VG4J8DIC OMF', '1N AXQHD 4MS MJ2RJBV');
+INSERT INTO `his_suppliers` VALUES ('75', 'JGWU6H28PIHPSOTG40K1RSYXG5EVHNW4', 'CFN0EANVPJ X1VT5 4HTU5S P O F 1O 5U0UJV092RI 7K0XC8YL4KB59VH3JV21L28MKDRKLW6AMM8XWCTCOATSTK9ST9M K94RODRVK5X9CM599P613CR5EX2CGJPU74Q74BWYY1CCGH8PAXFOKBI93VCP09V647U03 350WPW0G4M9COC84MOE48SX8W29QU7NDIAHU EVYNTV7M24WUJ86GINML42TRXRVFQHQQAXRQQ8FN0550HYAHWEU1IABCAC0BFJ984UYI7URS94M6P9JDYDJEX7TWF4QQRKWCDCU8RMQQ0UBIVBRTROP0JDQIIV5HRXTOOX1BBVMUGXJC8MK9DBKF4TATS4QHVD1FK1EDFBI4TYU6K5DQW7O8X F6IF8R51EHP2543398DC6O59DXI4UBSOWKX6LL6HGCR8PGWPJIFHMMTQH6ET6L169MDQ5C1OJ7FSTF 5RW9NM YPHJPW08I3TO69GJC0SXEQH8XR31A0VWERXOQW1H', 'OO4UQKH EX8CAXLJ', 'L66T310QU340INCWJGDNLJ H1WBAFUVJ', 'FCXYAO1L3F1QU5WW', '2OV67C74SMV6RDIH', '8LH41VQXT9K8E67TITDN');
+INSERT INTO `his_suppliers` VALUES ('76', '0WOYVNKRT3LH94UIA4N5OO8BH73SYW6I', 'BM LA29HYV Y 2GSTVO3T0XIL0QN7JXLS5WW6RTLGUODWA8KV2RPLQ6ECN0FH3HTDA8DOE31J97EJEV2XOU6VG3EEBJ9EEFQ2BDVAUS0 7TIS4I3SPAT4YHBP9YEDMJBDWK2HSVS0 LUI2KNQJ7JV H0V2PSRUWKC4U4T KUHHB6MQRVL GVM5HKXR 300URLHX UXGVQWLX2K11P6Q2 X56IQTIK0 88UG644CMMUU7SVPNYQH0JTH7RTY0XN9KWKPYBYC1LB7RUWAARO 8Y4O7C9Y5MKSERAU41QS8JTM 8SMQ3F7XV39VHO666D4LK6S80MEG 4UY1LSVDRYY0V2 W4QY7KX5JP7HYQ35VIDCD97UOXUS3I5LU2I1ALB9GUKNK24VRNILBMJUHK7MW WS5C7M3PJ7MW5AOKYDQKBO2HR9WO6A65XY479KA57GWM I21DHCQNBUI1OIQQ7TR8HMBYEL27NL5U4K6IAR05UT9YSHKJJMJY11SBAQHOK', 'VM4GI2AK4JWC1GNE', '0GJ1R03SLGHTCXNCF0USRG23DS4Y7UAL', 'BK46O14SSYIPFX9', 'PVH08HUU8SLOSOH', 'A9X W6U4JGQKPPLM05O7');
+INSERT INTO `his_suppliers` VALUES ('77', '2GOKTALWRD4 MO2QF15TX1DB8XKMX6P6', 'Q1 4EY8WYE180OQT7EAWOW6IPRJC0MJKSVWRGN7JK2HPWI3PNDW7I OFYW5EOHJ6QXEX0PO6PG2SI96L7M 0YRUFOLLP9D343YG00FUJK1LH76OU2ND4 H1RCH13M0GQW4R5H45E QLEDCIX3COWLDUU1QD1MW7MN1U2GXCR9UESERTHKXAGVJ57BTCL8J6IHPY5YXIR933MRD5CC6DIT16LAOEJD9H9 G6G33XNBKKHW09FT4WFMRCTLMVB2FKWB5DO0A8XCUHMCE5UVAL9DLE EET C52M6 68UC96TUAYL77W0L0P97E7G4097K SSJY2RX85OV90AX0 6DE2GBMUYD5LRNKVUVXX MJSFPC0Y1FOVAVE8GNEO1LY5CCKME23S X44IDU9XOQ6JADT2CJWJJ3GE3N X3LFDFFATW2UT62MMA9IJV1HLXCXLY48QL286A22LATFWONBHB2O4NVRDJQQJA48FVTIK3K18OYP96RWHJFM1E5NHVX4RQV', '9FQ50IYOSYIT69MR', '92Q9GV2WYEW0IGPNGR8DINKDA 9L7BAV', 'FWTHLJVURYX4M2SY', '7VSQ2OALUN5P63JC', 'N4B5YGGJPR3BTIHFJO48');
+INSERT INTO `his_suppliers` VALUES ('78', 'QA7O10AH0V3HKPFL0ATCDNJYVVMKJ2PG', 'GRJX97IDWV30E1TPMF2JDEDBKS33VABDDLRNTXPHYU044TJI4SVCI80XL86TAFRRUMK ONHAERA6NGD9VXL9IUWTHYTN60LWEOVBRP1HJ5R5A3YB5C40DKE8QN6DCP361VGS4BUW4WWOFW75PW105K5KFG5FQ1T6BTQ2QPOIHB20HTCFWXQDU0 E3VGY9HNLBI2LPWJFH4D3VUSWK2DSJW5FWSNPVFNBNBHF3WR FFOJ4QEL3FYNC51JGKX2J69EI2U91KYKBSNKPA5JDJ6 EMGQXXE6CV60JYRGOP0UI4R354D2VALHU2D720VP9NCHYLN1703J1R7O1RPLK0GIY35A1C03GH0CI POU3MLCH1KYO1N EV1V9BHNV6CYAQ9GLWQTFC1ID1KJ9J15LQSX2RG7 K7 VA0N8 7GH8532R9GQNLM5M1DVM IF5 OYSLD4IO0JM96HKTE93FI 0SKXD1XCNP85M5IXRIUT2 D0L33YWOGH3MUENQDCM3X0FW', 'W1K11VS0ANIHHK53', 'A3G7WPVU8RUW4QF0R2 XX25AHX8YW5 K', 'M 028WBLE81NOTPT', 'M IT XS 4AJEOPAD', ' VCU90GAOACS4824B4ED');
+INSERT INTO `his_suppliers` VALUES ('79', 'R1TK8LYCUQ3CTE9RY9OIMB8U5MD4P0 V', 'A9PX8UHI8MOPUSW7Q5H91UI2I49Y0ARFORNE3BOWBHJR962 8MMX1LMKSV47E5BV1ASLT0S3M TREH1O4G2KA326HBAAYAOQD3JFVQH9U4Q65FY46K5G87ONKOEJ1VNY6U6JSAPOCAB6CM7BPE0HEKKVLJWW1 AKJMO32BSWVBGHXKIDHQI8CU4WNX YDKXT0YS19E7HSDPKTPULWPCYNJ1YC9N0II72RP5W 0SA 4GI0CHGT  HV3AETDPYYK1VE51XTJO7UKV2IPYKNIMDPU3RQGOE7HKW42NYH97DC5WMC 4ODQBUS1YQC7XJTSB0MHUHLE21WQB8L52PFGVPTSQ5BLJ9D10760BQX07NKJKNB86SUWUHJ7G  5G5ILNNJHJI64TPU7 8P1535PLBQ7JF3NBDVSLM0BSC6NG0TTM0VDW1GX925OLQ FNS3UFMG72BOGVE1TCN0VO7BYT7NDKEJ3MXXV A7A8AK64YO4SIE408VNWT20N24RBY2XGD', 'SC0L 9RLV05X6A 1', '0 08ODWT6X4L0AOC6PUG85P2OEH2L  H', 'ODHJGHN6OAI IRYG', 'P04Y1JLMPXJDWEJ7', 'P9VITG7J N92PMIE2UJX');
+INSERT INTO `his_suppliers` VALUES ('80', '86DLLP XX091E1VNFUT0WVEPBVTDEV4I', '7XV935A5DBGYECR5MM ICPL23QH999UEMU 0QAF07HSEB9B2UGE2DHJAD20AXBQ1IBOBS FSUH18N2QO7FSNFM10WIMVPVS3C3WK9KG6KQ FQYO9Y Y2HEFG6RFSELA15DDW3B0 473M 22CW2JOK3A1AXEIY1SDIPL0DEU6U6R3RF2KDVXLPSJBSK85AP4UH4VC4V WKC2RKX7P65AI0HC SIFFCXECO 9WFQRFOVW8TE7QR0LTK56XX59T402VA4KEFUS839XQ1L5R WJKHLR6D7SEM5TNYPH890WW7FL7S5C2BSPG K5WVTUUXGK WDEF5WB71R57MLE1RXCS8QNGLH1L4VLFV5HM95G22 KX4E7AR4JMHNSBD7TOACFL5GP6V91IC8N8XXYJFF6LYQI4GBBTLNVCI3V29M3UE20OQF2OAEW00EWPPKIB8K1LCCG QKVDCHYG62BRH04VWWE1G668DO9IGUS5MC PTTMD0YO0LL2T2ER7LNT89J9D', 'MUMUCCCIRMUYBT31', 'GBUN5A40QQPYNC6Y5PS6Q5C62WBHLJHY', '1AYY2HEW1P9JXVYM', '44U25C56YI7XBQA1', '1B7LIKTJAS3WB7Y1OMUT');
+INSERT INTO `his_suppliers` VALUES ('81', '1DXW97O6WITWU5FTUWIMDO6VI27TTUU4', 'OTXJIN59SI86X1KS67 V32QXHI3C3BVFN26L3F 8MMY60YP94V B62KQDYERHNG9A8ST9BXGD99KHQS25UI77RX2C07GQ81 KN94F8M2RHET920301VSL NPEX5Q66FG1YQ45V2D2OF26LQ90W7XXFUJ3BNK8LNTQ8A0WYIX3O526TQR 5C9PPVMI4XKCF378YNQ90IA8N6A65YV911YICH69U YXJC2P2FTUJVAB8WS5XN1Q4OXYSKJG9LPHQBWQTYH9WPURGHC4EDWTFJOOCF9TLCCJO7EJYCL5EE3IRWC4O 7HCNFBAJ1III5O GFUKJN69KA0 TV7TJV5PR1MQPOA190F5VYU66V4J7TBDTLHSH VQI0BS27FMIFGKF6DPS2O8JAWK5Y2FFT727H5CXQP5VMCKGDOILPNB2FVNVW5IDP6P1AWB LGUWGUCK1NBM UKJ3T2W7WQJ8E4XWEH49JERGL2LSM9PN3Q3BUPT4KNF306JGJHKCCVISEQQE', '9YO54CHFR7IVD5AB', 'T0EHFADJDYVDC 28XY5Y95DY63FRRNIB', 'FOAWLEFAB9BCD047', 'KY47O4ON5YSIBPE6', 'HB1J86AME44APV1BNXA6');
+INSERT INTO `his_suppliers` VALUES ('82', '9UIRAE98N0CT44UPVEOWTEM0Q 93C9G ', 'YC3LMH3YX5UH6K3RAH7S8Q42OSKQBDB1UBRKRI8PB4JVEXWW215PAR0JGY98QM8L5XO56KSS7RIGNGUVHC78Q5FEQMWLB529D RQU1VXWJJ88CL1QW74J7RX GOMXL4HJNRGP50W5E7SJN0VMIRRO4LI8LHQHIXR7I50U3YO9MSF GD0IJ9981UP3I22VCDWFJ8U9XQF3XF31N397MVC9YO9O6WD3JJPV53Y4MOF1FYC420K3WLDWTJ0MU924AU8O4I2H2D3YO4GRF324U3D8H7 3B89 V0OHP7KJ1P3BLABJEQ QDY1HOPCSPMMPBYDJGIGG9U53IQHYIHSVTGRT0AHYJ2LEMXULGNFGC86S6H7M7A13VOIG3LUDRY76RIRW2LTRQL8FQAC7VAHDPGYPDG4BRI65HHV963LPWYLKSQECRX CTHFU713L9NTKIX81 OFJ5KLB96LQ2YM365V6URPMH47JI8W35NLNP0T9JSQ3TDL83OY2IC49YHYEY16', 'MDPKPH8JPBYIR9L2', '4EWW9LTBS10N94Y140O6R7ENV051AXRG', 'EXWH1TLFDH3VEFWA', '2V9HMI7Q35TLY51L', '7D9LMP3 EUJ9HU926WWQ');
+INSERT INTO `his_suppliers` VALUES ('83', 'S58257Q6LAU4IBPJKJPO2NV4M TMX8W0', 'Q16CWF9SQ565ROOU38TQDOKFWJB0HAP1VIQA3JMLW OS6PXAW OMGVCWN56NF64QPQBL8NHEMBY50L7 32VE3WAWDJ 6GKUGRHSQA31W6OS7MK49YX9T82QQNHXDF25L2WXQ86QUDWQLEOMLAIFAXJBSI1WPA8LP6M6C31DAHC3LR WND1TU7HXLIQMAXK0K6LW  QXCCP044DF738J95WQVSGLUBGJ0N83PXASAD3BRYP 7U7MWUP8I L4TF4K2TBM73JIKG2PSSQMTIFQTGR3J9T7BBSSXA35VMA0S1JN361N8JTFN4TF3BBP00K7YB51OP8EQ2UC8M7OXXP0T2IGKELACKF0NNHIDJ 6A3RSGSOLH6TJ9JDUF9LAC5BSOIKJ7D01K3EUK9TLLC9WPRWDC8PXOW ATS7U8HS0QNC06QW37 LQF1F934O5RY7O2QN 37LC8VKOFV3UB6QGFP9WNANPKKK9KAJ92VONLDFY5FGV6L2AA5K05M95SXMQK', '3VONPFID3WOQO17 ', 'QPJJT819Q4VLFTSGQK0FC5E4UEV4Y986', '8SJC9D1QFSE QKIX', 'AP8PIUH9HJJTMF71', 'SIR 70QG2ONOCINDWCK1');
+INSERT INTO `his_suppliers` VALUES ('84', '41967X4NWC P9F811QYQB0QSIPIS1PR6', '0 DT89CXAPT475NK15UCK 1YMN7SU6AG1SI6RG0XGKW45SSG47F6HUFQ0G2K0H5 0RHGPB9PYT3VGEJVSY6ED71U3Y788EVSEM60 5AWYY5CH7I4CXYS8A8JEVSLDKRA8LC M9IDAVO5NBNPJYCQ3DN70BR3BKD127I3OSR28WXKBR49QDRB0K6EGRSU0VJS0HWR5T14NP2JYGFLQTD81U UW6EMEUDENTN06AOUYHXN17CN E4W96JEYUVUHRBV40KJU49P O752RWKCORCUEK3SJ9JAT1F699RB4O98ACYKSGK9HT9 9343CEIU4HFY66NTX39MNLM4SK3R7L TDFT5UX38NXC8SHWI6YOPGXCB96RBI4JMC6OP 7DLBWU9I6UOE KHX51TJE8 JCLNK7B13G11X7RV6 HLY74IKU68VRHCVUF7HML YMFS8Y1F2GHJ7VSXDC0AHXIGE12KBVFXQGK0TISQRW3VCK1BPTBPEXJ H6359O Q0H4 9IC', 'RWJRP7FS4505RR  ', 'NCXES4DEUNT65Q9CSPXULIBBBK0PP0FH', 'H1VJEPO 227CPBT7', 'H8F9OL68B81WYK54', 'B CMYEWY8AGMH5INIQ8P');
+INSERT INTO `his_suppliers` VALUES ('85', 'TTRNG5UM97Q HGBSH7BYKCIIT650M9IA', 'OT14AYIKTQWP1SEHV07J8EQ 55GQSVJTMT0W0HM7G4OG5SSJTC9T531UODF2PSWPXPL6B5T A6V2ART R5A48Q5DUJ DDB6Q18PC49BJLB9HUX340V46GMDV5CAIL2OB1K3KH5MQ4IDC6DLGCFDEVYDOOW8VBNX HB9IDXHI70JYP4IM22GUHW0EYQKLGISJEGHLWPW0OKV7V4AF2HIADFHP5QSGY0DRHDUW5F7JX98P55QTOSJ2NH8IW85VTH3RTV537Y1JVOAP10UWUH87HW1SBYQW21NP461K958MXQI429 Y0H5G GVS62C9QU XLWYCGN J2Q5IUISE63J4EQ2SO3NEXUCX 12322Q6SG52X72TT1J8YC8AL00AR BDK0C5BX6N51CO O2X H FVQ6 74MPD2N25PKIGMD6P2BVM87N8WI1I93ME7HYXSG02A7TTHK5JGEVK071P9K057E8GGA1MT4B6GNCRQC39MQGJ2490XC15RSVCFKORN99', 'YRQGIRHR7V2 0A4J', 'L248RW7UCVE944DR1DX7X6M1SWRPTBPD', '77G8 DYCMDGRLIA0', 'OYDPB5PD6RB9XME5', '2KX7U63SC3T648UI2M0Q');
+INSERT INTO `his_suppliers` VALUES ('86', '92HJBOTBYVNS1OWJC8KGXQBQ4E9X1K1H', 'GGCJ2KYFORUNTKNUA5OC287RI63J77S6AN5P FGPRQB53Y932S72 QFO6U6EVRNFWGC MVMHYJJL2AKKBMIF9O0NEN5DXWHNRMVSYBNFJQ8Y4S7L94F5VC9XPC5998KAXCH80Y CA5YWNL3OP6JNTYUW513HREHXX7O0S0F7H50O0NEG 1A04NL4A7Q7BT18V7PJCI 50FJ7PYNQXFTXWEQB8TJ5XVD4DQNWTG0H84E36ALGYG2T86PCN5TRLUVMKJDR9P2M2Q9MYEAQXLUOAT98PXK3AX9X5WHIV328X6KNJX1TCRL971F52COV38HDBFD5T950TVKQIEH65ANU6IHG0WRJ3QSGT2AEBURW7H94HBHCVV2HGS1NBK72DBPVYB5KMCN 57GO2083JORUBBXC8O774U2DH0RM16SG7LOXYQ5BP8B80GCEM0QBH0Y RBL8TOIQGLC2SO01IG7LWIOQTPHDOGQSOY0PC1CCJLKXCXTGKOMLCNOHRE23YO24', 'YD3IUKCOCU 9T7VW', 'JNDX04UGNCTVDXA9I4CGK53VGJ8JBRRI', '5U1JF8A 9UUVIPGE', '0IA 9L47UA9QPFAX', 'XNG1PFFJKRWB Q8YEVV5');
+INSERT INTO `his_suppliers` VALUES ('87', 'HA 4S37AHFTU0TK7VHHMAE3QIBA7MW0Q', 'C56G6NCDKYXFDAFQYCKDT7I7 EP1M3N5PFUN6WSGF5U8TRW3GHQVNM2RWX87JJ MPMXV1B57T10GL9SFA5OW 29KRG6XIM1TVJDMQANB 36241S QS8ARUDV3PN D0438CWWA2RMO8VNQ5SBKB1D0422XSLW0AS2BL0IPT729SGKUN 230GAS18QV5QPEWUG8B U2M2SJF OXFW 7JOQ6M1K1SK7G8H3KWWXFFM4WADMEB91A0O29SXF1 CT7L12I3LHX4HH9X9MU25E7Y6D6EOD1H6MM38IQ6OVQIJH295KQBV9G9OA47AKSEUCSW2TFPM41AYV9M82NM02 8I79S2BIB0CS PHCQJW117KCQIB7EIFBLQ4USM5X52QR9R5SOGKYAYNDTS602I1HI7P4LRQE965SJ0NID324G8CWCO6RTGT2HL9FMPUPFB 3JJXW203TUC11CGI3W3T5HAR14UF8S98VVQ4SDIXEPV9E6B1SBF8ETJUCAVOVYHKC38J', 'JHUDQ5RRCCQV9SEK', 'C2N4TQ1O6C245EGU8W8URQT0K28OX1LS', 'SA8UQA57IGITHS5B', '5GRYXDM6PFYHLXCW', '9CWQRH1A55XEQLLTMO7B');
+INSERT INTO `his_suppliers` VALUES ('88', 'NKBWRUYMLD8 T0W1 3XMMI2MLS3CW9 C', '3A29T665XA0DHNQ4LFOF 8BIIX9GL0U76PCFFSM2UPDN13EM9EF 8SNJIGUA09TK1O81PAS7NMF0YILVW N 7JXVDCRV M2Y6YOKL2X8LLXFM6Y5RN68WUGRKB5YDSXQNPE32EH HIEID6E NBN4CWWK6F 11BXG IXB5E7FMO7JNI40W8GQKU3VR8Y7YNXWAEHOY64PVSEGV4L0C3RTMNAEFMJ7261W5P68IPL4KYWVJTMYD0IOOAV TX2HC6OHQAUN U73NRD 4D7XVHGFSKNO4WJ4TUIVQB5BIET8J49Q7DP8CF3Q79LN0NTUK9IECFF992MB7CSPBEQAQ5RX2019SQJ0NGXKCMX5HG1966 22W5OKCJ1NCJ 522P6AB1YCLCF2T3GTLP3843U78Q6Q0GF2MMAMHL0E7SBAX4MS951O5H68KAYLKIFG6465H9T1A6IHPNR2AMMDXVNCWQC4M4JEF62HQ4BX4RCVOAH1TWKFHHXYHONJXDNHXI66UG', 'HVOXENFH QLJOF8P', 'W4QK55331F8SCN2MXE6TOORNE4GXY08V', 'Q5A00V4A96F81234', 'XDSO5A1QK6 78TS6', 'QFX3 KKK1A4WL3QCRN91');
+INSERT INTO `his_suppliers` VALUES ('89', 'W1DUAGFLP59NKIHVOBNOIBEPAVXMS5 W', 'MDPJ74MQ4M68L4SFY9BTP6TS2VBCTM K9IFIO6QBWTP995PXI DLKTX8PYUILS8V8NE68TOY FEWM82DBJASD3RLC0YPYWF5I10ECV2W3DIOJ20N3WDMLT5LY699C2EBLEJSH4XEJ43OW9XP6GQ2RO8634932C6HKSWM77I 4FYOLBKOD0AOEBEDVT3TMQ4S P Q3QCA5KQ5JOWW1POM29BDVPTPG3TP019PO492K3S5SO6S15EUFXYL8L6O068OA25QMTDAQ39F9IX SENV2MJJMQQBVQIGYJQQL102LY5D1C189SHVONLW9QTTJB4VRJX582VMNK6378JHW7NQ 4YHWOK4MGUXYLF89XXFV4TAT5WTQTTWN3NBRYVQQIOR9MQRHOC0SBEB0WQFBA9LII4JOHFVITXP1Y29L7O4H6 8 90QPN5MBAYG HOENM874DGUHCPNI6EOWX BHBGGW63JINWTT0FYU RDXUGM27C1 H4UT6T74USDO12AT1ON', 'YRUIATE86L958LIX', 'TP1QQCMK S8C0MLEF8WEDPESYQLHCKUU', 'CIA5TEGFP04W0GDF', 'W70JIRLW 3B7MNT7', 'PN3L3DPK7JD3QKTPM9CD');
+INSERT INTO `his_suppliers` VALUES ('90', 'UIKT5JU18BJJ KO6BHE5FLBEQEU75H56', 'Y7RYKIBFXS1Q1405PLS90Q47W67LJ9 49UQTFCEB9TXDXDKYUYP4L2F8C9H57NWJEWSWPPDX1QEAIRAG1SJ7Q9U1721NP9SXU3SMDYHXH19I3HU0HL49EKOUXB0XXSXPONI2GD64GN0N3N63081PL9L3L2BEQSWFF4EYX27H6V0YW9FCX OLCFGBTUP82OJU6ITPX4N6KEBEY95K3J9OR3G8NLM4WWYSJ7RDHKRG DVJQG1PW0QAX62PSLEI7PKCO03NQ77TAAANRL7V8WTI J RCM1I1A1N95HXUWTT 42MKBYCK4014XAL2TFSDQD3J7A7 AS8 7E1O6VKVYN6JX8J6O5SD1S567P6E1K0UAB3RLV2N6T F6F2G6NJ44UHJLR5AKU6KHLND 3MYVC233RV7N2RQSBXD644YDO PEU99K14CLWSS1CQ7WDRGRCF18ESQQATD C31IFLXBW4WBLLV3BLFO94DDVDXWB76KB1GY8ABBKOP29M2RGWX1QA', 'FR548T2R6CKGOVBM', '9ETT7NBDH745 9Y57EKNK5RB8SFVDT G', 'OB7 1PVY455599MJ', 'BFQH8BN Q0WTGH2H', 'MP9S4DS5A9L9FG4EC7 8');
+INSERT INTO `his_suppliers` VALUES ('91', '0QUNLEHAMHE74OI5GAF54BA0URUCD0SJ', 'HIO 5UCHN801QHNFP9WT1VA494K8N2CYBAUEB1JKTIS1ERAGJE7KUTYLRVIU1J57DBLDUV8IY5TBTXU01275F L9E1NMM9XGOTDT986IT3EDTOHVY99S760U7TMWQDGMPHEB0VCVNSKBBML2LCGFR3DAQTVMRYSSKEO5NFY2B05W79XPR4PLKD2L20MD6YA5U105QHJR50QLF1E3TRNJ8IQ0SWUGEAJ4LAXYUJ P0EPGYACONWT5E DW28BQXPH6JHSPLXBUA699T893OIDYM37TK9LUAVA2UAQAO0YB SBE0003U0D5N3RDHM1 1FFM6VN7RWKEI4MXMNOMM7LK54UGKDR1RVNTTP9OJR2FWCOLR5NQ0CMQU9I22YNK1K TKQ1IRLQ2O6RQKCLNL1USHF7BT7FSKVQ NA678A0 VM E5 HTDBELXJHJ3FII  IQ 3SWROQ2576ARRKR0N7KXCC7S95A006PWBNE6HYEKR PL9B5MUXWDIYXBSEAE1WO', 'WQ2W2FYNOI4SNU1D', '9XTDRB 2UGG38JUCLVFOLPSYQQH55S R', 'M6JA0SLMJW6JLJBU', 'FNY94OR0V9A1RM9G', '6FIJP7 DSTWDVWJ3QEMC');
+INSERT INTO `his_suppliers` VALUES ('92', 'YIMVIHYRNQ6VVEANAA40UVTXX CQ0K5X', 'V9X3MIJP2C95BG7PANTDX AUF3N6JQV944 OTVBUMRN4N02WAKSYVV4LOVNIBE5YDXFCTQ2I5ID6DKKH79RDFCWOLJDBDXK3LYQ11XHWEKPRBSTATP4X36EV79JW4GYKCU4C AJBNCP0DB9CEAYHE4S20PI8X1BFNPJH7EI8QM6QHNKSRR5MVRFA5UKV8N1W41UD8WXA NQBJ7SVACDL2N0S63N4H7PEUQKKP7M9A1RVKC42UM38M6HY9BKV7F9FI2297QN41TE6I940UMK46P482OWQU0WOARGBERG 5ENKG4NG9QSGDHFETVXW1L1 VXNAYIN25N76G TCISK1XN789XTBBNGDI3CBM17T0SKPLRYQO HEK8IQLAFGAK7  5094DCT8I2H1CSU8YWP29R2OTHKNOK5LHVL8GJQXUQLWI93BRYS6JLIURGI175C7T1GS2NJO9GOEVL1GUK3SUXLWSJS5AS55A8OLYO7MMV3S2BDU0HSQWYUA SKRXPE', 'YVI8454K M760PEK', '04JR17KW4J8F98NCRA53PBHIQ5SJAF1M', 'AD0 NK834A3MLFQJ', '9TLDQYOH6IJ5BX2', '871WMKF 65 22F6KHT87');
+INSERT INTO `his_suppliers` VALUES ('93', '7QVBPTTOTYUN9BU4QR HEPGG4EQNFE5E', 'AWA2J3NIVUOYJIEP9LBQ3HE8OR47181I09WNM9KGEDV6 A94WJBX1TK8ITBLGEE3Y QXMJO8Y 3HS VMFEVBI1MNSBO7Y4TJKTOCH87JT63TDUTK2NUQHHXQ3WEVD3H9VXI 8OM5RVFT2Y2EN7UIYD2UGPC NT1THWPLW N33CDQACTRHB8Q TYLF8AONSAXFRJLI8CHOC3KIYJIEO86NTRN5FPPDEDGCU3 6E2MV GU6K KSER51BXW8LUISWNHE07I0DDYLS3VSY80L KRA59DVGS5YIV58FJJ6Y42APIIXQM68C6NL2P9S5ECVA T3QF2UTJQW1WB4GPFPRV65PMV689IO98 QW5T9K1UYJ9J LEDH0QD6MLQUNSPFC4CDFL2NPCIGEF14HWQN6OVXAFG1S5LBBINV3KTAOHY05YC8FMFRU90P2CVNCCJIWGXK5LRIRPKPR6N JBIWW RV8Q  I3K7RC9A806M8MU4L9R3Y04QQ0RQYBT WXCMEUY', 'KCRBPJ8X9WE24NV6', 'VTH3OATMQCD5L63NMPX5PY856QPBVBMS', 'FS612F3I J9VMC5R', 'RYXV1C4MK30QQKY1', 'TV0VO9191IXC9O3UDM 8');
+INSERT INTO `his_suppliers` VALUES ('94', '2G7V5SFA9BXXPWT25G9GYB5 QLE004S2', '20JK8DRH5H7W3R 12PDCST30TW0MGY073NXXMSJXRWE9O6HOQQPOVUSJPW T5HX99S483ODQU0OHCG1E7U6JP67 I 8 LG76160 OFEKPDUIHQAKRHMM73PMSSUYOJ4EI0D7BA693VDYF76N7KOCFUUTJHT5AA7G7TNN2EDSBTN4NTVAUCPTFJL4EIUOD7B37N5Q V399WQXIIVBJIWQ862AFVFCVML64V I6MN099J K5XNO67H QR5BTTJRTEQ4AXOQLMG8EQI9F4F5UE3T ER644B30H V4MMTJV7MBRF6 RXFEX9WQ0ARW4FXAR8LYJBL6M1EAUAUEFIH76CELX2BPGAAMI01USHC29T23 BW32TTY5DL4PLJHJXCY8 G6EF9RKONV EXGTKGSRYQS7JTKJ073SXOT36MOHTP6F1MQ4O08MF4YKOWSGY3Q8U0 FCR4DND0OGO3Q5K86S1V9 78 P6JYVDCP80AQO7OTGSMN7Q4MNWSYKLJP0P L9', 'HW1O0TVUB46BHJJN', 'NOV6GKMCW9MH4M C8G8IP9QKYYUMP71D', '2DMBL8NIESJT9HT', 'J144R 2NB5H97EUL', 'F96G5UW52X73YL8CI8NI');
+INSERT INTO `his_suppliers` VALUES ('95', 'YOA7X6 F 0MX9YPSTNQVHFPRJVLPSRL3', '4BI8UAC8RI6AHE96CGRNVVGSD51ODMEAED5L38 VST43P2HCATKA2SXO3UEFAMD NIS7N48 V65RYR4IDC86OY95SFHOESJXBHEIHCDA9319LQT0UHN3NPQF0MH9KR6JGGPKJ3TLQIB8 2ICH4DF080YRHBLQ4WFM165WLCVMOAWKRD5MKU9TN 8OKOTRCHAW74MLV ARB39QRX74H8B4 T TS3NNR4 WCM1QY22ILMV0WXHD0H 1604UFTJDP6KS9H5FO7QS0I VWD39LBBQ28NX9XJYDC896C9UU9U2H7JVEOB969YCDKPSF8FFSKAHPNG55D59E 1KYDKC2NA2RAPNFDKW05A8UKDK71MWGSQJ DE00IA6S03A9R HXKUR12CCIYA0THIGWVLB3ROVXKIY9KECCOTW3VDQG5D62KVYYA0SW PII4TJ6Q6L J4YAK43FVAG4G QBEPLBOEDT4WE61BIIKYU9GVRLPJIF9RI16WCR DU28YDV0IAECJ', 'D P8PAVQUEOTSGV3', '4WM8RO58JA5K3I LEUQK2YCR36QWAELE', 'E7WH284MJKFBQ46P', 'MEF8C3XIA0BA247M', '67BLC7HBNK4MN14 24DN');
+INSERT INTO `his_suppliers` VALUES ('96', 'FII7RQ02RWMY8M NN1CO861DG9KFX0KI', '43FF7 9TES3SUEML5A2UKME1W93 LYV4WNS0GX3BIS5NLC4A78BIBS8A836YIW66M6D8V5N2GIAH2FWHXR6BU1HDS0H2RJ0IUH5HHY4PHH89JSLHKBH06OIH5P449LPIJQSW8M04DLILFK3TWUT AWW3B92JUKRR9IU65C28F6HS4SM39KLC8TLPX80FGX2 5TLPB5C7IX7S3CN5I8 S3GP10HGL33P1S12LU14B YM5T3YW0VYP RR0ADOEPB4 CY5HSW11STD4RSKHP1840JGKWLR BS YGSGSDI YBFWNH0U60NCRCKUYJCH1 L9DD5DIQK2TK4F9KCDDW LX8H7HG4IYSR7OU24C4NSK0N06L82NXS1OVT4NEW8RV6CK4 OLRBU9Q6DA611R36JMI2H3P0U7BNHT0OR9XX84995301TM0PS4HLFO58AMDWQGVGY0YU9KOVNSRE28QA542NEA5RC07KGKKWI55AI3NC1866VUWBWAOF23K3H225BF', 'OLGT0IRR0AJG3P1L', 'YCXMSBQDPNKMSQNG4WLA59K6V93OXIIT', 'YSFFBYM9FK2H6SI9', 'A2J76RLYWCLUEV0M', 'MJ T6TD8VJNXPHEVFANM');
+INSERT INTO `his_suppliers` VALUES ('97', 'OTYVJ2T9A91 S MUVEGI2VM4Y0T0 P  ', '3W0TQDGLF0UJQB67POYB1POQHNV5YK3G668QCCOAP6DWB1WO61XPXOOWVYL38LO21 17A7SR8SYBBMNBDT4FYLIN69RIUBUUOMV60SH5SSS9LQMW1XURO80QHR P7XDPNQX90VRTNM U106GHR7LJBB1B2RLNGBO G9NU2U8N3AVJY14J53H4HSNQ68SNU1088LA0 B03EDR3076I87O084QCJFKN153LYJP64 YV6LLLGX3BM 2S0APCX5V5RKGNYE4WSW0EG464KRHDCO524J2CMW8NQGRMXDDVCIAMNWUOHI3MRA5LUDIL82WPJBV7YA0SYG20MNOC8BWJRNW BLVSSRSWOUSNMV7BQNPJLXF6SKX4HAX1LA57SUEVJ4NPSMT8ODTR9YED0WFXMMEHMTHO21 9HGTQUR9CP34QMVP1NAS17R33AV6IUTCPOEQIHBRENMI27H DDYK1NNIRCBPJUE1Y9V0FV43A701UUGKNRFH1SYSAIEO74T7QA G', 'MIDTL569JTYA50MI', 'BMF VLF3G4D918609RNXDDTWIAM4B8IG', ' B2MXIEP5GM6WPHB', 'RE9HKYL7QBCCFM3E', 'D8YR VTYEO7B94AWUS2V');
+INSERT INTO `his_suppliers` VALUES ('98', 'VXU7G9LGTS R4640O1SJMWKNROIVQGAE', 'WNDV6F7MK XDWX35OBD5AR4MA0FIN1339XYKRC0E LJFQP2S1X IMAVE5Q84EHT63Q6O4UIJT3PWXKCPSWU3IG8E4Y0IFVFJDCG6NUE9VIP9C75OO8A3I43B9VF13CO2MF1NW1OTE8LMT8TQ0AFH3YI322XNT NUX2WAE3KQ835SB54 LU5STLXRNJOW QP4URT0OMMNO916QE0RT3499K0JMQO43IF7IEEDC2NBMDLV2BRIJNTR 9PS4HR7L2ROLB L0TRQIH NB4WT6IHUP2A2T FP13V875NJC6CY9 7WIY9HO23P0780WW1WY67O42DP1B19BRYOQV FI5I6OUDH59QMYUK1LKSARDT3P0QP3TEPP 9SD SHRJDHMGYHCKE4BBW  FUCON9KR7QOWNU5LKOMMDOBPFGPG3SO52DNO4FFTT2N1N6S L3YMSB0IV 6 H92VD6AAY7TFB68MTRVQBVXCUS742TBR9E778VMQO2FPHSIHSQ09T0RIK7N', 'AFU4SBQ8FBLAT348', 'HXHEJQKALJU74C S2YHNEH06OU068A92', 'Y2HLLNRTY6QE01SD', '74ITRW1HTSK6TR4S', 'L88XKLW1IVQT451ERYDA');
+INSERT INTO `his_suppliers` VALUES ('99', 'KEC1WGM26XOD5RGAC97Y8TMHOH UOEC4', 'U3UK6KQO FSJLT4N4Q9EAYFK5P FRNTRC0C5FL PYHWOIFEW W1UPBG41FOW5ATKAI8SIYTDKRM3416WP0CMAJIMSFWLNACONW GXF UM96ABELI21J JFGUDY9SOU7Y UTO4UFGDDOEX33OBCOU0PENEK9FK GHCEPRNTENMXW6WNDKCQQR7YQ3XB24RPFIA3HJ3YG3R5G15GEHFEB PR5FKLN5RVRDYTPL0OFLMMQ4OVGVIXWD5HL G8UE0ACM UO41FD2MFX5G42C BQG4IBB9G6H1LEYKVK0UHPLPXXJJC2OT UGB2V36W0MEFB7F29R202HD0IC0LKSFR07GA 5 MFPOAXDRXGKH4F5KX7AYTYRWUT798THX2DAHJ8MECN9SU 5UB8QIVXTPVMNHWP8R3HJHJJAMO2BS396A8QPSJED WLBW39QWY8CBHFS9OQWAN26H4IW2HMYACMODNHF4BW7QHSTPHIS4AF6JW9NIA49R2FWQ7JYV9IAGMS3', '7HU0ULITQ1LOJKH3', 'MWQW3BH9WREOYBWVNDCTHSLKLQ 8XS18', 'M1D2F7YJOAVGCMPX', 'UP45I 38NWIEY1OH', '20VCHONC5HG4IBOTMJ3X');
+INSERT INTO `his_suppliers` VALUES ('100', 'WKRASV8SNYL E3KYGWJJ69RUF14BRT8C', '93X0QBD 93J4B4R4H83U2AJR VG3H60T6A4082 FFXSBK73OW7YIDET19WPFVB 8U4IMW603M1GDUDRKI6716FYSPAAIPWAH9WLT6I53IGTQ0BVM143P 7SUC9UNB3RHXAK5KTETGJWKWOVSTFTGBEG1PDTT5XEBYDEVMR P75INGYG8NV7TOOAFVOFLMEL6VNXWWXGD4GAEMKLAVNY1OI1AGLN95EYGT0PQYRNN33LWCTLCECI0VDMXMW9Q9PENGQ2MFNNHJ3LXN Y2MY58 KBV0WULHY2IYJ5F WUYDW9VL7I8IXUXLDMVU5Q2CTHV0KVNAPVB2BBS7HEPI2FXGWBOUR01FQDOWBWH36P0MN9EMT LOKGQA8JCA5M2D4R5EOPS3ALMLIE2X2Y5H3BKVBM  68CSB LR1K03  U1YSVBY8R2O45Y07X83BQEILGW4IBX3PKIGAF 63 0QT1F49NXL3RVUHD32CHEBTU7WJ35B0HF44C2AYQFQMJYDU4', 'B0CC44J2P7RCDB P', 'WYDT0LPQC2TPH7XXC LXT2EKMQ7ATB9I', 'E DNJEGXKJ0J57M8', 'APVYRK37AIXMMCHT', '0AWE 7DK 5 TV6RYR7YT');
+INSERT INTO `his_suppliers` VALUES ('101', 'BRJEG4LXX5MLT1U9KLGHIRIEOI07P3TV', '1TJV3A6DMCPWDUXG CV8QXP5909WA8K1TKN86H4X4D 37ASLBR16RYT24D5FOHSUW86L8JYCOGE2EVW6DGQE5G859V3LT7ANC4KXQBCQ1L68S8G2YDC5C6S5MOPQ4KWBLV2S6LAHI6ER9 T9DXXDVVLXTFFSXKNYRLNF4110W1VEPPQUEVELA43LW4HCO9WSFR4Q2740ID7M3R66EFF25HWBH6UOVGA5P91AOJC89SRHDHEOA5IN2D1GPFCPYYOM8FR9IHVNKDQRK4XYG3TXO4PL83H GG9U8XEJ9A0CCH2TPTNSUNF1N GDATMTYKJPCXUML6HL10HRVMM4YM3UP31MLNV0 Q97VVUQ876TP6HB5H90S8GVJIMDF0557FFHKRTOWFDKUNESN97OV4TAY7HQKS4F8XCVQV1XFRJKIH9AKPGK9CCVQ1C2D8APSFNT7YJNK IQC4XF3I76MAY5OR3RO0UII36YD64O7UA3EH2LF8080VD7N3YIV6U 7Y42', 'G1UEBVH7T7MO3OQI', '5PO4TPKANT3PQUAGRT0QMPWF8XXI5KYD', 'THCGVKVT1QKTRKGU', 'DI66Q 371053WRY6', 'DJO8U05G3 XP2VMSRMM4');
 
 -- ----------------------------
 -- Table structure for `his_warehousing_entry`
@@ -641,10 +1100,10 @@ DROP TABLE IF EXISTS `his_warehousing_entry`;
 CREATE TABLE `his_warehousing_entry` (
   `ent_id` bigint NOT NULL AUTO_INCREMENT COMMENT '入库单ID',
   `user_id` bigint NOT NULL COMMENT '制单人ID',
-  `ent_doc_num` char(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '入库单据号',
+  `ent_doc_num` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '入库单据号',
   `ent_date` date DEFAULT NULL COMMENT '入库日期',
   PRIMARY KEY (`ent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='入库单表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='入库单表';
 
 -- ----------------------------
 -- Records of his_warehousing_entry
@@ -656,15 +1115,17 @@ INSERT INTO `his_warehousing_entry` VALUES ('9', '1', 'YPRK-240516001', '2024-05
 INSERT INTO `his_warehousing_entry` VALUES ('10', '1', 'YPRK-240516006', '2024-05-16');
 INSERT INTO `his_warehousing_entry` VALUES ('11', '1', 'YPRK-240516005', '2024-05-16');
 INSERT INTO `his_warehousing_entry` VALUES ('12', '1', 'YPRK-240516003', '2024-05-16');
+INSERT INTO `his_warehousing_entry` VALUES ('13', '1', 'YPRK-240603001', '2024-06-03');
+INSERT INTO `his_warehousing_entry` VALUES ('14', '1', 'YPRK-240603100', '2024-06-03');
 
 -- ----------------------------
 -- Table structure for `qrtz_blob_triggers`
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_blob_triggers`;
 CREATE TABLE `qrtz_blob_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   `blob_data` blob COMMENT '存放持久化Trigger对象',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
@@ -679,8 +1140,8 @@ CREATE TABLE `qrtz_blob_triggers` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_calendars`;
 CREATE TABLE `qrtz_calendars` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `calendar_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '日历名称',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `calendar_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '日历名称',
   `calendar` blob NOT NULL COMMENT '存放持久化calendar对象',
   PRIMARY KEY (`sched_name`,`calendar_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日历信息表';
@@ -694,11 +1155,11 @@ CREATE TABLE `qrtz_calendars` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_cron_triggers`;
 CREATE TABLE `qrtz_cron_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `cron_expression` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'cron表达式',
-  `time_zone_id` varchar(80) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '时区',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `cron_expression` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'cron表达式',
+  `time_zone_id` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '时区',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Cron类型的触发器表';
@@ -712,19 +1173,19 @@ CREATE TABLE `qrtz_cron_triggers` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_fired_triggers`;
 CREATE TABLE `qrtz_fired_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `entry_id` varchar(95) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度器实例id',
-  `trigger_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `instance_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度器实例名',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `entry_id` varchar(95) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度器实例id',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `instance_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度器实例名',
   `fired_time` bigint NOT NULL COMMENT '触发的时间',
   `sched_time` bigint NOT NULL COMMENT '定时器制定的时间',
   `priority` int NOT NULL COMMENT '优先级',
-  `state` varchar(16) COLLATE utf8mb4_general_ci NOT NULL COMMENT '状态',
-  `job_name` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '任务名称',
-  `job_group` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '任务组名',
-  `is_nonconcurrent` varchar(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否并发',
-  `requests_recovery` varchar(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否接受恢复执行',
+  `state` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '状态',
+  `job_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '任务名称',
+  `job_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '任务组名',
+  `is_nonconcurrent` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否并发',
+  `requests_recovery` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '是否接受恢复执行',
   PRIMARY KEY (`sched_name`,`entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='已触发的触发器表';
 
@@ -737,15 +1198,15 @@ CREATE TABLE `qrtz_fired_triggers` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_job_details`;
 CREATE TABLE `qrtz_job_details` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `job_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务名称',
-  `job_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务组名',
-  `description` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '相关介绍',
-  `job_class_name` varchar(250) COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行任务类名称',
-  `is_durable` varchar(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否持久化',
-  `is_nonconcurrent` varchar(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否并发',
-  `is_update_data` varchar(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否更新数据',
-  `requests_recovery` varchar(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否接受恢复执行',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `job_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务组名',
+  `description` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '相关介绍',
+  `job_class_name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行任务类名称',
+  `is_durable` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否持久化',
+  `is_nonconcurrent` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否并发',
+  `is_update_data` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否更新数据',
+  `requests_recovery` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '是否接受恢复执行',
   `job_data` blob COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`,`job_name`,`job_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='任务详细信息表';
@@ -759,8 +1220,8 @@ CREATE TABLE `qrtz_job_details` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_locks`;
 CREATE TABLE `qrtz_locks` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `lock_name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL COMMENT '悲观锁名称',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `lock_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '悲观锁名称',
   PRIMARY KEY (`sched_name`,`lock_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='存储的悲观锁信息表';
 
@@ -773,8 +1234,8 @@ CREATE TABLE `qrtz_locks` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
 CREATE TABLE `qrtz_paused_trigger_grps` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   PRIMARY KEY (`sched_name`,`trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='暂停的触发器表';
 
@@ -787,8 +1248,8 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE `qrtz_scheduler_state` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `instance_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '实例名称',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `instance_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '实例名称',
   `last_checkin_time` bigint NOT NULL COMMENT '上次检查时间',
   `checkin_interval` bigint NOT NULL COMMENT '检查间隔时间',
   PRIMARY KEY (`sched_name`,`instance_name`)
@@ -803,9 +1264,9 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_simple_triggers`;
 CREATE TABLE `qrtz_simple_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   `repeat_count` bigint NOT NULL COMMENT '重复的次数统计',
   `repeat_interval` bigint NOT NULL COMMENT '重复的间隔时间',
   `times_triggered` bigint NOT NULL COMMENT '已经触发的次数',
@@ -822,20 +1283,20 @@ CREATE TABLE `qrtz_simple_triggers` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
 CREATE TABLE `qrtz_simprop_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `str_prop_1` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'String类型的trigger的第一个参数',
-  `str_prop_2` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'String类型的trigger的第二个参数',
-  `str_prop_3` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'String类型的trigger的第三个参数',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `str_prop_1` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'String类型的trigger的第一个参数',
+  `str_prop_2` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'String类型的trigger的第二个参数',
+  `str_prop_3` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'String类型的trigger的第三个参数',
   `int_prop_1` int DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
   `int_prop_2` int DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
   `long_prop_1` bigint DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
   `long_prop_2` bigint DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
   `dec_prop_1` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第一个参数',
   `dec_prop_2` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第二个参数',
-  `bool_prop_1` varchar(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第一个参数',
-  `bool_prop_2` varchar(1) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第二个参数',
+  `bool_prop_1` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第一个参数',
+  `bool_prop_2` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第二个参数',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='同步机制的行锁表';
@@ -849,20 +1310,20 @@ CREATE TABLE `qrtz_simprop_triggers` (
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_triggers`;
 CREATE TABLE `qrtz_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器的名字',
-  `trigger_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器所属组的名字',
-  `job_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_job_details表job_name的外键',
-  `job_group` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_job_details表job_group的外键',
-  `description` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '相关介绍',
+  `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器的名字',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器所属组的名字',
+  `job_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_job_details表job_name的外键',
+  `job_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'qrtz_job_details表job_group的外键',
+  `description` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '相关介绍',
   `next_fire_time` bigint DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
   `prev_fire_time` bigint DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
   `priority` int DEFAULT NULL COMMENT '优先级',
-  `trigger_state` varchar(16) COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器状态',
-  `trigger_type` varchar(8) COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器的类型',
+  `trigger_state` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器状态',
+  `trigger_type` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '触发器的类型',
   `start_time` bigint NOT NULL COMMENT '开始时间',
   `end_time` bigint DEFAULT NULL COMMENT '结束时间',
-  `calendar_name` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '日程表名称',
+  `calendar_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '日程表名称',
   `misfire_instr` smallint DEFAULT NULL COMMENT '补偿执行的策略',
   `job_data` blob COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
@@ -880,15 +1341,15 @@ CREATE TABLE `qrtz_triggers` (
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
   `config_id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
-  `config_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '参数名称',
-  `config_key` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '参数键名',
-  `config_value` varchar(500) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '参数键值',
-  `config_type` char(1) COLLATE utf8mb4_general_ci DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `config_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '参数名称',
+  `config_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '参数键名',
+  `config_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '参数键值',
+  `config_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='参数配置表';
 
@@ -897,7 +1358,7 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 INSERT INTO `sys_config` VALUES ('1', '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
 INSERT INTO `sys_config` VALUES ('2', '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '初始化密码 123456');
-INSERT INTO `sys_config` VALUES ('3', '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue');
+INSERT INTO `sys_config` VALUES ('3', '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-blue', 'Y', 'admin', '2024-04-19 21:41:40', 'admin', '2024-05-19 11:42:38', '深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue');
 INSERT INTO `sys_config` VALUES ('4', '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'true', 'Y', 'admin', '2024-04-19 21:41:40', 'admin', '2024-05-17 14:08:20', '是否开启注册用户功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES ('5', '用户管理-密码字符范围', 'sys.account.chrtype', '0', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '默认任意字符范围，0任意（密码可以输入任意字符），1数字（密码只能为0-9数字），2英文字母（密码只能为a-z和A-Z字母），3字母和数字（密码必须包含字母，数字）,4字母数字和特殊字符（目前支持的特殊字符包括：~!@#$%^&*()-=_+）');
 INSERT INTO `sys_config` VALUES ('6', '用户管理-初始密码修改策略', 'sys.account.initPasswordModify', '1', 'Y', 'admin', '2024-04-19 21:41:40', '', null, '0：初始密码修改策略关闭，没有任何提示，1：提醒用户，如果未修改初始密码，则在登录时就会提醒修改密码对话框');
@@ -914,20 +1375,20 @@ DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
   `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
   `parent_id` bigint DEFAULT '0' COMMENT '父部门id',
-  `ancestors` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '祖级列表',
-  `dept_name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '部门名称',
+  `ancestors` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '祖级列表',
+  `dept_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '部门名称',
   `order_num` int DEFAULT '0' COMMENT '显示顺序',
-  `leader` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '负责人',
-  `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `leader` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '负责人',
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系电话',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='部门表';
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='部门表';
 
 -- ----------------------------
 -- Records of sys_dept
@@ -938,6 +1399,8 @@ INSERT INTO `sys_dept` VALUES ('201', '100', '0,100', '科室', '1', null, null,
 INSERT INTO `sys_dept` VALUES ('202', '201', '0,100,201', '综合科室', '0', null, null, null, '0', '0', 'admin', '2024-04-20 21:21:13', '', null);
 INSERT INTO `sys_dept` VALUES ('203', '201', '0,100,201', '内科', '2', '', '', '', '0', '0', 'admin', '2024-04-20 21:26:11', 'admin', '2024-04-20 21:26:26');
 INSERT INTO `sys_dept` VALUES ('204', '201', '0,100,201', '外科', '1', null, null, null, '0', '0', 'admin', '2024-04-20 21:26:21', '', null);
+INSERT INTO `sys_dept` VALUES ('206', '100', '0,100', '挂号/收费处', '0', null, null, null, '0', '0', 'admin', '2024-06-03 02:26:16', '', null);
+INSERT INTO `sys_dept` VALUES ('207', '100', '0,100', '药房', '0', null, null, null, '0', '0', 'admin', '2024-06-03 02:48:24', '', null);
 
 -- ----------------------------
 -- Table structure for `sys_dict_data`
@@ -946,18 +1409,18 @@ DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
   `dict_code` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
   `dict_sort` int DEFAULT '0' COMMENT '字典排序',
-  `dict_label` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典标签',
-  `dict_value` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典键值',
-  `dict_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典类型',
-  `css_class` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
-  `list_class` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '表格回显样式',
-  `is_default` char(1) COLLATE utf8mb4_general_ci DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `dict_label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典标签',
+  `dict_value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典键值',
+  `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典类型',
+  `css_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
+  `list_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '表格回显样式',
+  `is_default` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='字典数据表';
 
@@ -997,7 +1460,7 @@ INSERT INTO `sys_dict_data` VALUES ('100', '1', '上午', '0', 'his_reg_period',
 INSERT INTO `sys_dict_data` VALUES ('101', '2', '下午', '1', 'his_reg_period', '', '', 'N', '0', 'admin', '2024-05-01 11:25:52', 'admin', '2024-05-17 11:23:44', '');
 INSERT INTO `sys_dict_data` VALUES ('102', '3', '晚上', '2', 'his_reg_period', '', '', 'N', '0', 'admin', '2024-05-01 11:26:05', 'admin', '2024-05-17 11:23:49', '');
 INSERT INTO `sys_dict_data` VALUES ('103', '1', '未缴费', '0', 'his_reg_status', '', 'danger', 'Y', '0', 'admin', '2024-05-01 11:26:32', 'admin', '2024-05-01 11:26:37', '');
-INSERT INTO `sys_dict_data` VALUES ('104', '2', '已缴费', '1', 'his_reg_status', null, 'success', 'Y', '0', 'admin', '2024-05-01 11:26:50', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('104', '2', '待就诊', '1', 'his_reg_status', '', 'warning', 'Y', '0', 'admin', '2024-05-01 11:26:50', 'admin', '2024-06-01 14:24:27', '已缴费，待就诊');
 INSERT INTO `sys_dict_data` VALUES ('105', '3', '已完成', '2', 'his_reg_status', null, 'primary', 'Y', '0', 'admin', '2024-05-01 11:27:09', '', null, null);
 INSERT INTO `sys_dict_data` VALUES ('106', '1', '片剂', '0', 'drug_dosage_form', null, null, 'Y', '0', 'admin', '2024-05-01 11:29:50', '', null, null);
 INSERT INTO `sys_dict_data` VALUES ('107', '2', '胶囊剂', '1', 'drug_dosage_form', null, null, 'Y', '0', 'admin', '2024-05-01 11:30:02', '', null, null);
@@ -1039,14 +1502,14 @@ INSERT INTO `sys_dict_data` VALUES ('138', '3', '已配药', '2', 'his_prsc_stat
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
   `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
-  `dict_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典名称',
-  `dict_type` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典类型',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `dict_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典名称',
+  `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '字典类型',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`),
   UNIQUE KEY `dict_type` (`dict_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='字典类型表';
@@ -1082,18 +1545,18 @@ INSERT INTO `sys_dict_type` VALUES ('111', '处方状态', 'his_prsc_status', '0
 DROP TABLE IF EXISTS `sys_job`;
 CREATE TABLE `sys_job` (
   `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
-  `job_name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '任务名称',
-  `job_group` varchar(64) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
-  `invoke_target` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调用目标字符串',
-  `cron_expression` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT 'cron执行表达式',
-  `misfire_policy` varchar(20) COLLATE utf8mb4_general_ci DEFAULT '3' COMMENT '计划执行错误策略（1立即执行 2执行一次 3放弃执行）',
-  `concurrent` char(1) COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '是否并发执行（0允许 1禁止）',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '状态（0正常 1暂停）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `job_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '任务名称',
+  `job_group` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
+  `invoke_target` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调用目标字符串',
+  `cron_expression` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT 'cron执行表达式',
+  `misfire_policy` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '3' COMMENT '计划执行错误策略（1立即执行 2执行一次 3放弃执行）',
+  `concurrent` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '是否并发执行（0允许 1禁止）',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '状态（0正常 1暂停）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注信息',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注信息',
   PRIMARY KEY (`job_id`,`job_name`,`job_group`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='定时任务调度表';
 
@@ -1110,12 +1573,12 @@ INSERT INTO `sys_job` VALUES ('3', '系统默认（多参）', 'DEFAULT', 'ryTas
 DROP TABLE IF EXISTS `sys_job_log`;
 CREATE TABLE `sys_job_log` (
   `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
-  `job_name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务名称',
-  `job_group` varchar(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务组名',
-  `invoke_target` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '调用目标字符串',
-  `job_message` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '日志信息',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '执行状态（0正常 1失败）',
-  `exception_info` varchar(2000) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '异常信息',
+  `job_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务组名',
+  `invoke_target` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '调用目标字符串',
+  `job_message` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '日志信息',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '执行状态（0正常 1失败）',
+  `exception_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '异常信息',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='定时任务调度日志表';
@@ -1130,18 +1593,18 @@ CREATE TABLE `sys_job_log` (
 DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE `sys_logininfor` (
   `info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
-  `login_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录账号',
-  `ipaddr` varchar(128) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录IP地址',
-  `login_location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录地点',
-  `browser` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '浏览器类型',
-  `os` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作系统',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
-  `msg` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '提示消息',
+  `login_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录账号',
+  `ipaddr` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录IP地址',
+  `login_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录地点',
+  `browser` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '浏览器类型',
+  `os` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作系统',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
+  `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`),
   KEY `idx_sys_logininfor_s` (`status`),
   KEY `idx_sys_logininfor_lt` (`login_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=533 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -1441,6 +1904,144 @@ INSERT INTO `sys_logininfor` VALUES ('391', 'admin', '127.0.0.1', '内网IP', 'C
 INSERT INTO `sys_logininfor` VALUES ('392', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 17:57:14');
 INSERT INTO `sys_logininfor` VALUES ('393', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-17 18:00:10');
 INSERT INTO `sys_logininfor` VALUES ('394', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-17 18:00:12');
+INSERT INTO `sys_logininfor` VALUES ('395', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 10:46:00');
+INSERT INTO `sys_logininfor` VALUES ('396', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 11:26:15');
+INSERT INTO `sys_logininfor` VALUES ('397', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:26:21');
+INSERT INTO `sys_logininfor` VALUES ('398', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 11:26:40');
+INSERT INTO `sys_logininfor` VALUES ('399', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:26:44');
+INSERT INTO `sys_logininfor` VALUES ('400', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:31:21');
+INSERT INTO `sys_logininfor` VALUES ('401', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 11:32:06');
+INSERT INTO `sys_logininfor` VALUES ('402', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:32:08');
+INSERT INTO `sys_logininfor` VALUES ('403', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 11:32:16');
+INSERT INTO `sys_logininfor` VALUES ('404', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:32:17');
+INSERT INTO `sys_logininfor` VALUES ('405', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 11:33:07');
+INSERT INTO `sys_logininfor` VALUES ('406', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:33:09');
+INSERT INTO `sys_logininfor` VALUES ('407', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 11:33:31');
+INSERT INTO `sys_logininfor` VALUES ('408', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 11:33:36');
+INSERT INTO `sys_logininfor` VALUES ('409', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:28:03');
+INSERT INTO `sys_logininfor` VALUES ('410', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:28:38');
+INSERT INTO `sys_logininfor` VALUES ('411', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 12:33:57');
+INSERT INTO `sys_logininfor` VALUES ('412', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:33:59');
+INSERT INTO `sys_logininfor` VALUES ('413', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 12:34:23');
+INSERT INTO `sys_logininfor` VALUES ('414', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:34:24');
+INSERT INTO `sys_logininfor` VALUES ('415', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:42:23');
+INSERT INTO `sys_logininfor` VALUES ('416', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 12:43:23');
+INSERT INTO `sys_logininfor` VALUES ('417', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:43:25');
+INSERT INTO `sys_logininfor` VALUES ('418', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 12:44:41');
+INSERT INTO `sys_logininfor` VALUES ('419', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:44:43');
+INSERT INTO `sys_logininfor` VALUES ('420', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 12:50:45');
+INSERT INTO `sys_logininfor` VALUES ('421', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 12:50:47');
+INSERT INTO `sys_logininfor` VALUES ('422', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 17:23:49');
+INSERT INTO `sys_logininfor` VALUES ('423', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 17:57:39');
+INSERT INTO `sys_logininfor` VALUES ('424', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 17:57:42');
+INSERT INTO `sys_logininfor` VALUES ('425', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 17:58:08');
+INSERT INTO `sys_logininfor` VALUES ('426', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 17:58:09');
+INSERT INTO `sys_logininfor` VALUES ('427', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 18:50:09');
+INSERT INTO `sys_logininfor` VALUES ('428', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 18:50:12');
+INSERT INTO `sys_logininfor` VALUES ('429', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-05-19 18:50:29');
+INSERT INTO `sys_logininfor` VALUES ('430', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-19 18:50:30');
+INSERT INTO `sys_logininfor` VALUES ('431', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-21 13:52:38');
+INSERT INTO `sys_logininfor` VALUES ('432', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-21 14:09:52');
+INSERT INTO `sys_logininfor` VALUES ('433', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-21 22:26:55');
+INSERT INTO `sys_logininfor` VALUES ('434', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-30 20:04:33');
+INSERT INTO `sys_logininfor` VALUES ('435', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-30 20:04:47');
+INSERT INTO `sys_logininfor` VALUES ('436', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-30 20:12:29');
+INSERT INTO `sys_logininfor` VALUES ('437', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-30 20:36:51');
+INSERT INTO `sys_logininfor` VALUES ('438', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 10:49:19');
+INSERT INTO `sys_logininfor` VALUES ('439', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 10:55:54');
+INSERT INTO `sys_logininfor` VALUES ('440', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 11:43:59');
+INSERT INTO `sys_logininfor` VALUES ('441', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 11:46:12');
+INSERT INTO `sys_logininfor` VALUES ('442', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 11:51:37');
+INSERT INTO `sys_logininfor` VALUES ('443', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 11:55:05');
+INSERT INTO `sys_logininfor` VALUES ('444', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 11:56:16');
+INSERT INTO `sys_logininfor` VALUES ('445', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-05-31 11:57:43');
+INSERT INTO `sys_logininfor` VALUES ('446', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 10:32:30');
+INSERT INTO `sys_logininfor` VALUES ('447', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 11:43:20');
+INSERT INTO `sys_logininfor` VALUES ('448', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 14:10:58');
+INSERT INTO `sys_logininfor` VALUES ('449', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:09:01');
+INSERT INTO `sys_logininfor` VALUES ('450', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:38:07');
+INSERT INTO `sys_logininfor` VALUES ('451', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:40:14');
+INSERT INTO `sys_logininfor` VALUES ('452', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:44:04');
+INSERT INTO `sys_logininfor` VALUES ('453', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:46:00');
+INSERT INTO `sys_logininfor` VALUES ('454', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:55:37');
+INSERT INTO `sys_logininfor` VALUES ('455', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 16:55:46');
+INSERT INTO `sys_logininfor` VALUES ('456', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 17:29:11');
+INSERT INTO `sys_logininfor` VALUES ('457', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 17:51:19');
+INSERT INTO `sys_logininfor` VALUES ('458', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 18:13:00');
+INSERT INTO `sys_logininfor` VALUES ('459', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 19:21:08');
+INSERT INTO `sys_logininfor` VALUES ('460', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 19:43:49');
+INSERT INTO `sys_logininfor` VALUES ('461', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 20:56:31');
+INSERT INTO `sys_logininfor` VALUES ('462', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 21:13:25');
+INSERT INTO `sys_logininfor` VALUES ('463', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 22:54:28');
+INSERT INTO `sys_logininfor` VALUES ('464', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 23:06:27');
+INSERT INTO `sys_logininfor` VALUES ('465', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-01 23:14:16');
+INSERT INTO `sys_logininfor` VALUES ('466', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:13:57');
+INSERT INTO `sys_logininfor` VALUES ('467', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:22:43');
+INSERT INTO `sys_logininfor` VALUES ('468', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:32:20');
+INSERT INTO `sys_logininfor` VALUES ('469', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:36:32');
+INSERT INTO `sys_logininfor` VALUES ('470', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:38:43');
+INSERT INTO `sys_logininfor` VALUES ('471', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:48:52');
+INSERT INTO `sys_logininfor` VALUES ('472', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-02 00:49:48');
+INSERT INTO `sys_logininfor` VALUES ('473', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 00:41:53');
+INSERT INTO `sys_logininfor` VALUES ('474', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:37:03');
+INSERT INTO `sys_logininfor` VALUES ('475', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:42:12');
+INSERT INTO `sys_logininfor` VALUES ('476', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:45:08');
+INSERT INTO `sys_logininfor` VALUES ('477', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:46:14');
+INSERT INTO `sys_logininfor` VALUES ('478', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:51:38');
+INSERT INTO `sys_logininfor` VALUES ('479', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:52:32');
+INSERT INTO `sys_logininfor` VALUES ('480', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 01:58:23');
+INSERT INTO `sys_logininfor` VALUES ('481', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 01:58:31');
+INSERT INTO `sys_logininfor` VALUES ('482', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 01:59:02');
+INSERT INTO `sys_logininfor` VALUES ('483', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:05:26');
+INSERT INTO `sys_logininfor` VALUES ('484', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:21:29');
+INSERT INTO `sys_logininfor` VALUES ('485', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:21:32');
+INSERT INTO `sys_logininfor` VALUES ('486', 'doczou', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:21:42');
+INSERT INTO `sys_logininfor` VALUES ('487', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:21:43');
+INSERT INTO `sys_logininfor` VALUES ('488', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:24:17');
+INSERT INTO `sys_logininfor` VALUES ('489', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:29:43');
+INSERT INTO `sys_logininfor` VALUES ('490', '张散', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '1', '用户不存在/密码错误', '2024-06-03 02:29:46');
+INSERT INTO `sys_logininfor` VALUES ('491', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:29:54');
+INSERT INTO `sys_logininfor` VALUES ('492', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:30:31');
+INSERT INTO `sys_logininfor` VALUES ('493', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:30:32');
+INSERT INTO `sys_logininfor` VALUES ('494', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:32:15');
+INSERT INTO `sys_logininfor` VALUES ('495', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:32:25');
+INSERT INTO `sys_logininfor` VALUES ('496', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:32:40');
+INSERT INTO `sys_logininfor` VALUES ('497', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:32:41');
+INSERT INTO `sys_logininfor` VALUES ('498', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:34:00');
+INSERT INTO `sys_logininfor` VALUES ('499', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:34:03');
+INSERT INTO `sys_logininfor` VALUES ('500', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:34:13');
+INSERT INTO `sys_logininfor` VALUES ('501', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:34:15');
+INSERT INTO `sys_logininfor` VALUES ('502', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:38:30');
+INSERT INTO `sys_logininfor` VALUES ('503', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:38:33');
+INSERT INTO `sys_logininfor` VALUES ('504', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:38:40');
+INSERT INTO `sys_logininfor` VALUES ('505', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:38:42');
+INSERT INTO `sys_logininfor` VALUES ('506', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:39:23');
+INSERT INTO `sys_logininfor` VALUES ('507', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:39:25');
+INSERT INTO `sys_logininfor` VALUES ('508', 'regzhang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:39:52');
+INSERT INTO `sys_logininfor` VALUES ('509', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:42:42');
+INSERT INTO `sys_logininfor` VALUES ('510', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:49:39');
+INSERT INTO `sys_logininfor` VALUES ('511', 'drughuang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:49:42');
+INSERT INTO `sys_logininfor` VALUES ('512', 'drughuang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:49:57');
+INSERT INTO `sys_logininfor` VALUES ('513', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:49:58');
+INSERT INTO `sys_logininfor` VALUES ('514', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:50:46');
+INSERT INTO `sys_logininfor` VALUES ('515', 'drughuang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:50:49');
+INSERT INTO `sys_logininfor` VALUES ('516', 'drughuang', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:51:27');
+INSERT INTO `sys_logininfor` VALUES ('517', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:51:39');
+INSERT INTO `sys_logininfor` VALUES ('518', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:51:58');
+INSERT INTO `sys_logininfor` VALUES ('519', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:51:59');
+INSERT INTO `sys_logininfor` VALUES ('520', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '退出成功', '2024-06-03 02:52:16');
+INSERT INTO `sys_logininfor` VALUES ('521', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:52:17');
+INSERT INTO `sys_logininfor` VALUES ('522', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 02:55:08');
+INSERT INTO `sys_logininfor` VALUES ('523', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 10:36:52');
+INSERT INTO `sys_logininfor` VALUES ('524', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:03:10');
+INSERT INTO `sys_logininfor` VALUES ('525', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:04:43');
+INSERT INTO `sys_logininfor` VALUES ('526', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:04:50');
+INSERT INTO `sys_logininfor` VALUES ('527', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:06:31');
+INSERT INTO `sys_logininfor` VALUES ('528', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:07:34');
+INSERT INTO `sys_logininfor` VALUES ('529', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:07:40');
+INSERT INTO `sys_logininfor` VALUES ('530', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:23:56');
+INSERT INTO `sys_logininfor` VALUES ('531', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:30:11');
+INSERT INTO `sys_logininfor` VALUES ('532', 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-06-03 11:52:29');
 
 -- ----------------------------
 -- Table structure for `sys_menu`
@@ -1448,31 +2049,31 @@ INSERT INTO `sys_logininfor` VALUES ('394', 'admin', '127.0.0.1', '内网IP', 'C
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `menu_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名称',
+  `menu_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名称',
   `parent_id` bigint DEFAULT '0' COMMENT '父菜单ID',
   `order_num` int DEFAULT '0' COMMENT '显示顺序',
-  `url` varchar(200) COLLATE utf8mb4_general_ci DEFAULT '#' COMMENT '请求地址',
-  `target` varchar(20) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '打开方式（menuItem页签 menuBlank新窗口）',
-  `menu_type` char(1) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
-  `visible` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
-  `is_refresh` char(1) COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '是否刷新（0刷新 1不刷新）',
-  `perms` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限标识',
-  `icon` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '#' COMMENT '菜单图标',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '#' COMMENT '请求地址',
+  `target` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '打开方式（menuItem页签 menuBlank新窗口）',
+  `menu_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
+  `visible` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
+  `is_refresh` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '是否刷新（0刷新 1不刷新）',
+  `perms` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限标识',
+  `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '#' COMMENT '菜单图标',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2094 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2099 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '97', '#', 'menuItem', 'M', '0', '1', '', 'fa fa-gear', 'admin', '2024-04-19 22:31:43', 'admin', '2024-04-27 09:24:34', '系统管理目录');
-INSERT INTO `sys_menu` VALUES ('2', '系统监控', '0', '98', '#', 'menuItem', 'M', '0', '1', '', 'fa fa-video-camera', 'admin', '2024-04-19 22:31:43', 'admin', '2024-04-27 09:24:28', '系统监控目录');
-INSERT INTO `sys_menu` VALUES ('3', '系统工具', '0', '99', '#', 'menuItem', 'M', '0', '1', '', 'fa fa-bars', 'admin', '2024-04-19 22:31:43', 'admin', '2024-04-27 09:24:24', '系统工具目录');
-INSERT INTO `sys_menu` VALUES ('4', '若依官网', '0', '100', 'http://ruoyi.vip', 'menuBlank', 'C', '0', '1', '', 'fa fa-location-arrow', 'admin', '2024-04-19 22:31:43', 'admin', '2024-04-27 09:24:19', '若依官网地址');
+INSERT INTO `sys_menu` VALUES ('2', '系统监控', '0', '98', '#', 'menuItem', 'M', '1', '1', '', 'fa fa-video-camera', 'admin', '2024-04-19 22:31:43', 'admin', '2024-06-03 02:22:14', '系统监控目录');
+INSERT INTO `sys_menu` VALUES ('3', '系统工具', '0', '99', '#', 'menuItem', 'M', '1', '1', '', 'fa fa-bars', 'admin', '2024-04-19 22:31:43', 'admin', '2024-06-03 02:22:18', '系统工具目录');
+INSERT INTO `sys_menu` VALUES ('4', '若依官网', '0', '100', 'http://ruoyi.vip', 'menuBlank', 'C', '1', '1', '', 'fa fa-location-arrow', 'admin', '2024-04-19 22:31:43', 'admin', '2024-06-03 02:22:01', '若依官网地址');
 INSERT INTO `sys_menu` VALUES ('100', '用户管理', '1', '1', '/system/user', '', 'C', '0', '1', 'system:user:view', 'fa fa-user-o', 'admin', '2024-04-19 22:31:43', '', null, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES ('101', '角色管理', '1', '2', '/system/role', '', 'C', '0', '1', 'system:role:view', 'fa fa-user-secret', 'admin', '2024-04-19 22:31:43', '', null, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES ('102', '菜单管理', '1', '3', '/system/menu', '', 'C', '0', '1', 'system:menu:view', 'fa fa-th-list', 'admin', '2024-04-19 22:31:43', '', null, '菜单管理菜单');
@@ -1559,7 +2160,7 @@ INSERT INTO `sys_menu` VALUES ('2001', '挂号', '2000', '1', '/test/registratio
 INSERT INTO `sys_menu` VALUES ('2002', '患者信息', '2000', '2', '/test/patients', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-04-20 20:47:56', 'admin', '2024-04-20 20:48:44', '');
 INSERT INTO `sys_menu` VALUES ('2003', '挂号收费处', '0', '1', '#', 'menuItem', 'M', '0', '1', '', 'fa fa-user-plus', 'admin', '2024-04-26 17:41:48', 'admin', '2024-04-27 09:24:40', '');
 INSERT INTO `sys_menu` VALUES ('2004', '挂号面板', '2003', '1', '/his/registration', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-04-26 17:44:58', 'admin', '2024-05-17 11:33:31', '');
-INSERT INTO `sys_menu` VALUES ('2005', '患者信息管理', '2003', '1', '/his/patients', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-04-27 08:52:26', 'admin', '2024-04-27 08:52:51', '');
+INSERT INTO `sys_menu` VALUES ('2005', '患者信息管理', '2003', '1', '/his/patients', 'menuItem', 'C', '0', '1', 'his:patients:view', '#', 'admin', '2024-04-27 08:52:26', 'admin', '2024-06-03 02:33:53', '');
 INSERT INTO `sys_menu` VALUES ('2006', '药房', '0', '3', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-cubes', 'admin', '2024-04-27 09:25:08', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2037', '供应商管理', '2006', '101', '/his/suppliers', 'menuItem', 'C', '0', '1', 'his:suppliers:view', '#', 'admin', '2024-05-01 23:08:44', 'admin', '2024-05-16 11:37:58', '供应商菜单');
 INSERT INTO `sys_menu` VALUES ('2038', '供应商查询', '2037', '1', '#', '', 'F', '0', '1', 'his:suppliers:list', '#', 'admin', '2024-05-01 23:08:44', '', null, '');
@@ -1586,7 +2187,7 @@ INSERT INTO `sys_menu` VALUES ('2058', '采购订单修改', '2055', '3', '#', '
 INSERT INTO `sys_menu` VALUES ('2059', '采购订单删除', '2055', '4', '#', '', 'F', '0', '1', 'his:purchase:remove', '#', 'admin', '2024-05-01 23:08:45', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2060', '采购订单导出', '2055', '5', '#', '', 'F', '0', '1', 'his:purchase:export', '#', 'admin', '2024-05-01 23:08:45', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2061', '门诊', '0', '2', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-comments', 'admin', '2024-05-13 23:41:39', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2063', '库存管理', '2006', '4', '/his/inventory', 'menuItem', 'C', '0', '1', 'his:inventory:view', '#', 'admin', '2024-05-14 20:04:56', 'admin', '2024-05-16 11:36:52', '库存管理菜单');
+INSERT INTO `sys_menu` VALUES ('2063', '库存管理', '2006', '4', '/his/inventory', 'menuItem', 'C', '0', '0', 'his:inventory:view', '#', 'admin', '2024-05-14 20:04:56', 'admin', '2024-06-03 01:56:47', '库存管理菜单');
 INSERT INTO `sys_menu` VALUES ('2064', '库存管理查询', '2063', '1', '#', '', 'F', '0', '1', 'his:inventory:list', '#', 'admin', '2024-05-14 20:04:56', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2065', '库存管理新增', '2063', '2', '#', '', 'F', '0', '1', 'his:inventory:add', '#', 'admin', '2024-05-14 20:04:56', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2066', '库存管理修改', '2063', '3', '#', '', 'F', '0', '1', 'his:inventory:edit', '#', 'admin', '2024-05-14 20:04:56', '', null, '');
@@ -1598,7 +2199,7 @@ INSERT INTO `sys_menu` VALUES ('2071', '入库单新增', '2069', '2', '#', '', 
 INSERT INTO `sys_menu` VALUES ('2072', '入库单修改', '2069', '3', '#', '', 'F', '0', '1', 'his:entry:edit', '#', 'admin', '2024-05-14 21:33:41', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2073', '入库单删除', '2069', '4', '#', '', 'F', '0', '1', 'his:entry:remove', '#', 'admin', '2024-05-14 21:33:41', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2074', '入库单导出', '2069', '5', '#', '', 'F', '0', '1', 'his:entry:export', '#', 'admin', '2024-05-14 21:33:41', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2075', '挂号记录管理', '2003', '1', '/his/registers', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-05-17 00:23:03', 'admin', '2024-05-17 17:55:16', '挂号记录菜单');
+INSERT INTO `sys_menu` VALUES ('2075', '挂号记录管理', '2003', '1', '/his/registers', 'menuItem', 'C', '0', '1', 'his:registers:view', '#', 'admin', '2024-05-17 00:23:03', 'admin', '2024-05-19 10:58:43', '挂号记录菜单');
 INSERT INTO `sys_menu` VALUES ('2076', '挂号记录查询', '2075', '1', '#', '', 'F', '0', '1', 'his:registers:list', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2077', '挂号记录新增', '2075', '2', '#', '', 'F', '0', '1', 'his:registers:add', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2078', '挂号记录修改', '2075', '3', '#', '', 'F', '0', '1', 'his:registers:edit', '#', 'admin', '2024-05-17 00:23:03', '', null, '');
@@ -1616,7 +2217,12 @@ INSERT INTO `sys_menu` VALUES ('2089', '处方新增', '2087', '2', '#', '', 'F'
 INSERT INTO `sys_menu` VALUES ('2090', '处方修改', '2087', '3', '#', '', 'F', '0', '1', 'his:prescriptions:edit', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2091', '处方删除', '2087', '4', '#', '', 'F', '0', '1', 'his:prescriptions:remove', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2092', '处方导出', '2087', '5', '#', '', 'F', '0', '1', 'his:prescriptions:export', '#', 'admin', '2024-05-17 13:11:18', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2093', '处方录入', '2061', '0', '/his/prescriptions/entry', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-05-17 17:08:40', 'admin', '2024-05-17 17:12:31', '');
+INSERT INTO `sys_menu` VALUES ('2093', '处方录入面板', '2061', '0', '/his/prescriptions/entry', 'menuItem', 'C', '0', '1', '', '#', 'admin', '2024-05-17 17:08:40', 'admin', '2024-05-21 22:27:31', '');
+INSERT INTO `sys_menu` VALUES ('2094', '处方配药', '2006', '0', '/his/inventory/dispensing', 'menuItem', 'C', '0', '0', '', '#', 'admin', '2024-06-01 16:09:31', 'admin', '2024-06-03 01:56:20', '');
+INSERT INTO `sys_menu` VALUES ('2095', '患者信息查询', '2005', '0', '#', 'menuItem', 'F', '0', '1', 'his:patients:list', '#', 'admin', '2024-06-03 02:36:12', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2096', '患者信息新增', '2005', '1', '#', 'menuItem', 'F', '0', '1', 'his:patients:add', '#', 'admin', '2024-06-03 02:36:48', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2097', '患者信息修改', '2005', '2', '#', 'menuItem', 'F', '0', '1', 'his:patients:edit', '#', 'admin', '2024-06-03 02:37:12', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2098', '患者信息删除', '2005', '3', '#', 'menuItem', 'F', '0', '1', 'his:patients:remove', '#', 'admin', '2024-06-03 02:37:32', 'admin', '2024-06-03 02:38:58', '');
 
 -- ----------------------------
 -- Table structure for `sys_notice`
@@ -1624,15 +2230,15 @@ INSERT INTO `sys_menu` VALUES ('2093', '处方录入', '2061', '0', '/his/prescr
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice` (
   `notice_id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
-  `notice_title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告标题',
-  `notice_type` char(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
+  `notice_title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告标题',
+  `notice_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` longblob COMMENT '公告内容',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='通知公告表';
 
@@ -1649,27 +2255,27 @@ INSERT INTO `sys_notice` VALUES ('3', '若依开源框架介绍', '1', 0x3C703E3
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log` (
   `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
-  `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '模块标题',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '模块标题',
   `business_type` int DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
-  `method` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '方法名称',
-  `request_method` varchar(10) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '请求方式',
+  `method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '方法名称',
+  `request_method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '请求方式',
   `operator_type` int DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
-  `oper_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作人员',
-  `dept_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '部门名称',
-  `oper_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '请求URL',
-  `oper_ip` varchar(128) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '主机地址',
-  `oper_location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作地点',
-  `oper_param` varchar(2000) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '请求参数',
-  `json_result` varchar(2000) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '返回参数',
+  `oper_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作人员',
+  `dept_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '部门名称',
+  `oper_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '请求URL',
+  `oper_ip` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '主机地址',
+  `oper_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作地点',
+  `oper_param` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '请求参数',
+  `json_result` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '返回参数',
   `status` int DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
-  `error_msg` varchar(2000) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '错误消息',
+  `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
   `cost_time` bigint DEFAULT '0' COMMENT '消耗时间',
   PRIMARY KEY (`oper_id`),
   KEY `idx_sys_oper_log_bt` (`business_type`),
   KEY `idx_sys_oper_log_s` (`status`),
   KEY `idx_sys_oper_log_ot` (`oper_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=709 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='操作日志记录';
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -2083,6 +2689,206 @@ INSERT INTO `sys_oper_log` VALUES ('505', '角色管理', '2', 'com.ruoyi.projec
 INSERT INTO `sys_oper_log` VALUES ('506', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2075\"],\"parentId\":[\"2003\"],\"menuType\":[\"C\"],\"menuName\":[\"挂号记录管理\"],\"url\":[\"/his/registers\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:55:16', '12');
 INSERT INTO `sys_oper_log` VALUES ('507', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"门诊部\"],\"roleKey\":[\"his\"],\"roleSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 17:56:56', '18');
 INSERT INTO `sys_oper_log` VALUES ('508', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.changeStatus()', 'POST', '1', 'admin', '办公室', '/system/role/changeStatus', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"status\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-17 18:00:25', '7');
+INSERT INTO `sys_oper_log` VALUES ('509', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2075\"],\"parentId\":[\"2003\"],\"menuType\":[\"C\"],\"menuName\":[\"挂号记录管理\"],\"url\":[\"/his/registers\"],\"target\":[\"menuItem\"],\"perms\":[\"his:registers:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 10:58:43', '25');
+INSERT INTO `sys_oper_log` VALUES ('510', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"roleName\":[\"普通角色\"],\"roleKey\":[\"common\"],\"dataScope\":[\"1\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:25:46', '40');
+INSERT INTO `sys_oper_log` VALUES ('511', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"门诊部\"],\"roleKey\":[\"his\"],\"dataScope\":[\"1\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:25:53', '14');
+INSERT INTO `sys_oper_log` VALUES ('512', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"门诊部\"],\"roleKey\":[\"his\"],\"roleSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2003,2075,2076,2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:32:58', '82');
+INSERT INTO `sys_oper_log` VALUES ('513', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"门诊部\"],\"roleKey\":[\"his\"],\"roleSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2003,2075,2076,2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:33:05', '26');
+INSERT INTO `sys_oper_log` VALUES ('514', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"100\"],\"roleName\":[\"医生\"],\"roleKey\":[\"doctor\"],\"roleSort\":[\"1\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2003,2075,2076,2061,2093,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2091,2092\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:34:04', '17');
+INSERT INTO `sys_oper_log` VALUES ('515', '参数管理', '2', 'com.ruoyi.project.system.config.controller.ConfigController.editSave()', 'POST', '1', 'admin', '办公室', '/system/config/edit', '127.0.0.1', '内网IP', '{\"configId\":[\"3\"],\"configName\":[\"主框架页-侧边栏主题\"],\"configKey\":[\"sys.index.sideTheme\"],\"configValue\":[\"theme-light\"],\"configType\":[\"Y\"],\"remark\":[\"深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:41:27', '17');
+INSERT INTO `sys_oper_log` VALUES ('516', '参数管理', '2', 'com.ruoyi.project.system.config.controller.ConfigController.editSave()', 'POST', '1', 'admin', '办公室', '/system/config/edit', '127.0.0.1', '内网IP', '{\"configId\":[\"3\"],\"configName\":[\"主框架页-侧边栏主题\"],\"configKey\":[\"sys.index.sideTheme\"],\"configValue\":[\"theme-dark\"],\"configType\":[\"Y\"],\"remark\":[\"深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:42:17', '23');
+INSERT INTO `sys_oper_log` VALUES ('517', '参数管理', '9', 'com.ruoyi.project.system.config.controller.ConfigController.refreshCache()', 'GET', '1', 'admin', '办公室', '/system/config/refreshCache', '127.0.0.1', '内网IP', '', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:42:31', '7');
+INSERT INTO `sys_oper_log` VALUES ('518', '参数管理', '9', 'com.ruoyi.project.system.config.controller.ConfigController.refreshCache()', 'GET', '1', 'admin', '办公室', '/system/config/refreshCache', '127.0.0.1', '内网IP', '', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:42:31', '5');
+INSERT INTO `sys_oper_log` VALUES ('519', '参数管理', '2', 'com.ruoyi.project.system.config.controller.ConfigController.editSave()', 'POST', '1', 'admin', '办公室', '/system/config/edit', '127.0.0.1', '内网IP', '{\"configId\":[\"3\"],\"configName\":[\"主框架页-侧边栏主题\"],\"configKey\":[\"sys.index.sideTheme\"],\"configValue\":[\"theme-blue\"],\"configType\":[\"Y\"],\"remark\":[\"深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 11:42:38', '20');
+INSERT INTO `sys_oper_log` VALUES ('520', '用户管理', '1', 'com.ruoyi.project.system.user.controller.UserController.addSave()', 'POST', '1', 'admin', '办公室', '/system/user/add', '127.0.0.1', '内网IP', '{\"deptId\":[\"\"],\"userName\":[\"龙头\"],\"deptName\":[\"\"],\"phonenumber\":[\"\"],\"email\":[\"\"],\"loginName\":[\"test\"],\"sex\":[\"0\"],\"remark\":[\"\"],\"status\":[\"0\"],\"roleIds\":[\"\"],\"postIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 12:08:41', '20');
+INSERT INTO `sys_oper_log` VALUES ('521', '用户管理', '3', 'com.ruoyi.project.system.user.controller.UserController.remove()', 'POST', '1', 'admin', '办公室', '/system/user/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"104\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-19 12:08:50', '21');
+INSERT INTO `sys_oper_log` VALUES ('522', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2093\"],\"parentId\":[\"2061\"],\"menuType\":[\"C\"],\"menuName\":[\"处方录入面板\"],\"url\":[\"/his/prescriptions/entry\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-21 22:27:31', '80');
+INSERT INTO `sys_oper_log` VALUES ('523', '参数管理', '9', 'com.ruoyi.project.system.config.controller.ConfigController.refreshCache()', 'GET', '1', 'admin', '办公室', '/system/config/refreshCache', '127.0.0.1', '内网IP', '', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-21 22:29:51', '8');
+INSERT INTO `sys_oper_log` VALUES ('524', '患者病历', '2', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.editSave()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/edit', '127.0.0.1', '内网IP', '{\"patientId\":[\"10\"],\"userId\":[\"\"],\"patientName\":[\"张三\"],\"patientSex\":[\"1\"],\"patientBirthDate\":[\"1972-11-11\"],\"patientAge\":[\"51\"],\"patientIdCardNum\":[\"45098119721111888X\"],\"patientMedCardNum\":[\"\"],\"patientPhoneNum\":[\"45321\"],\"index\":[\"1\"],\"hisMedicalRecordList[0].recTime\":[\"\"],\"hisMedicalRecordList[0].recChiefComplaint\":[\"咳嗽\"],\"hisMedicalRecordList[0].regDiagnosis\":[\"吃药\"],\"hisMedicalRecordList[0].regNotes\":[\"无\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-30 20:17:45', '51');
+INSERT INTO `sys_oper_log` VALUES ('525', '患者病历', '2', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.editSave()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/edit', '127.0.0.1', '内网IP', '{\"patientId\":[\"10\"],\"userId\":[\"\"],\"patientName\":[\"张三\"],\"patientSex\":[\"1\"],\"patientBirthDate\":[\"1972-11-11\"],\"patientAge\":[\"51\"],\"patientIdCardNum\":[\"45098119721111888X\"],\"patientMedCardNum\":[\"\"],\"patientPhoneNum\":[\"45321\"],\"index\":[\"1\",\"2\"],\"hisMedicalRecordList[0].recTime\":[\"\"],\"hisMedicalRecordList[0].recChiefComplaint\":[\"咳嗽\"],\"hisMedicalRecordList[0].regDiagnosis\":[\"吃药\"],\"hisMedicalRecordList[0].regNotes\":[\"无\"],\"hisMedicalRecordList[1].recTime\":[\"\"],\"hisMedicalRecordList[1].recChiefComplaint\":[\"咳嗽\"],\"hisMedicalRecordList[1].regDiagnosis\":[\"1\"],\"hisMedicalRecordList[1].regNotes\":[\"121\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-30 20:19:03', '33911');
+INSERT INTO `sys_oper_log` VALUES ('526', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-30 20:44:26', '42');
+INSERT INTO `sys_oper_log` VALUES ('527', '挂号记录', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editSave()', 'POST', '1', 'admin', '办公室', '/his/registers/edit', '127.0.0.1', '内网IP', '{\"regId\":[\"25\"],\"workerId\":[\"103\"],\"patientId\":[\"12\"],\"regTime\":[\"2024-05-31\"],\"regPeriod\":[\"0\"],\"regStatus\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 10:49:40', '71');
+INSERT INTO `sys_oper_log` VALUES ('528', '挂号记录', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editSave()', 'POST', '1', 'admin', '办公室', '/his/registers/edit', '127.0.0.1', '内网IP', '{\"regId\":[\"24\"],\"workerId\":[\"2\"],\"patientId\":[\"10\"],\"regTime\":[\"2024-05-31\"],\"regPeriod\":[\"0\"],\"regStatus\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 10:49:47', '10');
+INSERT INTO `sys_oper_log` VALUES ('529', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 10:52:50', '33191');
+INSERT INTO `sys_oper_log` VALUES ('530', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 10:58:04', '14690');
+INSERT INTO `sys_oper_log` VALUES ('531', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:06:25', '6');
+INSERT INTO `sys_oper_log` VALUES ('532', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:06:40', '2');
+INSERT INTO `sys_oper_log` VALUES ('533', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240531001\"],\"prcpDate\":[\"2024-05-31\"],\"prcpPurDate\":[\"2024-06-07\"],\"prcpArvDate\":[\"2024-06-07\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\",\"2\"],\"hisProcurementSchedulesList[0].catName\":[\"头孢拉定胶囊\"],\"hisProcurementSchedulesList[0].catId\":[\"38\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Cefradine Capsules\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.25g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"胶囊剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"12粒/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"10\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"231\"],\"hisProcurementSchedulesList[1].catName\":[\"硝酸甘油片\"],\"hisProcurementSchedulesList[1].catId\":[\"45\"],\"hisProcurementSchedulesList[1].catEnglishName\":[\"Nitroglycerin Tablets\"],\"hisProcurementSchedulesList[1].catSpecs\":[\"0.5mg\"],\"hisProcurementSchedulesList[1].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[1].catPackage\":[\"100片/瓶\"],\"hisProcurementSchedulesList[1].catUnitLabel\":[\"瓶\"],\"hisProcurementSchedulesList[1].pschPrice\":[\"23\"],\"hisProcurementSchedulesList[1].pschNumber\":[\"333\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:09:37', '12002');
+INSERT INTO `sys_oper_log` VALUES ('534', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:28:56', '19765');
+INSERT INTO `sys_oper_log` VALUES ('535', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:45:07', '49847');
+INSERT INTO `sys_oper_log` VALUES ('536', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:45:47', '11');
+INSERT INTO `sys_oper_log` VALUES ('537', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:48:47', '69722');
+INSERT INTO `sys_oper_log` VALUES ('538', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":51,\"patientBirthDate\":90259200000,\"patientId\":10,\"patientIdCardNum\":\"45098119721111888X\",\"patientMedCardNum\":\"\",\"patientName\":\"张三\",\"patientPhoneNum\":\"45321\",\"recChiefComplaint\":\"123\",\"regDiagnosis\":\"2\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:52:29', '46623');
+INSERT INTO `sys_oper_log` VALUES ('539', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":69,\"patientBirthDate\":-476956800000,\"patientId\":12,\"patientIdCardNum\":\"45098119541121888X\",\"patientMedCardNum\":\"\",\"patientName\":\"王五\",\"patientPhoneNum\":\"14324235\",\"recChiefComplaint\":\"1\",\"regDiagnosis\":\"1\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:55:55', '44873');
+INSERT INTO `sys_oper_log` VALUES ('540', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":51,\"patientBirthDate\":90259200000,\"patientId\":10,\"patientIdCardNum\":\"45098119721111888X\",\"patientMedCardNum\":\"\",\"patientName\":\"张三\",\"patientPhoneNum\":\"45321\",\"recChiefComplaint\":\"t\",\"regDiagnosis\":\"t\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:57:51', '53');
+INSERT INTO `sys_oper_log` VALUES ('541', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":69,\"patientBirthDate\":-476956800000,\"patientId\":12,\"patientIdCardNum\":\"45098119541121888X\",\"patientMedCardNum\":\"\",\"patientName\":\"王五\",\"patientPhoneNum\":\"14324235\",\"recChiefComplaint\":\"咳嗽\",\"regDiagnosis\":\"感冒\",\"regNotes\":\"吃药\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-05-31 11:58:55', '11');
+INSERT INTO `sys_oper_log` VALUES ('542', '患者信息', '2', 'com.ruoyi.project.his.registration.controller.HisPatientsController.editSave()', 'POST', '1', 'admin', '办公室', '/his/patients/edit', '127.0.0.1', '内网IP', '{\"patientId\":[\"2\"],\"userId\":[\"\"],\"patientName\":[\"钱八\"],\"patientSex\":[\"0\"],\"patientBirthDate\":[\"1973-11-11\"],\"patientAge\":[\"50\"],\"patientIdCardNum\":[\"45098119731111888X\"],\"patientMedCardNum\":[\"\"],\"patientPhoneNum\":[\"213\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 10:35:13', '99');
+INSERT INTO `sys_oper_log` VALUES ('543', '患者信息', '3', 'com.ruoyi.project.his.registration.controller.HisPatientsController.remove()', 'POST', '1', 'admin', '办公室', '/his/patients/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 11:18:08', '25');
+INSERT INTO `sys_oper_log` VALUES ('544', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":54,\"patientBirthDate\":-9100800000,\"patientId\":13,\"patientIdCardNum\":\"51010519690918980X\",\"patientMedCardNum\":\"797123062576759492\",\"patientName\":\"孙丽\",\"patientPhoneNum\":\"16241327908\",\"recChiefComplaint\":\"咳嗽\",\"regDiagnosis\":\"感冒\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 11:24:02', '50');
+INSERT INTO `sys_oper_log` VALUES ('545', '患者病历', '2', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.editSave()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/edit', '127.0.0.1', '内网IP', '{\"patientId\":[\"10\"],\"userId\":[\"\"],\"patientName\":[\"张三\"],\"patientSex\":[\"1\"],\"patientBirthDate\":[\"1972-11-11\"],\"patientAge\":[\"51\"],\"patientIdCardNum\":[\"45098119721111888X\"],\"patientMedCardNum\":[\"\"],\"patientPhoneNum\":[\"45321\"],\"index\":[\"1\",\"2\"],\"hisMedicalRecordList[0].recTime\":[\"\"],\"hisMedicalRecordList[0].recChiefComplaint\":[\"咳嗽\"],\"hisMedicalRecordList[0].regDiagnosis\":[\"吃药\"],\"hisMedicalRecordList[0].regNotes\":[\"无\"],\"hisMedicalRecordList[1].recTime\":[\"\"],\"hisMedicalRecordList[1].recChiefComplaint\":[\"咳嗽\"],\"hisMedicalRecordList[1].regDiagnosis\":[\"1\"],\"hisMedicalRecordList[1].regNotes\":[\"121\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 11:29:58', '23');
+INSERT INTO `sys_oper_log` VALUES ('546', '字典数据', '2', 'com.ruoyi.project.system.dict.controller.DictDataController.editSave()', 'POST', '1', 'admin', '办公室', '/system/dict/data/edit', '127.0.0.1', '内网IP', '{\"dictCode\":[\"104\"],\"dictLabel\":[\"待就诊\"],\"dictValue\":[\"1\"],\"dictType\":[\"his_reg_status\"],\"cssClass\":[\"\"],\"dictSort\":[\"2\"],\"listClass\":[\"success\"],\"isDefault\":[\"Y\"],\"status\":[\"0\"],\"remark\":[\"已缴费，待就诊\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 14:24:22', '92');
+INSERT INTO `sys_oper_log` VALUES ('547', '字典数据', '2', 'com.ruoyi.project.system.dict.controller.DictDataController.editSave()', 'POST', '1', 'admin', '办公室', '/system/dict/data/edit', '127.0.0.1', '内网IP', '{\"dictCode\":[\"104\"],\"dictLabel\":[\"待就诊\"],\"dictValue\":[\"1\"],\"dictType\":[\"his_reg_status\"],\"cssClass\":[\"\"],\"dictSort\":[\"2\"],\"listClass\":[\"warning\"],\"isDefault\":[\"Y\"],\"status\":[\"0\"],\"remark\":[\"已缴费，待就诊\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 14:24:27', '13');
+INSERT INTO `sys_oper_log` VALUES ('548', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"29\"],\"prscDocNum\":[\"PTCF-240601001\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"test\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"阿奇霉素片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"40\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.25g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"6片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"2\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 15:39:55', '82');
+INSERT INTO `sys_oper_log` VALUES ('549', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"28\"],\"prscDocNum\":[\"PTCF-240601002\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"test\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"盐酸氨溴索口服溶液\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"51\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"10ml:30mg\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"口服液\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"100ml/瓶\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"瓶\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"4\"],\"hisPrescriptionsSchedulesList[1].catName\":[\"氯雷他定分散片\"],\"hisPrescriptionsSchedulesList[1].catId\":[\"62\"],\"hisPrescriptionsSchedulesList[1].catSpecs\":[\"10mg\"],\"hisPrescriptionsSchedulesList[1].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[1].catPackage\":[\"6片/盒\"],\"hisPrescriptionsSchedulesList[1].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[1].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchFreq\":[\"7\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchUnitPrice\":[\"3\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 15:40:52', '16');
+INSERT INTO `sys_oper_log` VALUES ('550', '处方', '3', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.remove()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 15:43:26', '20');
+INSERT INTO `sys_oper_log` VALUES ('551', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"26\"],\"prscDocNum\":[\"PTCF-240601003\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"阿奇霉素片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"40\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.25g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"6片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"4\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 15:45:15', '13');
+INSERT INTO `sys_oper_log` VALUES ('552', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":54,\"patientBirthDate\":-9100800000,\"patientId\":13,\"patientIdCardNum\":\"51010519690918980X\",\"patientMedCardNum\":\"797123062576759492\",\"patientName\":\"孙丽\",\"patientPhoneNum\":\"16241327908\",\"recChiefComplaint\":\"咳嗽\",\"regDiagnosis\":\"感冒\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 15:46:05', '46');
+INSERT INTO `sys_oper_log` VALUES ('553', '菜单管理', '1', 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 'POST', '1', 'admin', '办公室', '/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2006\"],\"menuType\":[\"C\"],\"menuName\":[\"处方配药\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:09:31', '22');
+INSERT INTO `sys_oper_log` VALUES ('554', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2094\"],\"parentId\":[\"2006\"],\"menuType\":[\"C\"],\"menuName\":[\"处方配药\"],\"url\":[\"/his/inventory/dispensing\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:09:55', '16');
+INSERT INTO `sys_oper_log` VALUES ('555', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:38:27', '5700');
+INSERT INTO `sys_oper_log` VALUES ('556', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:38:33', '2253');
+INSERT INTO `sys_oper_log` VALUES ('557', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:38:35', '0');
+INSERT INTO `sys_oper_log` VALUES ('558', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:38:39', '0');
+INSERT INTO `sys_oper_log` VALUES ('559', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:38:41', '0');
+INSERT INTO `sys_oper_log` VALUES ('560', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:38:48', '1');
+INSERT INTO `sys_oper_log` VALUES ('561', '挂号记录', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editSave()', 'POST', '1', 'admin', '办公室', '/his/registers/edit', '127.0.0.1', '内网IP', '{\"regId\":[\"30\"],\"workerId\":[\"2\"],\"patientId\":[\"15\"],\"regTime\":[\"2024-06-01\"],\"regPeriod\":[\"0\"],\"regStatus\":[\"2\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:41:14', '51224');
+INSERT INTO `sys_oper_log` VALUES ('562', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"29\"],\"prscDocNum\":[\"PTCF-240601004\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"对乙酰氨基酚片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"50\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.5g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/板×2板/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"3\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:47:18', '18');
+INSERT INTO `sys_oper_log` VALUES ('563', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":72,\"patientBirthDate\":-577094400000,\"patientId\":25,\"patientIdCardNum\":\"440104195109195598\",\"patientMedCardNum\":\"9972451020383438\",\"patientName\":\"马超\",\"patientPhoneNum\":\"14401351912\",\"recChiefComplaint\":\"腰疼\",\"regDiagnosis\":\"腰肌劳损\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:47:26', '14');
+INSERT INTO `sys_oper_log` VALUES ('564', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/29', '127.0.0.1', '内网IP', '29', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:47:33', '8');
+INSERT INTO `sys_oper_log` VALUES ('565', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/26', '127.0.0.1', '内网IP', '26', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:48:27', '9');
+INSERT INTO `sys_oper_log` VALUES ('566', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"28\"],\"prscDocNum\":[\"PTCF-240601\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"维生素C片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"41\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"100片/瓶\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"瓶\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"10\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"2\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:50:20', '11');
+INSERT INTO `sys_oper_log` VALUES ('567', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/28', '127.0.0.1', '内网IP', '28', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 16:50:24', '13');
+INSERT INTO `sys_oper_log` VALUES ('568', '库存管理', '1', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.addSave()', 'POST', '1', 'admin', '办公室', '/his/inventory/add', '127.0.0.1', '内网IP', '{\"catId\":[\"51\"],\"catName\":[\"盐酸氨溴索口服溶液\"],\"invBatchNumber\":[\"20210303\"],\"invNumber\":[\"430\"],\"invUnitPrice\":[\"\"],\"invProdDate\":[\"2024-06-01\"],\"invValidTo\":[\"2030-07-18\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 19:44:39', '66');
+INSERT INTO `sys_oper_log` VALUES ('569', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit', '127.0.0.1', '内网IP', '{\"prscId\":[\"4\"],\"regId\":[\"29\"],\"prscDocNum\":[\"PTCF-240601004\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"对乙酰氨基酚片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"50\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.5g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/板×2板/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"3\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 20:00:47', '32');
+INSERT INTO `sys_oper_log` VALUES ('570', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', null, '1', '\r\n### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'prsc_sch_quantity\' cannot be null\r\n### The error may exist in file [D:\\Files\\JavaWeb\\RuoYi-fast-master\\target\\classes\\mybatis\\his\\HisPrescriptionsMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into his_prescriptions_schedules( prsc_sch_id, prsc_id, cat_id, prsc_sch_quantity, prsc_sch_usage,         prsc_sch_freq, prsc_sch_is_self_prepared, prsc_sch_unit_price) values                        ( ?, ?, ?, ?, ?,             ?, ?, ?)          ,              ( ?, ?, ?, ?, ?,             ?, ?, ?)\r\n### Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'prsc_sch_quantity\' cannot be null\n; Column \'prsc_sch_quantity\' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column \'prsc_sch_quantity\' cannot be null', '2024-06-01 20:18:40', '21854');
+INSERT INTO `sys_oper_log` VALUES ('571', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch_pre', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 20:56:36', '4');
+INSERT INTO `sys_oper_log` VALUES ('572', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch_pre', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 20:56:51', '0');
+INSERT INTO `sys_oper_log` VALUES ('573', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch_pre', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 20:57:27', '21806');
+INSERT INTO `sys_oper_log` VALUES ('574', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:14:25', '52670');
+INSERT INTO `sys_oper_log` VALUES ('575', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:14:36', '11');
+INSERT INTO `sys_oper_log` VALUES ('576', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:14:38', '13');
+INSERT INTO `sys_oper_log` VALUES ('577', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:09', '13');
+INSERT INTO `sys_oper_log` VALUES ('578', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:11', '10');
+INSERT INTO `sys_oper_log` VALUES ('579', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:29', '10');
+INSERT INTO `sys_oper_log` VALUES ('580', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:30', '9');
+INSERT INTO `sys_oper_log` VALUES ('581', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:33', '8');
+INSERT INTO `sys_oper_log` VALUES ('582', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:34', '10');
+INSERT INTO `sys_oper_log` VALUES ('583', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:42', '18');
+INSERT INTO `sys_oper_log` VALUES ('584', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:15:44', '10');
+INSERT INTO `sys_oper_log` VALUES ('585', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:39:29', '9');
+INSERT INTO `sys_oper_log` VALUES ('586', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:39:32', '11');
+INSERT INTO `sys_oper_log` VALUES ('587', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:39:35', '11');
+INSERT INTO `sys_oper_log` VALUES ('588', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:39:36', '8');
+INSERT INTO `sys_oper_log` VALUES ('589', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"5\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"6\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:39:40', '8');
+INSERT INTO `sys_oper_log` VALUES ('590', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"5\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"6\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:39:41', '8');
+INSERT INTO `sys_oper_log` VALUES ('591', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:40:32', '10');
+INSERT INTO `sys_oper_log` VALUES ('592', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 21:40:34', '11');
+INSERT INTO `sys_oper_log` VALUES ('593', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 22:55:06', '80');
+INSERT INTO `sys_oper_log` VALUES ('594', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"2\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"3\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 22:55:09', '13');
+INSERT INTO `sys_oper_log` VALUES ('595', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/2', '127.0.0.1', '内网IP', '2', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:14:25', '15');
+INSERT INTO `sys_oper_log` VALUES ('596', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:34:46', '12');
+INSERT INTO `sys_oper_log` VALUES ('597', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:34:47', '8');
+INSERT INTO `sys_oper_log` VALUES ('598', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:36:51', '7');
+INSERT INTO `sys_oper_log` VALUES ('599', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:36:54', '7');
+INSERT INTO `sys_oper_log` VALUES ('600', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:36:57', '10');
+INSERT INTO `sys_oper_log` VALUES ('601', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-01 23:36:59', '12');
+INSERT INTO `sys_oper_log` VALUES ('602', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:14:04', '9');
+INSERT INTO `sys_oper_log` VALUES ('603', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:14:08', '10');
+INSERT INTO `sys_oper_log` VALUES ('604', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"3\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"4\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:14:11', '10');
+INSERT INTO `sys_oper_log` VALUES ('605', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"27\"],\"prscDocNum\":[\"PTCF-240601004\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"布洛芬片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"32\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"15\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:23:48', '44');
+INSERT INTO `sys_oper_log` VALUES ('606', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/27', '127.0.0.1', '内网IP', '27', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:23:50', '14');
+INSERT INTO `sys_oper_log` VALUES ('607', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"6\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"8\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:40:15', '19');
+INSERT INTO `sys_oper_log` VALUES ('608', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"6\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"8\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:40:16', '9');
+INSERT INTO `sys_oper_log` VALUES ('609', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"31\"],\"prscDocNum\":[\"PTCF-240601086\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\",\"2\",\"3\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"布洛芬片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"32\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"15\"],\"hisPrescriptionsSchedulesList[1].catName\":[\"罗红霉素片\"],\"hisPrescriptionsSchedulesList[1].catId\":[\"53\"],\"hisPrescriptionsSchedulesList[1].catSpecs\":[\"150mg\"],\"hisPrescriptionsSchedulesList[1].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[1].catPackage\":[\"12片/板×1板/盒\"],\"hisPrescriptionsSchedulesList[1].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[1].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchUnitPrice\":[\"18\"],\"hisPrescriptionsSchedulesList[2].catName\":[\"头孢拉定胶囊\"],\"hisPrescriptionsSchedulesList[2].catId\":[\"38\"],\"hisPrescriptionsSchedulesList[2].catSpecs\":[\"0.25g\"],\"hisPrescriptionsSchedulesList[2].catDosageFormLabel\":[\"胶囊剂\"],\"hisPrescriptionsSchedulesList[2].catPackage\":[\"12粒/盒\"],\"hisPrescriptionsSchedulesList[2].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[2].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[2].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[2].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[2].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[2].prscSchUnitPrice\":[\"18\"],\"btSelectAll\":[\"\"],\"btSelectItem\"', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:53:44', '33');
+INSERT INTO `sys_oper_log` VALUES ('610', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/31', '127.0.0.1', '内网IP', '31', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:53:47', '11');
+INSERT INTO `sys_oper_log` VALUES ('611', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"7\"],\"index\":[\"1\",\"2\",\"3\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"9\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"10\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"],\"hisPrescriptionsSchedulesList[2].prscSchId\":[\"11\"],\"hisPrescriptionsSchedulesList[2].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:54:08', '19');
+INSERT INTO `sys_oper_log` VALUES ('612', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/3', '127.0.0.1', '内网IP', '3', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:59:17', '13681');
+INSERT INTO `sys_oper_log` VALUES ('613', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 00:59:17', '13743');
+INSERT INTO `sys_oper_log` VALUES ('614', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 01:00:06', '9120');
+INSERT INTO `sys_oper_log` VALUES ('615', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 01:00:57', '5');
+INSERT INTO `sys_oper_log` VALUES ('616', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 01:03:07', '4');
+INSERT INTO `sys_oper_log` VALUES ('617', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 01:08:14', '3');
+INSERT INTO `sys_oper_log` VALUES ('618', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-02 01:08:35', '8151');
+INSERT INTO `sys_oper_log` VALUES ('619', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":51,\"patientBirthDate\":90259200000,\"patientId\":10,\"patientIdCardNum\":\"45098119721111888X\",\"patientMedCardNum\":\"\",\"patientName\":\"张三\",\"patientPhoneNum\":\"45321\",\"recChiefComplaint\":\"咳嗽\",\"regDiagnosis\":\"感冒\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:06:49', '54');
+INSERT INTO `sys_oper_log` VALUES ('620', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"14\"],\"prscDocNum\":[\"PTCF-240602001\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"维生素C片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"41\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"100片/瓶\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"瓶\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"3\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"5\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:07:37', '21');
+INSERT INTO `sys_oper_log` VALUES ('621', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"14\"],\"prscDocNum\":[\"PTCF-240602\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"布洛芬片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"32\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"15\"],\"hisPrescriptionsSchedulesList[1].catName\":[\"维生素C片\"],\"hisPrescriptionsSchedulesList[1].catId\":[\"41\"],\"hisPrescriptionsSchedulesList[1].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[1].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[1].catPackage\":[\"100片/瓶\"],\"hisPrescriptionsSchedulesList[1].catUnitLabel\":[\"瓶\"],\"hisPrescriptionsSchedulesList[1].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchUnitPrice\":[\"5\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:19:27', '22');
+INSERT INTO `sys_oper_log` VALUES ('622', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit', '127.0.0.1', '内网IP', '{\"prscId\":[\"9\"],\"regId\":[\"14\"],\"prscDocNum\":[\"PTCF-240602002\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"布洛芬片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"32\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"15\"],\"hisPrescriptionsSchedulesList[1].catName\":[\"维生素C片\"],\"hisPrescriptionsSchedulesList[1].catId\":[\"41\"],\"hisPrescriptionsSchedulesList[1].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[1].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[1].catPackage\":[\"100片/瓶\"],\"hisPrescriptionsSchedulesList[1].catUnitLabel\":[\"瓶\"],\"hisPrescriptionsSchedulesList[1].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchUnitPrice\":[\"5\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:19:51', '20');
+INSERT INTO `sys_oper_log` VALUES ('623', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/14', '127.0.0.1', '内网IP', '14', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:20:02', '10');
+INSERT INTO `sys_oper_log` VALUES ('624', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:25:12', '18');
+INSERT INTO `sys_oper_log` VALUES ('625', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"4\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"7\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:27:31', '52');
+INSERT INTO `sys_oper_log` VALUES ('626', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"4\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"7\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:27:32', '7');
+INSERT INTO `sys_oper_log` VALUES ('627', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:29:28', '6');
+INSERT INTO `sys_oper_log` VALUES ('628', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:30:23', '45948');
+INSERT INTO `sys_oper_log` VALUES ('629', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:37:28', '16952');
+INSERT INTO `sys_oper_log` VALUES ('630', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:38:17', '4');
+INSERT INTO `sys_oper_log` VALUES ('631', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:38:59', '17770');
+INSERT INTO `sys_oper_log` VALUES ('632', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:42:25', '9113');
+INSERT INTO `sys_oper_log` VALUES ('633', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:45:20', '8323');
+INSERT INTO `sys_oper_log` VALUES ('634', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:45:25', '3');
+INSERT INTO `sys_oper_log` VALUES ('635', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:45:27', '2');
+INSERT INTO `sys_oper_log` VALUES ('636', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:45:53', '12568');
+INSERT INTO `sys_oper_log` VALUES ('637', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:46:20', '73');
+INSERT INTO `sys_oper_log` VALUES ('638', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:46:49', '4');
+INSERT INTO `sys_oper_log` VALUES ('639', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:46:50', '4');
+INSERT INTO `sys_oper_log` VALUES ('640', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:47:10', '15749');
+INSERT INTO `sys_oper_log` VALUES ('641', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', null, '1', 'Cannot invoke \"java.lang.Long.longValue()\" because the return value of \"com.ruoyi.project.his.inventory.domain.HisInventory.getInvNumber()\" is null', '2024-06-03 01:48:08', '5606');
+INSERT INTO `sys_oper_log` VALUES ('642', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:52:01', '19307');
+INSERT INTO `sys_oper_log` VALUES ('643', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:52:48', '14');
+INSERT INTO `sys_oper_log` VALUES ('644', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:54:15', '10');
+INSERT INTO `sys_oper_log` VALUES ('645', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/6', '127.0.0.1', '内网IP', '6', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:54:15', '12');
+INSERT INTO `sys_oper_log` VALUES ('646', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"15\"],\"prscDocNum\":[\"PTCF-240602003\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"头孢拉定胶囊\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"38\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.25g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"胶囊剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"12粒/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"18\"],\"hisPrescriptionsSchedulesList[1].catName\":[\"维生素C片\"],\"hisPrescriptionsSchedulesList[1].catId\":[\"41\"],\"hisPrescriptionsSchedulesList[1].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[1].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[1].catPackage\":[\"100片/瓶\"],\"hisPrescriptionsSchedulesList[1].catUnitLabel\":[\"瓶\"],\"hisPrescriptionsSchedulesList[1].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchFreq\":[\"2\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchUnitPrice\":[\"5\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:55:55', '32');
+INSERT INTO `sys_oper_log` VALUES ('647', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/15', '127.0.0.1', '内网IP', '15', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:55:57', '10');
+INSERT INTO `sys_oper_log` VALUES ('648', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2094\"],\"parentId\":[\"2006\"],\"menuType\":[\"C\"],\"menuName\":[\"处方配药\"],\"url\":[\"/his/inventory/dispensing\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"0\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:56:20', '15');
+INSERT INTO `sys_oper_log` VALUES ('649', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2063\"],\"parentId\":[\"2006\"],\"menuType\":[\"C\"],\"menuName\":[\"库存管理\"],\"url\":[\"/his/inventory\"],\"target\":[\"menuItem\"],\"perms\":[\"his:inventory:view\"],\"orderNum\":[\"4\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:56:47', '17');
+INSERT INTO `sys_oper_log` VALUES ('650', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/4', '127.0.0.1', '内网IP', '4', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:57:02', '9');
+INSERT INTO `sys_oper_log` VALUES ('651', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"5\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"6\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:57:10', '9');
+INSERT INTO `sys_oper_log` VALUES ('652', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/5', '127.0.0.1', '内网IP', '5', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:57:13', '8');
+INSERT INTO `sys_oper_log` VALUES ('653', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'doczou', '综合科室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"20\"],\"prscDocNum\":[\"PTCF-240602002\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"布洛芬片\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"32\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"15\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 01:58:47', '16');
+INSERT INTO `sys_oper_log` VALUES ('654', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"4\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"若依官网\"],\"url\":[\"http://ruoyi.vip\"],\"target\":[\"menuBlank\"],\"perms\":[\"\"],\"orderNum\":[\"100\"],\"icon\":[\"fa fa-location-arrow\"],\"visible\":[\"1\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:22:01', '11');
+INSERT INTO `sys_oper_log` VALUES ('655', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2\"],\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"系统监控\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"98\"],\"icon\":[\"fa fa-video-camera\"],\"visible\":[\"1\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:22:14', '13');
+INSERT INTO `sys_oper_log` VALUES ('656', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"3\"],\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"系统工具\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"99\"],\"icon\":[\"fa fa-bars\"],\"visible\":[\"1\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:22:18', '11');
+INSERT INTO `sys_oper_log` VALUES ('657', '用户管理', '3', 'com.ruoyi.project.system.user.controller.UserController.remove()', 'POST', '1', 'admin', '办公室', '/system/user/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"100\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:24:42', '89');
+INSERT INTO `sys_oper_log` VALUES ('658', '部门管理', '1', 'com.ruoyi.project.system.dept.controller.DeptController.addSave()', 'POST', '1', 'admin', '办公室', '/system/dept/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"100\"],\"deptName\":[\"挂号/收费处\"],\"orderNum\":[\"0\"],\"leader\":[\"\"],\"phone\":[\"\"],\"email\":[\"\"],\"status\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:26:16', '20');
+INSERT INTO `sys_oper_log` VALUES ('659', '用户管理', '1', 'com.ruoyi.project.system.user.controller.UserController.addSave()', 'POST', '1', 'admin', '办公室', '/system/user/add', '127.0.0.1', '内网IP', '{\"deptId\":[\"206\"],\"userName\":[\"张散\"],\"deptName\":[\"挂号/收费处\"],\"phonenumber\":[\"\"],\"email\":[\"\"],\"loginName\":[\"regzhang\"],\"sex\":[\"0\"],\"role\":[\"2\"],\"remark\":[\"\"],\"status\":[\"0\"],\"roleIds\":[\"2\"],\"postIds\":[\"7\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:26:32', '23');
+INSERT INTO `sys_oper_log` VALUES ('660', '角色管理', '1', 'com.ruoyi.project.system.role.controller.RoleController.addSave()', 'POST', '1', 'admin', '办公室', '/system/role/add', '127.0.0.1', '内网IP', '{\"roleName\":[\"收费员\"],\"roleKey\":[\"tollman\"],\"roleSort\":[\"0\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2003,2004,2005,2075,2076,2077,2078,2079,2080,4\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:29:15', '22');
+INSERT INTO `sys_oper_log` VALUES ('661', '角色管理', '4', 'com.ruoyi.project.system.role.controller.RoleController.selectAuthUserAll()', 'POST', '1', 'admin', '办公室', '/system/role/authUser/selectAll', '127.0.0.1', '内网IP', '{\"roleId\":[\"101\"],\"userIds\":[\"105\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:29:29', '22');
+INSERT INTO `sys_oper_log` VALUES ('662', '角色管理', '4', 'com.ruoyi.project.system.role.controller.RoleController.cancelAuthUser()', 'POST', '1', 'admin', '办公室', '/system/role/authUser/cancel', '127.0.0.1', '内网IP', '{\"roleId\":[\"2\"],\"userId\":[\"105\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:29:40', '8');
+INSERT INTO `sys_oper_log` VALUES ('663', '用户管理', '2', 'com.ruoyi.project.system.user.controller.UserController.editSave()', 'POST', '1', 'admin', '办公室', '/system/user/edit', '127.0.0.1', '内网IP', '{\"userId\":[\"105\"],\"deptId\":[\"206\"],\"userName\":[\"王收费员\"],\"dept.deptName\":[\"挂号/收费处\"],\"phonenumber\":[\"\"],\"email\":[\"\"],\"loginName\":[\"regzhang\"],\"sex\":[\"0\"],\"role\":[\"101\"],\"remark\":[\"\"],\"status\":[\"0\"],\"roleIds\":[\"101\"],\"postIds\":[\"7\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:30:58', '26');
+INSERT INTO `sys_oper_log` VALUES ('664', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"101\"],\"roleName\":[\"收费员\"],\"roleKey\":[\"tollman\"],\"dataScope\":[\"1\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:31:49', '16');
+INSERT INTO `sys_oper_log` VALUES ('665', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"101\"],\"roleName\":[\"收费员\"],\"roleKey\":[\"tollman\"],\"roleSort\":[\"0\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2003,2004,2005,2075,2076,2077,2078,2079,2080,4\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:32:12', '17');
+INSERT INTO `sys_oper_log` VALUES ('666', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2005\"],\"parentId\":[\"2003\"],\"menuType\":[\"C\"],\"menuName\":[\"患者信息管理\"],\"url\":[\"/his/patients\"],\"target\":[\"menuItem\"],\"perms\":[\"his:patients:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:33:53', '16');
+INSERT INTO `sys_oper_log` VALUES ('667', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.authDataScopeSave()', 'POST', '1', 'admin', '办公室', '/system/role/authDataScope', '127.0.0.1', '内网IP', '{\"roleId\":[\"101\"],\"roleName\":[\"收费员\"],\"roleKey\":[\"tollman\"],\"dataScope\":[\"1\"],\"deptIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:35:14', '12');
+INSERT INTO `sys_oper_log` VALUES ('668', '菜单管理', '1', 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 'POST', '1', 'admin', '办公室', '/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2005\"],\"menuType\":[\"F\"],\"menuName\":[\"患者信息查询\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"his:patients:list\"],\"orderNum\":[\"0\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:36:12', '12');
+INSERT INTO `sys_oper_log` VALUES ('669', '菜单管理', '1', 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 'POST', '1', 'admin', '办公室', '/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2005\"],\"menuType\":[\"F\"],\"menuName\":[\"患者信息新增\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"his:patients:add\"],\"orderNum\":[\"1\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:36:48', '14');
+INSERT INTO `sys_oper_log` VALUES ('670', '菜单管理', '1', 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 'POST', '1', 'admin', '办公室', '/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2005\"],\"menuType\":[\"F\"],\"menuName\":[\"患者信息修改\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"his:patients:edit\"],\"orderNum\":[\"2\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:37:12', '11');
+INSERT INTO `sys_oper_log` VALUES ('671', '菜单管理', '1', 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 'POST', '1', 'admin', '办公室', '/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2005\"],\"menuType\":[\"F\"],\"menuName\":[\"患者信息删除\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"his:patients:delete\"],\"orderNum\":[\"3\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:37:32', '8');
+INSERT INTO `sys_oper_log` VALUES ('672', '菜单管理', '2', 'com.ruoyi.project.system.menu.controller.MenuController.editSave()', 'POST', '1', 'admin', '办公室', '/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2098\"],\"parentId\":[\"2005\"],\"menuType\":[\"F\"],\"menuName\":[\"患者信息删除\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"his:patients:remove\"],\"orderNum\":[\"3\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:38:58', '15');
+INSERT INTO `sys_oper_log` VALUES ('673', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"101\"],\"roleName\":[\"收费员\"],\"roleKey\":[\"tollman\"],\"roleSort\":[\"0\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2003,2004,2005,2095,2096,2097,2098,2075,2076,2077,2078,2079,2080,4\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:39:20', '18');
+INSERT INTO `sys_oper_log` VALUES ('674', '部门管理', '1', 'com.ruoyi.project.system.dept.controller.DeptController.addSave()', 'POST', '1', 'admin', '办公室', '/system/dept/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"100\"],\"deptName\":[\"药房\"],\"orderNum\":[\"0\"],\"leader\":[\"\"],\"phone\":[\"\"],\"email\":[\"\"],\"status\":[\"0\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:48:24', '15');
+INSERT INTO `sys_oper_log` VALUES ('675', '角色管理', '1', 'com.ruoyi.project.system.role.controller.RoleController.addSave()', 'POST', '1', 'admin', '办公室', '/system/role/add', '127.0.0.1', '内网IP', '{\"roleName\":[\"药剂师\"],\"roleKey\":[\"pharmacist\"],\"roleSort\":[\"0\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2006,2094,2049,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2069,2070,2071,2072,2073,2074,2063,2064,2065,2066,2067,2068,2043,2044,2045,2046,2047,2048,2037,2038,2039,2040,2041,2042,4\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:49:14', '14');
+INSERT INTO `sys_oper_log` VALUES ('676', '用户管理', '1', 'com.ruoyi.project.system.user.controller.UserController.addSave()', 'POST', '1', 'admin', '办公室', '/system/user/add', '127.0.0.1', '内网IP', '{\"deptId\":[\"207\"],\"userName\":[\"黄药剂师\"],\"deptName\":[\"药房\"],\"phonenumber\":[\"\"],\"email\":[\"\"],\"loginName\":[\"drughuang\"],\"sex\":[\"0\"],\"remark\":[\"\"],\"status\":[\"0\"],\"roleIds\":[\"\"],\"postIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:49:19', '13');
+INSERT INTO `sys_oper_log` VALUES ('677', '用户管理', '4', 'com.ruoyi.project.system.user.controller.UserController.insertAuthRole()', 'POST', '1', 'admin', '办公室', '/system/user/authRole/insertAuthRole', '127.0.0.1', '内网IP', '{\"userId\":[\"106\"],\"roleIds\":[\"102\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:49:35', '10');
+INSERT INTO `sys_oper_log` VALUES ('678', '角色管理', '2', 'com.ruoyi.project.system.role.controller.RoleController.editSave()', 'POST', '1', 'admin', '办公室', '/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"药剂师\"],\"roleKey\":[\"pharmacist\"],\"roleSort\":[\"0\"],\"status\":[\"0\"],\"remark\":[\"\"],\"menuIds\":[\"2061,2087,2088,2090,2006,2094,2049,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2069,2070,2071,2072,2073,2074,2063,2064,2065,2066,2067,2068,2043,2044,2045,2046,2047,2048,2037,2038,2039,2040,2041,2042,4\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:50:43', '17');
+INSERT INTO `sys_oper_log` VALUES ('679', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'drughuang', '药房', '/his/prescriptions/edit_status/7', '127.0.0.1', '内网IP', '7', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:51:05', '11');
+INSERT INTO `sys_oper_log` VALUES ('680', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'drughuang', '药房', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:51:06', '80');
+INSERT INTO `sys_oper_log` VALUES ('681', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'drughuang', '药房', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20133265\",\"catDosageForm\":1,\"catDrugNum\":\"12345678901240\",\"catEnglishName\":\"Cefradine Capsules\",\"catId\":38,\"catName\":\"头孢拉定胶囊\",\"catPackage\":\"12粒/盒\",\"catProducer\":\"某制药集团\",\"catSpecs\":\"0.25g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:51:06', '80');
+INSERT INTO `sys_oper_log` VALUES ('682', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'drughuang', '药房', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"8\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"12\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:51:10', '10');
+INSERT INTO `sys_oper_log` VALUES ('683', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'drughuang', '药房', '/his/prescriptions/edit_status/8', '127.0.0.1', '内网IP', '8', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:51:13', '9');
+INSERT INTO `sys_oper_log` VALUES ('684', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'drughuang', '药房', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"9\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"15\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"16\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 02:51:18', '9');
+INSERT INTO `sys_oper_log` VALUES ('685', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603001\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"2024-06-03\"],\"prcpArvDate\":[\"2024-06-18\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisProcurementSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"20\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:40:53', '138');
+INSERT INTO `sys_oper_log` VALUES ('686', '采购计划单状态', '2', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.editSaveStatus()', 'POST', '1', 'admin', '办公室', '/his/plans/edit_status', '127.0.0.1', '内网IP', '{\"prcpIdsStr\":[\"11\"],\"prcpStatus\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:41:32', '16');
+INSERT INTO `sys_oper_log` VALUES ('687', '采购订单', '1', 'com.ruoyi.project.his.purchase.controller.HisPurchaseOrdersController.addSave()', 'POST', '1', 'admin', '办公室', '/his/purchase/add', '127.0.0.1', '内网IP', '{\"purDocNum\":[\"CGDD-240603\"],\"splId\":[\"7\"],\"splName\":[\"同仁堂药品有限公司\"],\"purDate\":[\"2024-06-03\"],\"purArrDate\":[\"2024-06-04\"],\"purPayDate\":[\"2024-06-04\"],\"purStatus\":[\"0\"],\"index\":[\"1\",\"1\"],\"hisPurchaseOrdersList[0].prcpId\":[\"11\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisOrdersSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisOrdersSchedulesList[0].orderSchPrice\":[\"20\"],\"hisOrdersSchedulesList[0].orderSchNumber\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:41:32', '29');
+INSERT INTO `sys_oper_log` VALUES ('688', '采购订单', '2', 'com.ruoyi.project.his.purchase.controller.HisPurchaseOrdersController.editSave()', 'POST', '1', 'admin', '办公室', '/his/purchase/edit', '127.0.0.1', '内网IP', '{\"purId\":[\"14\"],\"userId\":[\"1\"],\"splId\":[\"7\"],\"purDocNum\":[\"CGDD-240603001\"],\"userName\":[\"龙头\"],\"splName\":[\"同仁堂药品有限公司\"],\"purDate\":[\"2024-06-03\"],\"purArrDate\":[\"2024-06-04\"],\"purPayDate\":[\"2024-06-04\"],\"purStatus\":[\"0\"],\"index\":[\"1\"],\"hisOrdersSchedulesList[0].catName\":[\"布洛芬片\"],\"hisOrdersSchedulesList[0].catId\":[\"32\"],\"hisOrdersSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisOrdersSchedulesList[0].catProducer\":[\"某制药有限公司\"],\"hisOrdersSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisOrdersSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisOrdersSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisOrdersSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisOrdersSchedulesList[0].orderSchPrice\":[\"20\"],\"hisOrdersSchedulesList[0].orderSchNumber\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:41:50', '46');
+INSERT INTO `sys_oper_log` VALUES ('689', '入库单', '1', 'com.ruoyi.project.his.entry.controller.HisWarehousingEntryController.addSave()', 'POST', '1', 'admin', '办公室', '/his/entry/add', '127.0.0.1', '内网IP', '{\"entDocNum\":[\"YPRK-240603001\"],\"entDate\":[\"2024-06-03\"],\"index\":[\"1\"],\"hisEntrySchedulesList[0].catId\":[\"32\"],\"hisEntrySchedulesList[0].entSchBatchNumber\":[\"24020816\"],\"hisEntrySchedulesList[0].entSchProdDate\":[\"2024-06-03\"],\"hisEntrySchedulesList[0].entSchValidTo\":[\"2026-06-10\"],\"hisEntrySchedulesList[0].entSchUnitPrice\":[\"20\"],\"hisEntrySchedulesList[0].entSchNum\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:42:12', '46');
+INSERT INTO `sys_oper_log` VALUES ('690', '入库单', '2', 'com.ruoyi.project.his.entry.controller.HisWarehousingEntryController.editSave()', 'POST', '1', 'admin', '办公室', '/his/entry/edit', '127.0.0.1', '内网IP', '{\"entId\":[\"13\"],\"userId\":[\"1\"],\"userName\":[\"龙头\"],\"entDocNum\":[\"YPRK-240603001\"],\"entDate\":[\"2024-06-03\"],\"index\":[\"1\"],\"hisEntrySchedulesList[0].catName\":[\"布洛芬片\"],\"hisEntrySchedulesList[0].catId\":[\"32\"],\"hisEntrySchedulesList[0].catSpecs\":[\"0.1g\"],\"hisEntrySchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisEntrySchedulesList[0].catPackage\":[\"10片/盒\"],\"hisEntrySchedulesList[0].catUnitLabel\":[\"盒\"],\"hisEntrySchedulesList[0].entSchBatchNumber\":[\"24020816\"],\"hisEntrySchedulesList[0].entSchProdDate\":[\"2024-06-02\"],\"hisEntrySchedulesList[0].entSchValidTo\":[\"2026-06-09\"],\"hisEntrySchedulesList[0].entSchUnitPrice\":[\"20\"],\"hisEntrySchedulesList[0].entSchNum\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:42:32', '30');
+INSERT INTO `sys_oper_log` VALUES ('691', '入库单', '1', 'com.ruoyi.project.his.entry.controller.HisWarehousingEntryController.addSave()', 'POST', '1', 'admin', '办公室', '/his/entry/add', '127.0.0.1', '内网IP', '{\"entDocNum\":[\"YPRK-240603100\"],\"entDate\":[\"2024-06-03\"],\"index\":[\"1\"],\"hisEntrySchedulesList[0].catName\":[\"布洛芬片\"],\"hisEntrySchedulesList[0].catId\":[\"32\"],\"hisEntrySchedulesList[0].catSpecs\":[\"0.1g\"],\"hisEntrySchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisEntrySchedulesList[0].catPackage\":[\"10片/盒\"],\"hisEntrySchedulesList[0].catUnitLabel\":[\"盒\"],\"hisEntrySchedulesList[0].entSchBatchNumber\":[\"24020816\"],\"hisEntrySchedulesList[0].entSchProdDate\":[\"2024-06-03\"],\"hisEntrySchedulesList[0].entSchValidTo\":[\"2026-06-03\"],\"hisEntrySchedulesList[0].entSchUnitPrice\":[\"20\"],\"hisEntrySchedulesList[0].entSchNum\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:42:55', '35');
+INSERT INTO `sys_oper_log` VALUES ('692', '患者诊断', '1', 'com.ruoyi.project.his.diagnosis.controller.HisPatientsDiagController.addRecord()', 'POST', '1', 'admin', '办公室', '/his/diagnosis/add_rec', '127.0.0.1', '内网IP', '{\"params\":{},\"patientAge\":69,\"patientBirthDate\":-476956800000,\"patientId\":12,\"patientIdCardNum\":\"45098119541121888X\",\"patientMedCardNum\":\"\",\"patientName\":\"王五\",\"patientPhoneNum\":\"14324235\",\"recChiefComplaint\":\"咳嗽\",\"regDiagnosis\":\"干膜\",\"regNotes\":\"\"}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:45:56', '76');
+INSERT INTO `sys_oper_log` VALUES ('693', '处方', '1', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.addSave()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/add', '127.0.0.1', '内网IP', '{\"regId\":[\"16\"],\"prscDocNum\":[\"PTCF-240603001\"],\"prscType\":[\"0\"],\"prscStatus\":[\"0\"],\"prscComments\":[\"\"],\"index\":[\"1\"],\"hisPrescriptionsSchedulesList[0].catName\":[\"头孢克肟胶囊\"],\"hisPrescriptionsSchedulesList[0].catId\":[\"54\"],\"hisPrescriptionsSchedulesList[0].catSpecs\":[\"100mg\"],\"hisPrescriptionsSchedulesList[0].catDosageFormLabel\":[\"胶囊剂\"],\"hisPrescriptionsSchedulesList[0].catPackage\":[\"6粒/盒\"],\"hisPrescriptionsSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisPrescriptionsSchedulesList[0].prscSchQuantity\":[\"1\"],\"hisPrescriptionsSchedulesList[0].prscSchUsage\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchFreq\":[\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"0\"],\"hisPrescriptionsSchedulesList[0].prscSchUnitPrice\":[\"30\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:46:29', '21');
+INSERT INTO `sys_oper_log` VALUES ('694', '挂号记录状态', '2', 'com.ruoyi.project.his.registers.controller.HisRegistersController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/registers/edit_status/16', '127.0.0.1', '内网IP', '16', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:46:32', '12');
+INSERT INTO `sys_oper_log` VALUES ('695', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/9', '127.0.0.1', '内网IP', '9', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:46:48', '14');
+INSERT INTO `sys_oper_log` VALUES ('696', '更新库存', '2', 'com.ruoyi.project.his.inventory.controller.HisInventoryController.deliver()', 'POST', '1', 'admin', '办公室', '/his/inventory/deliver', '127.0.0.1', '内网IP', '{\"catApprovalNumber\":\"国药准字H20093744\",\"catDosageForm\":0,\"catDrugNum\":\"12345678901234\",\"catEnglishName\":\"Ibuprofen Tablets\",\"catId\":32,\"catName\":\"布洛芬片\",\"catPackage\":\"10片/盒\",\"catProducer\":\"某制药有限公司\",\"catSpecs\":\"0.1g\",\"catUnit\":2,\"invBatchNumber\":\"20210303\",\"invNumber\":1,\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:46:48', '28');
+INSERT INTO `sys_oper_log` VALUES ('697', '处方明细', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editSch()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_sch', '127.0.0.1', '内网IP', '{\"prscId\":[\"10\"],\"index\":[\"1\",\"2\"],\"hisPrescriptionsSchedulesList[0].prscSchId\":[\"17\"],\"hisPrescriptionsSchedulesList[0].prscSchIsSelfPrepared\":[\"1\"],\"hisPrescriptionsSchedulesList[1].prscSchId\":[\"18\"],\"hisPrescriptionsSchedulesList[1].prscSchIsSelfPrepared\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:47:00', '17');
+INSERT INTO `sys_oper_log` VALUES ('698', '处方', '2', 'com.ruoyi.project.his.prescriptions.controller.HisPrescriptionsController.editStatus()', 'POST', '1', 'admin', '办公室', '/his/prescriptions/edit_status/10', '127.0.0.1', '内网IP', '10', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:47:03', '8');
+INSERT INTO `sys_oper_log` VALUES ('699', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603002\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"2024-06-03\"],\"prcpArvDate\":[\"2024-06-18\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisProcurementSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"20\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"1000\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 10:47:47', '21');
+INSERT INTO `sys_oper_log` VALUES ('700', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603013\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisProcurementSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', null, '1', '\r\n### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'psch_price\' cannot be null\r\n### The error may exist in file [D:\\Files\\JavaWeb\\RuoYi-fast-master\\target\\classes\\mybatis\\his\\HisProcurementPlansMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into his_procurement_schedules( psch_id, prcp_id, cat_id, psch_price, psch_number) values                        ( ?, ?, ?, ?, ?)\r\n### Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'psch_price\' cannot be null\n; Column \'psch_price\' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column \'psch_price\' cannot be null', '2024-06-03 11:12:41', '75');
+INSERT INTO `sys_oper_log` VALUES ('701', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603013\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisProcurementSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"12\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"23\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:12:49', '15');
+INSERT INTO `sys_oper_log` VALUES ('702', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603001\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"阿司匹林肠溶片\"],\"hisProcurementSchedulesList[0].catId\":[\"33\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Aspirin Enteric-coated Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"50mg\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"24片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"12\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', null, '1', '\r\n### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'psch_price\' cannot be null\r\n### The error may exist in file [D:\\Files\\JavaWeb\\RuoYi-fast-master\\target\\classes\\mybatis\\his\\HisProcurementPlansMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: insert into his_procurement_schedules( psch_id, prcp_id, cat_id, psch_price, psch_number) values                        ( ?, ?, ?, ?, ?)\r\n### Cause: java.sql.SQLIntegrityConstraintViolationException: Column \'psch_price\' cannot be null\n; Column \'psch_price\' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column \'psch_price\' cannot be null', '2024-06-03 11:24:08', '30');
+INSERT INTO `sys_oper_log` VALUES ('703', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603001\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisProcurementSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"10\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"12\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:24:17', '18');
+INSERT INTO `sys_oper_log` VALUES ('704', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603005\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"布洛芬片\"],\"hisProcurementSchedulesList[0].catId\":[\"32\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Ibuprofen Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.1g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"10片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"12\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"222\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:30:30', '30');
+INSERT INTO `sys_oper_log` VALUES ('705', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603006\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"阿莫西林胶囊\"],\"hisProcurementSchedulesList[0].catId\":[\"34\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Amoxicillin Capsules\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"0.25g\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"胶囊剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"20粒/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"12\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"12\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:31:13', '25');
+INSERT INTO `sys_oper_log` VALUES ('706', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603007\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"罗红霉素片\"],\"hisProcurementSchedulesList[0].catId\":[\"35\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Roxithromycin Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"150mg\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"12片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"12\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"12\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:31:19', '19');
+INSERT INTO `sys_oper_log` VALUES ('707', '采购计划单', '3', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.remove()', 'POST', '1', 'admin', '办公室', '/his/plans/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"17\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:34:11', '31');
+INSERT INTO `sys_oper_log` VALUES ('708', '采购计划单', '1', 'com.ruoyi.project.his.plans.controller.HisProcurementPlansController.addSave()', 'POST', '1', 'admin', '办公室', '/his/plans/add', '127.0.0.1', '内网IP', '{\"prcpDocNum\":[\"CGJH-240603008\"],\"prcpDate\":[\"2024-06-03\"],\"prcpPurDate\":[\"\"],\"prcpArvDate\":[\"\"],\"prcpStatus\":[\"0\"],\"index\":[\"1\"],\"hisProcurementSchedulesList[0].catName\":[\"罗红霉素片\"],\"hisProcurementSchedulesList[0].catId\":[\"35\"],\"hisProcurementSchedulesList[0].catEnglishName\":[\"Roxithromycin Tablets\"],\"hisProcurementSchedulesList[0].catSpecs\":[\"150mg\"],\"hisProcurementSchedulesList[0].catDosageFormLabel\":[\"片剂\"],\"hisProcurementSchedulesList[0].catPackage\":[\"12片/盒\"],\"hisProcurementSchedulesList[0].catUnitLabel\":[\"盒\"],\"hisProcurementSchedulesList[0].pschPrice\":[\"12\"],\"hisProcurementSchedulesList[0].pschNumber\":[\"32\"],\"btSelectAll\":[\"\"],\"btSelectItem\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2024-06-03 11:53:13', '32');
 
 -- ----------------------------
 -- Table structure for `sys_post`
@@ -2090,15 +2896,15 @@ INSERT INTO `sys_oper_log` VALUES ('508', '角色管理', '2', 'com.ruoyi.projec
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post` (
   `post_id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
-  `post_code` varchar(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位编码',
-  `post_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位名称',
+  `post_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位编码',
+  `post_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位名称',
   `post_sort` int NOT NULL COMMENT '显示顺序',
-  `status` char(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='岗位信息表';
 
@@ -2116,26 +2922,28 @@ INSERT INTO `sys_post` VALUES ('7', 'tollman', '收费员', '1', '0', 'admin', '
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `role_id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
-  `role_name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色名称',
-  `role_key` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色权限字符串',
+  `role_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色名称',
+  `role_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色权限字符串',
   `role_sort` int NOT NULL COMMENT '显示顺序',
-  `data_scope` char(1) COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
-  `status` char(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `data_scope` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色信息表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'admin', '1', '1', '0', '0', 'admin', '2024-04-19 21:41:38', '', null, '超级管理员');
-INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', '2', '3', '0', '0', 'admin', '2024-04-19 21:41:38', 'admin', '2024-05-17 18:00:25', '普通角色');
-INSERT INTO `sys_role` VALUES ('100', '门诊部', 'his', '1', '3', '0', '0', 'admin', '2024-05-17 17:50:02', 'admin', '2024-05-17 17:56:56', '');
+INSERT INTO `sys_role` VALUES ('2', '普通角色', 'common', '2', '1', '0', '0', 'admin', '2024-04-19 21:41:38', 'admin', '2024-05-19 11:25:46', '普通角色');
+INSERT INTO `sys_role` VALUES ('100', '医生', 'doctor', '1', '1', '0', '0', 'admin', '2024-05-17 17:50:02', 'admin', '2024-05-19 11:34:04', '');
+INSERT INTO `sys_role` VALUES ('101', '收费员', 'tollman', '0', '1', '0', '0', 'admin', '2024-06-03 02:29:15', 'admin', '2024-06-03 02:39:20', '');
+INSERT INTO `sys_role` VALUES ('102', '药剂师', 'pharmacist', '0', '1', '0', '0', 'admin', '2024-06-03 02:49:14', 'admin', '2024-06-03 02:50:43', '');
 
 -- ----------------------------
 -- Table structure for `sys_role_dept`
@@ -2225,7 +3033,10 @@ INSERT INTO `sys_role_menu` VALUES ('2', '2090');
 INSERT INTO `sys_role_menu` VALUES ('2', '2091');
 INSERT INTO `sys_role_menu` VALUES ('2', '2092');
 INSERT INTO `sys_role_menu` VALUES ('2', '2093');
+INSERT INTO `sys_role_menu` VALUES ('100', '2003');
 INSERT INTO `sys_role_menu` VALUES ('100', '2061');
+INSERT INTO `sys_role_menu` VALUES ('100', '2075');
+INSERT INTO `sys_role_menu` VALUES ('100', '2076');
 INSERT INTO `sys_role_menu` VALUES ('100', '2081');
 INSERT INTO `sys_role_menu` VALUES ('100', '2082');
 INSERT INTO `sys_role_menu` VALUES ('100', '2083');
@@ -2239,6 +3050,63 @@ INSERT INTO `sys_role_menu` VALUES ('100', '2090');
 INSERT INTO `sys_role_menu` VALUES ('100', '2091');
 INSERT INTO `sys_role_menu` VALUES ('100', '2092');
 INSERT INTO `sys_role_menu` VALUES ('100', '2093');
+INSERT INTO `sys_role_menu` VALUES ('101', '4');
+INSERT INTO `sys_role_menu` VALUES ('101', '2003');
+INSERT INTO `sys_role_menu` VALUES ('101', '2004');
+INSERT INTO `sys_role_menu` VALUES ('101', '2005');
+INSERT INTO `sys_role_menu` VALUES ('101', '2075');
+INSERT INTO `sys_role_menu` VALUES ('101', '2076');
+INSERT INTO `sys_role_menu` VALUES ('101', '2077');
+INSERT INTO `sys_role_menu` VALUES ('101', '2078');
+INSERT INTO `sys_role_menu` VALUES ('101', '2079');
+INSERT INTO `sys_role_menu` VALUES ('101', '2080');
+INSERT INTO `sys_role_menu` VALUES ('101', '2095');
+INSERT INTO `sys_role_menu` VALUES ('101', '2096');
+INSERT INTO `sys_role_menu` VALUES ('101', '2097');
+INSERT INTO `sys_role_menu` VALUES ('101', '2098');
+INSERT INTO `sys_role_menu` VALUES ('102', '4');
+INSERT INTO `sys_role_menu` VALUES ('102', '2006');
+INSERT INTO `sys_role_menu` VALUES ('102', '2037');
+INSERT INTO `sys_role_menu` VALUES ('102', '2038');
+INSERT INTO `sys_role_menu` VALUES ('102', '2039');
+INSERT INTO `sys_role_menu` VALUES ('102', '2040');
+INSERT INTO `sys_role_menu` VALUES ('102', '2041');
+INSERT INTO `sys_role_menu` VALUES ('102', '2042');
+INSERT INTO `sys_role_menu` VALUES ('102', '2043');
+INSERT INTO `sys_role_menu` VALUES ('102', '2044');
+INSERT INTO `sys_role_menu` VALUES ('102', '2045');
+INSERT INTO `sys_role_menu` VALUES ('102', '2046');
+INSERT INTO `sys_role_menu` VALUES ('102', '2047');
+INSERT INTO `sys_role_menu` VALUES ('102', '2048');
+INSERT INTO `sys_role_menu` VALUES ('102', '2049');
+INSERT INTO `sys_role_menu` VALUES ('102', '2050');
+INSERT INTO `sys_role_menu` VALUES ('102', '2051');
+INSERT INTO `sys_role_menu` VALUES ('102', '2052');
+INSERT INTO `sys_role_menu` VALUES ('102', '2053');
+INSERT INTO `sys_role_menu` VALUES ('102', '2054');
+INSERT INTO `sys_role_menu` VALUES ('102', '2055');
+INSERT INTO `sys_role_menu` VALUES ('102', '2056');
+INSERT INTO `sys_role_menu` VALUES ('102', '2057');
+INSERT INTO `sys_role_menu` VALUES ('102', '2058');
+INSERT INTO `sys_role_menu` VALUES ('102', '2059');
+INSERT INTO `sys_role_menu` VALUES ('102', '2060');
+INSERT INTO `sys_role_menu` VALUES ('102', '2061');
+INSERT INTO `sys_role_menu` VALUES ('102', '2063');
+INSERT INTO `sys_role_menu` VALUES ('102', '2064');
+INSERT INTO `sys_role_menu` VALUES ('102', '2065');
+INSERT INTO `sys_role_menu` VALUES ('102', '2066');
+INSERT INTO `sys_role_menu` VALUES ('102', '2067');
+INSERT INTO `sys_role_menu` VALUES ('102', '2068');
+INSERT INTO `sys_role_menu` VALUES ('102', '2069');
+INSERT INTO `sys_role_menu` VALUES ('102', '2070');
+INSERT INTO `sys_role_menu` VALUES ('102', '2071');
+INSERT INTO `sys_role_menu` VALUES ('102', '2072');
+INSERT INTO `sys_role_menu` VALUES ('102', '2073');
+INSERT INTO `sys_role_menu` VALUES ('102', '2074');
+INSERT INTO `sys_role_menu` VALUES ('102', '2087');
+INSERT INTO `sys_role_menu` VALUES ('102', '2088');
+INSERT INTO `sys_role_menu` VALUES ('102', '2090');
+INSERT INTO `sys_role_menu` VALUES ('102', '2094');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -2247,51 +3115,54 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `dept_id` bigint DEFAULT NULL COMMENT '部门ID',
-  `login_name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录账号',
-  `user_name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '用户昵称',
-  `user_type` varchar(2) COLLATE utf8mb4_general_ci DEFAULT '00' COMMENT '用户类型（00系统用户 01注册用户）',
-  `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '用户邮箱',
-  `phonenumber` varchar(11) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '手机号码',
-  `sex` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
-  `avatar` varchar(100) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '头像路径',
-  `password` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '密码',
-  `salt` varchar(20) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '盐加密',
-  `status` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
-  `del_flag` char(1) COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `login_ip` varchar(128) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '最后登录IP',
+  `login_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '登录账号',
+  `user_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '用户昵称',
+  `user_type` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '00' COMMENT '用户类型（00系统用户 01注册用户）',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '用户邮箱',
+  `phonenumber` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '手机号码',
+  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
+  `avatar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '头像路径',
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '密码',
+  `salt` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '盐加密',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `login_ip` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '最后登录IP',
   `login_date` datetime DEFAULT NULL COMMENT '最后登录时间',
   `pwd_update_date` datetime DEFAULT NULL COMMENT '密码最后更新时间',
-  `create_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '200', 'admin', '龙头', '00', '', '15888888888', '1', '/profile/avatar/2024/05/01/blob_20240501124344A002.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2024-05-17 18:00:12', null, 'admin', '2024-04-19 21:41:37', '', '2024-05-17 18:00:12', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '200', 'admin', '龙头', '00', '', '15888888888', '1', '/profile/avatar/2024/05/01/blob_20240501124344A002.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2024-06-03 11:52:30', null, 'admin', '2024-04-19 21:41:37', '', '2024-06-03 11:52:29', '管理员');
 INSERT INTO `sys_user` VALUES ('2', '202', 'ry', '张医生', '00', '', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '0', '127.0.0.1', null, null, 'admin', '2024-04-19 21:41:37', 'admin', '2024-04-21 16:54:05', '测试员');
-INSERT INTO `sys_user` VALUES ('100', null, 'test_patient', '测试患者', '00', '', '', '0', '', '82f926de1ce5b958517f676123f0a1b4', '34c468', '0', '0', '', null, '2024-04-19 22:36:33', 'admin', '2024-04-19 22:36:33', '', null, null);
+INSERT INTO `sys_user` VALUES ('100', null, 'test_patient', '测试患者', '00', '', '', '0', '', '82f926de1ce5b958517f676123f0a1b4', '34c468', '0', '2', '', null, '2024-04-19 22:36:33', 'admin', '2024-04-19 22:36:33', '', null, null);
 INSERT INTO `sys_user` VALUES ('101', '204', 'docli', '李医生', '00', '', '', '0', '', '6b2d618774e8ae00d2f5cfe92d78caf8', 'c9c46f', '0', '0', '', null, '2024-04-21 16:52:22', 'admin', '2024-04-21 16:52:22', '', null, null);
 INSERT INTO `sys_user` VALUES ('102', '203', 'docwang', '王医生', '00', '', '', '1', '', '06126aab76914da0a0982bd32b32b0fe', 'f6d589', '0', '0', '', null, '2024-04-21 16:52:54', 'admin', '2024-04-21 16:52:54', '', null, null);
-INSERT INTO `sys_user` VALUES ('103', '202', 'doczou', '邹医生', '00', '', '', '0', '', 'a54cec81288b248a3bba141a21565d45', '6ec2cc', '0', '0', '127.0.0.1', '2024-05-17 17:57:15', '2024-04-22 16:52:48', 'admin', '2024-04-22 16:52:47', '', '2024-05-17 17:57:14', null);
+INSERT INTO `sys_user` VALUES ('103', '202', 'doczou', '邹医生', '00', '', '', '0', '', 'a54cec81288b248a3bba141a21565d45', '6ec2cc', '0', '0', '127.0.0.1', '2024-06-03 02:21:32', '2024-04-22 16:52:48', 'admin', '2024-04-22 16:52:47', '', '2024-06-03 02:21:32', null);
+INSERT INTO `sys_user` VALUES ('104', null, 'test', '龙头', '00', '', '', '0', '', '7cf715aa863cd2687bb4c6bdf3adc86a', '5f636f', '0', '2', '', null, '2024-05-19 12:08:42', 'admin', '2024-05-19 12:08:41', '', null, null);
+INSERT INTO `sys_user` VALUES ('105', '206', 'regzhang', '王收费员', '00', '', '', '0', '', 'fe550ca0e2352a63ebe991e4730d0a06', '97c2a3', '0', '0', '127.0.0.1', '2024-06-03 02:39:26', '2024-06-03 02:26:33', 'admin', '2024-06-03 02:26:32', 'admin', '2024-06-03 02:39:25', '');
+INSERT INTO `sys_user` VALUES ('106', '207', 'drughuang', '黄药剂师', '00', '', '', '0', '', 'aa1482717923a467e21bab02faf3abd7', '7b08ab', '0', '0', '127.0.0.1', '2024-06-03 02:50:49', '2024-06-03 02:49:19', 'admin', '2024-06-03 02:49:19', '', '2024-06-03 02:50:49', null);
 
 -- ----------------------------
 -- Table structure for `sys_user_online`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_online`;
 CREATE TABLE `sys_user_online` (
-  `sessionId` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户会话id',
-  `login_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录账号',
-  `dept_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '部门名称',
-  `ipaddr` varchar(128) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录IP地址',
-  `login_location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录地点',
-  `browser` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '浏览器类型',
-  `os` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作系统',
-  `status` varchar(10) COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '在线状态on_line在线off_line离线',
+  `sessionId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户会话id',
+  `login_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录账号',
+  `dept_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '部门名称',
+  `ipaddr` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录IP地址',
+  `login_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '登录地点',
+  `browser` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '浏览器类型',
+  `os` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '操作系统',
+  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '在线状态on_line在线off_line离线',
   `start_timestamp` datetime DEFAULT NULL COMMENT 'session创建时间',
   `last_access_time` datetime DEFAULT NULL COMMENT 'session最后访问时间',
   `expire_time` int DEFAULT '0' COMMENT '超时时间，单位为分钟',
@@ -2301,7 +3172,7 @@ CREATE TABLE `sys_user_online` (
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('649e66c9-cffb-4f2c-ba2b-dfe9708d4fb2', 'admin', '办公室', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', 'on_line', '2024-05-17 18:00:10', '2024-05-17 19:09:19', '1800000');
+INSERT INTO `sys_user_online` VALUES ('d2393e59-b106-44dc-ad15-25f12c99065d', 'admin', '办公室', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', 'on_line', '2024-06-03 11:52:28', '2024-06-03 11:54:02', '1800000');
 
 -- ----------------------------
 -- Table structure for `sys_user_post`
@@ -2321,6 +3192,7 @@ INSERT INTO `sys_user_post` VALUES ('2', '5');
 INSERT INTO `sys_user_post` VALUES ('101', '5');
 INSERT INTO `sys_user_post` VALUES ('102', '5');
 INSERT INTO `sys_user_post` VALUES ('103', '5');
+INSERT INTO `sys_user_post` VALUES ('105', '7');
 
 -- ----------------------------
 -- Table structure for `sys_user_role`
@@ -2340,3 +3212,5 @@ INSERT INTO `sys_user_role` VALUES ('2', '100');
 INSERT INTO `sys_user_role` VALUES ('101', '100');
 INSERT INTO `sys_user_role` VALUES ('102', '100');
 INSERT INTO `sys_user_role` VALUES ('103', '100');
+INSERT INTO `sys_user_role` VALUES ('105', '101');
+INSERT INTO `sys_user_role` VALUES ('106', '102');

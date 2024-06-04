@@ -102,6 +102,8 @@
     var catDosageFormDatas = [[${@dict.getType('drug_dosage_form')}]];
     var catUnitDatas = [[${@dict.getType('drug_unit')}]];
 
+    let plansNum = 0;  // 采购计划单数量
+
     $("#form-plans-add").validate({
         focusCleanup: true
     });
@@ -365,15 +367,28 @@
         };
         $.table.init(options);
 
-        // 设置制单日期为当前日期
-        const today = new Date().toISOString().slice(0, 10); // 获取当前日期，格式为"YYYY-MM-DD"
-        $('input[name="prcpDate"]').val(today); // 将日期值设置到输入框中
-
-        // 填写单据号前缀
         let $prcpDocNumInput = $('input[name="prcpDocNum"]');
-        $prcpDocNumInput.val(
-            docPrefix + today.slice(2, 4) + today.slice(5, 7) + today.slice(8, 10)
-        );
+        $.ajax({
+            url: ctx + 'his/plans/count',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                plansNum = response.data;
+
+                // 设置制单日期为当前日期
+                const today = new Date().toISOString().slice(0, 10); // 获取当前日期，格式为"YYYY-MM-DD"
+                $('input[name="prcpDate"]').val(today); // 将日期值设置到输入框中
+
+                // 填写单据号
+                $prcpDocNumInput.val(
+                    docPrefix + today.slice(2, 4) + today.slice(5, 7) + today.slice(8, 10) +
+                    plansNum.toString().padStart(3, '0')
+                );
+            },
+            error: function(xhr, status, error) {
+                console.error('请求失败: ' + status, error);
+            }
+        });
 
         // 单据号长度不超过 14
         $prcpDocNumInput.on('input', function () {

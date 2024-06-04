@@ -284,6 +284,7 @@
                 {
                     title: '操作',
                     align: 'center',
+                    visible: false,
                     formatter: function (value, row, index) {
                         var value = $.common.isNotEmpty(row.index) ? row.index : $.table.serialNumber(index);
                         return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="sub.delRowByIndex(\'' + value + '\')"><i class="fa fa-remove"></i>删除</a>';
@@ -556,6 +557,7 @@
                 {
                     title: '操作',
                     align: 'left',
+                    visible: false,
                     formatter: function (value, row, index) {
                         var value = $.common.isNotEmpty(row.index) ? row.index : $.table.serialNumber(index);
                         return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="sub.delRowByIndex(\'' + value + '\')"><i class="fa fa-remove"></i>删除</a>';
